@@ -51,7 +51,7 @@ export class ViewSchedulesComponent implements OnInit {
       return 'pending_actions'
         ;
     }else if (scheduleStatus === 2){
-      return 'flag';
+      return 'hourglass_top';
     }else if (scheduleStatus === 4){
       return 'dangerous'
     }

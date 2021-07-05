@@ -62,7 +62,7 @@
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
-                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 1)?'yellow':(tempSchedule.scheduleStatus == 2)?'blue':(tempSchedule.scheduleStatus==3)?'green':'red'}">
+                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 1)?'yellow':(tempSchedule.scheduleStatus == 2)?'#1f3a93':(tempSchedule.scheduleStatus==3)?'green':'red'}">
                         <span class="material-icons">
 {{statusBinder(tempSchedule.scheduleStatus)}}
 </span>
