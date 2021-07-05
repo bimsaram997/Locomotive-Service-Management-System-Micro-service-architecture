@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><div class="container" >
+      <div class="box-head">
+        <img src="./assets/images/locom6.png" alt="" style="height: 70px; width: 70px;">
+        <span class="heading-txt">ADD LOCOMOTIVES</span>
+      </div>
+      <hr>
+
+
+      <mat-tab-group mat-align-tabs="Start" [selectedIndex] ="selectedIndex" >
+        <mat-tab>
+
+          <ng-template mat-tab-label>
+            <img class="material-icons" src="https://img.icons8.com/emoji/48/000000/train-emoji.png" style="width: 40px; height: 40px;"/>
+
+            First
+          </ng-template>
+          <br>
+          <br>
+          <br>
+          <br>
+          <mat-card class="card">
+            <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'"  style="bottom: 30px;">
+              <mat-grid-tile>
+                <div class="controls-container">
+                  <h3 class="sub-headers">Basic Details</h3>
+                  <input type="hidden">
+                  <mat-form-field class="example-full-width">
+                    <input type="text" [(ngModel)]="locoCatId" required
+                           placeholder="Pick one"
+                           aria-label="Number"
+                           matInput
+                           [formControl]="myControl"
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of options " [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <mat-label class="label-txt">Locomotive Power</mat-label>
+                    <input   #catId="ngModel"  minlength="4" maxlength="5" required  matInput placeholder="Locomotive Power" #searchInput [(ngModel)]="locoPower">
+                    <div  *ngIf="catId.invalid && (catId.dirty || catId.touched)"
+                          class="error">
+                      <div *ngIf="catId.errors.required">
+                        Loco Power is required.
+                      </div>
+                      <div *ngIf="catId.errors.minlength">
+                        Loco Power must be at least 4 characters long.
+                      </div>
+                      <div *ngIf="catId.errors.maxlength">
+                        Loco Power must be up to 5 characters long.
+                      </div>
+                    </div>
+
+
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input #lDate="ngModel" required aria-label="HireDate" matInput [matDatepicker]="picker" placeholder="Last Update" [(ngModel)]="locoDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <div  *ngIf="lDate.invalid && (lDate.dirty || lDate.touched)"
+                          class="error">
+                      <div *ngIf="lDate.errors.required">
+                        Update Date is required.
+                      </div>
+                    </div>
+                  </mat-form-field>
+                </div>
+
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="controls-container-right">
+                  <input type="hidden">
+                  <mat-form-field class="example-full-width">
+                    <mat-label class="Locomotive Number">Locomotive Number</mat-label>
+                    <input required #lnum="ngModel" maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput [(ngModel)]="locoNumber">
+                    <div  *ngIf="lnum.invalid && (lnum.dirty || catId.touched)"
+                          class="error">
+                      <div *ngIf="lnum.errors.required">
+                        Loco Number is required.
+                      </div>
+                      <div *ngIf="lnum.errors.minlength">
+                        LocoNumber must be at least 1 characters long.
+                      </div>
+                      <div *ngIf="lnum.errors.maxLength">
+                        Loco Number must be up to characters long.
+                      </div>
+
+                    </div>
+                  </mat-form-field>
+                  <div class="add-bottom-padding">
+                    <mat-radio-group  aria-label="Availability" [(ngModel)]="locoAvailability">
+                      <span class="para-txt">Availability</span>
+                      <mat-radio-button  *ngFor="let status of statuses" [value] = "status">{{status}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <mat-form-field>
+                    <mat-select #SupId="ngModel" required placeholder="Supervisor In Charge" aria-label="Supervisor In Charge" [(ngModel)]="userNic">
+                      <mat-option>None</mat-option>
+                      <ng-container *ngFor="let tempIds of userList">
+                        <mat-option value="{{tempIds.userNic}}">{{tempIds.userNic}}</mat-option>
+                      </ng-container>
+                    </mat-select>
+                    <div  *ngIf="SupId.invalid && (SupId.dirty || SupId.touched)"
+                          class="error">
+                      <div *ngIf="SupId.errors.required">
+                        Supervisor NIC is required
+                      </div>
+                    </div>
+                  </mat-form-field>
+                  <mat-form-field  style="height: 50px;">
+                    <mat-label>Special Note</mat-label>
+                    <textarea #txt = "ngModel" required matInput [(ngModel)]="locoNote"></textarea>
+                    <div  *ngIf="txt.invalid && (txt.dirty || txt.touched)"
+                          class="error">
+                      <div *ngIf="txt.errors.required">
+                        Note is required.
+                      </div>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+              <div class="btn-one">
+                <button mat-raised-button class="prev" (click)="nextStep()" style="left: 90%; height: 35px;"><span class="material-icons">keyboard_arrow_right</span></button>
+              </div>
+            </mat-grid-list>
+          </mat-card>
+
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <img src="https://img.icons8.com/emoji/64/000000/high-speed-train-emoji.png" style="width: 40px; height: 40px;"/> &nbsp;
+            Second
+          </ng-template>
+          <br>
+          <br>
+          <br>
+          <mat-card class="card-second">
+            <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'"  style="bottom: 20px;">
+              <mat-grid-tile style="">
+                <div class="controls-container">
+                  <h3 class="sub-headers">Liquid Levels</h3>
+                  <mat-form-field class="example-full-width">
+                    <mat-label class="label-txt">Oil Level(L)</mat-label>
+                    <input #oLvl="ngModel" required maxlength="4" matInput placeholder="Oil Level" #searchInput [(ngModel)]="locoOil">
+                    <div  *ngIf="oLvl.invalid && (oLvl.dirty || oLvl.touched)"
+                          class="error">
+                      <div *ngIf="oLvl.errors.required">
+                        Oli Level is required.
+                      </div>
+                      <div *ngIf="oLvl.errors.maxLength">
+                        Oil Level must be up to characters long.
+                      </div>
+
+                    </div>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <mat-label class="label-txt">Fuel Level(L)</mat-label>
+                    <input required maxlength="4" required #fLvl="ngModel" matInput placeholder="Fuel Level" #searchInput [(ngModel)]="locoFuel">
+                    <div  *ngIf="fLvl.invalid && (fLvl.dirty || fLvl.touched)"
+                          class="error">
+                      <div *ngIf="fLvl.errors.required">
+                        Fuel Level is required.
+                      </div>
+                      <div *ngIf="fLvl.errors.maxLength">
+                        Fuel Level must be up to characters long.
+                      </div>
+                    </div>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <mat-label class="label-txt">Water Level(L)</mat-label>
+                    <input required maxlength="4" required #wLvl="ngModel" matInput placeholder="Water Level" #searchInput [(ngModel)]="locoWater">
+                    <div  *ngIf="wLvl.invalid && (wLvl.dirty || wLvl.touched)"
+                          class="error">
+                      <div *ngIf="wLvl.errors.required">
+                        Water Level is required.
+                      </div>
+                      <div *ngIf="wLvl.errors.maxLength">
+                        Water Level must be up to characters long.
+                      </div>
+                    </div>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div  class="controls-container-right-second" style="bottom: -250px;">
+                  <h3 class="sub-headers">Motar Parts</h3>
+                  <div class="add-bottom-padding-second">
+                    <mat-radio-group aria-label="Gender" [(ngModel)]="locoMainGen">
+                      <span><p class="para-txt">Main Generators</p> </span>
+                      <mat-radio-button  *ngFor="let mainMotor of mainMotors" [value] = "mainMotor">{{mainMotor}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+
+                  <div class="add-bottom-padding-second">
+                    <mat-radio-group aria-label="Gender" [(ngModel)]="locoTracMot">
+                      <span> <p class="para-txt">Traction Motors</p></span>
+                      <mat-radio-button *ngFor="let tMotor of tMotors" [value] = "tMotor">{{tMotor}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <div class="btn-second">
+                <button mat-raised-button  class="prev"  (click)="previousStep()" style="left: 70%; height: 35px;"><span class="material-icons">keyboard_arrow_left</span></button>
+                <button mat-raised-button class="prev" (click)="nextStep()" style="left: 72%; height: 35px;"><span class="material-icons">keyboard_arrow_right</span></button>
+              </div>
+            </mat-grid-list>
+          </mat-card>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <img src="https://img.icons8.com/color/48/000000/train-station.png" style="width: 40px; height: 40px;"/> &nbsp;
+            Third
+          </ng-template>
+          <br>
+          <br>
+          <br>
+          <mat-card class="card-second">
+            <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'"  style="bottom: 30px;">
+              <mat-grid-tile>
+                <div class="controls-container" style="padding-bottom: 2px;">
+                  <h3 class="sub-headers">Breaks</h3>
+                  <div class="add-bottom-padding">
+                    <mat-radio-group aria-label="Vacuum Breaks" [(ngModel)]="locoVBreak">
+                      <span> <p class="para-txt">Vacuum Breaks</p></span>
+                      <mat-radio-button *ngFor="let vBreak of vBreaks" [value] = "vBreak">{{vBreak}} &nbsp; &nbsp; </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="add-bottom-padding">
+                    <mat-radio-group aria-label="Dynamic Breaks" [(ngModel)]="locoDBreak">
+                      <span> <p class="para-txt">Dynamic Breaks</p></span>
+                      <mat-radio-button *ngFor="let dBreak of dBreaks" [value] = "dBreak">{{dBreak}} &nbsp; &nbsp;</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+
+
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="controls-container-right-third">
+
+
+                  <div class="box-outline">
+
+                    <input (change)="changeFiles($event)" multiple style="display: none" type="file" accept="images/" id="selectedFile" >
+                    <div class="main-wrap-for-selected-images">
+                      <p *ngIf="isVisble" class="para-note" onclick="document.getElementById('selectedFile').click()" >  Add Images of Locomotives <span onclick="document.getElementById('selectedFile').click()"  class="material-icons">
+library_add</span></p>
+                      <img *ngIf="urls[0]!=null" src="{{urls[0]}}" alt="Image"
+                           class="selected-image img-thumbnail">
+                      <img *ngIf="urls[1]!=null" src="{{urls[1]}}"   alt="Image"
+                           class="selected-image img-thumbnail">
+                      <img *ngIf="urls[2]!=null"  src="{{urls[2]}}" alt="Image"
+                           class="selected-image img-thumbnail">
+                    </div>
+                  </div>
+
+                  <br>
+                  <br>
+                  <div class="button-row">
+                    <button mat-raised-button color="primary" style="width: 150px;" (click)="saveLocoOnAction()">Submit</button>
+                    <button mat-raised-button color="warn"  class="clear-btn" style="width: 150px;"(click)="handleClear()">Clear</button>
+                  </div>
+                  <br>
+                  <br>
+
+                </div>
+              </mat-grid-tile>
+              <div class="btn-three">
+                <button mat-raised-button  class="prev"  (click)="previousStep()" style="left: 87%; height: 35px;"><span class="material-icons">keyboard_arrow_left</span></button>
+
+              </div>
+            </mat-grid-list>
+
+          </mat-card>
+        </mat-tab>
+
+      </mat-tab-group>
+
+
+
+
+    </div>
+    </title>
+</head>
+<body>
+
+</body>
+</html>

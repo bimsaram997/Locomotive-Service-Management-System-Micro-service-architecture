@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <br>
+    <div class="box-head">
+        <img src="./assets/images/m9.png" alt="" style="height: 70px; width: 70px;">
+        <span class="heading-txt">VIEW LOCOMOTIVES</span>
+    </div>
+    <hr>
+
+    <div class="search-div">
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+        </mat-form-field>
+    </div>
+
+    <div class="main-table">
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="Category">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Category">{{tempLoco?.locoCatId}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Number">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Number </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Number"> {{tempLoco?.locoNumber}}</mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Power">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Power </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Power"> {{tempLoco.locoPower}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Mileage">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Mileage </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Mileage"> {{tempLoco.locoMileage}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="Availability">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Availability </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Availability"> {{tempLoco.locoAvailability}}</mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="Responsible">
+                    <mat-header-cell *matHeaderCellDef> Responsible </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Responsible"> {{tempLoco.userNic}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Update Date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Update Date </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Update Date"> {{tempLoco.locoDate | date}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Image">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Image"><img src="{{tempLoco.image}}" (click)="openImage(tempLoco)" style="height: 60px; width: 80px;" alt=""></mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="#">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="#">
+
+                        <button mat-icon-button (click)="viewLoco(tempLoco._id)"><mat-icon>visibility</mat-icon></button>
+                        <button mat-icon-button (click)="editLoco(tempLoco._id)" routerLink="/adminDashboard/EditLocomotive"><mat-icon>launch</mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+
+</div>

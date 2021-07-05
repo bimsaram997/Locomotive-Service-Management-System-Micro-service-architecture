@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Update Mileage</h1>
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>Locomotive Category</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>Locomotive Number</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div class="w-100"></div>
+        <div class="col justify-content-start">
+            <mat-form-field style="width: 200px;" class="example-full-width" appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint>Allows add minimum 2 days and maximum 30 days</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill">
+                <mat-label>Final Mileage</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

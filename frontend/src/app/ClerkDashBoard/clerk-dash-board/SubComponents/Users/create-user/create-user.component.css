@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap');
+.container{
+  padding-top: 10px;
+  padding-right: 30px;
+  padding-left: 30px;
+
+}
+.box-head{
+  display: flex;
+  align-items:center;
+}
+.heading-txt{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  color: #013243;
+  padding-left: 10px;
+
+}
+.header{
+  padding-left: 32%;
+
+  display: flex;
+  align-items: center;
+
+}
+.header h2 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 19px;
+  color: #013243;
+}
+.header h2:after{
+  content: '';
+  background: #013243;
+  display: block;
+  width: 450px;
+  height: 3px;
+  margin: 10px auto;
+
+}
+.content-txt{
+  bottom: -80%;
+}
+.content-txt ul{
+  align-items: center;
+  padding-left: 36%;
+  list-style-type: square;
+  font-size: 15px;
+  color: #2e3131;
+}
+.form{
+  width: 200px;
+}
+.controls-container{
+  width: 80%;
+  padding-left: 10%;
+  margin: 5px;
+
+}
+
+h2{
+
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+  font-size: 25px;
+  color: #1f3a93;
+  cursor: auto;
+}
+h2:hover{
+  color: #19b5fe;
+}
+
+mat-grid-tile {
+  background: #e8ecf1;
+}
+.example-form {
+  min-width: 250px;
+  max-width: 1000px;
+  width: 100%;
+  padding: 3%;
+  height: 80%;
+}
+
+.example-full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.main-wrap-for-selected-images{
+  padding-right: 40px;
+  width: 90%;
+  height: 60%;
+}
+.selected-image{
+  height: 60%;
+  margin: 3px;
+  width: 30%;
+}
+.para-note{
+  outline: 2px dashed blue;
+  height: 20%;
+  width: 100%;
+}
+.image-container{
+  width: 100%;
+  height: 70px;
+  outline: 2px dashed blue;
+}
+.info-image{
+  margin-left: 100px;
+  font-weight: bold;
+  font-size: 20px;
+padding-top: 50px;
+}
+.error{
+  font-size: 10px;
+  color: #f64747;
+  font-family: Roboto;
+}

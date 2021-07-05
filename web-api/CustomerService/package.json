@@ -1,0 +1,25 @@
+{
+  "name": "customerservice",
+  "version": "1.0.0",
+  "description": "Main Customer Service for Railway Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bimsara",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
+    "mongoose": "^5.11.8",
+    "nodemailer": "^6.5.0",
+    "nodemailer-mailgun-transport": "^2.0.2",
+    "nodemon": "^2.0.7",
+    "twilio": "^3.57.0"
+  }
+}

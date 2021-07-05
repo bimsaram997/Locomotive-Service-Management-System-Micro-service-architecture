@@ -1,0 +1,13 @@
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role = "navigation">
+    <app-clerk-side-nav (sidenavClose)="sidenav.close()"></app-clerk-side-nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-clerk-header (sidenavToggle)="sidenav.toggle()"></app-clerk-header>
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

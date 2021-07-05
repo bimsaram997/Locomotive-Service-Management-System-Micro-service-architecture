@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@500&family=Merriweather&family=Ubuntu&display=swap');
+
+.txt-welcome{
+
+
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 20px;
+
+}

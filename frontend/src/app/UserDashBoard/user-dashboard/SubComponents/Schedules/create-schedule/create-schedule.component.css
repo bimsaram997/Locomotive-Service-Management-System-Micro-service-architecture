@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+.box-head{
+  display: flex;
+  align-items:center;
+}
+.container{
+  padding-top: 30px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: auto;
+
+}
+.heading-txt{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  color: #013243;
+  padding-left: 10px;
+
+}
+.controls-container{
+  width: 90%;
+  padding: 0%;
+  height: 80%;
+
+
+}
+.controls-container-right{
+
+  width: 90%;
+  height: 70%;
+  margin-top: 20px;
+
+}
+.controls-container-right >*{
+  width: 90%;
+}
+.controls-container > *{
+  width: 90%;
+}
+.controls-container-right-two{
+  width: 90%;
+  height: 70%;
+  margin-top: -60px;
+}
+.controls-container-right-two >*{
+  width: 90%;
+}
+.controls-container > *{
+  width: 90%;
+}
+.sub-headers{
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  color: #34495e;
+  font-weight: bold;
+}
+.add-bottom-padding{
+  padding-bottom: 0px;
+}
+mat-radio-group mat-radio-button{
+  margin-top: 15px;
+  margin-left: 5px;
+}
+.example-section {
+  margin: 12px 0;
+}
+.example-margin {
+  margin: 0 12px;
+}
+.para-txt{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  color: #3a539b;
+}
+.button-row button{
+
+  left: 30%;
+  margin: 5px 5px -900px;
+}
+.button-row-second button{
+
+  left: 20%;
+   top: 90%;
+  margin: 2px 6px -900px;
+}
+.clear-btn{
+  background: #22a7f0;
+}
+.card{
+  background: #ecf0f1;
+
+}
+.material-icons{
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.prev{
+  width: 10px;
+  color: #1e8bc3;
+}
+.nxt{
+  width: 10px;
+  color: #1e8bc3;
+}
+.error{
+  font-size: 10px;
+  color: #f64747;
+  font-family: Roboto;
+}
+
+.main-wrap-for-selected-images{
+ padding-left: 60px;
+  padding-right: 40px;
+  width: 90%;
+  height: 60%;
+
+}
+.selected-image{
+  height: 95%;
+  margin: 3px;
+  width: 30%;
+}
+.para-note{
+  padding-top: 60px;
+  font-size: 30px;
+  font-family: 'Lato', sans-serif;
+  color: black;
+  opacity: 50%;
+  font-weight: bolder;
+  cursor: pointer;
+  text-align: center;
+}
+

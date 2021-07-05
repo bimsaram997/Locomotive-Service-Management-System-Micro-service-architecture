@@ -1,0 +1,71 @@
+
+<h1 mat-dialog-title  class="heading-txt">EDIT</h1>
+<div mat-dialog-content>
+  <div class="controls-container" >
+    <mat-form-field class="field" >
+      <mat-label class="label-txt">User Name</mat-label>
+      <input matInput placeholder="User Name" #searchInput [(ngModel)]="data.EditName">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field">
+      <mat-select required #sName="ngModel"  placeholder="Works At" aria-label="Supervisor In Charge" [(ngModel)]="data.EdtWork">
+        <mat-option>None</mat-option>
+        <ng-container *ngFor="let place of places">
+          <mat-option  value="{{place.value}}">{{place.value}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field">
+      <mat-label class="label-txt">User Mobile</mat-label>
+      <input [value]="data.EditMobile" #mNum ="ngModel" maxlength="10" minlength="10" required  matInput placeholder="User Mobile"  [(ngModel)]="data.EditMobile" >
+      <div  *ngIf="mNum.invalid && (mNum.dirty || mNum.touched)"
+            class="error">
+        <div *ngIf="mNum.errors.required">
+          Mobile Number is required.
+        </div>
+        <div *ngIf="mNum.errors.minlength">
+          Mobile Number must be at least 10 characters long.
+        </div>
+        <div *ngIf="mNum.errors.maxLength">
+          Mobile Number must be up to 10 characters long.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field">
+      <mat-select required #cRole="ngModel" placeholder="Role" aria-label="Role" [(ngModel)] = "data.EditRole">
+        <mat-option>None</mat-option>
+        <ng-container *ngFor="let role of roles">
+          <mat-option value="{{role.value}}">{{role.value}}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field">
+      <mat-label class="label-txt">User NIC</mat-label>
+      <input #nic="ngModel" required  matInput placeholder="User NIC"[(ngModel)]="data.EditNic"   maxlength="10" minlength="10">
+      <div  *ngIf="nic.invalid && (nic.dirty || nic.touched)"
+            class="error">
+        <div *ngIf="nic.errors.required">
+          NIC Number is required.
+        </div>
+        <div *ngIf="nic.errors.minlength">
+          NIC Number must be at least 10 characters long.
+        </div>
+        <div *ngIf="nic.errors.maxLength">
+          NIC Number must be up to 10 characters long.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+
+
+</div>
+
+</div>
+<mat-dialog-actions align="end">
+  <button  mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="updateUser()" >Update</button>
+
+</mat-dialog-actions>

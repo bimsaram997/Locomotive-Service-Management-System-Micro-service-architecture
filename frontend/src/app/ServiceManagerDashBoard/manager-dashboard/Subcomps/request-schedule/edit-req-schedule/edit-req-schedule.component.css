@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+.box-head{
+  display: flex;
+  align-items:center;
+}
+.container{
+  padding-top: 30px;
+  padding-right: 50px;
+  padding-left: 50px;
+  width: auto;
+
+}
+.heading-txt{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  color: #013243;
+  padding-left: 10px;
+
+}
+.sub-headers{
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  color: #34495e;
+  font-weight: bold;
+}
+.para-txt{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bolder;
+  font-size: 17px;
+  color: #3a539b;
+
+  margin-right: 10px;
+}
+
+
+.clear-btn{
+  background: #22a7f0;
+}
+.card{
+  background: #ecf0f1;
+  width: 90%;
+}
+.btn-radio{
+  margin-right: 90px;
+  left: 90px;
+}
+.btn-second {
+  bottom: 90%;
+}
+.material-icons{
+  font-weight: bold;
+  font-size: 25px;
+}
+.prev{
+  width: 10px;
+  color: #1e8bc3;
+}
+.error{
+  font-size: 10px;
+  color: #f64747;
+  font-family: Roboto;
+}
+.main-wrap-for-selected-images{
+  padding-left: 2px;
+  width: 90%;
+  height: 60%;
+}
+.selected-image{
+  height: 95%;
+  margin: 3px;
+  width: 30%;
+}
+.para-note{
+  padding: 60px;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  color: black;
+  opacity: 50%;
+  font-weight: bolder;
+  cursor: pointer;
+}
+mat-grid-tile {
+  background: #e8ecf1;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  padding: 3%;
+  height: 80%;
+}
+.example-form-right{
+  margin-top: 89px;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  padding: 3%;
+  height: 80%;
+}
+.example-form-three {
+  min-width: 150px;
+  max-width: 700px;
+  width: 100%;
+  padding: 3%;
+  height: 80%;
+}
+.example-full-width {
+  width: 100%;
+  margin-right: 10px;;
+
+}
+
+
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 15px;
+
+
+
+}
+
+.mat-form-field{
+  width: 30%;
+
+
+}
+.example-container form {
+  margin-bottom: 10px;
+  padding-left: 55px;
+
+}
+
+.example-container form > * {
+  margin: 5px 0px;
+}
+.input-Type{
+  display: flex;
+}

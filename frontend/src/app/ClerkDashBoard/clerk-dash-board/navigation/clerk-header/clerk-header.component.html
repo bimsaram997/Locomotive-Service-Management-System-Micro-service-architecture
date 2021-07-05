@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="onToogleSlidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>LOCOMOTIVE SERVICE CENTER</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <span class="material-icons">
+notification_important
+</span>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item (click)="logOut()">
+      <mat-icon>logout</mat-icon>
+      <span>Log Out</span>
+
+    </button>
+  </mat-menu>
+
+</mat-toolbar>

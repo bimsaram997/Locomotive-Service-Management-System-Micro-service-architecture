@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="profile-header">
+    <div class="profile-img">
+      <img src="./assets/images/1615138550352.png" width="200" alt="Profile Image">
+    </div>
+    <div class="profile-nav-info">
+      <p class="welcome">Welcome...</p>
+      <h3 class="user-name">ADAM GILCHRIST</h3>
+    </div>
+
+
+  </div>
+
+
+
+  <div class="main-bd">
+    <div class="left-side">
+      <div class="profile-side">
+        <br>
+        <br>
+        <br>
+        <p class="mobile-no"><i class="fa fa-phone"></i> +23470xxxxx700</p>
+        <p class="mobile-no"><i class="fa fa-envelope"></i> Brightisaac80@gmail.com</p>
+        <p class="mobile-no"><i class="fas fa-briefcase"></i> Electric Locomotive Shed</p>
+        <p class="mobile-no"><i class="fas fa-id-card-alt"></i>972363430V</p>
+        <br>
+
+        <div class="profile-btn">
+          <button class="chatbtn" id="chatBtn" (click)="view()"><i class="fa fa-comment" ></i> Email</button>
+
+        </div>
+        <div class="contact">
+          <p>&nbsp;&nbsp;&nbsp;&nbsp; Contact Admin</p>
+          <p><i class="fa fa-phone"></i>+94768922413</p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+  <div class="container-wrp" *ngIf="isVisible" cdkDrag cdkDragBoundary=".app-content">
+    <div class="header">
+
+      <div class="box-container">
+        <span class="heading-update">SEND EMAIL</span>
+        <button style="left: 70%; color: white" mat-icon-button (click)="setState()"><span style="font-weight: bolder;" class="material-icons">clear</span></button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="content">
+        <h2 class="header-one">GET IN TOUCH</h2>
+        <div class="email-inputs">
+         <p class="labels">Email: </p>
+         <mat-form-field class="example-full-width">
+           <input matInput placeholder="Your name here.." [(ngModel)]="email">
+         </mat-form-field>
+         <p class="labels">To: </p>
+         <mat-form-field class="example-full-width">
+           <input matInput placeholder="Recipient Email" [(ngModel)]="receive">
+         </mat-form-field>
+         <p class="labels">Subject: </p>
+         <mat-form-field class="example-full-width">
+           <input matInput placeholder="Subject" [(ngModel)]="subject">
+         </mat-form-field>
+         <mat-form-field class="example-full-width">
+           <mat-label>Leave a message</mat-label>
+           <textarea matInput placeholder="What would you like to tell admin.." [(ngModel)]="text"></textarea>
+         </mat-form-field>
+         <button class="btn-send" mat-raised-button color="primary" (click)="sendMail()">Send</button>
+
+
+       </div>
+      </div>
+
+
+    </div>
+
+  </div>
+  <button style="display: none"  type="button" id="btn-pop-up"  mat-stroked-button color="accent" (click)="setState()">
+  </button>
+
+</div>

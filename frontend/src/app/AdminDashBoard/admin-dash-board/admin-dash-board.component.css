@@ -1,0 +1,28 @@
+mat-sidenav-container {
+    max-height: 1400px;
+    min-height: 700px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+mat-sidenav {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-height: 1400px;
+    min-height: 700px;
+}
+
+mat-sidenav {
+    width: 240px;
+    max-height: 1400px;
+    min-height: 700px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+mat-sidenav-content {
+    max-height: 1400px;
+    min-height: 700px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

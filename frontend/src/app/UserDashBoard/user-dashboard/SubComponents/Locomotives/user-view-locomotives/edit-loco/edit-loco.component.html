@@ -1,0 +1,289 @@
+<h2 mat-dialog-title>Install Angular</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="example-container">
+    <form  [formGroup]="editLocoGroup" (ngSubmit)="onEdit()" >
+      <mat-tab-group mat-align-tabs="Start" [selectedIndex] ="selectedIndex" animationDuration="0ms">
+        <mat-tab>
+          <mat-card>
+            <ng-template mat-tab-label>
+              <img class="material-icons" src="https://img.icons8.com/emoji/48/000000/train-emoji.png" style="width: 40px; height: 40px;"/>
+
+              First
+            </ng-template>
+            <h3 class="sub-headers">Basic Details</h3>
+            <mat-form-field appearance="fill">
+              <mat-label>Locomotive Category</mat-label>
+              <input readonly type="text" required
+                     placeholder="Pick one"
+                     aria-label="Number"
+                     matInput
+                     [formControl]="myControl"
+                     formControlName="locoCatId"
+                     [matAutocomplete]="auto">
+
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of options " [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <div *ngIf="editLocoGroup.controls['locoCatId'].invalid && (editLocoGroup.controls['locoCatId'].dirty || editLocoGroup.controls['locoCatId'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['LocoCatId'].errors.required">
+                  Category is Required.
+                </div>
+              </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label class="Locomotive Number">Locomotive Number</mat-label>
+              <input readonly required  maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="locoNumber" >
+              <div *ngIf="editLocoGroup.controls['locoNumber'].invalid && (editLocoGroup.controls['locoNumber'].dirty || editLocoGroup.controls['locoNumber'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['locoNumber'].errors.required">
+                  Number is Required.
+                </div>
+                <div *ngIf="editLocoGroup.controls['locoNumber'].errors.pattern">
+                  Enter only numbers
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label class="label-txt">Locomotive Power</mat-label>
+              <input readonly  minlength="4" maxlength="5" required  matInput placeholder="Locomotive Power" #searchInput formControlName="locoPower">
+              <div *ngIf="editLocoGroup.controls['locoPower'].invalid && (editLocoGroup.controls['locoPower'].dirty || editLocoGroup.controls['locoPower'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['locoPower'].errors.required">
+                  power is Required.
+                </div>
+                <div *ngIf="editLocoGroup.controls['locoPower'].errors.pattern">
+                  Enter only numbers
+                </div>
+              </div>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" >
+              <mat-label class="label-txt">Locomotive Mileage</mat-label>
+              <input minlength="4"  required  matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage">
+              <div *ngIf="editLocoGroup.controls['locoMileage'].invalid && (editLocoGroup.controls['locoMileage'].dirty || editLocoGroup.controls['locoMileage'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['locoMileage'].errors.required">
+                  Mileage is Required.
+                </div>
+                <div *ngIf="editLocoGroup.controls['locoMileage'].errors.pattern">
+                  Enter only numbers
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="locoDate">
+
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <div *ngIf="editLocoGroup.controls['locoDate'].invalid && (editLocoGroup.controls['locoDate'].dirty || editLocoGroup.controls['locoDate'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['locoDate'].errors.required">
+                  Date is Required.
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Supervisor NIC</mat-label>
+              <mat-select [disabled]="disableSelect.value"   formControlName="userNic" required>
+                <mat-option   *ngFor="let temIds of userList"   value="{{temIds.userNic}}" (keyup)="onKeyUp($event)">
+                  {{temIds.userNic}}
+                </mat-option>
+              </mat-select>
+              <div *ngIf="editLocoGroup.controls['userNic'].invalid && (editLocoGroup.controls['userNic'].dirty || editLocoGroup.controls['userNic'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['userNic'].errors.required">
+                  Supervisor Nic is Required.
+                </div>
+              </div>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" >
+              <mat-label class="label-txt">Supervisor Name</mat-label>
+              <input #box readonly   minlength="4"  required  matInput placeholder="Supervisor Name" #searchInput formControlName="supervisorName" (keyup)="onKeyUp(box.value)">
+              <div *ngIf="editLocoGroup.controls['supervisorName'].invalid && (editLocoGroup.controls['supervisorName'].dirty || editLocoGroup.controls['supervisorName'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['supervisorName'].errors.required">
+                  Supervisor Name is Required.
+                </div>
+                <div *ngIf="editLocoGroup.controls['supervisorName'].errors.pattern">
+                  Enter only Letters
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="fill" >
+              <mat-label class="label-txt">Supervisor Email</mat-label>
+              <input  readonly  minlength="4"  required  matInput placeholder="Supervisor Email" #searchInput formControlName="supervisorEmail">
+              <div *ngIf="editLocoGroup.controls['supervisorEmail'].invalid && (editLocoGroup.controls['supervisorEmail'].dirty || editLocoGroup.controls['supervisorEmail'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['supervisorEmail'].errors.required">
+                  Supervisor Name is Required.
+                </div>
+                <div *ngIf="editLocoGroup.controls['supervisorEmail'].errors.pattern">
+                  Enter only Letters
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-radio-group aria-label="Select an option" formControlName="locoAvailability">
+              <span class="para-txt">Availability</span>
+              <mat-radio-button  *ngFor="let status of statuses" [value] = "status">{{status}} &nbsp;</mat-radio-button>
+
+            </mat-radio-group>
+            <br>
+
+          </mat-card>
+          <mat-divider></mat-divider>
+          <br>
+          <mat-card class="matbox">
+            <h3 class="sub-headers">Motar Parts</h3>
+            <div class="input-Type">
+              <mat-form-field appearance="fill">
+                <mat-label class="Locomotive Number">Add Motor Item</mat-label>
+                <input required  maxlength="20" minlength="1" matInput placeholder="Motor Item" #searchInput formControlName="mtrType" >
+              </mat-form-field> &nbsp;&nbsp;
+              <div class="btn">
+                <button type="button" style="background-color: #59abe3" mat-raised-button color="primary" (click)="onClickMotor()">Add Item</button>&nbsp;
+                <button type="button"  style="background-color: #59abe3" mat-raised-button color="accent" (click)="onClickremoveField('','main')">Remove All</button>
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-6 col-sm-3" *ngFor="let locoMotors of mtrArray.controls; let i = index">
+                <div class="row" [formGroup]="locoMotors">
+                  <p style="margin-left: 20px;">
+                    <mat-form-field  appearance="outline" style="width: 170px; height: 5px; font-weight: bolder; color: black; font-size: 15px;">
+                      <input matInput placeholder="Fluids" formControlName="Name" readonly>
+                    </mat-form-field>
+                    <br>
+                    <br>
+                    <mat-radio-group aria-label="Select an option" formControlName="working">
+                      <mat-radio-button class="radio-txt"  *ngFor="let status of condition" [value] = "status">{{status}} &nbsp;</mat-radio-button>
+                    </mat-radio-group>
+
+                    <button style="color: red" mat-button  (click)="onClickremoveField(i, 'sub')"><span class="material-icons">
+delete
+</span></button>
+                  </p>
+                </div>
+              </div>
+
+
+              <!-- Force next columns to break to new line -->
+              <div class="w-100"></div>
+
+            </div>
+            <br>
+            <br>
+          </mat-card>
+          <mat-divider></mat-divider>
+        </mat-tab>
+        <mat-tab>
+          <mat-card>
+            <ng-template mat-tab-label>
+              <img src="https://img.icons8.com/emoji/64/000000/high-speed-train-emoji.png" style="width: 40px; height: 40px;"/> &nbsp;
+              Second
+            </ng-template>
+            <h3 class="sub-headers">Breaks</h3>
+            <div class="input-Type">
+              <mat-form-field appearance="fill">
+                <mat-label class="Locomotive Number">Add Break Item</mat-label>
+                <input required  maxlength="3" minlength="1" matInput placeholder="Break Item" #searchInput formControlName="brkType" >
+              </mat-form-field> &nbsp;&nbsp;
+              <div class="btn">
+                <button type="button"  style="background-color: #59abe3;" mat-raised-button color="primary" (click)="onClickBreaks()">Add Item</button> &nbsp;
+                <button type="button"  style="background-color: #59abe3" mat-raised-button color="accent" (click)="onClickremoveBreakField('','main')">Remove All</button>
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-6 col-sm-3" *ngFor="let locoBreaks of brkArray.controls; let i = index">
+                <div class="row" [formGroup]="locoBreaks">
+
+                  <p style="padding-left: 15px;">
+                    <mat-form-field  appearance="outline" style="width: 180px; border: none;  text-align: center; font-weight: bolder; color: black; font-size: 15px;">
+                      <input matInput placeholder="Fluids" formControlName="bName" readonly>
+                    </mat-form-field>
+                    <br>
+                    <mat-radio-group aria-label="Select an option" formControlName="working">
+                      <mat-radio-button class="radio-txt"  *ngFor="let status of condition" [value] = "status">{{status}} &nbsp;</mat-radio-button>
+                    </mat-radio-group>
+                    <br>
+                    <button style="color: red" mat-button  (click)="onClickremoveField(i, 'sub')"><span class="material-icons">
+delete
+</span></button>
+                  </p>
+                </div>
+              </div>
+              <!-- Force next columns to break to new line -->
+              <div class="w-100"></div>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <h3 class="sub-headers">Fuel Levels</h3>
+            <div class="input-Type">
+              <mat-form-field appearance="fill">
+                <mat-label class="Locomotive Number">Add Fluid Item</mat-label>
+                <input required  maxlength="20" minlength="1" matInput placeholder="Fluid Item" #searchInput formControlName="fldType" >
+
+              </mat-form-field> &nbsp;&nbsp;
+              <div class="btn">
+                <button type="button"  style="background-color: #59abe3;" mat-raised-button color="primary" (click)="onClickFluids()">Add Item</button>&nbsp;
+                <button type="button"  style="background-color: #59abe3" mat-raised-button color="accent" (click)="onClickremoveFluidField('','main')">Remove All</button>
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-6 col-sm-3" *ngFor="let locoFluids of fluidArray.controls; let i = index">
+                <div class="row" [formGroup]="locoFluids">
+
+                  <p style="padding-left: 15px;">
+                    <mat-form-field  appearance="outline" style="width: 180px;  text-align: center; font-weight: bolder; color: black; font-size: 15px;">
+                      <input matInput placeholder="Fluids" formControlName="fName" readonly>
+                    </mat-form-field>
+                    <br>
+                    <mat-slider  thumbLabel
+                                 [displayWith]="formatLabel"
+                                 style="width: 300px;"
+                                 tickInterval="1000"
+                                 step="1000"
+                                 min="0"
+                                 max="100000" aria-label="unit(s)" formControlName="fluids"></mat-slider>
+                    <br>
+                    <button style="color: red" mat-button  (click)="onClickremoveField(i, 'sub')"><span class="material-icons">
+delete
+</span></button>
+                  </p>
+                </div>
+              </div>
+              <!-- Force next columns to break to new line -->
+              <div class="w-100"></div>
+            </div>
+            <mat-divider></mat-divider>
+            <br>
+            <div class="form-group">
+              <div class="preview" *ngIf="preview && preview !== null">
+                <img [src]="imageSt" [alt]="editLocoGroup.value.image" style="height: 100px; width: 150px" >
+              </div>
+            </div>
+
+            <!-- File Input -->
+            <div class="form-group">
+              <input type="file" (change)="uploadFile($event)"  accept=".png, .jpg, .jpeg">
+            </div>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Textarea</mat-label>
+              <textarea matInput formControlName="locoNote"></textarea>
+              <div *ngIf="editLocoGroup.controls['locoNote'].invalid && (editLocoGroup.controls['locoNote'].dirty || editLocoGroup.controls['locoNote'].touched)"   class="error">
+                <div *ngIf="editLocoGroup.controls['locoNote'].errors.required">
+                  Supervisor Nic is Required.
+                </div>
+              </div>
+            </mat-form-field>
+            <br>
+
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onEdit()">Install</button>
+</mat-dialog-actions>

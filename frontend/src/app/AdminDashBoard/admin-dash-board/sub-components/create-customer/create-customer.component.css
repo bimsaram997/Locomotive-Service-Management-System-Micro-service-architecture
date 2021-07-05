@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+.normal-form{
+  margin: 10px;
+
+}
+.controls-container{
+  width: 90%;
+  padding: 5%;
+}
+.controls-container > *{
+   width: 90%;
+ }
+.add-bottom-padding{
+  padding-bottom: 10px;
+}
+mat-radio-group mat-radio-button{
+  margin-left: 5px;
+}
+.button-row button{
+  margin: 5px;
+}
+table {
+  width: 100%;
+}
+.table-style{
+  padding-right: 70px;
+  padding-left: 70px;
+  padding-top: 10px;
+ }
+.heading-txt{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 40px;
+  color: #013243;
+  padding-left: 10px;
+
+}
+.box-head{
+  display: flex;
+  align-items:center;
+}
+.container{
+  padding-top: 30px;
+  padding-right: 50px;
+  padding-left: 50px;
+
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+.mat-header-cell{
+  font-size: 15px;
+  font-weight: bold;
+}
+.error{
+  font-size: 10px;
+  color: #f64747;
+  font-family: Roboto;
+}

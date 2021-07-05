@@ -1,0 +1,248 @@
+<div class="container-fluid" >
+  <br>
+  <div class="box-head">
+    <img src="./assets/images/m11.png" alt="" style="width: 70px; height: 70px">
+    <span class="heading-txt">REQUEST SCHEDULE</span>
+  </div>
+  <hr>
+
+  <mat-tab-group mat-align-tabs="start"  [selectedIndex] ="selectedIndex" animationDuration="0ms">
+    <mat-tab>
+      <ng-template mat-tab-label >
+        <img class="material-icons" src="https://img.icons8.com/emoji/48/000000/train-emoji.png" style="width: 40px; height: 40px;"/>
+
+        First
+      </ng-template>
+      <br>
+      <br>
+      <br>
+      <mat-card class="card">
+      <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'"  style="bottom: 30px;">
+        <mat-grid-tile>
+          <div class="controls-container">
+            <h3 class="sub-headers">Basic Details</h3>
+            <input type="hidden">
+            <mat-form-field class="example-full-width">
+              <mat-label class="Locomotive Number">Schedule Req No</mat-label>
+              <input required #sNum="ngModel" maxlength="4" minlength="2" matInput placeholder="Schedule Req No" #searchInput [(ngModel)]="scheduleNo">
+              <div  *ngIf="sNum.invalid && (sNum.dirty || sNum.touched)"
+              class="error">
+              <div *ngIf="sNum.errors.required">
+                Schedule Number is required.
+              </div>
+              <div *ngIf="sNum.errors.minlength">
+                Schedule Number must be at least 2 characters long.
+              </div>
+              <div *ngIf="sNum.errors.maxLength">
+                Schedule Number must be up to 4 characters long.
+              </div>
+          </div>
+            </mat-form-field>
+            <mat-form-field>
+              <input required #date="ngModel" aria-label="HireDate" matInput [matDatepicker]="picker" placeholder="Last Update" [(ngModel)]="scheduleUpdate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <div  *ngIf="date.invalid && (date.dirty || date.touched)"
+              class="error">
+              <div *ngIf="date.errors.required">
+                Last Update is required.
+              </div>
+          </div>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" >
+              <mat-label class="label-txt">Locomotive Category</mat-label>
+              <input required  matInput placeholder="Locomotive Category" #searchInput  matInput
+                     [formControl]="myControl" [(ngModel)]="locoCatId"
+                     [matAutocomplete]="auto" >
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of options" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+
+
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select required #lNum="ngModel" placeholder="Locomotive Number" aria-label="Supervisor In Charge" [(ngModel)]="locoNumber">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let tempNumbers of locoList">
+                  <mat-option value="{{tempNumbers.locoNumber}}">{{tempNumbers.locoNumber}}</mat-option>
+                </ng-container>
+              </mat-select>
+              <div  *ngIf="lNum.invalid && (lNum.dirty || lNum.touched)"
+              class="error">
+              <div *ngIf="lNum.errors.required">
+                Loco Number is required.
+              </div>
+
+          </div>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="controls-container-right">
+            <mat-form-field>
+              <mat-select required #NIC="ngModel" placeholder="Supervisor Nic" aria-label="Supervisor In Charge" [(ngModel)]="userNic">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let tempWork of userList">
+                  <mat-option value="{{tempWork.userNic}}">{{tempWork.userNic}}</mat-option>
+                </ng-container>
+              </mat-select>
+                <div  *ngIf="NIC.invalid && (NIC.dirty || NIC.touched)"
+                class="error">
+                <div *ngIf="NIC.errors.required">
+                  Supervisor NIC is required.
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select required #sName="ngModel" placeholder="Supervisor Name" aria-label="Supervisor In Charge" [(ngModel)]="userName">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let tempUser of userList">
+                  <mat-option value="{{tempUser.userName}}">{{tempUser.userName}}</mat-option>
+                </ng-container>
+              </mat-select>
+              <div *ngIf="sNum.invalid && (sNum.dirty || sNum.touched)"
+                    class="error">
+                <div *ngIf="sNum.errors.required">
+                  Supervisor Name is required.
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select required #sEmai ="ngModel" placeholder="Supervisor Email" aria-label="Supervisor In Charge" [(ngModel)]="userEmail">
+                <mat-option>None</mat-option>
+                <ng-container *ngFor="let tempUser of userList">
+                  <mat-option value="{{tempUser.userEmail}}">{{tempUser.userEmail}}</mat-option>
+                </ng-container>
+              </mat-select>
+              <div  *ngIf="sEmai.invalid && (sEmai.dirty || sEmai.touched)"
+                    class="error">
+                <div *ngIf="sEmai.errors.required">
+                  Supervisor Email is required.
+                </div>
+              </div>
+            </mat-form-field>
+            <div class="add-bottom-padding">
+              <mat-radio-group aria-label="Availability" [(ngModel)]="scheduleStatus">
+                <span class="para-txt">Status</span>
+                <mat-radio-button  [value] = "'draft'">draft</mat-radio-button>
+              </mat-radio-group>
+              <div class="btn-two">
+                <button mat-raised-button="Basic" class="nxt" (click)="nextStep()" style="left: 88.5%; width: 5px; height: 35px;"><span class="material-icons">keyboard_arrow_right</span></button>
+              </div>
+            </div>
+          </div>
+
+        </mat-grid-tile>
+
+      </mat-grid-list>
+      </mat-card>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <img src="https://img.icons8.com/cute-clipart/64/000000/wrench.png" style="width: 40px; height: 40px; color: #1f3a93"/>
+        Second
+      </ng-template>
+      <br>
+      <br>
+      <mat-card class="card" style="height: 390px;">
+      <mat-grid-list cols="2" rowHeight="400px" [gutterSize]="'-55px'"  style="bottom: 20px;">
+        <mat-grid-tile>
+          <div class="controls-container">
+            <h3 class="sub-headers"matTooltip="Select required Schedules" [matTooltipPosition]="'left'">Schedules</h3>
+            <span> <p class="para-txt">Main Motors</p></span>
+            <mat-form-field >
+              <mat-label>Main Motors</mat-label>
+              <mat-select [formControl]="top" multiple [(ngModel)]="scheduleMach">
+                <mat-option *ngFor="let mainMotors of  mainMotorList" [value]=" mainMotors">{{mainMotors}}</mat-option>
+              </mat-select>
+
+            </mat-form-field>
+            <span> <p class="para-txt">Traction Motors</p></span>
+            <mat-form-field >
+              <mat-label>Traction Motors</mat-label>
+              <mat-select [formControl]="tMotors" multiple [(ngModel)]="scheduleTrackMotors">
+                <mat-option *ngFor="let tMotor of  tMotorsList" [value]=" tMotor">{{tMotor}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span> <p class="para-txt">Loco Body</p></span>
+            <mat-form-field >
+              <mat-label>Loco Body</mat-label>
+              <mat-select [formControl]="bodyLoco " multiple [(ngModel)]="scheduleLocoBody">
+                <mat-option *ngFor="let bodyLoco of   bodyLocoList" [value]="bodyLoco">{{bodyLoco}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="controls-container-right-two">
+            <span> <p class="para-txt">Electric And Control Unit</p></span>
+            <mat-form-field >
+              <mat-label>Electric And Control Unit</mat-label>
+              <mat-select [formControl]="electricControl" multiple [(ngModel)]="scheduleElCuUnit">
+                <mat-option *ngFor="let electricController of   electricControlList" [value]="electricController">{{electricController}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span> <p class="para-txt">Electric Mechanical</p></span>
+            <mat-form-field >
+              <mat-label>Electric Mechanical</mat-label>
+              <mat-select [formControl]="eMechanical" multiple [(ngModel)]="scheduleEMechanical">
+                <mat-option *ngFor="let eMechanical of   eMechanicalMaList" [value]="eMechanical">{{eMechanical}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <h3 class="sub-headers"matTooltip="Place remarks" [matTooltipPosition]="'left'">Special Remarks</h3>
+            <mat-form-field appearance="fill">
+              <mat-label>Textarea</mat-label>
+              <textarea required #remark = "ngModel" matInput [(ngModel)]="scheduleRemark"></textarea>
+              <div  *ngIf="remark.invalid && (remark.dirty || sEmai.touched)"
+                    class="error">
+                <div *ngIf="remark.errors.required">
+                  Supervisor Remark is required.
+                </div>
+              </div>
+            </mat-form-field>
+            <div class="btn-three">
+              <button mat-raised-button ="Basic" class="prev"  (click)="previousStep()" style="left: 75%; height: 35px;"><span class="material-icons">keyboard_arrow_left</span></button>
+              <button mat-raised-button class="prev" (click)="nextStep()" style="left: 77%; height: 35px;"><span class="material-icons">keyboard_arrow_right</span></button>
+            </div>
+          </div>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+
+
+
+      </mat-card>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <img src="https://img.icons8.com/color/48/000000/train-station.png" style="width: 40px; height: 40px; color: #1f3a93"/>
+        Third
+      </ng-template>
+      <br>
+      <br>
+      <mat-card class="card" style="height: 360px;">
+
+          <input (change)="changeFiles($event)" multiple style="display: none" type="file" accept="images/" id="selectedFile" >
+          <div class="main-wrap-for-selected-images">
+            <p *ngIf="isVisble" class="para-note" onclick="document.getElementById('selectedFile').click()" >Add Images of Locomotives</p>
+            <img *ngIf="urls[0]!=null" [src]="urls[0]" alt="Image"
+                 class="selected-image img-thumbnail">
+            <img *ngIf="urls[1]!=null"  [src]="urls[1]" alt="Image"
+                 class="selected-image img-thumbnail">
+            <img *ngIf="urls[2]!=null"  [src]="urls[2]" alt="Image"
+                 class="selected-image img-thumbnail">
+          </div>
+        <br><br><br>
+        <div class="button-row">
+          <button mat-raised-button color="primary" (click)="saveSchedule(); loadSpinner()" style="width: 150px;">Submit</button>
+          <button mat-raised-button color="warn" class="clear-btn" style="width: 150px;">Clear</button>
+        </div>
+
+      </mat-card>
+
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

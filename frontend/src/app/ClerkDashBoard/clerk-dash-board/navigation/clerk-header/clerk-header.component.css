@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100;1,300&display=swap');
+.right-li{
+  float: right;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+ul{ text-align:right;width:450px;}
+li{ display:inline-block;padding:15px;}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+a:hover, a:active{
+  color: lightgrey;
+}
+.navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.example-spacer{
+  font-family: 'Roboto', sans-serif;
+}
+.nav{
+  width: auto;
+}
+mat-toolbar{
+  width: auto;
+}

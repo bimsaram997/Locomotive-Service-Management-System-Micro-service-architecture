@@ -1,0 +1,338 @@
+<div class="container-fluid">
+    <br>
+    <div class="box-head">
+        <img src="./assets/images/m11.png" alt="" style="width: 70px; height: 70px">
+        <span class="heading-txt">REQUEST LOAD TRIAL </span>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div class="example-container">
+        <form [formGroup]=" LoadTrial" (ngSubmit)="onSubmit()">
+            <mat-tab-group mat-align-tabs="Start" [selectedIndex]="selectedIndex" animationDuration="0ms">
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_one</span>&nbsp;First Tab
+                        </ng-template>
+                        <h3 class="sub-headers">Basic Details</h3>
+                        <div class="row no-gutters">
+                            <div class="col-4 justify-content-start">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Load Trial Number</mat-label>
+                                    <input matInput placeholder="L-001">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-4 justify-content-start">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Choose a date</mat-label>
+                                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-hint>Allows add minimum 2 days and maximum 30 days</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>From Place</mat-label>
+                                    <input matInput placeholder="Eg: Colombo">
+                                    <mat-hint>From Colombo</mat-hint>
+                                </mat-form-field>
+
+                            </div>
+                            <br>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>To Place</mat-label>
+                                    <input matInput placeholder="Eg: Galle">
+                                    <mat-hint>to Galle</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+
+
+                            <div class="w-100">
+                                <h3 class="sub-headers">Schedule Details</h3>
+                                <hr class="line">
+                                <br>
+                            </div>
+
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Schedule No.</mat-label>
+                                    <mat-select>
+                                        <mat-option>Choose one..</mat-option>
+
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Locomotive Category</mat-label>
+                                    <mat-select>
+                                        <mat-option>Choose one..</mat-option>
+
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Locomotive Number</mat-label>
+                                    <input matInput placeholder="Eg: 872">
+                                </mat-form-field>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="w-100">
+                                <h3 class="sub-headers">Persons</h3>
+                                <hr class="line">
+                                <br>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>.Supervisor Name</mat-label>
+                                    <mat-select>
+                                        <mat-option>Choose one..</mat-option>
+                                    </mat-select>
+                                    <mat-hint>Supervisor details..</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Supervisor Name</mat-label>
+                                    <input matInput placeholder="Eg: Bimsara Hirushan">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Supervisor Email</mat-label>
+                                    <input matInput placeholder="Eg: h@gmail.com">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="w-100"></div>
+                            <br>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>.Service Manager Name</mat-label>
+                                    <mat-select>
+                                        <mat-option>Choose one..</mat-option>
+                                    </mat-select>
+                                    <mat-hint>Service Manager details..</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Service Manager Name</mat-label>
+                                    <input matInput placeholder="Eg: Bimsara Hirushan">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Service Manager Email</mat-label>
+                                    <input matInput placeholder="Eg: h@gmail.com">
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <br>
+
+                    </mat-card>
+                </mat-tab>
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_two</span>&nbsp;Second Tab
+                        </ng-template>
+                        <h2 class="sub-headers">Testing Information</h2>
+                        <h3 class="sub-headers">Running Condition</h3>
+                        <div formArrayName="items" *ngFor="let item of LoadTrial.get('items')['controls']; let i = index;">
+
+                            <div class="container  dyanmic" [formGroupName]="i">
+                                <p>Observation {{i+1}}</p>
+                                <div class="row justify-content-start no-gutters">
+                                    <div class="col">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Description</mat-label>
+                                            <textarea required matInput formControlName="description" placeholder="Observation description"></textarea>
+
+                                            <mat-hint>Traction Alternator</mat-hint>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col">
+                                        <mat-radio-group required aria-label="Select an option" formControlName="running">
+                                            <mat-radio-button value="Engine Running" style="margin-right: 5px;">Engine Running</mat-radio-button>
+                                            <mat-radio-button value="Engine Stopped" disabled>Engine Stopped</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+
+                                </div>
+                                <div class="row justify-content-start no-gutters">
+                                    <div class="col no-gutters">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Condition</mat-label>
+                                            <input required matInput formControlName="condition" placeholder="E.g: Working well">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col no-gutters">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Action</mat-label>
+                                            <input required matInput formControlName="action" placeholder="E.g: Replace the piston">
+                                        </mat-form-field> <br>
+                                    </div>
+                                    <div class="col col-lg-2">
+                                        <button [disabled]="i<1" mat-button type="button" (click)="removeItem(i, 'sub')"><span class="material-icons"><span class="material-icons-outlined">
+                                            remove_circle
+                                            </span></span></button>
+
+                                    </div>
+                                </div>
+                                <br>
+
+
+                            </div>
+
+                        </div>
+                        <br>
+                        <button mat-stroked-button color="primary" type="button" (click)="addItem()">Add Test </button>
+                        <button mat-raised-button type="button" style="margin-left: 8px;" (click)="removeItem('', 'main')">Remove All</button>
+
+                        <br>
+
+
+
+
+                    </mat-card>
+                </mat-tab>
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_3</span>&nbsp;Third Tab
+                        </ng-template>
+                        <h2 class="sub-headers">Testing Information</h2>
+                        <h3 class="sub-headers">Stop Condition</h3>
+                        <div formArrayName="itemsStop" *ngFor="let item of LoadTrial.get('itemsStop')['controls']; let i = index;">
+
+                            <div class="container  dyanmic" [formGroupName]="i">
+                                <p>Observation {{i+1}}</p>
+                                <div class="row justify-content-start no-gutters">
+                                    <div class="col">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Description</mat-label>
+                                            <textarea required matInput formControlName="description" placeholder="Observation description"></textarea>
+
+                                            <mat-hint>Traction Alternator</mat-hint>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col">
+                                        <mat-radio-group required aria-label="Select an option" formControlName="running">
+                                            <mat-radio-button value="Engine Running" disabled style="margin-right: 5px;">Engine Running</mat-radio-button>
+                                            <mat-radio-button value="Engine Stopped">Engine Stopped</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+
+                                </div>
+                                <div class="row justify-content-start no-gutters">
+                                    <div class="col no-gutters">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Condition</mat-label>
+                                            <input required matInput formControlName="condition" placeholder="E.g: Working well">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col no-gutters">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Action</mat-label>
+                                            <input required matInput formControlName="action" placeholder="E.g: Replace the piston">
+                                        </mat-form-field> <br>
+                                    </div>
+                                    <div class="col col-lg-2">
+                                        <button [disabled]="i<1" mat-button type="button" (click)="removeItem(i, 'sub')"><span class="material-icons"><span class="material-icons-outlined">
+                                            remove_circle
+                                            </span></span></button>
+
+                                    </div>
+                                </div>
+                                <br>
+
+
+                            </div>
+
+                        </div>
+                        <br>
+                        <button mat-stroked-button color="primary" type="button" (click)="addStopItem()">Add Test </button>
+                        <button mat-raised-button type="button" style="margin-left: 8px;" (click)="removeItem('', 'main')">Remove All</button>
+
+
+                    </mat-card>
+                </mat-tab>
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_4</span>&nbsp;Fourth Tab
+                        </ng-template>
+                        <h2 class="sub-headers">Dynamic Brake Test</h2>
+                        <div formArrayName="dynamicBrake" *ngFor="let item of LoadTrial.get('dynamicBrake')['controls']; let i = index;">
+                            <div class="container dyanmic" [formGroupName]="i">
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Notch</mat-label>
+                                            <mat-select formControlName="notch">
+                                                <mat-option>Choose..</mat-option>
+                                                <mat-option value="notch 1">Notch 1</mat-option>
+                                                <mat-option value="notch 2">Notch 2</mat-option>
+                                                <mat-option value="notch 3">Notch 3</mat-option>
+                                                <mat-option value="notch 4">Notch 4</mat-option>
+                                                <mat-option value="notch 5">Notch 5</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Traction Motors(Amps)</mat-label>
+                                            <input required matInput formControlName="tractionMtr" placeholder="E.g: 100">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Main Generator(Amps)</mat-label>
+                                            <input required matInput formControlName="mainGen" placeholder="E.g: 100">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col col-lg-2">
+                                        <button [disabled]="i<1" mat-button type="button" (click)="removeItem(i, 'sub')"><span class="material-icons"><span class="material-icons-outlined">
+                                            remove_circle
+                                            </span></span></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button mat-stroked-button color="primary" type="button" (click)="addDynItem()">Add Test </button>
+                        <button mat-raised-button type="button" style="margin-left: 8px;" (click)="removeItem('', 'main')">Remove All</button>
+                        <br>
+                        <br>
+                        <h3 class="sub-headers">Special Remarks on Load Test Run</h3>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Textarea</mat-label>
+                                    <textarea matInput></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4"> <button style="background-color: #1EAB09; color: white;" mat-raised-button #tooltip="matTooltip" matTooltip="Update Mileage Details" matTooltipPosition="right" (click)="openDialog()">Update Mileage</button></div>
+                        </div>
+                        <br>
+                        <button mat-raised-button color="primary" type="submit">Submit</button>
+                    </mat-card>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
+
+</div>

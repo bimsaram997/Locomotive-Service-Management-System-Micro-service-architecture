@@ -1,0 +1,27 @@
+a{
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+}
+a:hover, a:active{
+  color: black;
+}
+.nav-caption{
+  display: inline-block;
+  padding-left: 6px;
+}
+.heading-txt{
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.s{
+
+}
+.image{
+  position: center;
+  height: 100px;
+  width: 165px;
+  padding-left: 35px;
+}

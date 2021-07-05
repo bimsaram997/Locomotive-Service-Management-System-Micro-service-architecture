@@ -1,0 +1,23 @@
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav role = "navigation">
+      <app-user-side-nav (sidenavClose)="sidenav.close()"></app-user-side-nav>
+    </mat-sidenav>
+
+
+    <mat-sidenav-content>
+        <div class="hed">
+          <app-user-header (sidenavToggle)="sidenav.toggle()"></app-user-header>
+        </div>
+
+        <router-outlet></router-outlet>
+
+
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+
+
+

@@ -1,0 +1,36 @@
+<mat-nav-list class="s">
+
+    <img class="image" src="./assets/logo/1618837407350.png">
+
+
+
+    <hr>
+    <a class="p" mat-list-item routerLink="/adminDashboard/createCustomer" (click)="onSidenavClose()">
+        <span> <img src="https://img.icons8.com/material/24/000000/front-desk.png"/></span> <span class="nav-caption">View Employee</span>
+    </a>
+    <a class="p" mat-list-item routerLink="/adminDashboard/viewMileage" (click)="onSidenavClose()">
+        <span> <img src="https://img.icons8.com/material/24/000000/front-desk.png"/></span> <span class="nav-caption">View Mileage</span>
+    </a>
+    <a mat-list-item routerLink="/adminDashboard/adminViewSchedules" (click)="onSidenavClose()">
+        <mat-icon class="q">assignment_ind</mat-icon><span class="nav-caption">View Schedules</span>
+    </a>
+    <a class="p" mat-list-item routerLink="/adminDashboard/viewLocoProfile" (click)="onSidenavClose()">
+        <span> <img src="https://img.icons8.com/material/24/000000/front-desk.png"/></span> <span class="nav-caption">View Loco Profile</span>
+    </a>
+    <mat-list-item [matMenuTriggerFor]="menu">
+        <mat-icon>unfold_more</mat-icon>
+        <a mat-line>Locomotives</a>
+    </mat-list-item>
+    <mat-menu #menu="matMenu" class="r">
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/createLocomotive">Add Locomotive</button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/viewLocomotives">View All Locomotives</button>
+    </mat-menu>
+    <mat-list-item [matMenuTriggerFor]="menu">
+        <mat-icon>unfold_more</mat-icon>
+        <a mat-line>Scehdules</a>
+    </mat-list-item>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onSidenavClose()">View All Schedules</button>
+        <button mat-menu-item (click)="onSidenavClose()">Add Schedules</button>
+    </mat-menu>
+</mat-nav-list>

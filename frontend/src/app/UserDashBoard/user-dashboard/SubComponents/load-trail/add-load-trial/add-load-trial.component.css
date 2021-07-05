@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+.box-head {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    padding-top: 30px;
+    padding-right: 50px;
+    padding-left: 50px;
+    width: auto;
+}
+
+.heading-txt {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 40px;
+    color: #013243;
+    padding-left: 10px;
+}
+
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.mat-form-field {
+    width: 90%;
+}
+
+.example-container form {
+    margin-bottom: 10px;
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+.example-container form>* {
+    margin: 5px 0px;
+}
+
+.input-Type {
+    display: flex;
+}
+
+.line {
+    opacity: 0.5;
+    width: 800;
+    padding-left: 10px;
+}
+
+.dyanmic {
+    margin-left: -40px;
+    ;
+}

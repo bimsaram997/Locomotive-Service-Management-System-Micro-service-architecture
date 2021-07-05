@@ -1,0 +1,45 @@
+<div class="row" *ngIf="CurrentState=='Verified'">
+  <div class="en">
+    <div class="en2">
+      <div class="en3">
+        <h5 class="en4">Set New Password</h5>
+        <div>
+          <div id="errorMsg" *ngIf="errorMessage">
+            <span>{{errorMessage}}</span>
+          </div>
+          <div id="successMsg" *ngIf="successMessage">
+            <span>{{successMessage}}</span>
+          </div>
+          <div class="example-form">
+            <form action="" [formGroup]="ResponseResetForm" (ngSubmit)="ResetPassword(ResponseResetForm)">
+              <mat-form-field class="example-full-width" >
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+              <br>
+              <mat-form-field class="example-full-width" >
+                <mat-label>Confirm Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+              <br>
+              <br>
+              <br>
+              <br>
+              <div id="formbox">
+                <button type="submit" mat-raised-button color="primary" class="btn-reset">Reset</button>
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

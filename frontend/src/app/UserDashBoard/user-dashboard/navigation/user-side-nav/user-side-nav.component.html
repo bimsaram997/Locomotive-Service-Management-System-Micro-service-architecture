@@ -1,0 +1,25 @@
+<mat-nav-list class="s">
+    <img class="image" src="./assets/logo/1618837407350.png">
+
+    <hr>
+    <a mat-list-item routerLink="/userDashboard/userProfile" (click)="onSidenavClose()">
+        <span><img src="https://img.icons8.com/material/24/000000/admin-settings-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;Profile</span>
+    </a>
+
+    <a mat-list-item routerLink="/userDashboard/userViewLocomotives" (click)="onSidenavClose()">
+        <span><img src="https://img.icons8.com/material/24/000000/subway.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Locomotives</span>
+    </a>
+
+    <a mat-list-item routerLink="/userDashboard/addLoadTrial" (click)="onSidenavClose()" routerLink="/userDashboard/viewSchedules">
+        <span><img src="https://img.icons8.com/material/24/000000/subway.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Schedules</span>
+    </a>
+    <mat-list-item [matMenuTriggerFor]="menu">
+        <mat-icon>unfold_more</mat-icon>
+        <a mat-line>Load Trials </a>
+    </mat-list-item>
+    <mat-menu #menu="matMenu" class="b">
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/userDashboard/addLoadTrial">Add Load Trials</button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/viewLocomotives">View All Load Trials</button>
+    </mat-menu>
+
+</mat-nav-list>

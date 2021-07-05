@@ -1,0 +1,65 @@
+
+<div class="container" style="padding-top: 50px; padding-right: 50px; padding-left: 50px;" >
+  <p>Customer Form</p>
+  <hr>
+
+  <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'">
+    <mat-grid-tile>
+      <div class="controls-container">
+        <input type="hidden">
+        <mat-form-field class="example-full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput placeholder="Full Name" #searchInput [id]="CustomerId" >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" type="email">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" #searchInput2 [id]="CustomerEmail" [value]="customer.CustomerNic">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Mobile</mat-label>
+          <input matInput placeholder="Mobile" [id]="CustomerMobile" >
+          <mat-error>This is mandotary</mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" type="password" [id]="CustomerPassword" >
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="controls-container">
+        <mat-form-field class="example-full-width">
+          <mat-label>NIC</mat-label>
+          <input matInput placeholder="NIC">
+        </mat-form-field>
+        <div class="add-bottom-padding">
+          <mat-radio-group aria-label="Gender">
+
+            <mat-radio-button *ngFor="let gender of genders" [value] = "gender">{{gender}}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field>
+          <mat-select placeholder="Role" aria-label="Role">
+            <mat-option>None</mat-option>
+            <ng-container *ngFor="let role of roles">
+              <mat-option value="{{role.value}}">{{role.value}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input aria-label="HireDate" matInput [matDatepicker]="picker" placeholder="Hire Date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" >Submit</button>
+          <button mat-raised-button color="accent">Clear</button>
+        </div>
+      </div>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <hr>
+
+</div>

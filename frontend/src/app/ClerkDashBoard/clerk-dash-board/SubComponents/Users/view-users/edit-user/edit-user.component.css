@@ -1,0 +1,54 @@
+.add-bottom-padding{
+  padding-bottom: 10px;
+}
+mat-radio-group mat-radio-button{
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.
+.controls-container > *{
+
+}
+.field{
+  width: 340px;
+}
+
+.btn-radio{
+  margin-right: 10px;
+  left: 75px;
+}
+.sub-headers{
+  font-weight: bold;
+  color: #013243;
+}
+.para-txt{
+  font-weight: bold;
+  color: #1e3799;
+}
+.btn-row{
+  padding-left: 25%;
+}
+
+
+.header{
+  display: inline-block;
+}
+.heading-txt{
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: #013243;
+  padding-left: 10px;
+  font-weight: bold;
+
+}
+.box-head{
+  display: flex;
+  align-items:center;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  padding: 3%;
+  height: 80%;
+}

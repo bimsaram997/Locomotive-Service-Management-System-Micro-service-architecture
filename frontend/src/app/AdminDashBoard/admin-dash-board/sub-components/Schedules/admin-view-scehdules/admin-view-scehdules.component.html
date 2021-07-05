@@ -1,0 +1,91 @@
+<div class="container-fluid">
+    <br>
+    <div class="box-head">
+        <img src="./assets/images/m9.png" alt="" style="height: 70px; width: 70px;">
+        <span class="heading-txt">VIEW SCHEDULES</span>
+    </div>
+    <hr>
+
+    <div class="search-div">
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+        </mat-form-field>
+    </div>
+
+    <div class="main-table">
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="Schedule No">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Schedule No </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Schedule No">{{tempSchedule?.scheduleNo}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Report No">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Report No </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Report No"> {{tempSchedule?.mReportNumber}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Loco Category">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Loco Category</mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Loco Category"> {{tempSchedule.locoCatId}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Loco Number">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Loco Number </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Loco Number"> {{tempSchedule.locoNumber}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Supervisor inCharge">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Supervisor inCharge </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Supervisor inCharge"> {{tempSchedule.supervisorName}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="Request Date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Request Date </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Date"> {{tempSchedule.scheduleDate | date}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="To be Complete">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> To be Complete </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="To be Complete"> {{tempSchedule.completedDate | date}}</mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->>
+
+                <ng-container matColumnDef="Progress">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Progress">{{tempSchedule?.scheduleProgress}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 1)?'blue':(tempSchedule.scheduleStatus == 2)?'blue':(tempSchedule.scheduleStatus==3)?'green':'red'}">
+                        <span class="material-icons">
+{{statusBinder(tempSchedule.scheduleStatus)}}
+</span>
+                    </mat-cell>
+
+                    <!--            {{tempLoco.status || '-'}}-->
+                    <!--          pending - yellow , Approval  -blue, created-Green , rejectd - red-->
+
+
+                </ng-container>
+                <ng-container matColumnDef="#">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="#">
+                        <button mat-icon-button (click)="viewSchedule(tempSchedule._id)"> <span class="material-icons">visibility</span></button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+
+</div>

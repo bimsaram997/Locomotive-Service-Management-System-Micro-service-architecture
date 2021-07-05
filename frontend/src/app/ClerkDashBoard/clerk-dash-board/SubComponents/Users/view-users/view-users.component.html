@@ -1,0 +1,73 @@
+<div class="container-fluid" >
+  <br>
+  <div class="box-head">
+    <img src="./assets/NewOn/9_avatar_2754584.png" alt="" style="height: 70px; width: 70px;">
+    <span class="heading-txt"> &nbsp;&nbsp;VIEW USERS</span>
+  </div>
+  <hr>
+
+  <div class="search-div">
+    <mat-form-field class="search-form-field">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="main-table">
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="dataSource"  matSort>
+
+        <ng-container matColumnDef="User Email" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header> User Email </mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="User Email">{{tempUser?.userEmail}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="User Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="User Name"> {{tempUser?.userName}}</mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Works At">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Works At</mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="Works At"> {{tempUser.userWorks}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="User NIC">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>User NIC</mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="User NIC"> {{tempUser.userNic}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="User Mobile">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> User Mobile </mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="User Mobile"> {{tempUser.userMobile}}</mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Role">
+          <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="Role">  {{tempUser.userRole}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="#">
+          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+          <mat-cell *matCellDef="let tempUser" data-label="#">
+            <button mat-icon-button color="warn" (click)="deleteUser(tempUser.userEmail)"><mat-icon>delete_outline</mat-icon></button>
+            <button mat-icon-button (click)="OpenEdit(tempUser)"><mat-icon>launch</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+</div>
+
+
+

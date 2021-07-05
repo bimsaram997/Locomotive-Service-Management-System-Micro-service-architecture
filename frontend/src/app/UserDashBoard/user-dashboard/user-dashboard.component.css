@@ -1,0 +1,29 @@
+ mat-sidenav {
+     height: auto;
+     overflow-x: hidden;
+     overflow-y: hidden;
+ }
+ 
+ mat-sidenav {
+     width: 240px;
+ }
+ 
+ mat-sidenav-content {
+     width: 100% !important;
+ }
+ 
+ app-user-header {
+     display: contents;
+     position: absolute;
+ }
+ 
+ mat-sidenav-container {
+     width: 100%;
+     height: 100%;
+     position: absolute;
+ }
+ 
+ .hed {
+     position: relative;
+     width: 100%;
+ }
