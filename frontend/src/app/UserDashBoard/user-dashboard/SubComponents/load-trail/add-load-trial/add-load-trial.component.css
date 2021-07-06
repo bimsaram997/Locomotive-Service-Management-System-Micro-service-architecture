@@ -15,10 +15,12 @@
 }
 
 .heading-txt {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 40px;
     color: #013243;
-    padding-left: 10px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    margin-left: 10px;
+    ;
 }
 
 .example-container .mat-form-field+.mat-form-field {

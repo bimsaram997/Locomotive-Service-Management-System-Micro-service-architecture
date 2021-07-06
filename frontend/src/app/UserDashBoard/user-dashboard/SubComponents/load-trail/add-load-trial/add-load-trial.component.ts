@@ -30,14 +30,29 @@ export class AddLoadTrialComponent implements OnInit {
 
   ngOnInit(): void {
     this.LoadTrial = this.formBuilder.group({
+      loadNo: ['', [Validators.required]],
+      loadDate: ['', [Validators.required]],
+      loadFrom: ['', [Validators.required]],
+      loadTo: ['', [Validators.required]],
+      scheduleNo: ['', [Validators.required]],
+      locoCatId: ['', [Validators.required]],
+      locoNumber: ['', [Validators.required]],
+      supervisorName: ['', [Validators.required]],
+      supervisorNic: ['', [Validators.required]],
+      supervisorEmail: ['', [Validators.required]],
+      managerName: ['', [Validators.required]],
+      managerNic: ['', [Validators.required]],
+      managerEmail: ['', [Validators.required]],
       items: this.formBuilder.array([ this.createItem() ]),
       itemsStop: this.formBuilder.array([ this.createStopItem() ]),
-      dynamicBrake: this.formBuilder.array([this.createDynItem()])
+      dynamicBrake: this.formBuilder.array([this.createDynItem()]),
+      loadNote: ['', [Validators.required]]
     })
   }
   onSubmit(){
-
+    console.log(this.LoadTrial.value)
   }
+
   add(data){
 console.log(data)
   }

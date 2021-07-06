@@ -109,7 +109,7 @@ export class SendProgressComponent implements OnInit {
       this.progressReport.saveProgress(reportData).pipe(
         map(res=>{
           if (res.isSaved) {
-            this.generatePDF();
+           
             this.patchMileage(this.ReportGroup.controls.scheduleNo.value, this.ReportGroup.controls.progressValue.value)
            // this.sendNewEmail(this.ReportGroup.controls.managerEmail.value, this.ReportGroup.controls.scheduleNo.value)
             swal({
@@ -117,8 +117,10 @@ export class SendProgressComponent implements OnInit {
               text: 'Please Click OK',
               icon: 'success',
             });
+            this.generatePDF();
             setTimeout(() => {
               //this.refresh();
+              this.generatePDF();
             }, 3000);
 
           }else {

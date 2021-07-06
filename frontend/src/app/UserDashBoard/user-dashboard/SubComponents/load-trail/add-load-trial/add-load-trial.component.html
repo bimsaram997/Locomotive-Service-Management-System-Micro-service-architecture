@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <br>
     <div class="box-head">
-        <img src="./assets/images/m11.png" alt="" style="width: 70px; height: 70px">
-        <span class="heading-txt">REQUEST LOAD TRIAL </span>
+        <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px">
+        <span class="heading-txt"><span style="color: #1e8bc3;">A</span>DD LOAD TRIAL</span>
     </div>
     <mat-divider></mat-divider>
 
@@ -19,22 +19,40 @@
                             <div class="col-4 justify-content-start">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Load Trial Number</mat-label>
-                                    <input matInput placeholder="L-001">
+                                    <input formControlName="loadNo" matInput placeholder="L-001" required maxlength="5" minlength="5">
+                                    <div *ngIf="LoadTrial.controls['loadNo'].invalid && (LoadTrial.controls['loadNo'].dirty || LoadTrial.controls['loadNo'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['loadNo'].errors.required">
+                                            Load Trial Number is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
                             </div>
                             <div class="col-4 justify-content-start">
                                 <mat-form-field class="example-full-width" appearance="fill">
                                     <mat-label>Choose a date</mat-label>
-                                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                                    <input formControlName="loadDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
+                                    <div *ngIf="LoadTrial.controls['loadDate'].invalid && (LoadTrial.controls['loadDate'].dirty || LoadTrial.controls['loadDate'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['loadDate'].errors.required">
+                                            Load Trial Date is Required.
+                                        </div>
+                                    </div>
                                     <mat-hint>Allows add minimum 2 days and maximum 30 days</mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>From Place</mat-label>
-                                    <input matInput placeholder="Eg: Colombo">
+                                    <input formControlName="loadFrom" maxlength="15" minlength="10" required matInput placeholder="Eg: Colombo">
+                                    <div *ngIf="LoadTrial.controls['loadFrom'].invalid && (LoadTrial.controls['loadFrom'].dirty || LoadTrial.controls['loadFrom'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['loadFrom'].errors.required">
+                                            Started place is Required.
+                                        </div>
+                                        <div *ngIf="LoadTrial.controls['loadFrom'].errors.required">
+                                            only add strings.
+                                        </div>
+                                    </div>
                                     <mat-hint>From Colombo</mat-hint>
                                 </mat-form-field>
 
@@ -43,7 +61,15 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>To Place</mat-label>
-                                    <input matInput placeholder="Eg: Galle">
+                                    <input formControlName="loadTo" required maxlength="15" minlength="10" matInput placeholder="Eg: Galle">
+                                    <div *ngIf="LoadTrial.controls['loadTo'].invalid && (LoadTrial.controls['loadTo'].dirty || LoadTrial.controls['loadTo'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['loadTo'].errors.required">
+                                            Destination is Required.
+                                        </div>
+                                        <div *ngIf="LoadTrial.controls['loadTo'].errors.required">
+                                            only add strings.
+                                        </div>
+                                    </div>
                                     <mat-hint>to Galle</mat-hint>
                                 </mat-form-field>
                             </div>
@@ -61,25 +87,43 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Schedule No.</mat-label>
-                                    <mat-select>
+                                    <mat-select formControlName="scheduleNo">
                                         <mat-option>Choose one..</mat-option>
-
                                     </mat-select>
+                                    <div *ngIf="LoadTrial.controls['scheduleNo'].invalid && (LoadTrial.controls['scheduleNo'].dirty || LoadTrial.controls['scheduleNo'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['scheduleNo'].errors.required">
+                                            Schedule Number is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
+
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Locomotive Category</mat-label>
-                                    <mat-select>
+                                    <mat-select formControlName="locoCatId">
                                         <mat-option>Choose one..</mat-option>
-
                                     </mat-select>
+                                    <div *ngIf="LoadTrial.controls['locoCatId'].invalid && (LoadTrial.controls['locoCatId'].dirty || LoadTrial.controls['locoCatId'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['locoCatId'].errors.required">
+                                            Locomotive Category is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
+
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Locomotive Number</mat-label>
-                                    <input matInput placeholder="Eg: 872">
+                                    <input matInput placeholder="Eg: 872" formControlName="locoNumber">
+                                    <div *ngIf="LoadTrial.controls['locoNumber'].invalid && (LoadTrial.controls['locoNumber'].dirty || LoadTrial.controls['locoNumber'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['locoNumber'].errors.required">
+                                            Locomotive Number is Required.
+                                        </div>
+                                        <div *ngIf="LoadTrial.controls['locoNumber'].errors.required">
+                                            Numbers only
+                                        </div>
+                                    </div>
                                 </mat-form-field>
                             </div>
                             <br>
@@ -94,22 +138,38 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Supervisor Name</mat-label>
-                                    <mat-select>
+                                    <mat-select formControlName="supervisorName">
                                         <mat-option>Choose one..</mat-option>
                                     </mat-select>
                                     <mat-hint>Supervisor details..</mat-hint>
+                                    <div *ngIf="LoadTrial.controls['supervisorName'].invalid && (LoadTrial.controls['supervisorName'].dirty || LoadTrial.controls['supervisorName'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['supervisorName'].errors.required">
+                                            Supervisor Name is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
+
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Supervisor Name</mat-label>
-                                    <input matInput placeholder="Eg: Bimsara Hirushan">
+                                    <mat-label>Supervisor NIC</mat-label>
+                                    <input matInput placeholder="Eg: 972363430v" formControlName="supervisorNic">
+                                    <div *ngIf="LoadTrial.controls['supervisorNic'].invalid && (LoadTrial.controls['supervisorNic'].dirty || LoadTrial.controls['supervisorNic'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['supervisorNic'].errors.required">
+                                            NiC Number is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor Email</mat-label>
-                                    <input matInput placeholder="Eg: h@gmail.com">
+                                    <input matInput placeholder="Eg: h@gmail.com" formControlName="supervisorEmail">
+                                    <div *ngIf="LoadTrial.controls['supervisorEmail'].invalid && (LoadTrial.controls['supervisorEmail'].dirty || LoadTrial.controls['supervisorEmail'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['supervisorEmail'].errors.required">
+                                            Email is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
                             </div>
 
@@ -118,22 +178,39 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Service Manager Name</mat-label>
-                                    <mat-select>
+                                    <mat-select formControlName="managerName">
                                         <mat-option>Choose one..</mat-option>
                                     </mat-select>
+                                    <div *ngIf="LoadTrial.controls['managerName'].invalid && (LoadTrial.controls['managerName'].dirty || LoadTrial.controls['managerName'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['managerName'].errors.required">
+                                            Name is Required.
+                                        </div>
+                                    </div>
                                     <mat-hint>Service Manager details..</mat-hint>
                                 </mat-form-field>
+
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Service Manager Name</mat-label>
-                                    <input matInput placeholder="Eg: Bimsara Hirushan">
+                                    <mat-label>Service Manager NIC</mat-label>
+                                    <input matInput placeholder="Eg: 972363430v" formControlName="managerNic">
+                                    <div *ngIf="LoadTrial.controls['managerNic'].invalid && (LoadTrial.controls['managerNic'].dirty || LoadTrial.controls['managerNic'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['managerNic'].errors.required">
+                                            NIC is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manager Email</mat-label>
-                                    <input matInput placeholder="Eg: h@gmail.com">
+                                    <input matInput placeholder="Eg: h@gmail.com" formControlName="managerEmail">
+                                    <div *ngIf="LoadTrial.controls['managerEmail'].invalid && (LoadTrial.controls['managerEmail'].dirty || LoadTrial.controls['managerEmail'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['managerEmail'].errors.required">
+                                            Email is Required.
+                                        </div>
+                                    </div>
+
                                 </mat-form-field>
                             </div>
 
@@ -321,8 +398,13 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Textarea</mat-label>
-                                    <textarea matInput></textarea>
+                                    <mat-label>Special Remarks</mat-label>
+                                    <textarea formControlName="loadNote" matInput></textarea>
+                                    <div *ngIf="LoadTrial.controls['loadNote'].invalid && (LoadTrial.controls['loadNote'].dirty || LoadTrial.controls['loadNote'].touched)" class="error">
+                                        <div *ngIf="LoadTrial.controls['loadNote'].errors.required">
+                                            Special Remarks is Required.
+                                        </div>
+                                    </div>
                                 </mat-form-field>
                             </div>
                             <div class="col-sm-4"> <button style="background-color: #1EAB09; color: white;" mat-raised-button #tooltip="matTooltip" matTooltip="Update Mileage Details" matTooltipPosition="right" (click)="openDialog()">Update Mileage</button></div>
