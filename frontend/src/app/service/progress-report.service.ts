@@ -26,4 +26,11 @@ export class ProgressReportService {
   public saveProgress(obj): Observable<any>{
     return this.http.post(this.myUrl + 'progressRoute/saveProgress' , obj);
   }
+  public getAllProgress(): Observable<any> {
+    return this.http.get( this.myUrl + 'progressRoute/getAllProgress');
+  }
+
+  public sendOneProgress(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `progressRoute/sendOneProgress/${id}`);
+  }
 }

@@ -1,3 +1,4 @@
+import { ViewProgressReportComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress-report/view-progress-report.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AdminDashBoardComponent} from './AdminDashBoard/admin-dash-board/admin-dash-board.component';
@@ -64,7 +65,8 @@ const routes: Routes = [
       {path: 'viewMileage', component: ViewMileageComponent},
       {path: 'EditLocomotive/:id', component: EditLocomotiveComponent},
       {path: 'viewLoco/:id', component: ViewLocoProfileComponent},
-      {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent}
+      {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
+      {path: 'viewProgress', component: ViewProgressReportComponent}
 
     ]},
   {path: 'userDashboard', canActivate: [AuthGuard], component: UserDashboardComponent,  children: [
@@ -75,7 +77,8 @@ const routes: Routes = [
       {path: 'userProfile', component: UserProfileComponent},
       {path: 'viewLoco/:id', component: ViewLocoComponent},
       {path: 'addLoadTrial', component: AddLoadTrialComponent},
-      {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent}
+      {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
+      {path: 'viewProgress', component: ViewProgressReportComponent}
     
 
 
@@ -87,7 +90,8 @@ const routes: Routes = [
       {path: 'createCustomer', component: CreateCustomerComponent},
       {path: 'response-reset-password/:token', component: ResetPasswordComponent},
       {path: 'createMileage', component: MileageReportComponent},
-      {path: 'viewMileages', component: ViewMileagesComponent}
+      {path: 'viewMileages', component: ViewMileagesComponent},
+      {path: 'viewProgress', component: ViewProgressReportComponent}
 
     ]},
   {path: 'managerDashBoard', component: ManagerDashboardComponent, children: [
@@ -98,7 +102,8 @@ const routes: Routes = [
       {path: 'viewManagerSchedules', component:  ViewManagerSchedulesComponent},
       {path: 'editSchedule', component: EditReqScheduleComponent},
       {path:  'viewMoreSchedule', component: ViewMoreSchedulesComponent},
-      {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent}
+      {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
+      {path: 'viewProgress', component: ViewProgressReportComponent}
 
 
     ]}

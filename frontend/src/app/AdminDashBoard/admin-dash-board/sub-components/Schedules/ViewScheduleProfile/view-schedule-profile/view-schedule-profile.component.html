@@ -162,7 +162,7 @@
             <div class="col-md-8">
 
 
-                <div class="row gutters-sm">
+                <div class="row gutters-sm-md">
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
@@ -394,7 +394,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-4">Other Electric Parts</div>
-                                    <div class="col-8">
+                                    <div class="col-md-8">
                                         <mat-accordion class="example-headers-align" multi>
                                             <mat-expansion-panel (opened)="panelOpenState7 = true" (closed)="panelOpenState7 = false">
                                                 <mat-expansion-panel-header>
@@ -436,7 +436,52 @@
                         <p>{{this.specialNote}}</p>
                     </div>
                 </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3>Progress Reports </h3>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel (opened)="panelOpenState8 = true" (closed)="panelOpenState7 = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Item
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Currently {{panelOpenState8 ? 'open' : 'closed'}}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <table mat-table [dataSource]="dataSource9" class="mat-elevation-z8">
 
+                                    <ng-container matColumnDef="repNo">
+                                        <th mat-header-cell *matHeaderCellDef> Report No. </th>
+                                        <td class="td" mat-cell *matCellDef="let element; let i = index">{{element.progressReportNumber}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="progressDate">
+                                        <th mat-header-cell *matHeaderCellDef> Date </th>
+                                        <td mat-cell *matCellDef="let element"> {{element.progressDate | date}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="checkArray">
+                                        <th mat-header-cell *matHeaderCellDef>Completed Items </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <div style="width: 150px;word-wrap: break-word;">
+                                                {{element.checkArray }}
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="progressValue">
+                                        <th mat-header-cell *matHeaderCellDef> Progress </th>
+                                        <td class="td" mat-cell *matCellDef="let element"> {{element.progressValue }} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="extraNote">
+                                        <th mat-header-cell *matHeaderCellDef> Notes </th>
+                                        <td class="td" mat-cell *matCellDef="let element"> {{element.extraNote}} </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns9"></tr>
+                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns9;"></tr>
+                                </table>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
             </div>
         </div>
 

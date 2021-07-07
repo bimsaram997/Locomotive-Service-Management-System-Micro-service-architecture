@@ -74,6 +74,8 @@ import { EditLocomotiveComponent } from './AdminDashBoard/admin-dash-board/sub-c
 import { AddLoadTrialComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/add-load-trial/add-load-trial.component';
 import { UpdateFinalMileageComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/update-final-mileage/update-final-mileage.component';
 import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/Schedules/ViewScheduleProfile/view-schedule-profile/view-schedule-profile.component';
+import { ViewProgressReportComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress-report/view-progress-report.component';
+import { ViewMoreProgressComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress-report/view-more-progress/view-more-progress.component';
 
 
 
@@ -149,6 +151,10 @@ import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/
 
     ViewScheduleProfileComponent,
 
+    ViewProgressReportComponent,
+
+    ViewMoreProgressComponent,
+
 
 
 
@@ -179,7 +185,7 @@ import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/
   ],
   providers: [EventEmitterService],
   bootstrap: [AppComponent],
-  entryComponents: [ModelComponent,  EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
+  entryComponents: [ModelComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
   SendProgressComponent, UpdateFinalMileageComponent]
 })
 export class AppModule { }

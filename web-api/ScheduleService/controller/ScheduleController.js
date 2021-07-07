@@ -1,9 +1,12 @@
 const ScheduleSchema = require('../model/ScheduleDTO');
+const MileageDTO = require('../model/MileageDTO');
 const accountSid = 'AC3d297c7a3fe526424aa2fc97aaa56128'; // Your Account SID from www.twilio.com/console
 const authToken = '19a795c6575eb243f23ce9598a28db56'; // Your Auth Token from www.twilio.com/console
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
-const basicAuth = require('express-basic-auth')
+const basicAuth = require('express-basic-auth');
+const ProgressDTO = require('../model/ProgressDTO');
+
 
 
 const getAllSchedules = (req, resp) => {
@@ -181,6 +184,18 @@ const patchMileage = async(req, res, next) => {
     }
 
 }
+const getProSchedule = async(req, resp, next) => {
+    const _id = req.params.id;
+    console.log(_id)
+    await ProgressDTO.find({ scheduleNo: _id }, function(err, result) {
+        if (err) {
+            resp.status(500).json(err)
+        } else {
+            resp.status(200).json(result)
+            console.log(result)
+        }
+    })
+}
 module.exports = {
     saveSchedule,
     getAllSchedules,
@@ -193,5 +208,6 @@ module.exports = {
     getMySampleData,
     sendSMS,
     sendOneSchedule,
-    patchMileage
+    patchMileage,
+    getProSchedule
 }

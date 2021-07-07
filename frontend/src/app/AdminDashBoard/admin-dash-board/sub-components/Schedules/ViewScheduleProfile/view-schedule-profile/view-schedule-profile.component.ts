@@ -1,6 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, map } from 'rxjs/operators';
+import { first, map, mergeMap } from 'rxjs/operators';
 import { ScheduleService } from 'src/app/service/schedule.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class ViewScheduleProfileComponent implements OnInit {
   panelOpenState5 = false;
   panelOpenState6 = false;
   panelOpenState7 = false;
+  panelOpenState8 = false;
 //table
 
 displayedColumns1: string[] = ['No', 'Main Motor Items'];
@@ -27,6 +29,7 @@ displayedColumns5: string[] = ['No', 'Electric CU Items'];
 displayedColumns6: string[] = ['No', 'E-Mechanic Items'];
 displayedColumns7: string[] = ['No', 'E-Switch Items'];
 displayedColumns8: string[] = ['No', 'Other Electric Items'];
+displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progressValue', 'extraNote'];
 
 //display information
   id: any;
@@ -52,6 +55,7 @@ displayedColumns8: string[] = ['No', 'Other Electric Items'];
   dataSource6: any[]=[];
   dataSource7: any[]=[];
   dataSource8: any[]=[];
+  dataSource9: any[]=[];
   specialNote: any;
   scheduleStatus: any;
   scheduleProgress: any;
@@ -62,13 +66,10 @@ displayedColumns8: string[] = ['No', 'Other Electric Items'];
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
     console.log(this.id);
-
-    this.scheduleService.sendOneSchedule(this.id).pipe(first())
-    .subscribe(
-      res=>{
-        if( res!== undefined){
-          console.log(res);
-          this.scheduleNo = res[0].scheduleNo;
+    this.scheduleService.sendOneSchedule(this.id).pipe(
+      map(res=>{
+        const _schedule = res[0];
+        this.scheduleNo = res[0].scheduleNo;
           this.mReportNumber = res[0].mReportNumber;
           this.scheduleDate = res[0].scheduleDate;
           this.completedDate = res[0].completedDate;
@@ -93,10 +94,20 @@ displayedColumns8: string[] = ['No', 'Other Electric Items'];
           this.specialNote= res[0].specialNote;
           this.scheduleStatus = res[0].scheduleStatus;
           this.scheduleProgress = res[0].scheduleProgress;
-
-        }
+        return _schedule;
+      }),
+      mergeMap(
+        sch=> this.scheduleService.getRelevantProgress(sch.scheduleNo))
+    
+    ).subscribe(
+      final=>{
+        console.log('Schedule');
+        console.log(final);
+        this.dataSource9 = final;
+        console.log(this.dataSource9)
       }
     )
+    
 
   }
   statusBinder(scheduleStatus){

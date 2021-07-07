@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <br>
+    <div class="box-head">
+        <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px">
+        <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW LOAD TRIAL</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="search-div">
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+        </mat-form-field>
+    </div>
+
+    <div class="main-table">
+        <div class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="repNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Report No </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="repNo">{{tempSchedule?. progressReportNumber}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="schNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Schedule No </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="schNo"> {{tempSchedule?. scheduleNo}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="locoCatId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Loco Category</mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="locoCatId"> {{tempSchedule.locoCatId}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Loco Number">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Loco Number </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Loco Number"> {{tempSchedule.locoNumber}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Supervisor inCharge">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Supervisor inCharge </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="Supervisor inCharge"> {{tempSchedule.supervisorName}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Progress Date </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="date"> {{tempSchedule. progressDate | date}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="progValue">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="progValue"> {{tempSchedule. progressValue}}</mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="#">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let tempSchedule" data-label="#">
+                        <button matTooltipPosition="right" (click)="openDialog(tempSchedule._id)" matTooltip="View More" mat-icon-button> <span class="material-icons">visibility</span>
+                        </button>
+
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+    <br>
+    <br>
+
+</div>

@@ -1,26 +1,27 @@
-
 <mat-nav-list class="s">
-  <img class="image" src="./assets/logo/1618837407350.png">
-  <hr>
+    <img class="image" src="./assets/logo/1618837407350.png">
+    <hr>
 
-  <a mat-list-item routerLink="/clerkDashBoard/createUser" (click) = "onSidenavClose()" >
-   <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;New User</span>
-  </a>
+    <a mat-list-item routerLink="/clerkDashBoard/createUser" (click)="onSidenavClose()">
+        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;New User</span>
+    </a>
+    <a mat-list-item routerLink="/userDashboard/addLoadTrial" (click)="onSidenavClose()" routerLink="/clerkBoard/viewProgress">
+        <span><img src="https://img.icons8.com/material/24/000000/subway.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Progress Reports</span>
+    </a>
+    <a mat-list-item routerLink="/clerkDashBoard/viewUsers" (click)="onSidenavClose()">
+        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Users</span>
+    </a>
+    <a mat-list-item routerLink="/clerkDashBoard/resetPassword" (click)="onSidenavClose()">
+        <span><img src="https://img.icons8.com/material/24/000000/password1--v1.png"/></span><span class="nav-caption">&nbsp;&nbsp;Reset Password</span>
+    </a>
 
-  <a mat-list-item routerLink="/clerkDashBoard/viewUsers" (click) = "onSidenavClose()" >
-    <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Users</span>
-  </a>
-  <a mat-list-item routerLink="/clerkDashBoard/resetPassword" (click) = "onSidenavClose()" >
-    <span><img src="https://img.icons8.com/material/24/000000/password1--v1.png"/></span><span class="nav-caption">&nbsp;&nbsp;Reset Password</span>
-  </a>
 
-
-  <mat-list-item [matMenuTriggerFor] = "menu">
-    <mat-icon>unfold_more</mat-icon>
-    <a mat-line>Mileage Details</a>
-  </mat-list-item>
-  <mat-menu #menu = "matMenu">
-    <button mat-menu-item routerLink="/clerkDashBoard/createMileage" (click)="onSidenavClose()">Add Mileage Report</button>
-    <button mat-menu-item routerLink="/clerkDashBoard/viewMileages" (click)="onSidenavClose()">View Mileage Reports</button>
-  </mat-menu>
+    <mat-list-item [matMenuTriggerFor]="menu">
+        <mat-icon>unfold_more</mat-icon>
+        <a mat-line>Mileage Details</a>
+    </mat-list-item>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/clerkDashBoard/createMileage" (click)="onSidenavClose()">Add Mileage Report</button>
+        <button mat-menu-item routerLink="/clerkDashBoard/viewMileages" (click)="onSidenavClose()">View Mileage Reports</button>
+    </mat-menu>
 </mat-nav-list>

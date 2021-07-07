@@ -27,6 +27,7 @@ export class ViewLocoProfileComponent implements OnInit {
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[]=[];
+  dataSource4: any[]=[];
   id: any;
   panelOpenState = false;
   motorArray: any[] = [];

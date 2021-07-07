@@ -23,6 +23,8 @@ const getLocoSch = async(req, resp, next) => {
         }
     })
 }
+
+
 const saveLoco = (req, resp) => {
     LocomotiveSchema.findOne({ locoNumber: req.body.locoNumber }).then(result => {
         if (result == null) {

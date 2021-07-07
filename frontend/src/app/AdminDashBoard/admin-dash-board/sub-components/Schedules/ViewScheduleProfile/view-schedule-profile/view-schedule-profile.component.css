@@ -18,6 +18,15 @@ body {
 
 table {
     width: 100%;
+    table-layout: fixed;
+}
+
+.td {
+    word-wrap: break-word;
+    /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;
+    /* Renamed property in CSS3 draft spec */
+    width: 200px;
 }
 
 .card {

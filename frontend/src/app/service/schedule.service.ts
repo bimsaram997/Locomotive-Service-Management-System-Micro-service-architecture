@@ -80,4 +80,9 @@ export class ScheduleService {
   public patchMileage(scheduleNo, progressValue):Observable<any> {
     return this.http.patch( this.myUrl + `scheduleRoute/patchMileage/${scheduleNo}/${progressValue}` , scheduleNo, progressValue);
   }
+  
+  getRelevantProgress(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `scheduleRoute/getProSchedule/${id}`);
+  }
+
 }

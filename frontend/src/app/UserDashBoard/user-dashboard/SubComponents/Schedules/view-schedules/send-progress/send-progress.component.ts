@@ -24,12 +24,12 @@ export class SendProgressComponent implements OnInit {
 
   ReportGroup: FormGroup;
   Data: Array<any> = [
-    { name: 'Main Motors', value: 'mainMotorName' },
-    { name: 'Track Motor', value: 'trackMotorName' },
-    { name: 'Loco Body', value: 'locoBodyName' },
-    { name: 'Electric Control Unit', value: 'electricCUnitName' },
-    { name: 'Electric Mechanical', value: 'eMechanicalName' },
-    { name: 'Electric Switches', value: ' eSwitchName' }
+    { name: 'Main Motors', value: 'Main Motor ' },
+    { name: 'Track Motor', value: 'Track Motor' },
+    { name: 'Loco Body', value: 'loco Body' },
+    { name: 'Electric Control Unit', value: 'Electric CUnit' },
+    { name: 'Electric Mechanical', value: 'e-Mechanical' },
+    { name: 'Electric Switches', value: ' eSwitch' }
   ];
   checkLength:any[] = [];
   checkArrayNew: any[] = [];

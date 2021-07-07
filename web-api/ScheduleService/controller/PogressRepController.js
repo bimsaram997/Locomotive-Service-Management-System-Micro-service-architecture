@@ -41,8 +41,27 @@ const sendProReport = async(req, res) => {
 
 
 }
+const getAllProgress = (req, resp) => {
+    ProgressDTO.find().then(result => {
+        resp.status(200).json(result);
+    }).catch(error => {
+        resp.status(500).json(error);
+    })
+}
+
+const sendOneProgress = (req, res) => {
+    console.log(req.params.id);
+    ProgressDTO.find({
+        _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
 
 
+}
 
 
 const sendProEmail = (managerEmail, scheduleNo, supervisorEmail, progressReportNumber, extraNote, progressValue, supervisorName) => {
@@ -473,5 +492,7 @@ const sendProEmail = (managerEmail, scheduleNo, supervisorEmail, progressReportN
 module.exports = {
     sendProReport,
     sendProEmail,
-    saveProgress
+    saveProgress,
+    getAllProgress,
+    sendOneProgress
 }

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>View More</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="ReportGroup">
+        <div class="container">
+            <div class="row">
+                <div class="col pr-0">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Supervisor Email</mat-label>
+                        <input readonly required maxlength="30" minlength="1" matInput placeholder="supervisor Email" #searchInput formControlName="supervisorEmail">
+                    </mat-form-field>
+                </div>
+                <div class="col pr-0">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Supervisor Name</mat-label>
+                        <input readonly required maxlength="20" minlength="1" matInput placeholder="Supervisor Name" #searchInput formControlName="supervisorName">
+                    </mat-form-field>
+                </div>
+                <div class="col pr-0">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Manager Email</mat-label>
+                        <input readonly required maxlength="30" minlength="1" matInput placeholder="Manager Name" #searchInput formControlName="managerEmail">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Progress Value</mat-label>
+                        <input readonly required maxlength="30" minlength="1" matInput placeholder="Progress Value" #searchInput formControlName="progressValue">
+
+                    </mat-form-field>
+                </div>
+                <div class="col" style="margin-right: 120px;">
+                    <mat-form-field appearance="fill" style="width: 320px;">
+                        <mat-label>Special Remarks</mat-label>
+                        <input readonly required maxlength="30" minlength="1" matInput placeholder="Notice" #searchInput formControlName="extraNote">
+
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <h4>Sub schedules completed</h4>
+
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let link of dataSource1; let i = index">{{i+1}}&nbsp;&nbsp; {{ link }} </a>
+
+        </mat-nav-list>
+
+
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
