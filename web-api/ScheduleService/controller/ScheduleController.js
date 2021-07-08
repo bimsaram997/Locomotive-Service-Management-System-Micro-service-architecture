@@ -154,6 +154,19 @@ const sendOneSchedule = (req, res) => {
 
 
 }
+const getOneSchedule = (req, res) => {
+    console.log(req.params.scheduleNo);
+    ScheduleSchema.find({
+        scheduleNo: req.params.scheduleNo
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+
+}
 
 const patchMileage = async(req, res, next) => {
     console.log(req.params.scheduleNo, req.params.progressValue)
@@ -209,5 +222,6 @@ module.exports = {
     sendSMS,
     sendOneSchedule,
     patchMileage,
-    getProSchedule
+    getProSchedule,
+    getOneSchedule
 }

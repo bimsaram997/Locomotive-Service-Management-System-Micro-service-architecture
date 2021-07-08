@@ -39,8 +39,8 @@ export class ScheduleService {
     return this.http.delete( this.myUrl + 'scheduleRoute/deleteSchedule', {headers: {id}});
 
   }
-  public getOneSchedule(id: string): Observable<any>{
-    return this.http.get(this.myUrl + 'scheduleRoute/sendOneSchedule', {headers: {id}});
+  public getOneSchedule(scheduleNo: string): Observable<any>{
+    return this.http.get<any>(this.myUrl + `scheduleRoute/getOneSchedule/${scheduleNo}`);
 
   }
   public updateSchedule(dto: LocoScheduleDTO): Observable<any> {

@@ -13,5 +13,6 @@ router.get('/getSchedule/:customerNic', ScheduleController.getSchedule);
 router.get('/sendSMS', ScheduleController.sendSMS);
 router.get('/sendOneSchedule/:id', ScheduleController.sendOneSchedule);
 router.patch('/patchMileage/:scheduleNo/:progressValue', ScheduleController.patchMileage);
-router.get('/getProSchedule/:id', ScheduleController.getProSchedule)
+router.get('/getProSchedule/:id', ScheduleController.getProSchedule);
+router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
 module.exports = router

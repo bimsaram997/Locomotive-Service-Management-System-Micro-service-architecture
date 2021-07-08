@@ -87,8 +87,9 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Schedule No.</mat-label>
-                                    <mat-select formControlName="scheduleNo">
+                                    <mat-select formControlName="scheduleNo" (selectionChange)="onChangeSelectSch($event)">
                                         <mat-option>Choose one..</mat-option>
+                                        <mat-option *ngFor="let tempSchNo of scheduleArray" value="{{tempSchNo.scheduleNo}}">{{tempSchNo.scheduleNo}}</mat-option>
                                     </mat-select>
                                     <div *ngIf="LoadTrial.controls['scheduleNo'].invalid && (LoadTrial.controls['scheduleNo'].dirty || LoadTrial.controls['scheduleNo'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['scheduleNo'].errors.required">
@@ -101,21 +102,14 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Locomotive Category</mat-label>
-                                    <mat-select formControlName="locoCatId">
-                                        <mat-option>Choose one..</mat-option>
-                                    </mat-select>
-                                    <div *ngIf="LoadTrial.controls['locoCatId'].invalid && (LoadTrial.controls['locoCatId'].dirty || LoadTrial.controls['locoCatId'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['locoCatId'].errors.required">
-                                            Locomotive Category is Required.
-                                        </div>
-                                    </div>
+                                    <input readonly matInput placeholder="Eg: M9" formControlName="locoCatId">
                                 </mat-form-field>
 
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Locomotive Number</mat-label>
-                                    <input matInput placeholder="Eg: 872" formControlName="locoNumber">
+                                    <input readonly matInput placeholder="Eg: 872" formControlName="locoNumber">
                                     <div *ngIf="LoadTrial.controls['locoNumber'].invalid && (LoadTrial.controls['locoNumber'].dirty || LoadTrial.controls['locoNumber'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['locoNumber'].errors.required">
                                             Locomotive Number is Required.
@@ -138,8 +132,11 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Supervisor Name</mat-label>
-                                    <mat-select formControlName="supervisorName">
+                                    <mat-select formControlName="supervisorName" (selectionChange)="onChangeSelect($event)">
                                         <mat-option>Choose one..</mat-option>
+                                        <mat-option *ngFor="let temIds of supervisorList" value="{{temIds.userName}}">
+                                            {{temIds.userName}}
+                                        </mat-option>
                                     </mat-select>
                                     <mat-hint>Supervisor details..</mat-hint>
                                     <div *ngIf="LoadTrial.controls['supervisorName'].invalid && (LoadTrial.controls['supervisorName'].dirty || LoadTrial.controls['supervisorName'].touched)" class="error">
@@ -153,7 +150,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor NIC</mat-label>
-                                    <input matInput placeholder="Eg: 972363430v" formControlName="supervisorNic">
+                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="supervisorNic">
                                     <div *ngIf="LoadTrial.controls['supervisorNic'].invalid && (LoadTrial.controls['supervisorNic'].dirty || LoadTrial.controls['supervisorNic'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['supervisorNic'].errors.required">
                                             NiC Number is Required.
@@ -164,7 +161,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor Email</mat-label>
-                                    <input matInput placeholder="Eg: h@gmail.com" formControlName="supervisorEmail">
+                                    <input readonly matInput placeholder="Eg: h@gmail.com" formControlName="supervisorEmail">
                                     <div *ngIf="LoadTrial.controls['supervisorEmail'].invalid && (LoadTrial.controls['supervisorEmail'].dirty || LoadTrial.controls['supervisorEmail'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['supervisorEmail'].errors.required">
                                             Email is Required.
@@ -178,8 +175,11 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Service Manager Name</mat-label>
-                                    <mat-select formControlName="managerName">
+                                    <mat-select formControlName="managerName" (selectionChange)="onChangeSelectMan($event)">
                                         <mat-option>Choose one..</mat-option>
+                                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userName}}">
+                                            {{temIds.userName}}
+                                        </mat-option>
                                     </mat-select>
                                     <div *ngIf="LoadTrial.controls['managerName'].invalid && (LoadTrial.controls['managerName'].dirty || LoadTrial.controls['managerName'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['managerName'].errors.required">
@@ -193,7 +193,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manager NIC</mat-label>
-                                    <input matInput placeholder="Eg: 972363430v" formControlName="managerNic">
+                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="managerNic">
                                     <div *ngIf="LoadTrial.controls['managerNic'].invalid && (LoadTrial.controls['managerNic'].dirty || LoadTrial.controls['managerNic'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['managerNic'].errors.required">
                                             NIC is Required.
@@ -204,7 +204,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manager Email</mat-label>
-                                    <input matInput placeholder="Eg: h@gmail.com" formControlName="managerEmail">
+                                    <input readonly matInput placeholder="Eg: h@gmail.com" formControlName="managerEmail">
                                     <div *ngIf="LoadTrial.controls['managerEmail'].invalid && (LoadTrial.controls['managerEmail'].dirty || LoadTrial.controls['managerEmail'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['managerEmail'].errors.required">
                                             Email is Required.
@@ -416,5 +416,5 @@
             </mat-tab-group>
         </form>
     </div>
-
+    <button style="display: none;" id="='btn-pop-up" type="button">Show Tab 2</button>
 </div>

@@ -9,6 +9,7 @@ const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
 const ScheduleRoute = require('./route/ScheduleRoute');
 const ProgressRoute = require('./route/ProgressRepRoute');
+const LoadTrialRoute = require('./route/LoadTrialRoute');
 
 const app = express();
 app.use(bodyParser());
@@ -29,3 +30,4 @@ mongoose.connect('mongodb://localhost:27017/RailwayProject', {
 
 app.use('/api/v1/scheduleRoute', ScheduleRoute);
 app.use('/api/v1/progressRoute', ProgressRoute);
+app.use('/api/v1/loadTrialRoute', LoadTrialRoute);
