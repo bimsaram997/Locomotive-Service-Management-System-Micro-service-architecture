@@ -16,7 +16,7 @@ export class UserDashContentComponent implements OnInit {
   dateList1: LocoScheduleDTO[] = [];
   loading =  false;
   cont: Array<any>[] = [];
-
+  currentDate = new Date();
 
   constructor(private schedulesService: ScheduleService) {
     this.loadDate();

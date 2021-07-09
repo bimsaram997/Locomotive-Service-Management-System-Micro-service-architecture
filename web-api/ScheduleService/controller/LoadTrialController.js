@@ -1,6 +1,7 @@
 const ScheduleSchema = require('../model/ScheduleDTO');
 const MileageDTO = require('../model/MileageDTO');
 const LoadTrialDTO = require('../model/LoadTrialDTO');
+const LocoDTO = require('../model/LocomotiveDTO');
 
 const saveLoadTrial = async(req, res, next) => {
 
@@ -24,6 +25,8 @@ const saveLoadTrial = async(req, res, next) => {
     console.log('awa')
     console.log(req.body)
 }
+
+
 module.exports = {
     saveLoadTrial
 }

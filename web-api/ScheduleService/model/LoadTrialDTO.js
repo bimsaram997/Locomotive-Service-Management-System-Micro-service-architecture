@@ -107,6 +107,14 @@ const LoadTrialSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    status: {
+        type: Number,
+        required: false
+    },
+    comments: {
+        type: String,
+        required: false
+    }
 
 })
 module.exports = mongoose.model('LoadTrial', LoadTrialSchema);

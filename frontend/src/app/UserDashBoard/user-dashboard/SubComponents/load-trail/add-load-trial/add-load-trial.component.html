@@ -44,7 +44,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>From Place</mat-label>
-                                    <input formControlName="loadFrom" maxlength="15" minlength="10" required matInput placeholder="Eg: Colombo">
+                                    <input formControlName="loadFrom" maxlength="15" minlength="3" required matInput placeholder="Eg: Colombo">
                                     <div *ngIf="LoadTrial.controls['loadFrom'].invalid && (LoadTrial.controls['loadFrom'].dirty || LoadTrial.controls['loadFrom'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['loadFrom'].errors.required">
                                             Started place is Required.
@@ -61,7 +61,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>To Place</mat-label>
-                                    <input formControlName="loadTo" required maxlength="15" minlength="10" matInput placeholder="Eg: Galle">
+                                    <input formControlName="loadTo" required maxlength="15" minlength="3" matInput placeholder="Eg: Galle">
                                     <div *ngIf="LoadTrial.controls['loadTo'].invalid && (LoadTrial.controls['loadTo'].dirty || LoadTrial.controls['loadTo'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['loadTo'].errors.required">
                                             Destination is Required.
@@ -124,6 +124,7 @@
                             <br>
                             <br>
                             <br>
+                            <br>
                             <div class="w-100">
                                 <h3 class="sub-headers">Persons</h3>
                                 <hr class="line">
@@ -132,20 +133,13 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Supervisor Name</mat-label>
-                                    <mat-select formControlName="supervisorName" (selectionChange)="onChangeSelect($event)">
-                                        <mat-option>Choose one..</mat-option>
-                                        <mat-option *ngFor="let temIds of supervisorList" value="{{temIds.userName}}">
-                                            {{temIds.userName}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-hint>Supervisor details..</mat-hint>
+                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="supervisorName">
                                     <div *ngIf="LoadTrial.controls['supervisorName'].invalid && (LoadTrial.controls['supervisorName'].dirty || LoadTrial.controls['supervisorName'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['supervisorName'].errors.required">
                                             Supervisor Name is Required.
                                         </div>
                                     </div>
                                 </mat-form-field>
-
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
@@ -175,18 +169,12 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Service Manager Name</mat-label>
-                                    <mat-select formControlName="managerName" (selectionChange)="onChangeSelectMan($event)">
-                                        <mat-option>Choose one..</mat-option>
-                                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userName}}">
-                                            {{temIds.userName}}
-                                        </mat-option>
-                                    </mat-select>
+                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="managerName">
                                     <div *ngIf="LoadTrial.controls['managerName'].invalid && (LoadTrial.controls['managerName'].dirty || LoadTrial.controls['managerName'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['managerName'].errors.required">
                                             Name is Required.
                                         </div>
                                     </div>
-                                    <mat-hint>Service Manager details..</mat-hint>
                                 </mat-form-field>
 
                             </div>
@@ -394,6 +382,50 @@
                         <button mat-raised-button type="button" style="margin-left: 8px;" (click)="removeItem('', 'main')">Remove All</button>
                         <br>
                         <br>
+                        <hr class="line">
+                        <div class="container dyanmic">
+                            <div class="row justify-content-start">
+                                <div class="col-4">
+                                    <button type="button" style="background-color: #1EAB09; color: white;" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" #tooltip="matTooltip" matTooltip="Update Mileage Details" matTooltipPosition="right" (click)="openDialog()">
+                                        <img src="https://img.icons8.com/material-outlined/24/000000/add.png" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container dyanmic" *ngIf="display">
+                            <div class="row justify-content-start">
+                                <div class="col-4 pr-0">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Initial mileage(Km)</mat-label>
+                                        <input readonly matInput placeholder="1200Km" formControlName="startMileage">
+                                        <div *ngIf="LoadTrial.controls['startMileage'].invalid && (LoadTrial.controls['startMileage'].dirty || LoadTrial.controls['startMileage'].touched)" class="error">
+                                            <div *ngIf="LoadTrial.controls['startMileage'].errors.required">
+                                                Initial mileage is Required.
+                                            </div>
+                                            <div *ngIf="LoadTrial.controls['startMileage'].errors.required">
+                                                Numbers only
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-4">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>End mileage(Km)</mat-label>
+                                        <input matInput placeholder="12000Km" formControlName="endMileage">
+                                        <div *ngIf="LoadTrial.controls['endMileage'].invalid && (LoadTrial.controls['endMileage'].dirty || LoadTrial.controls['endMileage'].touched)" class="error">
+                                            <div *ngIf="LoadTrial.controls['endMileage'].errors.required">
+                                                Initial mileage is Required.
+                                            </div>
+                                            <div *ngIf="LoadTrial.controls['endMileage'].errors.required">
+                                                Numbers only
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
                         <h3 class="sub-headers">Special Remarks on Load Test Run</h3>
                         <div class="row">
                             <div class="col-sm-8">
@@ -407,7 +439,7 @@
                                     </div>
                                 </mat-form-field>
                             </div>
-                            <div class="col-sm-4"> <button style="background-color: #1EAB09; color: white;" mat-raised-button #tooltip="matTooltip" matTooltip="Update Mileage Details" matTooltipPosition="right" (click)="openDialog()">Update Mileage</button></div>
+
                         </div>
                         <br>
                         <button mat-raised-button color="primary" type="submit">Submit</button>
@@ -416,5 +448,5 @@
             </mat-tab-group>
         </form>
     </div>
-    <button style="display: none;" id="='btn-pop-up" type="button">Show Tab 2</button>
+
 </div>

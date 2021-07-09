@@ -87,10 +87,6 @@ const LocomotiveSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    endMileDate: {
-        type: String,
-        required: false
-    },
 
 
 });

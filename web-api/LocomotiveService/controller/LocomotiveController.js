@@ -133,7 +133,7 @@ const updateLocomotive = async(req, resp) => {
 
 
 
-const getInCount = (req, resp) => {
+/*const getInCount = (req, resp) => {
     LocomotiveSchema.count({ locoAvailability: 'In' }).then(result => {
         resp.status(200).json(result)
     }).catch(error => {
@@ -146,7 +146,7 @@ const getOutCount = (req, resp) => {
     }).catch(error => {
         resp.status(500).json(error);
     })
-}
+}*/
 
 const saveMileage = async(req, res, next) => {
 
@@ -237,6 +237,18 @@ const getOneLoco = (req, res) => {
     console.log(req.params.id);
     LocomotiveSchema.find({
         _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+
+}
+const getOneLocoNew = (req, res) => {
+    console.log(req.params.mLocoNumber);
+    LocomotiveSchema.find({
+        locoNumber: req.params.mLocoNumber
     }).then(result => {
         res.status(200).json(result);
     }).catch(er => {
@@ -674,14 +686,31 @@ const sendPassEmail = (supervisorEmail, locoNumber, locoCatId, locoAvailability,
         // })
         // console.log("Data", req.body)
 }
+const patchFinalMile = async(req, res, next) => {
+    const _obj = req.query;
+    console.log(_obj);
+    console.log(_obj.locoNumber)
+    if (_obj.locoNumber) {
+        await LocoDTO.updateOne({ locoNumber: obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+
+        })
+
+    }
+}
 module.exports = {
     saveLoco,
     getAllLocomotives,
     getAllLocosSelect,
     deleteLoco,
     updateLocomotive,
-    getInCount,
-    getOutCount,
+
     saveReactiveLoco,
     saveMileage,
     getAllMileage,
@@ -692,5 +721,7 @@ module.exports = {
     getOneMileage,
     sendLocoStatus,
     sendPassEmail,
-    getLocoSch
+    getLocoSch,
+    patchFinalMile,
+    getOneLocoNew
 }

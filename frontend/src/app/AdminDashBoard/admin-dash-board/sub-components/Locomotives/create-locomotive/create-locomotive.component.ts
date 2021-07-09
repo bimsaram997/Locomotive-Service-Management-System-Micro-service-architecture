@@ -84,8 +84,8 @@ export class CreateLocomotiveComponent implements OnInit {
       locoFluids: new FormArray([]),
       locoNote: ['', [Validators.required, Validators.maxLength(1000),  Validators.pattern('^[0-9]*$')]],
       image: [''],
-      mileageUpdateDate: [''],
-      mileageUpdate: [],
+      endMileage: [''],
+      endMileDate: [''],
       mtrType: ['', Validators.required],
       brkType: ['', Validators.required],
       fldType: ['', Validators.required]
@@ -163,7 +163,8 @@ export class CreateLocomotiveComponent implements OnInit {
     locoFluids : this.LocoGroup.controls.locoFluids.value,
     image : this.LocoGroup.controls.image.value,
     locoNote : this.LocoGroup.controls.locoNote.value,
-
+    endMileage: this.LocoGroup.controls.endMileage.value,
+    endMileDate: this.LocoGroup.controls.endMileDate.value,
 
 
   }

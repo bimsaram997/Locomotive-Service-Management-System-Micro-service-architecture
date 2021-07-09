@@ -96,4 +96,7 @@ export class LocomotiveService {
       supervisorEmail
     });
   }
+  public patchFinalMile(object):Observable<any> {
+    return this.http.patch( this.myUrl + `locoRoute/patchFinalMile/` , {params: object});
+  }
 }

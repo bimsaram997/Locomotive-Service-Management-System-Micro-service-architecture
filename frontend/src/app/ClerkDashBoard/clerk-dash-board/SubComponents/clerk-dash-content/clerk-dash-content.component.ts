@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./clerk-dash-content.component.css']
 })
 export class ClerkDashContentComponent implements OnInit {
-
+  currentDate = new Date();
   constructor() { }
 
   ngOnInit(): void {

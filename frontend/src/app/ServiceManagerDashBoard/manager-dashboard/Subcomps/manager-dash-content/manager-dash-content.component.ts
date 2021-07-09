@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manager-dash-content.component.css']
 })
 export class ManagerDashContentComponent implements OnInit {
+  currentDate = new Date();
 
-  constructor() { }
+  constructor() { 
+ 
+  }
 
   ngOnInit(): void {
   }
-
+ 
 }

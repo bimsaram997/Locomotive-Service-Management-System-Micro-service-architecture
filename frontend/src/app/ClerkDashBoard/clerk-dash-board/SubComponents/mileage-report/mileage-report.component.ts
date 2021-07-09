@@ -31,7 +31,7 @@ export class MileageReportComponent implements OnInit {
       mileageDate: ['', [Validators.required]],
       locoStatus: ['', Validators.required],
       managerNic: ['', [Validators.required]],
-      managerEmail: ['', [Validators.required]],
+      managerName: ['', [Validators.required]],
       mileageNote: ['', [Validators.required, Validators.maxLength(1000)]],
       status: [1],
       reason: ['']
@@ -112,16 +112,16 @@ export class MileageReportComponent implements OnInit {
   onChangeSelectMan(value: string){
     const userNic = value ;
     console.log(this.getFM.managerNic.value);
-    this.accessService.getOneMan(this.getFM.managerNic.value).pipe(first())
+    this.accessService.getOneMan(this.getFM.managerName.value).pipe(first())
       .subscribe(
         res=>{
-          this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
-
-
+          this.MileageGroup.controls['managerNic'].setValue(res[0].userNic);
+  
           console.log(res);
         }
       )
   }
+
   loadLocoNum(){
     this.loading = true;
     this.locomotiveService.getAllLocomotives().subscribe(result => {

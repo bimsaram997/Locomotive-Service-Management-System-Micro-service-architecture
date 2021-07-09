@@ -95,9 +95,23 @@
 
                 <br>
                 <br>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Service Manger Name</mat-label>
+                    <mat-select formControlName="managerName" required (selectionChange)="onChangeSelectMan($event)">
+                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userName}}">
+                            {{temIds.userName}}
+                        </mat-option>
+                    </mat-select>
+                    <div *ngIf="MileageGroup.controls['managerName'].invalid && (MileageGroup.controls['managerName'].dirty || MileageGroup.controls['managerName'].touched)" class="error">
+                        <div *ngIf="MileageGroup.controls['managerName'].errors.required">
+                            Manager Email is Required.
+                        </div>
+                    </div>
+                </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Service Manger NIC</mat-label>
-                    <mat-select formControlName="managerNic" required (selectionChange)="onChangeSelectMan($event)">
+                    <mat-select formControlName="managerNic" required>
                         <mat-option *ngFor="let temIds of managerList" value="{{temIds.userNic}}">
                             {{temIds.userNic}}
                         </mat-option>
@@ -105,19 +119,6 @@
                     <div *ngIf="MileageGroup.controls['managerNic'].invalid && (MileageGroup.controls['managerNic'].dirty || MileageGroup.controls['managerNic'].touched)" class="error">
                         <div *ngIf="MileageGroup.controls['managerNic'].errors.required">
                             Manager Nic is Required.
-                        </div>
-                    </div>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Service Manger Email</mat-label>
-                    <mat-select formControlName="managerEmail" required (selectionChange)="onChangeSelectMan($event)">
-                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userEmail}}">
-                            {{temIds.userEmail}}
-                        </mat-option>
-                    </mat-select>
-                    <div *ngIf="MileageGroup.controls['managerEmail'].invalid && (MileageGroup.controls['managerEmail'].dirty || MileageGroup.controls['managerEmail'].touched)" class="error">
-                        <div *ngIf="MileageGroup.controls['managerEmail'].errors.required">
-                            Manager Email is Required.
                         </div>
                     </div>
                 </mat-form-field>

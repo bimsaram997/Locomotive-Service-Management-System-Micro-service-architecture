@@ -1,24 +1,41 @@
 <div class="container-fluid">
-    <br>
-    <div class="box-head">
-        <img src="./assets/images/m104.png" alt="" style="height: 70px; width: 70px;">
-        <span class="heading-txt">DashBoard</span>
-    </div>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
+    <div class="back-card row no-gutters">
+        <div class="container">
+            <span class="welcome col-md">welcome back, bimsara</span>
+            <br>
+            <span class="muzile">{{currentDate | date:'dd MMM yyyy hh:mm a'}}</span>
+        </div>
+        <div class="row new">
 
+            <div class="col">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title>Shiba Inu</mat-card-title>
+                        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                        <p>
+                            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button>LIKE</button>
+                        <button mat-button>SHARE</button>
+                    </mat-card-actions>
+                </mat-card>
             </div>
-            <div class="col-sm">
-                One of three columns
+            <div class="col">
+                <mat-card>Simple card</mat-card>
             </div>
-            <div class="col-sm">
-                One of three columns
+            <div class="col">
+                <mat-card>Simple card</mat-card>
+            </div>
+            <div class="col">
+                <mat-card>Simple card</mat-card>
             </div>
         </div>
     </div>
-
-
 
 </div>

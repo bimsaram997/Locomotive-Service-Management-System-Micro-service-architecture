@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-dash-content.component.css']
 })
 export class AdminDashContentComponent implements OnInit {
-
+  currentDate = new Date();
   constructor() { }
 
   ngOnInit(): void {

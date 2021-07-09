@@ -1,3 +1,4 @@
+import { LocomotiveService } from './../../../../../service/locomotive.service';
 import { LoadTrialService } from './../../../../../service/load-trial.service';
 import { AccessService } from './../../../../../service/access.service';
 import { ScheduleService } from './../../../../../service/schedule.service';
@@ -32,9 +33,14 @@ export class AddLoadTrialComponent implements OnInit {
   supervisorList: any[] = [];
   managerList: any[] = [];
   dataArray: string[] = [];
+  lNumber: string;
+  lCatId: string;
+  lDate: string;
+  display = false;
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, 
     private scheduleService: ScheduleService, private accessService: AccessService,
-    private loadTrialService: LoadTrialService) { 
+    private loadTrialService: LoadTrialService,
+    private locomotiveService: LocomotiveService) { 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 0, 7, -32);
     this.maxDate = new Date(currentYear + 0, 6, 31);
@@ -60,17 +66,15 @@ export class AddLoadTrialComponent implements OnInit {
       dynamicBrake: this.formBuilder.array([this.createDynItem()]),
       loadNote: ['', [Validators.required]],
       startMileage: [''],
-      endMileage: ['']
+      endMileage: [''],
+      status: [1],
+      comments:['']
     })
     this.getAllSchedules();
     this.loadSupervisor();
     this.loadMangers();
   }
-  selectTab(index: number): void {
-    const btn  = document.getElementById('btn-pop-up') as HTMLElement;
-    btn.click(); 
-    console.log(index);
-  }
+
   get getFm(){
     return this.LoadTrial.controls;
   }
@@ -84,6 +88,7 @@ export class AddLoadTrialComponent implements OnInit {
       res => {
         console.log(res);
         if (res.isSaved) {
+          this.patchFinalMile(this.LoadTrial.value)
           swal({
             title: 'Record Saved!',
             text: 'Please Click OK',
@@ -93,7 +98,7 @@ export class AddLoadTrialComponent implements OnInit {
           setTimeout(() => {
             //this.refresh();
             this.LoadTrial.reset();
-            this.selectTab(0);
+           
           }, 3000);
 
         } else {
@@ -104,11 +109,11 @@ export class AddLoadTrialComponent implements OnInit {
           });
           setTimeout(() => {
            // this.refresh();
-           this.selectTab(0);
+          
            
           }, 3000);
         }
-        this.selectTab(0);
+      
       },
 
       error => {
@@ -194,16 +199,7 @@ console.log(data)
     //this.items.removeAt(this.items.length - 1);
  }
  openDialog(): void {
-  const dialogRef = this.dialog.open(UpdateFinalMileageComponent, {
-    width: '500px',
-   
-    
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    
-  });
+  this.display = !this.display;
 }
 getAllSchedules(){
   this.loading = true;
@@ -227,6 +223,7 @@ private loadMangers() {
   });
 }
 onChangeSelect(value: string){
+
   const userNic = value ;
   console.log(this.getFm.supervisorNic.value);
   this.accessService.getOneSup(this.getFm.supervisorName.value).pipe(first())
@@ -259,14 +256,33 @@ onChangeSelectSch(value: string){
     res=>{
       this.LoadTrial.controls['locoCatId'].setValue(res[0].locoCatId);
       this.LoadTrial.controls['locoNumber'].setValue(res[0].locoNumber);
+      this.LoadTrial.controls['startMileage'].setValue(res[0].locoMileage);
+      this.LoadTrial.controls['supervisorName'].setValue(res[0].supervisorName);
+      this.LoadTrial.controls['supervisorEmail'].setValue(res[0].supervisorEmail);
+        this.LoadTrial.controls['supervisorNic'].setValue(res[0].supervisorNic);
+        this.LoadTrial.controls['managerName'].setValue(res[0].managerName);
+        this.LoadTrial.controls['managerEmail'].setValue(res[0].managerEmail);
+        this.LoadTrial.controls['managerNic'].setValue(res[0].managerNic);
+      
       console.log(res);
+      this.lNumber = res[0].locoNumber;
+      this.lCatId = res[0].locoCatId;
       this.getMileVal(res[0].locoCatId, res[0].locoNumber);
 
     }
   )
 }
-getMileVal(val1: string, val2: string){
-  this.dataArray.push(val1, val2);
-  console.log(this.dataArray); 
+  getMileVal(val1: string, val2: string){
+    this.dataArray.push(val1, val2);
+    //console.log(this.dataArray); 
+  }
+
+  patchFinalMile(object){
+    this.locomotiveService.patchFinalMile(object).pipe(first())
+    .subscribe((
+      res=>{
+        console.log(res);
+      }
+    ))
 }
 }
