@@ -30,11 +30,11 @@ export class ViewSchedulesComponent implements OnInit {
   constructor(private scheduleService: ScheduleService ,private router: Router,  private toastr: ToastrService,public dialog: MatDialog) {
 
     //this.loadCount();
-    this.loadAllSchedule();
+    
   }
 
   ngOnInit(): void {
-
+    this.loadAllSchedule();
   }
   private loadAllSchedule(){
     this.scheduleService.getAllSchedules().subscribe(resp =>{
@@ -56,6 +56,8 @@ export class ViewSchedulesComponent implements OnInit {
       return 'dangerous'
     }
   }
+
+  
 
 /*
   loadCount(){

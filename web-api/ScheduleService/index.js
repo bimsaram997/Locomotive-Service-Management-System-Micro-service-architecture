@@ -10,10 +10,11 @@ const client = new twilio(accountSid, authToken);
 const ScheduleRoute = require('./route/ScheduleRoute');
 const ProgressRoute = require('./route/ProgressRepRoute');
 const LoadTrialRoute = require('./route/LoadTrialRoute');
-
 const app = express();
-app.use(bodyParser());
+
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '100mb' }));
 
 mongoose.connect('mongodb://localhost:27017/RailwayProject', {
     useNewUrlParser: true,

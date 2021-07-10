@@ -85,7 +85,7 @@ const saveReactiveLoco = async(req, res, next) => {
 }
 
 
-const getAllLocomotives = async(req, resp) => {
+const getAllLocomotives = async(req, resp, next) => {
     console.log(resp)
     LocomotiveSchema.find().then(result => {
         resp.status(200).json(result);
@@ -242,7 +242,6 @@ const getOneLoco = (req, res) => {
     }).catch(er => {
         res.status(500).json(er);
     });
-
 
 }
 const getOneLocoNew = (req, res) => {
@@ -686,6 +685,7 @@ const sendPassEmail = (supervisorEmail, locoNumber, locoCatId, locoAvailability,
         // })
         // console.log("Data", req.body)
 }
+
 const patchFinalMile = async(req, res, next) => {
     const _obj = req.query;
     console.log(_obj);
@@ -710,7 +710,6 @@ module.exports = {
     getAllLocosSelect,
     deleteLoco,
     updateLocomotive,
-
     saveReactiveLoco,
     saveMileage,
     getAllMileage,

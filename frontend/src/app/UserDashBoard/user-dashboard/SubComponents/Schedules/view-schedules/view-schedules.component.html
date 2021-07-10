@@ -1,18 +1,16 @@
 <div class="container-fluid">
     <br>
     <div class="box-head">
-        <img src="./assets/images/s14.png" alt="" style="height: 70px; width: 70px;">
-        <div>
-            <span class="heading-txt">VIEW SCHEDULES</span>
-        </div>
+        <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px">
+        <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW SCHEDULES</span>
     </div>
-    <hr>
+    <mat-divider></mat-divider>
     <div class="search-div">
         <mat-form-field class="search-form-field">
             <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
             <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-          <mat-icon>close</mat-icon>
-        </button>
+      <mat-icon>close</mat-icon>
+    </button>
         </mat-form-field>
     </div>
 

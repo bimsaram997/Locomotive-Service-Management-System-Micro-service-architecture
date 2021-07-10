@@ -68,6 +68,7 @@ export class AddLoadTrialComponent implements OnInit {
       startMileage: [''],
       endMileage: [''],
       status: [1],
+      reason:['Draft'],
       comments:['']
     })
     this.getAllSchedules();

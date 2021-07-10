@@ -19,14 +19,29 @@ const saveLoadTrial = async(req, res, next) => {
     }).catch(er => {
         res.status(500).json(er);
     });
+}
+const getAllLoadTrial = async(req, resp, next) => {
+    console.log(resp)
+    LoadTrialDTO.find().then(result => {
+        resp.status(200).json(result);
+    }).catch(error => {
+        resp.status(500).json(result)
+    })
+};
+const getOneLoad = (req, res) => {
+    console.log(req.params.id);
+    LoadTrialDTO.find({
+        _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+    }).catch(er => {
+        res.status(500).json(er);
+    });
 
-
-
-    console.log('awa')
-    console.log(req.body)
 }
 
-
 module.exports = {
-    saveLoadTrial
+    saveLoadTrial,
+    getAllLoadTrial,
+    getOneLoad
 }

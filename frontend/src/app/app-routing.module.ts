@@ -1,3 +1,7 @@
+import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load-pro/view-man-load-pro.component';
+import { ViewManLoadComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load/view-man-load.component';
+import { ViewLoadProfComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-load-prof.component';
+import { ViewLoadTrialsComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-trials.component';
 import { ViewProgressReportComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress-report/view-progress-report.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -78,7 +82,9 @@ const routes: Routes = [
       {path: 'viewLoco/:id', component: ViewLocoComponent},
       {path: 'addLoadTrial', component: AddLoadTrialComponent},
       {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
-      {path: 'viewProgress', component: ViewProgressReportComponent}
+      {path: 'viewProgress', component: ViewProgressReportComponent},
+      {path: 'viewLoad', component: ViewLoadTrialsComponent },
+      {path: 'viewLoadProf/:id', component: ViewLoadProfComponent}
     
 
 
@@ -103,7 +109,10 @@ const routes: Routes = [
       {path: 'editSchedule', component: EditReqScheduleComponent},
       {path:  'viewMoreSchedule', component: ViewMoreSchedulesComponent},
       {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
-      {path: 'viewProgress', component: ViewProgressReportComponent}
+      {path: 'viewProgress', component: ViewProgressReportComponent},
+      {path: 'viewManLoad', component: ViewManLoadComponent},
+      {path: 'viewManLoadProf/:id', component: ViewManLoadProComponent}
+      
 
 
     ]}

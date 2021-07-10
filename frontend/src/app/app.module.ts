@@ -76,6 +76,10 @@ import { UpdateFinalMileageComponent } from './UserDashBoard/user-dashboard/SubC
 import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/Schedules/ViewScheduleProfile/view-schedule-profile/view-schedule-profile.component';
 import { ViewProgressReportComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress-report/view-progress-report.component';
 import { ViewMoreProgressComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress-report/view-more-progress/view-more-progress.component';
+import { ViewLoadTrialsComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-trials.component';
+import { ViewLoadProfComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-load-prof.component';
+import { ViewManLoadComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load/view-man-load.component';
+import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load-pro/view-man-load-pro.component';
 
 
 
@@ -154,6 +158,14 @@ import { ViewMoreProgressComponent } from './UserDashBoard/user-dashboard/SubCom
     ViewProgressReportComponent,
 
     ViewMoreProgressComponent,
+
+    ViewLoadTrialsComponent,
+
+    ViewLoadProfComponent,
+
+    ViewManLoadComponent,
+
+    ViewManLoadProComponent,
 
 
 

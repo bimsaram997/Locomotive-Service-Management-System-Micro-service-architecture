@@ -111,6 +111,10 @@ const LoadTrialSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
+    reason: {
+        type: String,
+        required: false
+    },
     comments: {
         type: String,
         required: false

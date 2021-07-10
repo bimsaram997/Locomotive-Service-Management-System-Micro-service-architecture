@@ -13,4 +13,11 @@ export class LoadTrialService {
   public saveLoadTrial(obj): Observable<any>{
     return this.http.post(this.myUrl + 'loadTrialRoute/saveLoadTrial' , obj);
   }
+
+  public getAllLoadTrial(): Observable<any> {
+    return this.http.get( this.myUrl + 'loadTrialRoute/getAllLoadTrial');
+  }
+  getOneLoad(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneLoad/${id}`);
+  }
 }
