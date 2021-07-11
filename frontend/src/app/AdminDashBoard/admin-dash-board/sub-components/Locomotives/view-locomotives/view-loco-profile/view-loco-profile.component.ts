@@ -50,16 +50,6 @@ export class ViewLocoProfileComponent implements OnInit {
     this.id = (this.route.snapshot.paramMap.get('id'));
     this.viewLocoGroup = this.formBuilder.group({})
     console.log(this.id);
-    
-    // this.locomotiveService.getOneLoco(this.id).pipe(first())
-    //   .subscribe(
-    //     res=>{
-       
-    //       console.log(res);
-    //     }
-    //   )
-
-    // return;
     this.locomotiveService.getOneLoco(this.id).pipe(
       map(res=>{
         const _loco = res[0];

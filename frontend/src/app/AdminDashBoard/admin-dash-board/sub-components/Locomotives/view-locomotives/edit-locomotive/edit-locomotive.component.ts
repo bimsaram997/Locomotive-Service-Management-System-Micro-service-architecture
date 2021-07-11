@@ -190,7 +190,7 @@ export class EditLocomotiveComponent implements OnInit {
 
       if (window.confirm('Are you sure?')) {
         let id = this.route.snapshot.paramMap.get('id');
-        this.locomotiveService.updateLoco(this.newID, this.editLocoGroup.value)
+        this.locomotiveService.updateLoco(this.editLocoGroup.value)
           .subscribe(res => {
 
             //this.router.navigateByUrl('/employees-list');

@@ -1,14 +1,15 @@
 <div class="container-fluid">
     <br>
     <div class="box-head">
-        <img src="./assets/images/m9.png" alt="" style="height: 70px; width: 70px;">
+        <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
         <span class="heading-txt">VIEW MILEAGE</span>
     </div>
     <hr>
 
     <div class="search-div">
-        <mat-form-field class="search-form-field">
+        <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
             <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+            <mat-hint>Search by Report Number, Loco Category & Loco Number </mat-hint>
             <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
       </button>

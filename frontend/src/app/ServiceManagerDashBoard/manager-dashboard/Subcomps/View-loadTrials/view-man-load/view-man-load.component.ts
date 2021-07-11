@@ -42,7 +42,9 @@ export class ViewManLoadComponent implements OnInit {
       return 'pending_actions'
         ;
     }else if (status === 2){
-      return 'hourglass_top';
+      return 'done_all';
+    }else if (status === 3){
+      return 'build';
     }
   }
 

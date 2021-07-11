@@ -45,11 +45,15 @@ export class ViewLocomotivesComponent implements OnInit {
   loading =  false;
   userList: UserDTO[] = [];
   statuses: string[] = ['In', 'Out'];
-
+  userNic: any;
 
 
   ngOnInit(): void {
     this.loadAllIds();
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.userNic = values.userNic;
+    console.log(this.userNic);
+
   }
 
   private loadAllIds() {

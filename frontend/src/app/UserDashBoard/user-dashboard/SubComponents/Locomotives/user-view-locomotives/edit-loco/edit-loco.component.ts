@@ -173,7 +173,7 @@ export class EditLocoComponent implements OnInit  {
     )
     if (window.confirm('Are you sure?')) {
       let id = this.route.snapshot.paramMap.get('id');
-      this.locomotiveService.updateLoco(this.data.id, obj)
+      this.locomotiveService.updateLoco(obj)
         .subscribe(res => {
             this.loadAll();
 

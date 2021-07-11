@@ -70,9 +70,10 @@ export class LoginAndSignupComponent implements OnInit {
       this.cookieService.putObject('clerkData', this.loginEmail);
       this.router.navigate(['clerkDashBoard/clerkDashContent']);
     }else {
-      this.accessService.login(this.loginEmail.toString(), this.loginPassword.toString()).subscribe(result => {
+      this.accessService.login(this.loginEmail.toString(), this.loginPassword.toString())
+      .subscribe(result => {
         if (result.message === 'Success!'){
-
+          
           this.cookieService.putObject('userData', result.userData);
           this.router.navigate(['userDashboard/userDashContent']).then();
         }else {

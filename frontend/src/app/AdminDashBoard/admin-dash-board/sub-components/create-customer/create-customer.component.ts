@@ -10,6 +10,7 @@ import {UpdateCustomerComponent} from '../update-customer/update-customer.compon
 import {ModelComponent} from './model/model.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
+import { MatSort } from '@angular/material/sort';
 
 
 
@@ -20,13 +21,17 @@ import {ToastrService} from "ngx-toastr";
 
 })
 export class CreateCustomerComponent implements OnInit {
+  searchKey: string;
+
+  @ViewChild(MatSort) sort: MatSort;
+
   public customerOne: CustomerDTO;
   custForm: FormGroup;
   @ViewChild('searchInput') searchInput2: ElementRef;
   @ViewChild('searchInput2') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['Full Name', 'Email', 'Mobile', 'WorkPlace', 'Nic', 'Gender', 'Role', 'Hired Date', '#'];
+  displayedColumns: string[] = ['Full Name', 'Email', 'Mobile', 'WorkPlace', 'Nic', 'Role', 'Hired Date', '#'];
 
   CustomerName = '';
   CustomerEmail = '';
@@ -167,6 +172,14 @@ export class CreateCustomerComponent implements OnInit {
   }
   refresh(): void {
     window.location.reload();
+  }
+  
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+  applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 
 }

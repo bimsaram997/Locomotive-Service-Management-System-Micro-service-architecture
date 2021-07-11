@@ -133,7 +133,7 @@ console.log(data)
   createItem(): FormGroup {
     return this.formBuilder.group({
       running: true,
-      description: ['',  [Validators.required]],
+      description: ['',  Validators.required],
       condition: '',
       action: ''
     });
@@ -278,12 +278,13 @@ onChangeSelectSch(value: string){
     //console.log(this.dataArray); 
   }
 
-  patchFinalMile(object){
-    this.locomotiveService.patchFinalMile(object).pipe(first())
-    .subscribe((
-      res=>{
-        console.log(res);
-      }
-    ))
-}
+    patchFinalMile(object){
+      
+      this.locomotiveService.patchFinalMile(object).pipe(first())
+      .subscribe((
+        res=>{
+          console.log(res);
+        }
+      ))
+  }
 }

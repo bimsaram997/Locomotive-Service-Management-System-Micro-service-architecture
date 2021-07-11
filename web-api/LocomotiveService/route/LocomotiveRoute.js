@@ -19,5 +19,5 @@ router.patch('/reject-mile/:id/:reason', LocomotiveController.rejectMileControll
 router.post('/sendLocoStatus', LocomotiveController.sendLocoStatus);
 router.post('/sendStatusEmail', LocomotiveController.sendPassEmail);
 router.get('/getlocoSche/:id', LocomotiveController.getLocoSch);
-router.get('/patchFinalMile', LocomotiveController.patchFinalMile);
+router.patch('/patchFinalMile', LocomotiveController.patchFinalMile);
 module.exports = router;

@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Add Comment</h2>
+<form (ngSubmit)="addComment()" [formGroup]="commentAdd">
+    <mat-dialog-content class="mat-typography">
+
+        <div class="container" style="margin-left: 23px;">
+            <div class="row">
+                <div class="col-sm">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Load Number</mat-label>
+                        <input required readonly matInput formControlName="loadNo">
+                    </mat-form-field>&nbsp;
+
+                    <mat-radio-group required aria-label="Select an option" formControlName="status">
+                        <mat-radio-button value="2">Viewed</mat-radio-button>&nbsp;
+                        <mat-radio-button value="3">Pending</mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill" style="width: 360px;">
+                        <mat-label>Comments</mat-label>
+                        <textarea matInput formControlName="comments"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="fill" style="width: 360px;">
+                        <mat-label>Action in viewed</mat-label>
+                        <mat-select formControlName="reason">
+                            <mat-option value="Viewed and Confirmed">
+                                Viewed and Confirmed
+                            </mat-option>
+                            <mat-option value="Viewed, do actions for comments">
+                                Viewed, do actions for comments
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </mat-dialog-content>
+    <mat-dialog-actions style="margin-left: 320px;">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
+
+    </mat-dialog-actions>
+</form>

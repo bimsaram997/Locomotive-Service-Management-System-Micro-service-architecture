@@ -1,28 +1,29 @@
-import { Router } from '@angular/router';
-import { LoadTrialService } from './../../../../../service/load-trial.service';
+import { AddCommentLoadComponent } from './add-comment-load/add-comment-load.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { Router } from '@angular/router';
+import { LoadTrialService } from 'src/app/service/load-trial.service';
 
 @Component({
-  selector: 'app-view-load-trials',
-  templateUrl: './view-load-trials.component.html',
-  styleUrls: ['./view-load-trials.component.css']
+  selector: 'app-view-ad-load-trial',
+  templateUrl: './view-ad-load-trial.component.html',
+  styleUrls: ['./view-ad-load-trial.component.css']
 })
-export class ViewLoadTrialsComponent implements OnInit {
+export class ViewAdLoadTrialComponent implements OnInit {
   searchKey: string;
   isVisible =  false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Load No', 'Load Date','Loco Category', 'Loco Number', 'Loco Category','Form','To',  'Schedule No', 'Responsible', 'Status',  '#'];
+  displayedColumns: string[] = ['Load No', 'Load Date','Loco Category', 'Loco Number','Form','To',  'Schedule No', 'Responsible', 'Status',  '#'];
   @ViewChild(MatSort) sort: MatSort;
   loadArray: any[] = [];
   status: any;
 
-  constructor(private loadService: LoadTrialService, private router: Router) { }
-  
+  constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
+
   ngOnInit(): void {
     this.getLoadTrial();
   }
@@ -38,6 +39,18 @@ export class ViewLoadTrialsComponent implements OnInit {
     })
   }
 
+  addComments(id: string): void {
+    const dialogRef = this.dialog.open(AddCommentLoadComponent, {
+      data: {id: id},
+      width: '520px',
+      
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      
+    });
+  }
   statusBinder(status){
     if (status === 1){
       return 'pending_actions'
@@ -57,6 +70,9 @@ export class ViewLoadTrialsComponent implements OnInit {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
   viewLoad(id: string){
-    this.router.navigate(['/userDashboard/viewLoadProf', id])
+    this.router.navigate(['/adminDashboard/viewAdLoadProd', id])
   }
+
+  
+
 }

@@ -80,6 +80,10 @@ import { ViewLoadTrialsComponent } from './UserDashBoard/user-dashboard/SubCompo
 import { ViewLoadProfComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-load-prof.component';
 import { ViewManLoadComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load/view-man-load.component';
 import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load-pro/view-man-load-pro.component';
+import { MViewLocomotiveComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/m-view-locomotive.component';
+import { ViewAdLoadTrialComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-ad-load-trial/view-ad-load-trial.component';
+import { AddCommentLoadComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-ad-load-trial/add-comment-load/add-comment-load.component';
+import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
 
 
 
@@ -167,6 +171,14 @@ import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashb
 
     ViewManLoadProComponent,
 
+    MViewLocomotiveComponent,
+
+    ViewAdLoadTrialComponent,
+
+    AddCommentLoadComponent,
+
+    ViewAdloadProComponent,
+
 
 
 
@@ -198,6 +210,6 @@ import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashb
   providers: [EventEmitterService],
   bootstrap: [AppComponent],
   entryComponents: [ModelComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
-  SendProgressComponent, UpdateFinalMileageComponent]
+  SendProgressComponent, UpdateFinalMileageComponent, AddCommentLoadComponent]
 })
 export class AppModule { }

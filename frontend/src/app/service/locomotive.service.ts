@@ -42,8 +42,8 @@ export class LocomotiveService {
   public  getAllLocosSelect(): Observable<any> {
     return this.http.get(this.myUrl + 'locoRoute/getAllLocosSelect');
   }
-  public updateLoco(id, data): Observable<any>{
-    return this.http.put(this.myUrl + `locoRoute/updateLocomotive`, {id, data});
+  public updateLoco(data): Observable<any>{
+    return this.http.put(this.myUrl + `locoRoute/updateLocomotive`, data);
   }
   public getInCount(): Observable<any>{
     return this.http.get(this.myUrl + 'locoRoute/getInCount');
@@ -97,6 +97,6 @@ export class LocomotiveService {
     });
   }
   public patchFinalMile(object):Observable<any> {
-    return this.http.patch( this.myUrl + `locoRoute/patchFinalMile/` , {params: object});
+    return this.http.patch( this.myUrl + `locoRoute/patchFinalMile/` , object);
   }
 }

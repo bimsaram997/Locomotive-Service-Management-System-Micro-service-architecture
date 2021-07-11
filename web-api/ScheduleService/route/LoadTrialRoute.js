@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.post('/saveLoadTrial', loadTrialController.saveLoadTrial);
 router.get('/getAllLoadTrial', loadTrialController.getAllLoadTrial);
-router.get('/getOneLoad/:id', loadTrialController.getOneLoad)
+router.get('/getOneLoad/:id', loadTrialController.getOneLoad);
+router.put('/addComment', loadTrialController.addComment);
 module.exports = router;

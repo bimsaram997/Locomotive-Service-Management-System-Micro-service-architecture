@@ -11,6 +11,6 @@ export class EventEmitterService {
 
   constructor() { }
   onFirstComponentButtonClick() {
-    this.invokeFirstComponentFunction.emit();
+    //this.invokeFirstComponentFunction.emit();
   }
 }

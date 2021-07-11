@@ -114,10 +114,9 @@ const deleteLoco = (req, resp) => {
 };
 
 const updateLocomotive = async(req, resp) => {
-    //  console.log(req.body.data);
-    // console.log(req.body.id);
-    if (req.body.id) {
-        await LocomotiveSchema.updateOne({ _id: req.body.id }, { $set: req.data }, function(err, result) {
+    console.log(req.body);
+    if (req.body) {
+        await LocomotiveSchema.updateOne({ locoNumber: req.body.locoNumber }, { $set: req.body }, function(err, result) {
 
             if (err) {
                 resp.status(500).json(err)
@@ -687,11 +686,11 @@ const sendPassEmail = (supervisorEmail, locoNumber, locoCatId, locoAvailability,
 }
 
 const patchFinalMile = async(req, res, next) => {
-    const _obj = req.query;
+    const _obj = req.body;
     console.log(_obj);
     console.log(_obj.locoNumber)
     if (_obj.locoNumber) {
-        await LocoDTO.updateOne({ locoNumber: obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
+        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
 
             if (err) {
                 res.status(500).json(err)

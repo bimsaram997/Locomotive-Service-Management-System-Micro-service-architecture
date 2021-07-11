@@ -40,8 +40,26 @@ const getOneLoad = (req, res) => {
 
 }
 
+const addComment = async(req, resp) => {
+    console.log(req.body);
+    if (req.body) {
+        await LoadTrialDTO.updateOne({ loadNo: req.body.loadNo }, { $set: req.body }, function(err, result) {
+
+            if (err) {
+                resp.status(500).json(err)
+                console.log(err)
+            } else {
+                resp.status(200).json(result)
+            }
+
+        })
+
+    }
+}
+
 module.exports = {
     saveLoadTrial,
     getAllLoadTrial,
-    getOneLoad
+    getOneLoad,
+    addComment
 }

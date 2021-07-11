@@ -1,3 +1,5 @@
+import { ViewAdLoadTrialComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-ad-load-trial/view-ad-load-trial.component';
+import { MViewLocomotiveComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/m-view-locomotive.component';
 import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load-pro/view-man-load-pro.component';
 import { ViewManLoadComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load/view-man-load.component';
 import { ViewLoadProfComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-load-prof.component';
@@ -46,6 +48,7 @@ import {EditLocomotiveComponent} from "./AdminDashBoard/admin-dash-board/sub-com
 import {ViewLocoComponent} from "./UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-loco.component";
 import { AddLoadTrialComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/add-load-trial/add-load-trial.component';
 import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/Schedules/ViewScheduleProfile/view-schedule-profile/view-schedule-profile.component';
+import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
 
 
 
@@ -70,7 +73,9 @@ const routes: Routes = [
       {path: 'EditLocomotive/:id', component: EditLocomotiveComponent},
       {path: 'viewLoco/:id', component: ViewLocoProfileComponent},
       {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
-      {path: 'viewProgress', component: ViewProgressReportComponent}
+      {path: 'viewProgress', component: ViewProgressReportComponent},
+      {path: 'viewAdLoadTrial', component: ViewAdLoadTrialComponent},
+      {path: 'viewAdLoadProd/:id', component: ViewAdloadProComponent}
 
     ]},
   {path: 'userDashboard', canActivate: [AuthGuard], component: UserDashboardComponent,  children: [
@@ -97,7 +102,9 @@ const routes: Routes = [
       {path: 'response-reset-password/:token', component: ResetPasswordComponent},
       {path: 'createMileage', component: MileageReportComponent},
       {path: 'viewMileages', component: ViewMileagesComponent},
-      {path: 'viewProgress', component: ViewProgressReportComponent}
+      {path: 'viewProgress', component: ViewProgressReportComponent},
+      {path: 'mViewLocomotives', component: MViewLocomotiveComponent },
+      {path: 'viewLoco/:id', component: ViewLocoComponent},
 
     ]},
   {path: 'managerDashBoard', component: ManagerDashboardComponent, children: [
@@ -111,8 +118,10 @@ const routes: Routes = [
       {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewManLoad', component: ViewManLoadComponent},
-      {path: 'viewManLoadProf/:id', component: ViewManLoadProComponent}
-      
+      {path: 'viewManLoadProf/:id', component: ViewManLoadProComponent},
+      {path: 'mViewLocomotives', component: MViewLocomotiveComponent },
+      {path: 'viewLoco/:id', component: ViewLocoComponent},
+      {path: 'viewProgress', component: ViewProgressReportComponent},
 
 
     ]}

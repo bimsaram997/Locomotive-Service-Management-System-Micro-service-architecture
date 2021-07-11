@@ -1,6 +1,6 @@
 mat-sidenav-container {
-    max-height: 1500px;
-    min-height: 700px;
+    max-height: auto;
+    min-height: 800px;
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -8,21 +8,21 @@ mat-sidenav-container {
 mat-sidenav {
     overflow-x: hidden;
     overflow-y: hidden;
-    max-height: 1500px;
-    min-height: 700px;
+    max-height: 2500px;
+    min-height: 800px;
 }
 
 mat-sidenav {
     width: 240px;
-    max-height: 1500px;
-    min-height: 700px;
+    max-height: auto;
+    min-height: 800px;
     overflow-x: hidden;
     overflow-y: hidden;
 }
 
 mat-sidenav-content {
-    max-height: 1500px;
-    min-height: 700px;
+    max-height: auto;
+    min-height: 800px;
     overflow-x: hidden;
     overflow-y: hidden;
 }

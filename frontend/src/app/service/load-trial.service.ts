@@ -20,4 +20,7 @@ export class LoadTrialService {
   getOneLoad(id): Observable<any>{
     return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneLoad/${id}`);
   }
+  public  addComment(data): Observable<any>{
+    return this.http.put(this.myUrl + `loadTrialRoute/addComment`, data);
+  }
 }

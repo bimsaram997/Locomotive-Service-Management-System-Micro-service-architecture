@@ -6,11 +6,11 @@ import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
 
 @Component({
-  selector: 'app-view-man-load-pro',
-  templateUrl: './view-man-load-pro.component.html',
-  styleUrls: ['./view-man-load-pro.component.css']
+  selector: 'app-view-adload-pro',
+  templateUrl: './view-adload-pro.component.html',
+  styleUrls: ['./view-adload-pro.component.css']
 })
-export class ViewManLoadProComponent implements OnInit {
+export class ViewAdloadProComponent implements OnInit {
   panelOpenState = false;
   panelOpenState1 = false;
   panelOpenState2 = false;
@@ -98,7 +98,10 @@ export class ViewManLoadProComponent implements OnInit {
     if (status === 1){
       return 'pending_actions';
     }else if (status === 2){
-      return 'hourglass_top';
+      return 'done_all';
+    }else if (status === 3){
+      return 'build';
     }
   }
+
 }

@@ -88,7 +88,7 @@ export class AccessService {
     return this.http.get<any>(this.myUrl + 'accessRoute/loginUser', {headers: {email, password}}).pipe(
       map(user => {
         if(user && user.token){
-          localStorage.setItem('currentUser' ,user);
+          localStorage.setItem('currentUser' ,JSON.stringify(user));
        // this.currntUserSubject.next(user);
         }
 
