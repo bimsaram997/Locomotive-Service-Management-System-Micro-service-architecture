@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import LocoDTO from '../../../../../dto/LocoDTO';
 import {MatTableDataSource} from '@angular/material/table';
@@ -28,7 +29,7 @@ export class ViewLocomotivesComponent implements OnInit {
 
 
   constructor(private dialog: MatDialog, private imageService: ImageService, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService, private accessService: AccessService) {
-    this.loadAll();
+   // this.loadAll();
   }
 
   isVisible =  false;
@@ -46,12 +47,14 @@ export class ViewLocomotivesComponent implements OnInit {
   userList: UserDTO[] = [];
   statuses: string[] = ['In', 'Out'];
   userNic: any;
+  userRole: any;
 
 
   ngOnInit(): void {
     this.loadAllIds();
-    const values =  JSON.parse( localStorage.getItem('currentUser'));
-    this.userNic = values.userNic;
+    this.getAllLoco();
+   
+    
     console.log(this.userNic);
 
   }
@@ -63,7 +66,7 @@ export class ViewLocomotivesComponent implements OnInit {
       this.loading = true;
     });
   }
- loadAll(){
+ /*loadAll(){
     this.locomotiveService.getAllLocomotives().subscribe(resp => {
       this.locoArray = resp;
       this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
@@ -73,7 +76,32 @@ export class ViewLocomotivesComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }*/
+
+  getAllLoco(){
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.userNic =  values.userNic;
+    this.userRole = values.userRole;
+    const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+    console.log(object);
+    this.locomotiveService.getAllLocoAssigned(object)
+    .subscribe(
+      res=>{
+        this.locoArray = res;
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+      }
+    )
   }
+
   editLoco(locoNumber: string){
     this.router.navigate(['/adminDashboard/EditLocomotive', locoNumber]);
   }

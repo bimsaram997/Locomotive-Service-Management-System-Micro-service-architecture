@@ -10,6 +10,8 @@ import UserDTO from "../../../../../dto/UserDTO";
 import {ImageService} from "../../../../../service/image.service";
 import swal from 'sweetalert';
 import {first} from "rxjs/operators";
+import { Router } from '@angular/router';
+import { error } from '@angular/compiler/src/util';
 @Component({
   selector: 'app-create-locomotive',
   templateUrl: './create-locomotive.component.html',
@@ -20,6 +22,7 @@ export class CreateLocomotiveComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   loading =  false;
+  spinner = false
   public selectedIndex: number = 0;
   userList: UserDTO[] = [];
   formatLabel(value: number) {
@@ -50,7 +53,7 @@ export class CreateLocomotiveComponent implements OnInit {
   urls = new Array<string>();
 
 
-  constructor( private cd: ChangeDetectorRef,
+  constructor( private cd: ChangeDetectorRef, private router: Router,
     private formBuilder: FormBuilder, private imageService: ImageService, private accessService: AccessService, private locomotiveService: LocomotiveService, private toastr: ToastrService) { }
 
 
@@ -82,7 +85,7 @@ export class CreateLocomotiveComponent implements OnInit {
       locoMotors: new FormArray ([]),
       locoBreaks: new FormArray([]),
       locoFluids: new FormArray([]),
-      locoNote: ['', [Validators.required, Validators.maxLength(1000),  Validators.pattern('^[0-9]*$')]],
+      locoNote: [''],
       image: [''],
       endMileage: [''],
       endMileDate: [''],
@@ -148,6 +151,7 @@ export class CreateLocomotiveComponent implements OnInit {
     console.log(this.LocoGroup.controls.image.value);
 // return;
     // if(this.filesToUpload.)
+    this.spinner = true;
   let obj = {
     locoCatId: this.LocoGroup.controls.locoCatId.value,
     locoNumber : this.LocoGroup.controls.locoNumber.value,
@@ -168,43 +172,50 @@ export class CreateLocomotiveComponent implements OnInit {
 
 
   }
-
-
-
-
+  if(obj == null && obj == undefined){
+    console.log(error)
+  }else{
     this.locomotiveService.saveLocomotive(obj)
-        .pipe(first()).subscribe(
-        res => {
-          console.log(res)
-          if (res.isSaved) {
-            swal({
-              title: 'Record Saved!',
-              text: 'Please Click OK',
-              icon: 'success',
-            });
-            setTimeout(() => {
-              this.refresh();
-            }, 3000);
+    .pipe(first()).subscribe(
+    res => {
+      console.log(res)
+      if (res.isSaved) {
+        swal({
+          title: 'Record Saved!',
+          text: 'Please Click OK',
+          icon: 'success',
+        });
+        setTimeout(() => {
+          this.LocoGroup.reset();
+          this.router.navigate(['/adminDashboard/viewLocomotives']);
+         this.spinner = false
+        }, 3000);
 
-          } else {
-            swal({
-              title: 'Record already Exits',
-              text: 'Please Click OK',
-              icon: 'error',
-            });
-            setTimeout(() => {
-              //this.refresh();
-            }, 3000);
-          }
-        },
+      } else {
+        swal({
+          title: 'Record already Exits',
+          text: 'Please Click OK',
+          icon: 'error',
+        });
+        setTimeout(() => {
+          //this.refresh();
+          this.spinner = false
+        }, 3000);
+      }
+    },
 
-        error => {
-          console.log(error)
-        },
-        () => {
-          console.log('dss')
-        }
-      )
+    error => {
+      console.log(error)
+    },
+    () => {
+      console.log('dss')
+    }
+  )
+  }
+
+
+
+   
 
 
 

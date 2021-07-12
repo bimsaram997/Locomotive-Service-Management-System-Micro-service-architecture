@@ -1,24 +1,8 @@
 <div class="container-fluid">
     <br>
     <div class="box-head">
-        <img src="./assets/images/locom6.png" alt="" style="height: 70px; width: 70px; margin-right: 15px;">
-        <div class="waviy">
-            <span style="--i:1; color: #1e8bc3; font-size: 40px" class="new">A</span>
-            <span style="--i:2" class="new">D</span>
-            <span style="--i:3" class="new">D</span>
-            <span>&nbsp;</span>
-            <span style="--i:4">L</span>
-            <span style="--i:5">O</span>
-            <span style="--i:6">C</span>
-            <span style="--i:7">O</span>
-            <span style="--i:8">M</span>
-            <span style="--i:9">O</span>
-            <span style="--i:11">T</span>
-            <span style="--i:12">I</span>
-            <span style="--i:13">V</span>
-            <span style="--i:14">E</span>
-
-        </div>
+        <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
+        <span class="heading-txt"><span style="color: #1e8bc3;">A</span>DD LOCOMOTIVES</span>
     </div>
     <hr>
     <br>
@@ -30,7 +14,7 @@
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_one</span>&nbsp;First Tab
+                            <span class="material-icons">looks_one</span>&nbsp;First Step
                         </ng-template>
                         <h3 class="sub-headers">Basic Details</h3>
                         <mat-form-field appearance="fill">
@@ -155,30 +139,26 @@
                                 <input required maxlength="20" minlength="1" matInput placeholder="E.g: Pistons" #searchInput formControlName="mtrType" (keyup)="onkeyUp($event)">
                             </mat-form-field> &nbsp;&nbsp;
                             <div class="btn">
-                                <button type="button" mat-raised-button (click)="onClickMotor()"><span class="material-icons">
-add_circle
-</span></button>&nbsp;
-                                <button style="color: red" type="button" mat-raised-button (click)="onClickremoveField('','main')"><span class="material-icons">
-delete_forever
-</span></button>
+                                <button type="button" mat-stroked-button color="primary" (click)="onClickMotor()" matTooltip="Add Motor Part">Add Item</button>&nbsp;
+                                <button type="button" mat-raised-button (click)="onClickremoveField('','main')" matTooltip="Remove All Motor Parts">Remove All</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6 col-sm-3" *ngFor="let locoMotors of mtrArray.controls; let i = index">
                                 <div class="row" [formGroup]="locoMotors">
                                     <p style="padding-left: 15px;">
-                                        <mat-form-field appearance="outline" style="width: 180px; height: 5px; font-weight: bolder; color: black; font-size: 15px;">
-                                            <input matInput placeholder="Fluids" formControlName="Name" readonly>
+                                        <mat-form-field appearance="fill" style="width: 180px;text-align: center; letter-spacing: 15px; height: 5px; font-weight: bolder; color:darkblue; font-size: 13px; font-stretch: expanded;">
+                                            <input disabled matInput placeholder="Fluids" formControlName="Name" readonly>
                                         </mat-form-field>
                                         <br>
                                         <br>
                                         <mat-radio-group aria-label="Select an option" formControlName="working">
 
                                             <mat-radio-button *ngFor="let status of condition" [value]="status">{{status}} &nbsp;</mat-radio-button>
-
+                                            <button type="button" mat-button color="accent" (click)="onClickremoveField(i, 'sub')" matTooltip="Remove a Motor Part"><span class="material-icons">delete</span></button>
                                         </mat-radio-group>
                                         <br>
-                                        <button style="color: red" mat-button (click)="onClickremoveField(i, 'sub')"><span class="material-icons">delete</span></button>
+
                                     </p>
                                 </div>
                             </div>
@@ -195,7 +175,7 @@ delete_forever
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_two</span>&nbsp;Second Tab
+                            <span class="material-icons">looks_two</span>&nbsp;Second Step
                         </ng-template>
                         <h3 class="sub-headers">Breaks</h3>
                         <div class="input-Type">
@@ -204,10 +184,8 @@ delete_forever
                                 <input required maxlength="20" minlength="1" matInput placeholder="E.g: Vacumm breaks" #searchInput formControlName="brkType">
                             </mat-form-field> &nbsp;&nbsp;
                             <div class="btn">
-                                <button type="button" mat-raised-button (click)="onClickBreaks()"><span class="material-icons">
-                    add_circle
-                    </span></button> &nbsp;
-                                <button style="color: red" type="button" mat-raised-button (click)="onClickremoveBreakField('','main')"><span class="material-icons">delete_forever</span></button>
+                                <button type="button" mat-stroked-button color="primary" (click)="onClickBreaks()" matTooltip="Add Break Types">Add Item</button> &nbsp;
+                                <button type="button" mat-raised-button (click)="onClickremoveBreakField('','main')" matTooltip="Remove All Break Types">Remove All</button>
                             </div>
                         </div>
                         <div class="row">
@@ -215,16 +193,17 @@ delete_forever
                                 <div class="row" [formGroup]="locoBreaks">
 
                                     <p style="padding-left: 15px;">
-                                        <mat-form-field appearance="outline" style="width: 180px;  text-align: center; font-weight: bolder; color: black; font-size: 15px;">
+                                        <mat-form-field appearance="fill" style="width: 180px;  text-align: center; font-weight: bolder; color:darkblue; font-size: 13px;">
                                             <input matInput placeholder="Fluids" formControlName="bName" readonly>
                                         </mat-form-field>
                                         <br>
 
                                         <mat-radio-group aria-label="Select an option" formControlName="working">
                                             <mat-radio-button *ngFor="let status of condition" [value]="status">{{status}} &nbsp;</mat-radio-button>
+                                            <button matTooltip="Remove a Break Type" type="button" mat-button color="accent" (click)="onClickremoveBreakField(i, 'sub')"><span class="material-icons">delete</span></button>
                                         </mat-radio-group>
                                         <br>
-                                        <button type="button" style="color: red" mat-button (click)="onClickremoveBreakField(i, 'sub')"><span class="material-icons">delete</span></button>
+
                                     </p>
                                 </div>
                             </div>
@@ -244,10 +223,8 @@ delete_forever
 
                             </mat-form-field> &nbsp;&nbsp;
                             <div class="btn">
-                                <button type="button" mat-raised-button (click)="onClickFluids()"><span class="material-icons">
-                    add_circle
-                    </span></button>&nbsp;
-                                <button style="color: red" type="button" mat-raised-button (click)="onClickremoveFluidField('','main')"><span class="material-icons">delete_forever</span></button>
+                                <button type="button" mat-stroked-button color="primary" (click)="onClickFluids()" matTooltip="Add Liquid Levels">Add Item</button>&nbsp;
+                                <button mat-raised-button type="button" mat-raised-button (click)="onClickremoveFluidField('','main')" matTooltip="Remove All Liquid Levels">Remove All</button>
                             </div>
                         </div>
                         <div class="row">
@@ -259,9 +236,10 @@ delete_forever
                                             <input matInput placeholder="E.g: Oil" formControlName="fName" readonly>
                                         </mat-form-field>
                                         <br>
-                                        <mat-slider thumbLabel [displayWith]="formatLabel" style="width: 300px;" tickInterval="1000" step="1000" min="0" max="100000" aria-label="unit(s)" formControlName="fluids"></mat-slider>
+                                        <mat-slider thumbLabel [displayWith]="formatLabel" style="width: 250px;" tickInterval="1000" step="1000" min="0" max="100000" aria-label="unit(s)" formControlName="fluids"></mat-slider>
+                                        <button type="button" mat-button color="accent" (click)="onClickremoveFluidField(i, 'sub')"><span class="material-icons">delete</span></button>
                                         <br>
-                                        <button type="button" style="color: red" mat-button (click)="onClickremoveFluidField(i, 'sub')"><span class="material-icons">delete</span></button>
+
                                     </p>
                                 </div>
                             </div>
@@ -281,22 +259,23 @@ delete_forever
 
                         <!-- File Input -->
                         <div class="form-group">
-                            <input type="file" (change)="uploadFile($event)" accept=".png, .jpg, .jpeg">
+                            <input type="file" (change)="uploadFile($event)" accept=".png, .jpg, .jpeg" style="height: 45px; background: white;">
                         </div>
 
                         <br>
                         <mat-form-field appearance="fill">
                             <mat-label>Textarea</mat-label>
                             <textarea matInput formControlName="locoNote"></textarea>
-                            <div *ngIf="LocoGroup.controls['locoNote'].invalid && (LocoGroup.controls['locoNote'].dirty || LocoGroup.controls['locoNote'].touched)" class="error">
-                                <div *ngIf="LocoGroup.controls['locoNote'].errors.required">
-                                    Supervisor Nic is Required.
-                                </div>
-                            </div>
+
                         </mat-form-field>
                         <br>
+                        <div class="box-head">
+                            <button mat-raised-button color="primary" type="submit" style="width: 100px;">Submit</button> &nbsp;
+                            <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner>
+                        </div>
 
-                        <button mat-raised-button color="primary" type="submit">Submit</button>
+
+
                     </mat-card>
                 </mat-tab>
             </mat-tab-group>

@@ -20,4 +20,6 @@ router.post('/sendLocoStatus', LocomotiveController.sendLocoStatus);
 router.post('/sendStatusEmail', LocomotiveController.sendPassEmail);
 router.get('/getlocoSche/:id', LocomotiveController.getLocoSch);
 router.patch('/patchFinalMile', LocomotiveController.patchFinalMile);
+router.get('/getAllLocoAssigned', LocomotiveController.getAllLocoAssigned);
+
 module.exports = router;

@@ -99,4 +99,7 @@ export class LocomotiveService {
   public patchFinalMile(object):Observable<any> {
     return this.http.patch( this.myUrl + `locoRoute/patchFinalMile/` , object);
   }
+
+  public getAllLocoAssigned(object):Observable<any> {
+    return this.http.get( this.myUrl + `locoRoute/getAllLocoAssigned/`, {params:object})};
 }

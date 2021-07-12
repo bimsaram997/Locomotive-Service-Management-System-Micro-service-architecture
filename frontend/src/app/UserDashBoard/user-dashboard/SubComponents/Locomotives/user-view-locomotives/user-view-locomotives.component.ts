@@ -33,6 +33,9 @@ export class UserViewLocomotivesComponent implements OnInit {
   vBreaks: string[] = ['Working', 'Not Working'];
   dBreaks: string[] = ['Working', 'Not Working'];
 
+  userNic: any;
+  userRole: any;
+
   changeLocoCatID = '';
   changeLocoPower = '';
   changeLocoMileage = '';
@@ -50,13 +53,14 @@ export class UserViewLocomotivesComponent implements OnInit {
 
 
   constructor(public dialog: MatDialog, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService) {
-    this.loadAll();
+    //this.loadAll();
 
   }
 
   ngOnInit(): void {
+    this.getAllLoco();
   }
-  loadAll(){
+  /*loadAll(){
     this.locomotiveService.getAllLocomotives().subscribe(resp => {
       this.locoArray = resp;
       this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
@@ -66,9 +70,29 @@ export class UserViewLocomotivesComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }*/
+
+  getAllLoco(){
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+    console.log(object);
+    this.locomotiveService.getAllLocoAssigned(object)
+    .subscribe(
+      res=>{
+        this.locoArray = res;
+        this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+  
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+      }
+    )
   }
-
-
   openDialog(){
     this.router.navigate(['./adminDashboard/viewLoco']);
   }

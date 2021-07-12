@@ -130,6 +130,27 @@ const updateLocomotive = async(req, resp) => {
     }
 }
 
+const getAllLocoAssigned = async(req, resp) => {
+    console.log(req.query)
+    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk') {
+        await LocomotiveSchema.find().then(result => {
+            resp.status(200).json(result);
+
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+
+    } else if (req.query.userRole == 'Supervisor') {
+        await LocomotiveSchema.find({ userNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+            //console.log(result);
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+    }
+}
+
+
 
 
 /*const getInCount = (req, resp) => {
@@ -721,5 +742,6 @@ module.exports = {
     sendPassEmail,
     getLocoSch,
     patchFinalMile,
-    getOneLocoNew
+    getOneLocoNew,
+    getAllLocoAssigned
 }

@@ -17,7 +17,7 @@ export class UserDashContentComponent implements OnInit {
   loading =  false;
   cont: Array<any>[] = [];
   currentDate = new Date();
-
+  name: any;
   constructor(private schedulesService: ScheduleService) {
     this.loadDate();
 
@@ -25,6 +25,8 @@ export class UserDashContentComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userName
   }
 
  loadDate() {
@@ -42,5 +44,5 @@ export class UserDashContentComponent implements OnInit {
     });
   }
 
-
+ 
 }
