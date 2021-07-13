@@ -34,6 +34,7 @@ export class ViewLocoComponent implements OnInit {
   supervisorEmail: any;
   supervisorName: any;
   note: any;
+  endMileage:any
   imageSt: any;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService) { }
@@ -49,6 +50,7 @@ export class ViewLocoComponent implements OnInit {
         this.locoCategory = res[0].locoCatId;
         this.locoPower = res[0].locoPower;
         this.locoMileage = res[0].locoMileage;
+        this.endMileage = res[0].endMileage;
         this.date =  res[0].locoDate;
         this.supervisorNic = res[0].userNic;
         this.supervisorEmail = res[0].supervisorEmail;

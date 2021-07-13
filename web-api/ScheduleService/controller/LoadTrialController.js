@@ -2,6 +2,7 @@ const ScheduleSchema = require('../model/ScheduleDTO');
 const MileageDTO = require('../model/MileageDTO');
 const LoadTrialDTO = require('../model/LoadTrialDTO');
 const LocoDTO = require('../model/LocomotiveDTO');
+const CommentDTO = require('../model/commentDTO')
 
 const saveLoadTrial = async(req, res, next) => {
 
@@ -40,6 +41,16 @@ const getOneLoad = (req, res) => {
 
 }
 
+const makeComment = async(req, resp, next) => {
+    const comment = new CommentDTO(req.body);
+    await comment.save().then(result => {
+        resp.status(200).json({ isSaved: true, data: result })
+        console.log(result)
+    }).catch(error => {
+        resp.status(500).json(error);
+    })
+}
+
 const addComment = async(req, resp) => {
     console.log(req.body);
     if (req.body) {
@@ -50,6 +61,7 @@ const addComment = async(req, resp) => {
                 console.log(err)
             } else {
                 resp.status(200).json(result)
+
             }
 
         })
@@ -57,9 +69,24 @@ const addComment = async(req, resp) => {
     }
 }
 
+getLoadComments = async(req, resp, next) => {
+    const _id = req.params.id;
+    console.log(_id);
+    await CommentDTO.find({ loadNo: _id }, function(err, result) {
+        if (err) {
+            resp.status(500).json(err)
+        } else {
+            resp.status(200).json(result)
+            console.log(result)
+        }
+    })
+}
+
 module.exports = {
     saveLoadTrial,
     getAllLoadTrial,
     getOneLoad,
-    addComment
+    addComment,
+    makeComment,
+    getLoadComments
 }

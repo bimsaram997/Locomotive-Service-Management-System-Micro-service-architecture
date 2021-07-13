@@ -23,6 +23,7 @@ export class ViewLocoProfileComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Motor Part Name', 'Condition'];
   displayedColumns2: string[] = ['No', 'Fluids', 'Level'];
   displayedColumns3: string[] = ['Schedule No.', 'Supervisor Name', 'Report No.', 'Progress', '#'];
+ 
   dataSource: any[] = [];
   dataSource1: any[] = [];
   dataSource2: any[] = [];
@@ -39,6 +40,7 @@ export class ViewLocoProfileComponent implements OnInit {
   supervisorNic: any;
   supervisorEmail: any;
   supervisorName: any;
+  finalMileage: any;
   note: any;
   imageSt: any;
   scroll: any;
@@ -57,6 +59,7 @@ export class ViewLocoProfileComponent implements OnInit {
         this.locoCategory = res[0].locoCatId;
         this.locoPower = res[0].locoPower;
         this.locoMileage = res[0].locoMileage;
+        this.finalMileage = res[0].endMileage;
         this.date =  res[0].locoDate;
         this.supervisorNic = res[0].userNic;
         this.supervisorEmail = res[0].supervisorEmail;

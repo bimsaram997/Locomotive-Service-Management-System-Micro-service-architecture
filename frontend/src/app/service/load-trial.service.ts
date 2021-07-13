@@ -13,7 +13,9 @@ export class LoadTrialService {
   public saveLoadTrial(obj): Observable<any>{
     return this.http.post(this.myUrl + 'loadTrialRoute/saveLoadTrial' , obj);
   }
-
+  public makeComment(obj): Observable<any>{
+    return this.http.post(this.myUrl + 'loadTrialRoute/makeComment' , obj);
+  }
   public getAllLoadTrial(): Observable<any> {
     return this.http.get( this.myUrl + 'loadTrialRoute/getAllLoadTrial');
   }
@@ -22,5 +24,9 @@ export class LoadTrialService {
   }
   public  addComment(data): Observable<any>{
     return this.http.put(this.myUrl + `loadTrialRoute/addComment`, data);
+  }
+
+  getRelevantComments(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `loadTrialRoute/getLoadComments/${id}`);
   }
 }

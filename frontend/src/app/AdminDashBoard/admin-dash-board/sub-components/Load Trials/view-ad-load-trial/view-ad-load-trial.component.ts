@@ -21,20 +21,26 @@ export class ViewAdLoadTrialComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   loadArray: any[] = [];
   status: any;
-
+  disabled = true;
+  reason: any
+  
   constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLoadTrial();
+    
   }
 
   private getLoadTrial(){
     this.loadService.getAllLoadTrial().subscribe(resp=>{
       this.loadArray = resp;
+   
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
+      
       setTimeout(()=>{
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort
+      
       })
     })
   }
@@ -45,7 +51,6 @@ export class ViewAdLoadTrialComponent implements OnInit {
       width: '520px',
       
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       
@@ -56,9 +61,9 @@ export class ViewAdLoadTrialComponent implements OnInit {
       return 'pending_actions'
         ;
     }else if (status === 2){
-      return 'done_all';
+      return 'check_circle_outline';
     }else if (status === 3){
-      return 'build';
+      return 'hourglass_top';
     }
   }
 
@@ -73,6 +78,12 @@ export class ViewAdLoadTrialComponent implements OnInit {
     this.router.navigate(['/adminDashboard/viewAdLoadProd', id])
   }
 
-  
+  alert() {
+    window.alert("hi");
+  }
+
+  isDisabled() {
+    return true;
+  }
 
 }

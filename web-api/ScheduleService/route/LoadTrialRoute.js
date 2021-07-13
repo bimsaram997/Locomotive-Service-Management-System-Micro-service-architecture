@@ -6,4 +6,6 @@ router.post('/saveLoadTrial', loadTrialController.saveLoadTrial);
 router.get('/getAllLoadTrial', loadTrialController.getAllLoadTrial);
 router.get('/getOneLoad/:id', loadTrialController.getOneLoad);
 router.put('/addComment', loadTrialController.addComment);
+router.post('/makeComment', loadTrialController.makeComment);
+router.get('/getLoadComments/:id', loadTrialController.getLoadComments);
 module.exports = router;

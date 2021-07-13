@@ -4,14 +4,88 @@
             <!-- / project-info-box -->
             <img src="{{this.imageSt}}" class="rounded">
             <div class="project-info-box">
-                <p><b>Locomotive Category:</b> {{this.locoCategory}}</p>
-                <p><b>Locomotive Number:</b> {{this.locoNumber}}</p>
-                <p><b>Locomotive Power:</b> {{this.locoPower}}</p>
-                <p><b>Locomotive Mileage:</b>{{this.locoMileage}} </p>
-                <p><b>Updated Date:</b>{{this.date | date}} </p>
-                <p><b>Supervisor NIC:</b>{{this.supervisorNic}}</p>
-                <p><b>Supervisor Email:</b>{{this.supervisorEmail}}</p>
-                <p><b>Supervisor Name:</b>{{this.supervisorName}}</p>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Locomotive Category</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.locoCategory}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Locomotive No.</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.locoNumber}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Locomotive Power</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.locoPower}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Last Checked Mileage</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.locoMileage}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Mileage after Last Load Trial</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.finalMileage}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Last Update Date</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.date | date}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Supervisor NIC</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.supervisorNic}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Supervisor Email</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.supervisorEmail}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="color: black;">
+                    <div class="col-sm-4">
+                        <h4 class="mb-0 label">Supervisor Name</h4>
+                    </div>
+                    <div class="col-sm-6 text-secondary" style="color: black;">
+                        {{this.supervisorName}}
+                    </div>
+                </div>
+                <hr>
+
             </div>
             <!-- / project-info-box -->
 

@@ -20,11 +20,13 @@ export class ViewAdloadProComponent implements OnInit {
   panelOpenState6 = false;
   panelOpenState7 = false;
   panelOpenState8 = false;
+  panelOpenState9 = false;
+
 
   displayedColumns1: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns2: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns3: string[] = ['No', 'Notch', 'Track', 'Main'];
-
+  displayedColumns4: string[] = ['No', 'Status','Date', 'Comments'];
   id:any;
   loadNo: any;
   loadDate: any;
@@ -48,6 +50,10 @@ export class ViewAdloadProComponent implements OnInit {
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[]=[];
+  dataSource4: any[]=[];
+
+  disabled = true;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService, private scheduleService: ScheduleService) { }
 
@@ -83,14 +89,14 @@ export class ViewAdloadProComponent implements OnInit {
         return _load;
       }),
       mergeMap(
-        sch=> this.scheduleService.getRelevantProgress(sch.scheduleNo))
+        sch=> this.loadService.getRelevantComments(sch.loadNo))
     
     ).subscribe(
       final=>{
        // console.log('Schedule');
         console.log(final);
-        //this.dataSource9 = final;
-        //console.log(this.dataSource9)
+        this.dataSource4 = final;
+        console.log(this.dataSource4)
       }
     )
   }

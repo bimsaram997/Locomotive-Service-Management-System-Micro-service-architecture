@@ -30,6 +30,7 @@ export class ViewLoadTrialsComponent implements OnInit {
   private getLoadTrial(){
     this.loadService.getAllLoadTrial().subscribe(resp=>{
       this.loadArray = resp;
+      console.log(this.loadArray)
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
       setTimeout(()=>{
         this.dataSource.paginator = this.paginator;

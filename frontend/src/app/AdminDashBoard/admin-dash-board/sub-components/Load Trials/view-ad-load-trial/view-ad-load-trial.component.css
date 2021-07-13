@@ -7,6 +7,11 @@
     align-items: center;
 }
 
+.mat-tooltip.tooltip {
+    font-size: 13px;
+    color: yellow;
+}
+
 .container {
     padding-top: 30px;
     padding-right: 50px;
