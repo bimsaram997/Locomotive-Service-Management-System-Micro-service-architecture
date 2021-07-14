@@ -1,17 +1,18 @@
 <div class="container-fluid">
     <br>
     <div class="box-head">
-        <img src="./assets/images/m9.png" alt="" style="height: 70px; width: 70px;">
-        <span class="heading-txt">VIEW SCHEDULES</span>
+        <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
+        <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW SCHEDULES</span>
     </div>
     <hr>
-
+    <br>
     <div class="search-div">
-        <mat-form-field class="search-form-field">
-            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+        <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
+            <mat-hint>Search by Loco Category, Loco Number, </mat-hint>
             <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-        <mat-icon>close</mat-icon>
-      </button>
+    <mat-icon>close</mat-icon>
+  </button>
         </mat-form-field>
     </div>
 
@@ -61,8 +62,9 @@
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
-                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 1)?'blue':(tempSchedule.scheduleStatus == 2)?'blue':(tempSchedule.scheduleStatus==3)?'green':'red'}">
-                        <span class="material-icons">
+                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 0)?'blue':(tempSchedule.scheduleStatus == 1)?'yellow':
+                     (tempSchedule.scheduleStatus==2)?'#e87e04':(tempSchedule.scheduleStatus==3)?'#9a12b3':(tempSchedule.scheduleStatus==4)?'#663399':(tempSchedule.scheduleStatus==5)?'#67809f':(tempSchedule.scheduleStatus==6)?'green': 'red'}">
+                        <span class="material-icons" matTooltip="{{tempSchedule.schReason}}">
 {{statusBinder(tempSchedule.scheduleStatus)}}
 </span>
                     </mat-cell>

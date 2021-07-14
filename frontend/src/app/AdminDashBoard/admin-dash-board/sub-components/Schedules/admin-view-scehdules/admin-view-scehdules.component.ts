@@ -48,22 +48,34 @@ export class AdminViewScehdulesComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+   // this.applyFilter();
   }
 
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
-  }
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
+}
 
   statusBinder(scheduleStatus){
-    if (scheduleStatus === 1){
-      return 'drafts'
-        ;
+    if (scheduleStatus === 0){
+      return 'not_started';
+    }else if (scheduleStatus === 1){
+      return 'Flags';
     }else if (scheduleStatus === 2){
-      return 'flag';
-    }else if (scheduleStatus === 4){
-      return 'dangerous';
+      return 'pending_actions';
+    }else if (scheduleStatus === 3){
+      return 'hourglass_top';
+    } else if (scheduleStatus === 4){
+      return 'construction';
+    } else if (scheduleStatus === 5){
+      return 'build_circle';
+    }
+    else if (scheduleStatus === 6){
+      return 'check_circle_outline';
     }
   }
   viewSchedule(id: string){

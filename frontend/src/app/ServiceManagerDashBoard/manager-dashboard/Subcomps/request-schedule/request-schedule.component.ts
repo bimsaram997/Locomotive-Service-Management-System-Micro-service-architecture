@@ -64,7 +64,8 @@ export class RequestScheduleComponent implements OnInit {
       otherElectric: new FormArray ([]),
       eOther: ['', Validators.required],
       specialNote: ['', [Validators.required]],
-      scheduleStatus: [1],
+      scheduleStatus: [0],
+      schReason: ['Draft'],
       scheduleProgress: [0]
       //mainMotor: new FormControl(this.mainMotorList[4])
 

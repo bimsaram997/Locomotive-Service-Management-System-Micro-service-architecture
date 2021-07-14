@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
     <br>
     <div class="box-head">
         <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px">
@@ -60,7 +61,8 @@
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
-                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 1)?'yellow':(tempSchedule.scheduleStatus == 2)?'#1f3a93':(tempSchedule.scheduleStatus==3)?'green':'red'}">
+                    <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 0)?'blue':(tempSchedule.scheduleStatus == 1)?'yellow':
+                    (tempSchedule.scheduleStatus==2)?'#e87e04':(tempSchedule.scheduleStatus==3)?'#9a12b3':(tempSchedule.scheduleStatus==4)?'#663399':(tempSchedule.scheduleStatus==5)?'#67809f':(tempSchedule.scheduleStatus==6)?'green': 'red'}">
                         <span class="material-icons">
 {{statusBinder(tempSchedule.scheduleStatus)}}
 </span>

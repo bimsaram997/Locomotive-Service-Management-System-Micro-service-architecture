@@ -172,7 +172,27 @@ const patchMileage = async(req, res, next) => {
     console.log(req.params.scheduleNo, req.params.progressValue)
     if (req.params.scheduleNo) {
         if (req.params.progressValue == 100) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 4, scheduleProgress: req.params.progressValue } }, function(err, result) {
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 6, scheduleProgress: req.params.progressValue, schReason: 'Fully Completed' } }, function(err, result) {
+
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+                }
+
+            })
+        } else if (req.params.progressValue == 90) {
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 5, scheduleProgress: req.params.progressValue, schReason: 'Very Close to complete' } }, function(err, result) {
+
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+                }
+
+            })
+        } else if (req.params.progressValue == 75) {
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 4, scheduleProgress: req.params.progressValue, schReason: 'three fourth(3/4) of Schedule is completed' } }, function(err, result) {
 
                 if (err) {
                     res.status(500).json(err)
@@ -182,7 +202,27 @@ const patchMileage = async(req, res, next) => {
 
             })
         } else if (req.params.progressValue == 60) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 2, scheduleProgress: req.params.progressValue } }, function(err, result) {
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 3, scheduleProgress: req.params.progressValue, schReason: 'half of Schedule is completed' } }, function(err, result) {
+
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+                }
+
+            })
+        } else if (req.params.progressValue == 45) {
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 2, scheduleProgress: req.params.progressValue, schReason: 'Schedule is on the way to complete' } }, function(err, result) {
+
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+                }
+
+            })
+        } else if (req.params.progressValue == 30) {
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 1, scheduleProgress: req.params.progressValue, schReason: 'Schedule is just started' } }, function(err, result) {
 
                 if (err) {
                     res.status(500).json(err)
@@ -192,6 +232,8 @@ const patchMileage = async(req, res, next) => {
 
             })
         }
+
+
 
 
     }

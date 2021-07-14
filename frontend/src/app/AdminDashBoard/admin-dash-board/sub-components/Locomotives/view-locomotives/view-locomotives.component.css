@@ -1,22 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
-.container {
-    padding-top: 30px;
-    padding-right: 10px;
-    padding-left: 10px;
-    height: 200%;
-}
-
-w .box-head {
+.box-head {
     display: flex;
     align-items: center;
 }
 
+.mat-tooltip.tooltip {
+    font-size: 13px;
+    color: yellow;
+}
+
+.container {
+    padding-top: 30px;
+    padding-right: 50px;
+    padding-left: 50px;
+    width: auto;
+}
+
 .heading-txt {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 40px;
     color: #013243;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    margin-left: 10px;
+    ;
 }
 
 body {

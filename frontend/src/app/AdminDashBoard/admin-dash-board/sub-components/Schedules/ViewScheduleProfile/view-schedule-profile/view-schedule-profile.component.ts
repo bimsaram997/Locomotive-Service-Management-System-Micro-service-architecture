@@ -111,14 +111,21 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
 
   }
   statusBinder(scheduleStatus){
-    if (this.scheduleStatus === 1){
-      return 'drafts'
-        ;
-    }else if (this.scheduleStatus === 2){
-      return 'task';
-    }else if (this.scheduleStatus === 4){
-      return 'dangerous';
+    if (scheduleStatus === 0){
+      return 'not_started';
+    }else if (scheduleStatus === 1){
+      return 'Flags';
+    }else if (scheduleStatus === 2){
+      return 'pending_actions';
+    }else if (scheduleStatus === 3){
+      return 'hourglass_top';
+    } else if (scheduleStatus === 4){
+      return 'construction';
+    } else if (scheduleStatus === 5){
+      return 'build_circle';
+    }
+    else if (scheduleStatus === 6){
+      return 'check_circle_outline';
     }
   }
-
 }

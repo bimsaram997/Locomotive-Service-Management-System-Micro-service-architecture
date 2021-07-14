@@ -106,6 +106,10 @@ const ScheduleSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    schReason: {
+        type: String,
+        required: false
+    },
     scheduleProgress: {
         type: String,
         required: false

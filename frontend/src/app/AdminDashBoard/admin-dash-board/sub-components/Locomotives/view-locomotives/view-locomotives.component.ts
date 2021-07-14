@@ -1,5 +1,5 @@
 import { first } from 'rxjs/operators';
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import LocoDTO from '../../../../../dto/LocoDTO';
 import {MatTableDataSource} from '@angular/material/table';
 import {LocomotiveService} from '../../../../../service/locomotive.service';
@@ -19,6 +19,7 @@ import {AdminEditLocomotiveComponent} from "./admin-edit-locomotive/admin-edit-l
 import swal from 'sweetalert';
 import {log} from "util";
 import {ViewImageComponent} from "../../../../../UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-image/view-image.component";
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @Component({
   selector: 'app-view-locomotives',
   templateUrl: './view-locomotives.component.html',
@@ -26,10 +27,13 @@ import {ViewImageComponent} from "../../../../../UserDashBoard/user-dashboard/Su
 })
 export class ViewLocomotivesComponent implements OnInit {
 
-
+  progresValue:number;
+  rangeArray:number[];
 
   constructor(private dialog: MatDialog, private imageService: ImageService, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService, private accessService: AccessService) {
    // this.loadAll();
+   this.progresValue =0;
+  this.rangeArray= new Array(100);
   }
 
   isVisible =  false;
@@ -49,6 +53,16 @@ export class ViewLocomotivesComponent implements OnInit {
   userNic: any;
   userRole: any;
 
+  @HostListener("window:scroll", [])
+onWindowScroll() {
+ var element = document.documentElement, 
+ body = document.body,
+ scrollTop = 'scrollTop',
+ scrollHeight = 'scrollHeight';
+ this.progresValue = 
+ (element[scrollTop]||body[scrollTop]) / 
+ ((element[scrollHeight]||body[scrollHeight]) - element.clientHeight) * 100;
+}
 
   ngOnInit(): void {
     this.loadAllIds();
@@ -125,13 +139,15 @@ export class ViewLocomotivesComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+    //this.applyFilter();
   }
-
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
-  }
-
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
+}
 
 
 

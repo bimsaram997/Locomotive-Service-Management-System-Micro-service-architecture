@@ -88,7 +88,9 @@
                                 <h6 class="mb-0 label">Progress Status</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                <p [ngStyle]="{'color': (this.scheduleStatus == 1)?'blue':(this.scheduleStatus == 2)?'green':(this.scheduleStatus==3)?'green':'red'}"> <span class="material-icons">
+                                <p [ngStyle]="{'color': (this.scheduleStatus == 0)?'blue':(this.scheduleStatus == 1)?'yellow':
+                               (this.scheduleStatus==2)?'#e87e04':(this.scheduleStatus==3)?'#9a12b3':(this.scheduleStatus==4)?'#663399':(this.scheduleStatus==5)?'#67809f':(this.scheduleStatus==6)?'green': 'red'}">
+                                    <span class="material-icons">
                                     {{statusBinder(this.scheduleStatus)}}
                                     </span></p>
                             </div>
