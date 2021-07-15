@@ -11,13 +11,24 @@
                     </mat-form-field>&nbsp;
 
                 </div>
-                <div class="col-sm pr-0" style="top: 18px;">
+                <div class="col-sm pr-0">
+                    <mat-form-field appearance="fill">
+                        <mat-label>locoNumber Number</mat-label>
+                        <input required readonly matInput formControlName="locoNumber">
+                    </mat-form-field>&nbsp;
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm pr-0">
                     <mat-radio-group required aria-label="Select an option" formControlName="status">
                         <mat-radio-button value="2">Viewed</mat-radio-button>&nbsp;
                         <mat-radio-button value="3">Pending</mat-radio-button>
                     </mat-radio-group>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col-sm">
                     <mat-form-field appearance="fill" style="width: 200px;">

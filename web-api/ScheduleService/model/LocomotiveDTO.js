@@ -72,6 +72,14 @@ const LocomotiveSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    locoStatus: {
+        type: Number,
+        required: false
+    },
+    statusReason: {
+        type: String,
+        required: false
+    },
     image: {
         type: Array,
         required: false

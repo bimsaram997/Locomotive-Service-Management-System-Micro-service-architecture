@@ -8,6 +8,10 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    locoNumber: {
+        type: Number,
+        required: true
+    },
     reason: {
         type: String,
         required: true

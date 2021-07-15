@@ -1,3 +1,5 @@
+import { LocomotiveService } from 'src/app/service/locomotive.service';
+
 
 import { Router } from '@angular/router';
 import { LoadTrialService } from 'src/app/service/load-trial.service';
@@ -6,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-comment-load',
@@ -20,11 +23,12 @@ export class AddCommentLoadComponent implements OnInit {
   statuses: any[] = [1,2,3];
   nameStatus: string[] = ['Viewed', 'Pending']
   options:string  [] = ['Viewed and Confirmed', 'Viewed, do actions for comments'];
-  constructor(private router: Router, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder, private loadService: LoadTrialService) { }
+  constructor(private router: Router,private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder, private loadService: LoadTrialService) { }
 
   ngOnInit(): void {
     this.commentAdd = this.formBuilder.group({
       loadNo: ['',  [Validators.required]],
+      locoNumber: ['', [Validators.required]],
       status:[2],
       comDate: ['', [Validators.required]],
       reason:[' '],
@@ -37,6 +41,7 @@ export class AddCommentLoadComponent implements OnInit {
       if(res != undefined){
         this.commentAdd.controls['loadNo'].setValue(res[0].loadNo);
         this.commentAdd.controls['reason'].setValue(res[0].reason);
+        this.commentAdd.controls['locoNumber'].setValue(res[0].locoNumber);
      this.reason = res[0].reason;
       }
     })
@@ -48,6 +53,7 @@ export class AddCommentLoadComponent implements OnInit {
         let id = this.route.snapshot.paramMap.get('id');
         this.makeComment(this.commentAdd.value);
         this.updateLoadStatus(this.commentAdd.value)
+        this.patchLoadLoco(this.commentAdd.value);
        
     }
   }
@@ -80,5 +86,15 @@ export class AddCommentLoadComponent implements OnInit {
     this.loadService.makeComment(obj).subscribe(res=>{
       console.log(res)
     })
+  }
+
+  patchLoadLoco(object){
+      
+    this.locomotiveService.patchLoadLoco(object).pipe(first())
+    .subscribe((
+      res=>{
+        console.log(res);
+      }
+    ))
   }
 }

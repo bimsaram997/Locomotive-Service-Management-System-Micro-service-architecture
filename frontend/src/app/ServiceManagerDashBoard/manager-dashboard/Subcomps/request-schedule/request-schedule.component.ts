@@ -165,13 +165,15 @@ export class RequestScheduleComponent implements OnInit {
       res => {
         console.log(res);
         if (res.isSaved) {
+          this.patchSch(this.ScheduleGroup.value)
           swal({
             title: 'Record Saved!',
             text: 'Please Click OK',
             icon: 'success',
           });
+        
           setTimeout(() => {
-            this.refresh();
+           // this.refresh();
           }, 3000);
 
         } else {
@@ -181,7 +183,7 @@ export class RequestScheduleComponent implements OnInit {
             icon: 'error',
           });
           setTimeout(() => {
-            this.refresh();
+            //this.refresh();
           }, 3000);
         }
       },
@@ -259,5 +261,16 @@ export class RequestScheduleComponent implements OnInit {
         }
       )
   }
+
+  patchSch(object){
+      
+    this.locomotiveService.patchSch(object).pipe(first())
+    .subscribe((
+      res=>{
+        console.log(res);
+      }
+    ))
+}
+
 
 }

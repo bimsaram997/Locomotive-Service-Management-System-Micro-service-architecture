@@ -52,6 +52,20 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated Date </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="Responsible"> {{tempLoco.locoDate | date}}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="status" [ngStyle]="{'color': (tempLoco.locoStatus == 0)?'green':(tempLoco.locoStatus == 1)?'#f62459':
+                     (tempLoco.locoStatus==2)?'#1f3a93': 'red'}">
+                        <span class="material-icons" matTooltip="{{tempLoco.statusReason}}">
+{{statusBinder(tempLoco.locoStatus)}}
+</span>
+                    </mat-cell>
+
+                    <!--            {{tempLoco.status || '-'}}-->
+                    <!--          pending - yellow , Approval  -blue, created-Green , rejectd - red-->
+
+
+                </ng-container>
                 <ng-container matColumnDef="Image">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="Image"><img src="{{tempLoco.image}}" (click)="openImage(tempLoco)" style="height: 60px; width: 80px; cursor: pointer" alt=""></mat-cell>
@@ -61,7 +75,9 @@
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="#">
                         <button mat-icon-button (click)="viewLoco(tempLoco._id)"><span class="material-icons">visibility</span></button>
-                        <button mat-icon-button (click)="OpenEditDialog(tempLoco._id)"><mat-icon>launch</mat-icon></button>
+                        <span matTooltipShowDelay="10" [matTooltipClass]="'tooltip'" style="font-weight: bold;" [matTooltip]="tempLoco.locoStatus !=1 ? 'Update Current Locomotive Status ' :  'Locomotive is in a Schedule.You cannot update!'">
+                            <button [disabled]="(tempLoco.locoStatus != 1)?false  :true" mat-icon-button (click)="OpenEditDialog(tempLoco._id)"> <i class="fas fa-pencil-alt" style="color: #f62459; font-size: 15px; font-weight: bolder;"></i></button>
+                        </span>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

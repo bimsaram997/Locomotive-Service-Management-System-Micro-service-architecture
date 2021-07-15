@@ -17,7 +17,7 @@ export class MViewLocomotiveComponent implements OnInit {
   isVisible =  false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date', 'Image', '#'];
+  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date','Status', 'Image', '#'];
   @ViewChild(MatSort) sort: MatSort;
   locoArray: LocoDTO[] = [];
   selectedLoco: LocoDTO = null;
@@ -71,5 +71,15 @@ export class MViewLocomotiveComponent implements OnInit {
   viewLoco(locoNumber: string) {
     this.router.navigate(['/managerDashBoard/viewLoco', locoNumber]);
 
+  }
+
+  statusBinder(locoStatus){
+    if (locoStatus === 0){
+      return 'train';
+    }else if (locoStatus === 1){
+      return 'garage';
+    }else if (locoStatus === 2){
+      return 'construction';
+    }
   }
 }

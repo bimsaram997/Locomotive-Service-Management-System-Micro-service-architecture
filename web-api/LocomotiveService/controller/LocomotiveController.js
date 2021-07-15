@@ -212,9 +212,6 @@ const patchMileController = async(req, res, next) => {
         })
 
     }
-
-
-
 }
 const rejectMileController = async(req, res, next) => {
     console.log(req.params.id, req.params.reason);
@@ -724,6 +721,65 @@ const patchFinalMile = async(req, res, next) => {
 
     }
 }
+const patchLocoSchedule = async(req, res, next) => {
+    console.log(req.params.locoNumber)
+    if (req.params.locoNumber) {
+        await LocomotiveSchema.updateOne({ locoNumber: req.params.locoNumber }, { $set: { locoStatus: 1, statusReason: 'I schedule' } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+            }
+
+        })
+
+    }
+
+}
+
+
+const patchSch = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    console.log(_obj.locoNumber)
+    if (_obj.locoNumber) {
+        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 1, statusReason: "In a Service Schedule" } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+
+        })
+
+    }
+}
+
+const patchLoadLoco = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    console.log(_obj.status)
+    if (_obj.status = 2) {
+        if (_obj.locoNumber) {
+            console.log(_obj.locoNumber)
+            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
+
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+
+                }
+
+            })
+
+        }
+    }
+
+}
 module.exports = {
     saveLoco,
     getAllLocomotives,
@@ -743,5 +799,8 @@ module.exports = {
     getLocoSch,
     patchFinalMile,
     getOneLocoNew,
-    getAllLocoAssigned
+    getAllLocoAssigned,
+    patchLocoSchedule,
+    patchSch,
+    patchLoadLoco
 }

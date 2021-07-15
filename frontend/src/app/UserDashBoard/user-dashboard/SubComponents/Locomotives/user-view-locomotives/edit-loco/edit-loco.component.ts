@@ -75,7 +75,7 @@ export class EditLocoComponent implements OnInit  {
       locoBreaks: new FormArray([]),
       locoFluids: new FormArray([]),
       locoNote: ['', [Validators.required, Validators.maxLength(1000),  Validators.pattern('^[0-9]*$')]],
-      image: [''],
+      //image: [''],
       mtrType: ['', Validators.required],
       brkType: ['', Validators.required],
       fldType: ['', Validators.required]
@@ -141,48 +141,24 @@ export class EditLocoComponent implements OnInit  {
 
   onEdit(){
     console.log(this.editLocoGroup.value);
-    // this.submitted = true;
+   // this.submitted = true;
     //this.submitted = true;
 
-    let obj = {
-      locoCatId: this.editLocoGroup.controls.locoCatId.value,
-      locoNumber : this.editLocoGroup.controls.locoNumber.value,
-      locoPower : this.editLocoGroup.controls.locoPower.value,
-      locoMileage : this.editLocoGroup.controls.locoMileage.value,
-      locoDate : this.editLocoGroup.controls.locoDate.value,
-      userNic : this.editLocoGroup.controls.userNic.value,
-      supervisorName: this.editLocoGroup.controls.supervisorName.value,
-      supervisorEmail : this.editLocoGroup.controls.supervisorEmail.value,
-      locoAvailability : this.editLocoGroup.controls.locoAvailability.value,
-      locoMotors : this.editLocoGroup.controls.locoMotors.value,
-      locoBreaks : this.editLocoGroup.controls.locoBreaks.value,
-      locoFluids : this.editLocoGroup.controls.locoFluids.value,
-      image : this.editLocoGroup.controls.image.value,
-      locoNote : this.editLocoGroup.controls.locoNote.value,
+      if (window.confirm('Are you sure?')) {
+        let id = this.route.snapshot.paramMap.get('id');
+        this.locomotiveService.updateLoco(this.editLocoGroup.value)
+          .subscribe(res => {
 
-
-
-    }
-    this.locomotiveService.sendLocoStatus(obj)
-      .pipe(first()).subscribe(
-      res=>{
-        console.log(obj);
-        this.sendNewEmail(this.editLocoGroup.controls.locoNumber.value, this.editLocoGroup.controls.supervisorEmail.value)
-
-      }
-    )
-    if (window.confirm('Are you sure?')) {
-      let id = this.route.snapshot.paramMap.get('id');
-      this.locomotiveService.updateLoco(obj)
-        .subscribe(res => {
-            this.loadAll();
-
-        }, (error) => {
-          console.log(error)
-        })
+            //this.router.navigateByUrl('/employees-list');
+            console.log('Content updated successfully!');
+            console.log(res);
+          }, (error) => {
+            console.log(error)
+          })
 
     }
   }
+
   sendNewEmail(from, text){
     this.locomotiveService.sendStatusEmail(
       this.editLocoGroup.controls.locoNumber.value,

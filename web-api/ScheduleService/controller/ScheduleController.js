@@ -251,6 +251,9 @@ const getProSchedule = async(req, resp, next) => {
         }
     })
 }
+
+
+
 module.exports = {
     saveSchedule,
     getAllSchedules,
@@ -265,5 +268,6 @@ module.exports = {
     sendOneSchedule,
     patchMileage,
     getProSchedule,
-    getOneSchedule
+    getOneSchedule,
+
 }

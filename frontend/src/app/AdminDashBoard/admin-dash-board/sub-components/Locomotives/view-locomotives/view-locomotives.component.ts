@@ -39,7 +39,7 @@ export class ViewLocomotivesComponent implements OnInit {
   isVisible =  false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<LocoDTO>;
-  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date', 'Image', '#'];
+  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date', 'Status', 'Image', '#'];
   @ViewChild(MatSort) sort: MatSort;
   locoArray: LocoDTO[] = [];
   selectedLoco: LocoDTO = null;
@@ -149,6 +149,15 @@ onWindowScroll() {
     }
 }
 
+statusBinder(locoStatus){
+  if (locoStatus === 0){
+    return 'train';
+  }else if (locoStatus === 1){
+    return 'garage';
+  }else if (locoStatus === 2){
+    return 'construction';
+  }
+}
 
 
 

@@ -52,14 +52,27 @@
                 <!-- Symbol Column -->
                 <ng-container matColumnDef="Responsible">
                     <mat-header-cell *matHeaderCellDef> Responsible </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoco" data-label="Responsible"> {{tempLoco.userNic}} </mat-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="Responsible"> {{tempLoco.supervisorName}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Update Date">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Update Date </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="Update Date"> {{tempLoco.locoDate | date}}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoco" data-label="status" [ngStyle]="{'color': (tempLoco.locoStatus == 0)?'green':(tempLoco.locoStatus == 1)?'#f62459':
+                     (tempLoco.locoStatus==2)?'#1f3a93': 'red'}">
+                        <span class="material-icons" matTooltip="{{tempLoco.statusReason}}">
+{{statusBinder(tempLoco.locoStatus)}}
+</span>
+                    </mat-cell>
 
+                    <!--            {{tempLoco.status || '-'}}-->
+                    <!--          pending - yellow , Approval  -blue, created-Green , rejectd - red-->
+
+
+                </ng-container>
                 <ng-container matColumnDef="Image">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="Image"><img src="{{tempLoco.image}}" (click)="openImage(tempLoco)" style="height: 60px; width: 80px;" alt=""></mat-cell>
@@ -70,7 +83,7 @@
                     <mat-cell *matCellDef="let tempLoco" data-label="#">
 
                         <button mat-icon-button (click)="viewLoco(tempLoco._id)"><mat-icon>visibility</mat-icon></button>
-                        <button mat-icon-button (click)="editLoco(tempLoco._id)" routerLink="/adminDashboard/EditLocomotive"><mat-icon>launch</mat-icon></button>
+                        <button mat-icon-button (click)="editLoco(tempLoco._id)" routerLink="/adminDashboard/EditLocomotive">   <i class="fas fa-pencil-alt" style="color: #f62459;"></i></button>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

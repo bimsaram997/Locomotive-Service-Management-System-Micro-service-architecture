@@ -101,5 +101,13 @@ export class LocomotiveService {
   }
 
   public getAllLocoAssigned(object):Observable<any> {
-    return this.http.get( this.myUrl + `locoRoute/getAllLocoAssigned/`, {params:object})};
+    return this.http.get( this.myUrl + `locoRoute/getAllLocoAssigned/`, {params:object})
+  };
+  public patchSch(object):Observable<any> {
+    return this.http.patch( this.myUrl + `locoRoute/patchSch/` , object);
+  }
+  public patchLoadLoco(object):Observable<any> {
+    return this.http.patch( this.myUrl + `locoRoute/patchLoadLoco/` , object);
+  }
+    
 }

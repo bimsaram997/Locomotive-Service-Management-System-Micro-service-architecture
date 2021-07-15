@@ -12,7 +12,7 @@
             <mat-card class="card1">
                 <mat-form-field appearance="fill">
                     <mat-label class="Report Number">Report Number</mat-label>
-                    <input required maxlength="3" minlength="1" matInput placeholder="Report Number" #searchInput formControlName="mReportNumber">
+                    <input required maxlength="5" minlength="3" matInput placeholder="Report Number" #searchInput formControlName="mReportNumber">
                     <div *ngIf="MileageGroup.controls['mReportNumber'].invalid && (MileageGroup.controls['mReportNumber'].dirty || MileageGroup.controls['mReportNumber'].touched)" class="error">
                         <div *ngIf="MileageGroup.controls['mReportNumber'].errors.required">
                             Required.

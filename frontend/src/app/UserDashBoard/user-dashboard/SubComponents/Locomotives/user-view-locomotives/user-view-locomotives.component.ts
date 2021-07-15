@@ -20,7 +20,7 @@ export class UserViewLocomotivesComponent implements OnInit {
   isVisible =  false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<LocoDTO>;
-  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date', 'Image', '#'];
+  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date', 'Status','Image', '#'];
   @ViewChild(MatSort) sort: MatSort;
   locoArray: LocoDTO[] = [];
   selectedLoco: LocoDTO = null;
@@ -36,20 +36,6 @@ export class UserViewLocomotivesComponent implements OnInit {
   userNic: any;
   userRole: any;
 
-  changeLocoCatID = '';
-  changeLocoPower = '';
-  changeLocoMileage = '';
-  changeLocoAvailability = '';
-  changeuserNic = '';
-  changeLocoDate = '';
-  changeLocoOil = '';
-  changeLocoFuel = '';
-  changeLocoWater = '';
-  changeLocoMainGen = '';
-  changeLocotracMot = '';
-  changeLocoVBreak = '';
-  changeLocoDBreak = '';
-  changeLocoNote = '';
 
 
   constructor(public dialog: MatDialog, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService) {
@@ -120,7 +106,17 @@ export class UserViewLocomotivesComponent implements OnInit {
   }
 
 
-
+  statusBinder(locoStatus){
+    if (locoStatus === 0){
+      return 'train';
+    }else if (locoStatus === 1){
+      return 'garage';
+    }else if (locoStatus === 2){
+      return 'construction';
+    }else if (locoStatus === 3){
+      return 'hourglass_top';
+    }
+  }
 
   onSearchClear() {
     this.searchKey = '';
