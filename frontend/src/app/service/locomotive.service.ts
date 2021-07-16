@@ -63,6 +63,9 @@ export class LocomotiveService {
   public getAcceptedMileage(): Observable<any> {
     return this.http.get( this.myUrl + 'locoRoute/getAcceptedMileage');
   }
+  public getLocoReport(): Observable<any> {
+    return this.http.get( this.myUrl + 'locoRoute/getLocoReport');
+  }
 
   public updateMileStatus(id):Observable<any> {
     return this.http.patch( this.myUrl + `locoRoute/patch-mile/${id}` , id);
@@ -108,6 +111,9 @@ export class LocomotiveService {
   }
   public patchLoadLoco(object):Observable<any> {
     return this.http.patch( this.myUrl + `locoRoute/patchLoadLoco/` , object);
+  }
+  public patchSchMileage(object):Observable<any> {
+    return this.http.patch( this.myUrl + `locoRoute/patchSchMileage/` , object);
   }
     
 }

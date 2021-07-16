@@ -31,7 +31,9 @@
                                     {{temIds.mReportNumber}}
                                 </mat-option>
                             </mat-select>
+                            <mat-hint style="color: red; font-size: 12px;" *ngIf="lengthCount"><b>*There are not available accepted reports</b></mat-hint>
                         </mat-form-field>
+
                         <div *ngIf="ScheduleGroup.controls['mReportNumber'].invalid && (ScheduleGroup.controls['mReportNumber'].dirty || ScheduleGroup.controls['mReportNumber'].touched)" class="error">
                             <div *ngIf="ScheduleGroup.controls['mReportNumber'].errors.required">
                                 Required.

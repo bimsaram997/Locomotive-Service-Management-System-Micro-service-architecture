@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const MileageSchema = new mongoose.Schema({
     mReportNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     mLocoCatId: {

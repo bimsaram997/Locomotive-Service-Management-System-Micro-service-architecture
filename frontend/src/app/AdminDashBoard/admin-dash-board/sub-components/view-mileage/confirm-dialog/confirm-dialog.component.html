@@ -1,12 +1,16 @@
 <h1 mat-dialog-title>
-  {{title}}
+    {{title}}
 </h1>
 
 <div mat-dialog-content>
-  <p>{{message}}</p>
+    <p>{{message}}</p>
+</div>
+<div class="image">
+    <img src="./assets/logo/conversation.png" style="width: 80px; height: 80px" alt="">
 </div>
 
-<div mat-dialog-actions>
-  <button mat-button (click)="onDismiss()">No</button>
-  <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onDismiss()">No</button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
 </div>

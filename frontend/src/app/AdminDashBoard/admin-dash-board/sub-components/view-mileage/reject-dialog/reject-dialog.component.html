@@ -1,16 +1,16 @@
 <h1 mat-dialog-title>
-  {{title}}
+    {{title}}
 </h1>
 
 <div mat-dialog-content>
-  <p>{{message}}</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput [(ngModel)]="reason">
-  </mat-form-field>
+    <p>{{message}}</p>
+    <mat-form-field appearance="fill" style="width: 300px">
+        <mat-label>Input</mat-label>
+        <input matInput [(ngModel)]="reason" required>
+    </mat-form-field>
 </div>
 
-<div mat-dialog-actions>
-  <button mat-button (click)="onDismiss()">No</button>
-  <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onDismiss()">No</button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
 </div>

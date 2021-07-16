@@ -107,6 +107,10 @@ const LoadTrialSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    endMileDate: {
+        type: String,
+        required: false
+    },
     status: {
         type: Number,
         required: false

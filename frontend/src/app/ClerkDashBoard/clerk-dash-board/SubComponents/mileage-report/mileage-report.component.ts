@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import UserDTO from "../../../../dto/UserDTO";
@@ -18,9 +19,11 @@ export class MileageReportComponent implements OnInit {
   loading =  false;
   locoList:any[]= [];
   MileageGroup: FormGroup;
+  spinner = false;
+  locoCount = false;
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   constructor(private accessService: AccessService, private formBuilder: FormBuilder,
-              private locomotiveService: LocomotiveService) { }
+              private locomotiveService: LocomotiveService, private router: Router) { }
 
   ngOnInit(): void {
     this.MileageGroup = this.formBuilder.group({
@@ -34,7 +37,7 @@ export class MileageReportComponent implements OnInit {
       managerName: ['', [Validators.required]],
       mileageNote: ['', [Validators.required, Validators.maxLength(1000)]],
       status: [1],
-      reason: ['']
+      reason: ['Draft']
 
     });
     this.loadMangerEmail();
@@ -47,6 +50,7 @@ export class MileageReportComponent implements OnInit {
 
   onSubmit(){
     console.log(this.MileageGroup.value);
+    this.spinner = true;
     this.locomotiveService.saveMileage(this.MileageGroup.value)
       .pipe(first()).subscribe(
       res => {
@@ -58,7 +62,9 @@ export class MileageReportComponent implements OnInit {
             icon: 'success',
           });
           setTimeout(() => {
-            this.refresh();
+            this.MileageGroup.reset();
+            this.router.navigate(['/clerkDashBoard/viewMileages']);
+            this.spinner = false
           }, 3000);
 
         } else {
@@ -69,6 +75,7 @@ export class MileageReportComponent implements OnInit {
           });
           setTimeout(() => {
            // this.refresh();
+           this.spinner = false
           }, 3000);
         }
       },
@@ -124,7 +131,10 @@ export class MileageReportComponent implements OnInit {
 
   loadLocoNum(){
     this.loading = true;
-    this.locomotiveService.getAllLocomotives().subscribe(result => {
+    this.locomotiveService.getLocoReport().subscribe(result => {
+      if(this.locoList.length = 0){
+        this.locoCount =  true;
+      }
       this.locoList = result;
       this.loading = true;
     });

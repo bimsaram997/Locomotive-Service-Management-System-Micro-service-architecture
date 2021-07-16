@@ -11,6 +11,8 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+//Locomotive Methods
+
 const getLocoSch = async(req, resp, next) => {
     const _id = req.params.id;
     console.log(_id)
@@ -25,41 +27,6 @@ const getLocoSch = async(req, resp, next) => {
 }
 
 
-const saveLoco = (req, resp) => {
-    LocomotiveSchema.findOne({ locoNumber: req.body.locoNumber }).then(result => {
-        if (result == null) {
-            const loco = new LocomotiveSchema({
-                locoCatId: req.body.locoCatId,
-                locoPower: req.body.locoPower,
-                locoNumber: req.body.locoNumber,
-                locoMileage: req.body.locoMileage,
-                locoAvailability: req.body.locoAvailability,
-                userNic: req.body.userNic,
-                locoDate: req.body.locoDate,
-                locoOil: req.body.locoOil,
-                locoFuel: req.body.locoFuel,
-                locoWater: req.body.locoWater,
-                locoMainGen: req.body.locoMainGen,
-                locoTracMot: req.body.locoTracMot,
-                locoVBreak: req.body.locoVBreak,
-                locoDBreak: req.body.locoDBreak,
-                locoNote: req.body.locoNote,
-                image: req.body.image,
-            });
-            loco.save().then(result => {
-                resp.status(200).json({ isSaved: true, data: result })
-            }).catch(error => {
-                resp.status(500).json(error);
-            })
-        } else {
-            resp.status(200).json({ isSaved: false, data: result });
-        }
-    }).catch(er => {
-        resp.status(500).json(er);
-    });
-
-
-}
 
 const saveReactiveLoco = async(req, res, next) => {
 
@@ -87,7 +54,7 @@ const saveReactiveLoco = async(req, res, next) => {
 
 const getAllLocomotives = async(req, resp, next) => {
     console.log(resp)
-    LocomotiveSchema.find().then(result => {
+    await LocomotiveSchema.find().then(result => {
         resp.status(200).json(result);
     }).catch(error => {
         resp.status(500).json(result)
@@ -150,24 +117,132 @@ const getAllLocoAssigned = async(req, resp) => {
     }
 }
 
-
-
-
-/*const getInCount = (req, resp) => {
-    LocomotiveSchema.count({ locoAvailability: 'In' }).then(result => {
-        resp.status(200).json(result)
+const getLocoReport = async(req, resp, next) => {
+    await LocomotiveSchema.find({ locoStatus: 0 }).then(result => {
+        resp.status(200).json(result);
+        //console.log(result);
     }).catch(error => {
-        resp.status(500).json(error);
-    })
+        resp.status(500).json(result)
+    });
+
+
 }
-const getOutCount = (req, resp) => {
-    LocomotiveSchema.count({ locoAvailability: 'Out' }).then(result => {
-        resp.status(200).json(result)
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-}*/
 
+const getOneLoco = (req, res) => {
+    console.log(req.params.id);
+    LocomotiveSchema.find({
+        _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+}
+const getOneLocoNew = (req, res) => {
+    console.log(req.params.mLocoNumber);
+    LocomotiveSchema.find({
+        locoNumber: req.params.mLocoNumber
+    }).then(result => {
+        res.status(200).json(result);
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+
+}
+
+const sendLocoStatus = async(req, resp) => {
+    console.log(req.body.image);
+    const _findEmail = await LocomotiveSchema.findOne({ supervisorEmail: req.body.email });
+    if (_findEmail != null) {
+        console.log(req.body.supervisorEmail);
+        sendPassEmail(req.body.supervisorEmail, req.body.locoNumber, req.body.locoCatId,
+            req.body.locoAvailability, req.body.locoPower, req.body.locoNote, req.body.locoMileage, req.body.locoDate)
+    } else {
+        res.status(404).json({ message: false });
+    }
+}
+
+const patchFinalMile = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    console.log(_obj.locoNumber)
+    if (_obj.locoNumber) {
+        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+
+        })
+
+    }
+}
+const patchLocoSchedule = async(req, res, next) => {
+    console.log(req.params.locoNumber)
+    if (req.params.locoNumber) {
+        await LocomotiveSchema.updateOne({ locoNumber: req.params.locoNumber }, { $set: { locoStatus: 1, statusReason: 'I schedule' } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+            }
+
+        })
+
+    }
+
+}
+
+
+const patchSch = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    console.log(_obj.locoNumber)
+    if (_obj.locoNumber) {
+        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 1, statusReason: "In a Service Schedule" } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+
+        })
+
+    }
+}
+
+const patchLoadLoco = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    console.log(_obj.status)
+    if (_obj.status = 2) {
+        if (_obj.locoNumber) {
+            console.log(_obj.locoNumber)
+            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, lastLoadDate: _obj.comDate, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
+
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+
+                }
+
+            })
+
+        }
+    }
+
+}
+
+//Mileage Methods
 const saveMileage = async(req, res, next) => {
 
     MileageSchema.findOne({ mReportNumber: req.body.mReportNumber }).then(result => {
@@ -216,7 +291,7 @@ const patchMileController = async(req, res, next) => {
 const rejectMileController = async(req, res, next) => {
     console.log(req.params.id, req.params.reason);
     if (req.params.id) {
-        await MileageSchema.updateOne({ _id: req.params.id }, { $set: { status: 4, reason: req.params.reason } }, function(err, result) {
+        await MileageSchema.updateOne({ _id: req.params.id }, { $set: { status: 3, reason: req.params.reason } }, function(err, result) {
 
             if (err) {
                 res.status(500).json(err)
@@ -237,6 +312,26 @@ const getAcceptedMileage = (req, resp) => {
         resp.status(500).json(result);
     })
 }
+
+const patchSchMileage = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    console.log(_obj.locoNumber)
+    if (_obj.locoNumber) {
+        await MileageSchema.updateOne({ mLocoNumber: _obj.locoNumber }, { $set: { status: 3, reason: "Assigned to the Schedule" } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+
+        })
+
+    }
+}
+
 const getOneMileage = (req, res) => {
 
     MileageSchema.find({
@@ -250,41 +345,7 @@ const getOneMileage = (req, res) => {
 
 }
 
-const getOneLoco = (req, res) => {
-    console.log(req.params.id);
-    LocomotiveSchema.find({
-        _id: req.params.id
-    }).then(result => {
-        res.status(200).json(result);
-    }).catch(er => {
-        res.status(500).json(er);
-    });
 
-}
-const getOneLocoNew = (req, res) => {
-    console.log(req.params.mLocoNumber);
-    LocomotiveSchema.find({
-        locoNumber: req.params.mLocoNumber
-    }).then(result => {
-        res.status(200).json(result);
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-
-
-}
-
-const sendLocoStatus = async(req, resp) => {
-    console.log(req.body.image);
-    const _findEmail = await LocomotiveSchema.findOne({ supervisorEmail: req.body.email });
-    if (_findEmail != null) {
-        console.log(req.body.supervisorEmail);
-        sendPassEmail(req.body.supervisorEmail, req.body.locoNumber, req.body.locoCatId,
-            req.body.locoAvailability, req.body.locoPower, req.body.locoNote, req.body.locoMileage, req.body.locoDate)
-    } else {
-        res.status(404).json({ message: false });
-    }
-}
 
 const sendPassEmail = (supervisorEmail, locoNumber, locoCatId, locoAvailability, locoPower, locoNote, locoMileage, locoDate, cb) => {
 
@@ -703,85 +764,8 @@ const sendPassEmail = (supervisorEmail, locoNumber, locoCatId, locoAvailability,
         // console.log("Data", req.body)
 }
 
-const patchFinalMile = async(req, res, next) => {
-    const _obj = req.body;
-    console.log(_obj);
-    console.log(_obj.locoNumber)
-    if (_obj.locoNumber) {
-        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
 
-            if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(result)
-
-            }
-
-        })
-
-    }
-}
-const patchLocoSchedule = async(req, res, next) => {
-    console.log(req.params.locoNumber)
-    if (req.params.locoNumber) {
-        await LocomotiveSchema.updateOne({ locoNumber: req.params.locoNumber }, { $set: { locoStatus: 1, statusReason: 'I schedule' } }, function(err, result) {
-
-            if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(result)
-            }
-
-        })
-
-    }
-
-}
-
-
-const patchSch = async(req, res, next) => {
-    const _obj = req.body;
-    console.log(_obj);
-    console.log(_obj.locoNumber)
-    if (_obj.locoNumber) {
-        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 1, statusReason: "In a Service Schedule" } }, function(err, result) {
-
-            if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(result)
-
-            }
-
-        })
-
-    }
-}
-
-const patchLoadLoco = async(req, res, next) => {
-    const _obj = req.body;
-    console.log(_obj);
-    console.log(_obj.status)
-    if (_obj.status = 2) {
-        if (_obj.locoNumber) {
-            console.log(_obj.locoNumber)
-            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
-
-                }
-
-            })
-
-        }
-    }
-
-}
 module.exports = {
-    saveLoco,
     getAllLocomotives,
     getAllLocosSelect,
     deleteLoco,
@@ -802,5 +786,7 @@ module.exports = {
     getAllLocoAssigned,
     patchLocoSchedule,
     patchSch,
-    patchLoadLoco
+    patchLoadLoco,
+    getLocoReport,
+    patchSchMileage
 }

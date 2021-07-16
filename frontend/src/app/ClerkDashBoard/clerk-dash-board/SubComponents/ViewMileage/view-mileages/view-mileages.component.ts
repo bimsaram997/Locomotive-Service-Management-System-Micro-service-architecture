@@ -55,12 +55,12 @@ export class ViewMileagesComponent implements OnInit {
   }
   statusBinder(status){
     if (status === 1){
-      return 'pending_actions'
-        ;
+      return 'hourglass_top'
+       ;
     }else if (status === 2){
-      return 'flag';
-    }else if (status === 4){
-      return 'dangerous'
+      return 'check_circle_outline';
+    }else if (status === 3){
+      return 'assignment'
     }
   }
 }

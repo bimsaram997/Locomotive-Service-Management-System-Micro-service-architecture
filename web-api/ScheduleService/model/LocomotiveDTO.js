@@ -80,6 +80,10 @@ const LocomotiveSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    lastLoadDate: {
+        type: String,
+        required: false
+    },
     image: {
         type: Array,
         required: false

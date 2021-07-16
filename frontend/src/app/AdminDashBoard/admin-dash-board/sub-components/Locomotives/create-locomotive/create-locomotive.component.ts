@@ -75,8 +75,8 @@ export class CreateLocomotiveComponent implements OnInit {
     this.LocoGroup = this.formBuilder.group({
       locoCatId: ['', [Validators.required]],
       locoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      locoPower: ['', [Validators.required, Validators.minLength(5),  Validators.pattern('^[0-9]*$')]],
-      locoMileage: ['', [Validators.required, Validators.minLength(10),  Validators.pattern('^[0-9]*$')]],
+      locoPower: ['', [Validators.required, Validators.minLength(4),  Validators.pattern('^[0-9]*$')]],
+      locoMileage: ['', [Validators.required, Validators.minLength(4),  Validators.pattern('^[0-9]*$')]],
       locoDate: ['', [Validators.required]],
       userNic: ['', [Validators.required]],
       supervisorName: ['', [Validators.required]],
@@ -89,6 +89,7 @@ export class CreateLocomotiveComponent implements OnInit {
       image: [''],
       locoStatus: [0],
       statusReason:['In Operating'],
+      lastLoadDate: [''],
       endMileage: [''],
       endMileDate: [''],
       mtrType: ['', Validators.required],
@@ -171,6 +172,7 @@ export class CreateLocomotiveComponent implements OnInit {
     locoNote : this.LocoGroup.controls.locoNote.value,
     locoStatus: this.LocoGroup.controls.locoStatus.value,
     statusReason: this.LocoGroup.controls.statusReason.value,
+    lastLoadDate: this.LocoGroup.controls.lastLoadDate.value,
     endMileage: this.LocoGroup.controls.endMileage.value,
     endMileDate: this.LocoGroup.controls.endMileDate.value,
 

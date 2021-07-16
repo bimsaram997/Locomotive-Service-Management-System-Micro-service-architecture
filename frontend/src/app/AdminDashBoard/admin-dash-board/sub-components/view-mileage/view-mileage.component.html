@@ -2,7 +2,7 @@
     <br>
     <div class="box-head">
         <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
-        <span class="heading-txt">VIEW MILEAGE</span>
+        <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW MILEAGE REPORTS</span>
     </div>
     <hr>
 
@@ -53,7 +53,7 @@
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoco" data-label="status" [ngStyle]="{'color': (tempLoco.status ==1)?'yellow':(tempLoco.status == 2)?'blue':(tempLoco.status==3)?'green':'red'}">
+                    <mat-cell *matCellDef="let tempLoco" data-label="status" [ngStyle]="{'color': (tempLoco.status ==1)?'#1f3a93':(tempLoco.status == 2)?'green':(tempLoco.status==3)?'green':'red'}">
 
                         <span class="material-icons" matTooltip="{{tempLoco.reason}}">
 {{statusBinder(tempLoco.status)}}

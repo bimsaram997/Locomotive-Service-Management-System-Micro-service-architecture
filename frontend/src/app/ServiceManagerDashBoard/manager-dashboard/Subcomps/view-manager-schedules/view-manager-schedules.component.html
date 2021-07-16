@@ -63,7 +63,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
                     <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{'color': (tempSchedule.scheduleStatus == 0)?'blue':(tempSchedule.scheduleStatus == 1)?'yellow':
                     (tempSchedule.scheduleStatus==2)?'#e87e04':(tempSchedule.scheduleStatus==3)?'#9a12b3':(tempSchedule.scheduleStatus==4)?'#663399':(tempSchedule.scheduleStatus==5)?'#67809f':(tempSchedule.scheduleStatus==6)?'green': 'red'}">
-                        <span class="material-icons">
+                        <span class="material-icons" matTooltip="{{tempSchedule.schReason}}">
 {{statusBinder(tempSchedule.scheduleStatus)}}
 </span>
                     </mat-cell>

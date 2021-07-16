@@ -34,6 +34,7 @@ export class RequestScheduleComponent implements OnInit {
   supervisorList: UserDTO[] = [];
   loading =  false;
   mileageReport: any[] = [];
+  lengthCount =false;
 
   ngOnInit(): void {
     this.ScheduleGroup = this.formBuilder.group({
@@ -166,6 +167,7 @@ export class RequestScheduleComponent implements OnInit {
         console.log(res);
         if (res.isSaved) {
           this.patchSch(this.ScheduleGroup.value)
+          this.patchSchMileage(this.ScheduleGroup.value);
           swal({
             title: 'Record Saved!',
             text: 'Please Click OK',
@@ -214,6 +216,10 @@ export class RequestScheduleComponent implements OnInit {
     this.loading = true;
     this.locomotiveService.getAcceptedMileage().subscribe(result => {
       this.mileageReport =  result;
+      if(this.mileageReport.length === 0){
+        console.log("dsdsd");
+        this.lengthCount = true;
+      }
       console.log(this.mileageReport)
       this.loading =  true;
     })
@@ -271,6 +277,13 @@ export class RequestScheduleComponent implements OnInit {
       }
     ))
 }
-
+patchSchMileage(object){
+  this.locomotiveService.patchSchMileage(object).pipe(first())
+  .subscribe((
+    res=>{
+      console.log(res);
+    }
+  ))
+}
 
 }

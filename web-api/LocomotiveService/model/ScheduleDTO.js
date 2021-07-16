@@ -5,7 +5,7 @@ const ScheduleSchema = new mongoose.Schema({
         required: true
     },
     mReportNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     scheduleDate: {

@@ -67,7 +67,7 @@ onWindowScroll() {
   ngOnInit(): void {
     this.loadAllIds();
     this.getAllLoco();
-   
+   this.getLocoReport()
     
     console.log(this.userNic);
 
@@ -159,6 +159,11 @@ statusBinder(locoStatus){
   }
 }
 
+getLocoReport(){
+  this.locomotiveService.getLocoReport().subscribe(resp=>{
+    console.log(resp);
+  })
+}
 
 
 }
