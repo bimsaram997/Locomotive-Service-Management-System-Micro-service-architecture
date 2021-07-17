@@ -1,9 +1,11 @@
+import { AddFeedBacksComponent } from './add-feed-backs/add-feed-backs.component';
 import { Router } from '@angular/router';
 import { LoadTrialService } from './../../../../../service/load-trial.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class ViewLoadTrialsComponent implements OnInit {
   loadArray: any[] = [];
   status: any;
 
-  constructor(private loadService: LoadTrialService, private router: Router) { }
+  constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
   
   ngOnInit(): void {
     this.getLoadTrial();
@@ -60,4 +62,16 @@ export class ViewLoadTrialsComponent implements OnInit {
   viewLoad(id: string){
     this.router.navigate(['/userDashboard/viewLoadProf', id])
   }
+
+  addFeedBack(_id: string) {
+    console.log(_id)
+    const dialogRef = this.dialog.open(AddFeedBacksComponent,{
+      data: {id: _id},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+    });
+  }
+
 }

@@ -2,9 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
 const bodyParser = require('body-parser')
-
+const CronJob = require('cron').CronJob;
 const LocomotiveRoute = require('./route/LocomotiveRoute');
 const ImageController = require('./controller/ImageController');
+const LocomotiveSchema = require('./model/LocomotiveDTO')
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,18 @@ mongoose.connect('mongodb://localhost:27017/RailwayProject', {
 }).catch(error => {
     console.log(error);
 });
+
+// const job = new CronJob('* * * * * *', async function() {
+//     var today = new Date();
+//     const _getAllSchedule = await LocomotiveSchema.find({ locoStatus: 2 });
+//     if (_getAllSchedule && _getAllSchedule > 0) {
+//         if (new Date(param.enMileDate) < today) {
+//             await LocomotiveSchema.updateOne
+//         }
+//     }
+
+// }, null, true, 'America/Los_Angeles');
+// job.start();
 
 app.use('/api/v1/locoRoute', LocomotiveRoute);
 

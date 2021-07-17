@@ -33,6 +33,7 @@ export class AddCommentLoadComponent implements OnInit {
       comDate: ['', [Validators.required]],
       reason:[' '],
       comments: ['',  [Validators.required]],
+      checked: ['Unchecked']
     })
 
     this.loadService.getOneLoad(this.data.id)

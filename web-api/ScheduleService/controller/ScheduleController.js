@@ -17,6 +17,14 @@ const getAllSchedules = (req, resp) => {
     })
 }
 
+const getAllCompSchedule = (req, resp) => { //get completed schedule
+    ScheduleSchema.find({ scheduleProgress: 100, scheduleStatus: 6 }).then(result => {
+        resp.status(200).json(result);
+    }).catch(error => {
+        resp.status(500).json(error);
+    })
+}
+
 const deleteSchedule = (req, resp) => {
     ScheduleSchema.deleteOne({ scheduleNo: req.headers.id }).then(result => {
         if (result.deletedCount > 0) {
@@ -164,8 +172,6 @@ const getOneSchedule = (req, res) => {
     }).catch(er => {
         res.status(500).json(er);
     });
-
-
 }
 
 const patchMileage = async(req, res, next) => {
@@ -269,5 +275,6 @@ module.exports = {
     patchMileage,
     getProSchedule,
     getOneSchedule,
+    getAllCompSchedule
 
 }

@@ -226,7 +226,7 @@ const patchLoadLoco = async(req, res, next) => {
     if (_obj.status = 2) {
         if (_obj.locoNumber) {
             console.log(_obj.locoNumber)
-            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, lastLoadDate: _obj.comDate, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
+            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, endMileDate: _obj.comDate, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
 
                 if (err) {
                     res.status(500).json(err)
@@ -318,7 +318,7 @@ const patchSchMileage = async(req, res, next) => {
     console.log(_obj);
     console.log(_obj.locoNumber)
     if (_obj.locoNumber) {
-        await MileageSchema.updateOne({ mLocoNumber: _obj.locoNumber }, { $set: { status: 3, reason: "Assigned to the Schedule" } }, function(err, result) {
+        await MileageSchema.updateOne({ mLocoNumber: _obj.locoNumber }, { $set: { status: 4, reason: "Assigned to the Schedule" } }, function(err, result) {
 
             if (err) {
                 res.status(500).json(err)

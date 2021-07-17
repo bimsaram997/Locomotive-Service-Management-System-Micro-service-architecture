@@ -11,6 +11,7 @@ const ScheduleRoute = require('./route/ScheduleRoute');
 const ProgressRoute = require('./route/ProgressRepRoute');
 const LoadTrialRoute = require('./route/LoadTrialRoute');
 const app = express();
+const CronJob = require('cron').CronJob;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +29,11 @@ mongoose.connect('mongodb://localhost:27017/RailwayProject', {
 }).catch(error => {
     console.log(error);
 });
+
+const job = new CronJob('* * * * * *', function() {
+    console.log('You will see this message every second');
+}, null, true, 'America/Los_Angeles');
+job.start();
 
 app.use('/api/v1/scheduleRoute', ScheduleRoute);
 app.use('/api/v1/progressRoute', ProgressRoute);

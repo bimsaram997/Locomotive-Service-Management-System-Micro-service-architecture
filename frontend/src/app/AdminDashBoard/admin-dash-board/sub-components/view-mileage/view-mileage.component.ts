@@ -122,12 +122,13 @@ export class ViewMileageComponent implements OnInit {
 
   statusBinder(status){
     if (status === 1){
-      return 'hourglass_top'
-       ;
+      return 'hourglass_top';
     }else if (status === 2){
       return 'check_circle_outline';
-    }else if (status === 3){
+    }else if (status === 4){
       return 'assignment'
+    }else if (status === 3){
+      return 'dangerous'
     }
   }
 }

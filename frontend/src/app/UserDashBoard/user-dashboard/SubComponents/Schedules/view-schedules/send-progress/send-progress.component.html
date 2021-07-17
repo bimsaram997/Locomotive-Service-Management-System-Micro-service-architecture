@@ -17,7 +17,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label class="Report Number">Progress Report Number</mat-label>
-                <input required maxlength="3" minlength="1" matInput placeholder="Report Number" #searchInput formControlName="progressReportNumber">
+                <input required maxlength="4" minlength="1" matInput placeholder="Report Number" #searchInput formControlName="progressReportNumber">
                 <div *ngIf="ReportGroup.controls['progressReportNumber'].invalid && (ReportGroup.controls['progressReportNumber'].dirty || ReportGroup.controls['progressReportNumber'].touched)" class="error">
                     <div *ngIf="ReportGroup.controls['progressReportNumber'].errors.required">
                         Required.

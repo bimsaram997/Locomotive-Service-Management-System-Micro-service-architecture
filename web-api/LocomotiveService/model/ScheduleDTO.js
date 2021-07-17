@@ -111,7 +111,7 @@ const ScheduleSchema = new mongoose.Schema({
         required: false
     },
     scheduleProgress: {
-        type: String,
+        type: Number,
         required: false
     }
 });

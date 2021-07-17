@@ -5,7 +5,10 @@ const router = express.Router();
 router.post('/saveLoadTrial', loadTrialController.saveLoadTrial);
 router.get('/getAllLoadTrial', loadTrialController.getAllLoadTrial);
 router.get('/getOneLoad/:id', loadTrialController.getOneLoad);
+
 router.put('/addComment', loadTrialController.addComment);
 router.post('/makeComment', loadTrialController.makeComment);
 router.get('/getLoadComments/:id', loadTrialController.getLoadComments);
+
+router.get('/getOneComment/:loadNo', loadTrialController.getOneComment);
 module.exports = router;

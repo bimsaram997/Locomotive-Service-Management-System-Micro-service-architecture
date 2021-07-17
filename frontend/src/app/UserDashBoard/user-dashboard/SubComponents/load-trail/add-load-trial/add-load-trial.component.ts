@@ -204,7 +204,7 @@ console.log(data)
 }
 getAllSchedules(){
   this.loading = true;
-  this.scheduleService.getAllSchedules().subscribe(res=>{
+  this.scheduleService.getAllCompSchedule().subscribe(res=>{
   this.scheduleArray = res;
   this.loading =  true
   })

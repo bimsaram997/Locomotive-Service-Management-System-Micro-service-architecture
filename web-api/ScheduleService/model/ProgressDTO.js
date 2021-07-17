@@ -41,7 +41,7 @@ const ProgressSchema = new mongoose.Schema({
         required: true
     },
     progressValue: {
-        type: String,
+        type: Number,
         required: false
     },
     extraNote: {

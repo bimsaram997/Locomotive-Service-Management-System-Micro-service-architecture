@@ -67,8 +67,8 @@
                 <ng-container matColumnDef="#">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="#">
-                        <button mat-icon-button [disabled]="(tempLoco.status != 2)?false:true" (click)="openAcceptDialog(tempLoco)"><mat-icon aria-hidden="false" aria-label="Example home icon">thumb_up</mat-icon></button>
-                        <button mat-icon-button [disabled]="(tempLoco.status != 4)?false:true" (click)="openRejectDialog(tempLoco)"><mat-icon aria-hidden="false" aria-label="Example home icon">thumb_down</mat-icon></button>
+                        <button mat-icon-button [disabled]="(tempLoco.status != 2 && tempLoco.status !=4)?false: true" (click)="openAcceptDialog(tempLoco)"><mat-icon aria-hidden="false" aria-label="Example home icon">thumb_up</mat-icon></button>
+                        <button mat-icon-button [disabled]="(tempLoco.status != 3 && tempLoco.status !=4)?false:true" (click)="openRejectDialog(tempLoco)"><mat-icon aria-hidden="false" aria-label="Example home icon">thumb_down</mat-icon></button>
                     </mat-cell>
                 </ng-container>
 

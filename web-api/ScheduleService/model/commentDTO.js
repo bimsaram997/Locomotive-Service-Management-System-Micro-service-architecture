@@ -23,6 +23,10 @@ const CommentSchema = new mongoose.Schema({
     comDate: {
         type: String,
         required: true
-    }
+    },
+    checked: {
+        type: String,
+        required: true
+    },
 })
 module.exports = mongoose.model('Comments', CommentSchema);

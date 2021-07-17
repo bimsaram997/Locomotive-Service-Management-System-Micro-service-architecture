@@ -24,7 +24,7 @@ export class RequestScheduleComponent implements OnInit {
   eSwitchList: string[]= ['Engine over Switch', 'Engine Temperature Switch', 'Power cut-out Switch', 'Low Water Switch', 'Blower Switch']
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   top = new FormControl();
-
+  spinner = false
   constructor(private formBuilder: FormBuilder, private accessService: AccessService, private scheduleService: ScheduleService,
               private locomotiveService: LocomotiveService) { }
   locoStatus: string[] = [
@@ -108,13 +108,21 @@ export class RequestScheduleComponent implements OnInit {
   }
   onClickMotor() {
     if (this.getFm.mOther.value !== ''){
-      this.otherMechArray.push(this.formBuilder.group({
-        Name: [this.getFm.mOther.value],
-
-
-      }));
+      const _findDupli = this.getFm. otherMotors.value.find(f=>f.Name==this.getFm.mOther.value);
+      if(!_findDupli){
+        this.otherMechArray.push(this.formBuilder.group({
+          Name: [this.getFm.mOther.value],
+  
+  
+        }));
+      }else {
+        swal({
+          title: 'Value already Exits',
+          text: 'Please Click OK',
+          icon: 'error',
+        });
+      }
     }
-
   }
   onClickremoveField(index = null, value) {
 
@@ -130,12 +138,24 @@ export class RequestScheduleComponent implements OnInit {
     }
   }
   onClickElectric() {
+    
     if (this.getFm.eOther.value !== ''){
+      const _findDupli = this.getFm.otherElectric.value.find(f=>f.Name==this.getFm.eOther.value);
+
+    if(!_findDupli){
       this.otherElectricArray.push(this.formBuilder.group({
         Name: [this.getFm.eOther.value],
 
 
       }));
+    }else {
+      swal({
+        title: 'Value already Exits',
+        text: 'Please Click OK',
+        icon: 'error',
+      });
+    }
+      
     }
 
   }
@@ -155,12 +175,8 @@ export class RequestScheduleComponent implements OnInit {
 
   onSubmit(){
     console.log(this.ScheduleGroup.value);
-
     // if(this.filesToUpload.)
-
-
-
-
+    this.spinner = true;
     this.scheduleService.saveOfSchedule(this.ScheduleGroup.value)
       .pipe(first()).subscribe(
       res => {
@@ -173,7 +189,7 @@ export class RequestScheduleComponent implements OnInit {
             text: 'Please Click OK',
             icon: 'success',
           });
-        
+          this.spinner = false;
           setTimeout(() => {
            // this.refresh();
           }, 3000);

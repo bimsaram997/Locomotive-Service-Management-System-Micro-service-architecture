@@ -35,6 +35,9 @@ export class ScheduleService {
   public getAllSchedules(): Observable<any> {
     return this.http.get(this.myUrl + 'scheduleRoute/getAllSchedules');
   }
+  public getAllCompSchedule(): Observable<any> {
+    return this.http.get( this.myUrl + 'scheduleRoute/getAllCompSchedule');
+  }
   public deleteSchedule(id: string): Observable<any> {
     return this.http.delete( this.myUrl + 'scheduleRoute/deleteSchedule', {headers: {id}});
 

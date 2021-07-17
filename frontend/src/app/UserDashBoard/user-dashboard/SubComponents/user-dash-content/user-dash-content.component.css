@@ -7,13 +7,6 @@
     align-items: center;
 }
 
-.container {
-    padding-top: 30px;
-    padding-right: 50px;
-    padding-left: 50px;
-    width: auto;
-}
-
 .heading-txt {
     color: #013243;
     font-weight: bold;
@@ -31,9 +24,8 @@
 }
 
 .new {
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 60px;
+    margin-left: 10px;
+    margin-top: 40px;
 }
 
 .container .welcome {
@@ -44,8 +36,8 @@
 .container {
     text-align: center;
     position: absolute;
-    left: 35%;
-    top: 80px;
+    left: 25%;
+    top: 60px;
     transform: translate(-50%, -50%);
     /*隐藏作用：如果没有用transform方式进行居中显示，则width：100%会向右侧延申，左侧为空*/
     width: 100%;
@@ -55,7 +47,7 @@
     font-size: 18px;
     font-weight: 700;
     color: #fff;
-    letter-spacing: 8px;
+    letter-spacing: 4px;
     margin-bottom: 20px;
     animation: text 4s 1;
 }
@@ -88,86 +80,18 @@
     display: block;
 }
 
-.grid {
-    background-color: #ffffff;
-    border-radius: 10px 10px / 0px 0px;
-    margin-bottom: 20px;
-}
-
-#pageHeader {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
-.gridHeader {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.gridHeaderTxt {
-    color: #000000;
-    padding: 10px 0px;
-}
-
 .gridRow {
     padding-bottom: 25px;
 }
 
-.cardImg {
-    background-color: #f4f4ff;
-    color: #65377b;
-    padding: 25px;
-}
-
-.link {
-    color: #727375;
-    padding: 17px 0px;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.link100 {
-    color: #727375;
-    padding: 17px 0px;
-    width: 100% !important;
-    text-align: center;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.link:hover {
-    background-color: #f1f1f1;
-    color: #03244d;
-    transition: background 0.5s ease;
-}
-
-.link100:hover {
-    background-color: #f4f4ff;
-    color: #000000;
-    transition: background 0.5s ease;
-}
-
-.card-action-bar {
-    display: flex;
-    border-top: 1px solid #e0e0e0;
-    width: 100%;
-}
-
-.center {
-    text-align: center;
-}
-
 .wrimagecard {
+    width: 350px;
     margin-top: 0;
     margin-bottom: 1.5rem;
     text-align: center;
     position: relative;
     background: #fff;
-    box-shadow: 0 15px 20px 0px rgba(46, 61, 73, 0.15);
+    box-shadow: 0 5px 10px 0px rgba(46, 61, 73, 0.15);
     border-radius: 4px;
     transition: all 0.3s ease;
 }
