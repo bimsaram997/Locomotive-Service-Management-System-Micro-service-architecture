@@ -10,5 +10,6 @@ router.put('/addComment', loadTrialController.addComment);
 router.post('/makeComment', loadTrialController.makeComment);
 router.get('/getLoadComments/:id', loadTrialController.getLoadComments);
 
-router.get('/getOneComment/:loadNo', loadTrialController.getOneComment);
+router.get('/getOneComment/:id', loadTrialController.getOneComment);
+router.patch('/changeStatusComment', loadTrialController.changeStatusComment);
 module.exports = router;

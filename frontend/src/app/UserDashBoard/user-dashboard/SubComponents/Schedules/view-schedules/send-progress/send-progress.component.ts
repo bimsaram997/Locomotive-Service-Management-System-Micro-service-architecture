@@ -74,6 +74,22 @@ export class SendProgressComponent implements OnInit {
        this.ReportGroup.controls['supervisorName'].setValue(resp[0].supervisorName);
        this.ReportGroup.controls['managerName'].setValue(resp[0].managerName);
        this.ReportGroup.controls['managerEmail'].setValue(resp[0].managerEmail);
+
+        if(resp[0].schProgressReport && resp[0].schProgressReport.length > 0){
+                const _checkArr = resp[0].schProgressReport
+              //  .checkArray;
+                for(const param of _checkArr){
+                  for(const sub of param.checkArray){
+                    const _findCh = this.Data.find(p=>p.value ==sub);
+                    if(_findCh){
+                      this.pushCheckBoxDefault(_findCh.value);
+                    }
+                  }
+                     
+                }
+
+        }
+
      }
    })
 
@@ -188,12 +204,22 @@ export class SendProgressComponent implements OnInit {
       console.log('Porgress is 0')
     }
   }
+  
+  pushCheckBoxDefault(e){
+    const checkArray: FormArray = this.ReportGroup.get('checkArray') as FormArray;
+    
+      const _findCheck = this.ReportGroup.controls.checkArray.value.find(p=>p==e);
+          if(_findCheck){
+            checkArray.push(new FormControl(e.value));   
+          }
+  }
+
 
   onCheckboxChange(e) {
     const checkArray: FormArray = this.ReportGroup.get('checkArray') as FormArray;
-
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
+
       console.log(checkArray)
       this.checkLength = checkArray.value;
     } else {

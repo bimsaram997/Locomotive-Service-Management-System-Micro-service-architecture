@@ -314,7 +314,11 @@
                                     </ng-container>
                                     <ng-container matColumnDef="Status">
                                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element?.reason}}"> {{element?.reason}}</td>
+                                        <td mat-cell *matCellDef="let element" [ngStyle]="{'color': (element.status == 1)?'#1f3a93':(element.status == 2)?'green':(element.status==3)?'red':'red'}">
+                                            <span class="material-icons" matTooltip="{{element.reason}}">
+                                                {{cmtStatusBinder(element.status)}}
+                                                </span>
+                                        </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Date">
                                         <th mat-header-cell *matHeaderCellDef> Date </th>
@@ -323,6 +327,12 @@
                                     <ng-container matColumnDef="Comments">
                                         <th mat-header-cell *matHeaderCellDef> Comments </th>
                                         <td mat-cell *matCellDef="let element" matTooltip="{{element?.comments}}"> {{element?.comments}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="#">
+                                        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" data-label="#">
+                                            <button mat-icon-button matTooltip="Add FeedBacks o issues of LoadTrial" (click)="addFeedBack(element._id)"><mat-icon style="color: #f62459;">launch</mat-icon></button>
+                                        </mat-cell>
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
                                     <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>

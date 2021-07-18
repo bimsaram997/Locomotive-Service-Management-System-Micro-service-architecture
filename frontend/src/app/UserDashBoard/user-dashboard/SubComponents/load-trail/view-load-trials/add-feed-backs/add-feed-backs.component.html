@@ -1,69 +1,62 @@
-<h2 mat-dialog-title>Install Angular</h2>
-<form [formGroup]="feedBackGroup" (ngSubmit)="onSubmit()">
-    <mat-dialog-content class="mat-typography">
-        <div class="container">
+<div class="container">
+    <h2 mat-dialog-title>Install Angular</h2>
+    <form [formGroup]="feedBackGroup" (ngSubmit)="onSubmit()">
+        <mat-dialog-content class="mat-typography">
+
             <div class="row">
-                <div class="col-sm">
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Comment ID</mat-label>
+                        <input matInput formControlName="commentId" readonly>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field appearance="fill">
+                        <mat-label>FeedBack ID</mat-label>
+                        <input matInput formControlName="feedId" readonly>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>Load Number</mat-label>
                         <input matInput formControlName="loadNo" readonly>
                     </mat-form-field>
                 </div>
-                <div class="col-sm">
+                <div class="col">
                     <mat-form-field appearance="fill">
-                        <mat-label>Locomotive Category</mat-label>
-                        <input matInput formControlName="locoCatId" readonly>
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Locomotive Number</mat-label>
+                        <mat-label>Loco Number</mat-label>
                         <input matInput formControlName="locoNumber" readonly>
                     </mat-form-field>
                 </div>
+            </div>
+            <div class="row">
                 <div class="w-100"></div>
-            </div>
-        </div>
-        <div formArrayName="items" *ngFor="let item of feedBackGroup.get('items')['controls']; let i = index;">
-
-            <div class="container  dyanmic" [formGroupName]="i">
-                <p>Observation {{i+1}}</p>
-                <div class="row justify-content-start no-gutters">
-                    <div class="col">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Description</mat-label>
-                            <textarea required matInput formControlName="comments" placeholder="Observation description"></textarea>
-
-                            <mat-hint>Traction Alternator</mat-hint>
-                        </mat-form-field>
-
-
-                    </div>
-                    <div class="col" style="margin-top: 20px;">
-                        <mat-radio-group aria-label="Select an option" formControlName="checked">
-                            <span class="para-txt">Availability</span>&nbsp;
-                            <mat-radio-button *ngFor="let status of checkArray" [value]="status">{{status}} &nbsp;</mat-radio-button>
-
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-sm-8"></div>
-                    <div class="w-100"></div>
-                    <div class="col">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Input</mat-label>
-                            <input matInput formArrayName="action">
-                        </mat-form-field>
-                    </div>
+                <div class="col">
+                    <mat-form-field appearance="fill" style="width: 430px;">
+                        <mat-label>Comments</mat-label>
+                        <input matInput formControlName="comments" readonly>
+                    </mat-form-field>
                 </div>
-                <br>
 
+            </div>
+            <div class="row">
+                <div class="w-100"></div>
+                <div class="col">
+                    <mat-form-field appearance="fill" style="width: 430px;">
+                        <mat-label>Taken Actions</mat-label>
+                        <input matInput formControlName="action">
+                    </mat-form-field>
+                </div>
 
             </div>
 
-        </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
-    </mat-dialog-actions>
-</form>
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+        </mat-dialog-actions>
+    </form>
+</div>

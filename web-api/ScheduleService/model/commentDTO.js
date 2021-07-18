@@ -5,11 +5,15 @@ const CommentSchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: String,
+        type: Number,
         required: true
     },
     locoNumber: {
         type: Number,
+        required: true
+    },
+    commentId: {
+        type: String,
         required: true
     },
     reason: {

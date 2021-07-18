@@ -5,6 +5,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFeedBacksComponent } from '../add-feed-backs/add-feed-backs.component';
 
 @Component({
   selector: 'app-view-load-prof',
@@ -26,7 +28,7 @@ export class ViewLoadProfComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns2: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns3: string[] = ['No', 'Notch', 'Track', 'Main'];
-  displayedColumns4: string[] = ['No', 'Status','Date', 'Comments'];
+  displayedColumns4: string[] = ['No', 'Status','Date', 'Comments', '#'];
   id:any;
   loadNo: any;
   loadDate: any;
@@ -53,7 +55,7 @@ export class ViewLoadProfComponent implements OnInit {
   dataSource4: any[]=[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService, private scheduleService: ScheduleService) { }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog,private router: Router, private loadService: LoadTrialService, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -107,5 +109,24 @@ export class ViewLoadProfComponent implements OnInit {
     }else if (status === 3){
       return 'build';
     }
+  }
+  cmtStatusBinder(val){
+    if (val === 3){
+      return 'pending_actions';
+    }else if (val === 2){
+      return 'done_all';
+    }else if (val === 0){
+      return 'build';
+    }
+  }
+  addFeedBack(_id: string) {
+    console.log(_id)
+    const dialogRef = this.dialog.open(AddFeedBacksComponent,{
+      data: {id: _id},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+    });
   }
 }

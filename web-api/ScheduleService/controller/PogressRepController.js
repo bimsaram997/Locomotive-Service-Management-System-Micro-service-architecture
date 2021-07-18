@@ -1,6 +1,7 @@
 const ProgressDTO = require('../model/ProgressDTO');
 const nodemailer = require('nodemailer');
-const config = require('../../Config/config.json')
+const config = require('../../Config/config.json');
+const ScheduleDTO = require('../model/ScheduleDTO');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -9,33 +10,47 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-const saveProgress = (req, res) => {
+const saveProgress = async(req, res, next) => {
+    const _proObj = req.body;
 
-    ProgressDTO.findOne({ progressReportNumber: req.body.progressReportNumber }).then(result => {
-        if (result == null) {
-            const progress = new ProgressDTO(req.body);
-            progress.save().then(result => {
-                res.status(200).json({ isSaved: true, data: result })
-            }).catch(error => {
-                res.status(500).json(error);
-            })
-        } else {
-            res.status(200).json({ isSaved: false, data: result });
-        }
-    }).catch(er => {
-        res.status(500).json(er);
-    });
+    // console.log(_proObj);
+
+    // console.log('Ena Enwa')
+    const _updaetData = await ScheduleDTO.updateOne({ scheduleNo: _proObj.scheduleNo }, {
+        $push: { schProgressReport: { $each: [_proObj] } }
+    })
+    if (_updaetData) {
+        res.status(200).json({ isSaved: true, data: _updaetData })
+    } else {
+        res.status(500).json('error');
+    }
 
 
+    // ProgressDTO.findOne({ progressReportNumber: req.body.progressReportNumber }).then(result => {
+    //     if (result == null) {
+    //         const progress = new ProgressDTO(req.body);
+    //         progress.save().then(result => {
+    //             res.status(200).json({ isSaved: true, data: result })
+    //         }).catch(error => {
+    //             res.status(500).json(error);
+    //         })
+    //     } else {
+    //         res.status(200).json({ isSaved: false, data: result });
+    //     }
+    // }).catch(er => {
+    //     res.status(500).json(er);
+    // });
 
-    console.log('awa')
-    console.log(req.body)
+
+
+    // console.log('awa')
+    // console.log(req.body)
 }
 
 const sendProReport = async(req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
-    console.log(req.body.supervisorEmail);
+    //console.log(req.body.supervisorEmail);
     sendProEmail(req.body.managerEmail, req.body.scheduleNo, req.body.supervisorEmail,
         req.body.progressReportNumber, req.body.extraNote, req.body.progressValue, req.body.supervisorName);
 
@@ -50,7 +65,7 @@ const getAllProgress = (req, resp) => {
 }
 
 const sendOneProgress = (req, res) => {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     ProgressDTO.find({
         _id: req.params.id
     }).then(result => {
@@ -65,7 +80,7 @@ const sendOneProgress = (req, res) => {
 
 
 const sendProEmail = (managerEmail, scheduleNo, supervisorEmail, progressReportNumber, extraNote, progressValue, supervisorName) => {
-    console.log(supervisorEmail)
+    //console.log(supervisorEmail)
 
     const mailOptions = {
         from: supervisorEmail,

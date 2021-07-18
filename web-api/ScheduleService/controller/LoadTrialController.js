@@ -3,7 +3,7 @@ const MileageDTO = require('../model/MileageDTO');
 const LoadTrialDTO = require('../model/LoadTrialDTO');
 const LocoDTO = require('../model/LocomotiveDTO');
 const CommentDTO = require('../model/commentDTO');
-const feedLoadTrialDTO = require('../model/feedLoadTrial');
+const feedLoadTrialDTO = require('../model/feedLoadTrialDTO');
 
 //Load Trilas
 const saveLoadTrial = async(req, res, next) => {
@@ -45,14 +45,24 @@ const getOneLoad = (req, res) => {
 
 
 //Comments
-const makeComment = async(req, resp, next) => {
-    const comment = new CommentDTO(req.body);
-    await comment.save().then(result => {
-        resp.status(200).json({ isSaved: true, data: result })
-        console.log(result)
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
+const makeComment = (req, resp, next) => {
+    CommentDTO.findOne({ commentId: req.body.commentId }).then(result => {
+        if (result == null) {
+            const comment = new CommentDTO(req.body);
+            comment.save().then(result => {
+                resp.status(200).json({ isSaved: true, data: result })
+                console.log(result)
+            }).catch(error => {
+                resp.status(500).json(error);
+            })
+
+        } else {
+            res.status(200).json({ isSaved: false, data: result });
+        }
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
 }
 
 const addComment = async(req, resp) => {
@@ -86,9 +96,9 @@ getLoadComments = async(req, resp, next) => {
     })
 }
 const getOneComment = async(req, res) => {
-    console.log(req.params.loadNo);
+    console.log(req.params.id);
     await CommentDTO.find({
-        loadNo: req.params.loadNo
+        _id: req.params.id
     }).then(result => {
         res.status(200).json(result);
     }).catch(er => {
@@ -96,7 +106,31 @@ const getOneComment = async(req, res) => {
     });
 
 }
+const changeStatusComment = async(req, res, next) => { //change status of the comment after adding feedbacks by user
+    const _obj = req.body;
+    console.log(_obj);
+    //console.log(_obj.status)
+    if (_obj.status = 2) {
+        if (_obj.commentId) {
+            console.log(_obj.commentId)
+            await CommentDTO.updateOne({ commentId: _obj.commentId }, { $set: { status: 4, reason: "Resolve issues on Comments" } }, function(err, result) {
 
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+
+                }
+
+            })
+
+        }
+    }
+
+}
+
+
+//feedbacks
 
 
 module.exports = {
@@ -107,6 +141,6 @@ module.exports = {
     addComment,
     makeComment,
     getLoadComments,
-
-    getOneComment
+    getOneComment,
+    changeStatusComment
 }

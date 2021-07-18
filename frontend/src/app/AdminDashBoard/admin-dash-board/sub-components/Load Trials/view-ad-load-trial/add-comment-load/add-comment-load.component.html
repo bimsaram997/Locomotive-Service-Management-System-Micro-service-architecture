@@ -22,13 +22,19 @@
             </div>
             <div class="row">
                 <div class="col-sm pr-0">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Comment ID</mat-label>
+                        <input required matInput formControlName="commentId">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm pr-0">
                     <mat-radio-group required aria-label="Select an option" formControlName="status">
                         <mat-radio-button value="2">Viewed</mat-radio-button>&nbsp;
                         <mat-radio-button value="3">Pending</mat-radio-button>
                     </mat-radio-group>
                 </div>
             </div>
-            <br>
+
             <div class="row">
                 <div class="col-sm">
                     <mat-form-field appearance="fill" style="width: 200px;">

@@ -9,6 +9,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import swal from "sweetalert";
 
 @Component({
   selector: 'app-add-comment-load',
@@ -28,6 +29,7 @@ export class AddCommentLoadComponent implements OnInit {
   ngOnInit(): void {
     this.commentAdd = this.formBuilder.group({
       loadNo: ['',  [Validators.required]],
+      commentId: ['', [Validators.required]],
       locoNumber: ['', [Validators.required]],
       status:[2],
       comDate: ['', [Validators.required]],
@@ -42,6 +44,7 @@ export class AddCommentLoadComponent implements OnInit {
       if(res != undefined){
         this.commentAdd.controls['loadNo'].setValue(res[0].loadNo);
         this.commentAdd.controls['reason'].setValue(res[0].reason);
+        this.commentAdd.controls['status'].setValue(res[0].status);
         this.commentAdd.controls['locoNumber'].setValue(res[0].locoNumber);
      this.reason = res[0].reason;
       }
@@ -49,6 +52,10 @@ export class AddCommentLoadComponent implements OnInit {
     this.loadAll();
   }
   addComment(){
+
+
+
+
       console.log(this.commentAdd.value);
       if (window.confirm('Are you sure?')) {
         let id = this.route.snapshot.paramMap.get('id');
@@ -84,9 +91,40 @@ export class AddCommentLoadComponent implements OnInit {
 
   }
   makeComment(obj:any){
-    this.loadService.makeComment(obj).subscribe(res=>{
-      console.log(res)
-    })
+    this.loadService.makeComment(obj).pipe(first()).subscribe(
+    res => {
+      console.log(res);
+      if (res.isSaved) {
+       
+        swal({
+          title: 'Record Saved!',
+          text: 'Please Click OK',
+          icon: 'success',
+        });
+        setTimeout(() => {
+         // this.refresh();
+        }, 3000);
+
+      } else {
+        swal({
+          title: 'Record already Exits',
+          text: 'Please Click OK',
+          icon: 'error',
+        });
+        setTimeout(() => {
+          //this.refresh();
+        }, 3000);
+      }
+    },
+
+    error => {
+      console.log(error);
+    },
+    () => {
+      console.log('dss');
+    }
+  )
+    
   }
 
   patchLoadLoco(object){

@@ -4,26 +4,36 @@ const feedLoadTrialSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    feedId: {
+        type: String,
+        required: true
+    },
     locoNumber: {
         type: Number,
         required: true
     },
-    locoCatId: {
+    commentId: {
+        type: String,
+        required: true
+    },
+    comments: {
+        type: String,
+        required: true
+    },
+    action: {
+        type: String,
+        required: true
+    },
+    status: {
         type: Number,
         required: true
     },
+    reason: {
+        type: String,
+        required: true
+    }
 
-    items: [{
-        comments: {
-            type: String,
-        },
-        checked: {
-            type: String,
-        },
-        action: {
-            type: String,
-        }
-    }],
+
 
 })
 module.exports = mongoose.model('FeedBackLoad', feedLoadTrialSchema);

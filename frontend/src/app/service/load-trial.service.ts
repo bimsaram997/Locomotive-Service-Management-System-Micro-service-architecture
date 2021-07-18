@@ -32,8 +32,8 @@ export class LoadTrialService {
 
   //Feedback
 
-  public getOneComment(loadNo): Observable<any>{
-    return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneComment/${loadNo}`);
+  public getOneComment(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneComment/${id}`);
   }
  
 }
