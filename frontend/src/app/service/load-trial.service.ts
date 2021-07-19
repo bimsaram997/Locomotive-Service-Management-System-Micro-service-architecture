@@ -29,11 +29,22 @@ export class LoadTrialService {
   getRelevantComments(id): Observable<any>{
     return this.http.get<any>(this.myUrl + `loadTrialRoute/getLoadComments/${id}`);
   }
-
-  //Feedback
-
   public getOneComment(id): Observable<any>{
     return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneComment/${id}`);
   }
+  public  changeStatusComment(data): Observable<any>{
+    return this.http.put(this.myUrl + `loadTrialRoute/changeStatusComment`, data);
+  }
+
+  //Feedback
+
+  public addFeedBack(obj): Observable<any>{
+    return this.http.post(this.myUrl + 'loadTrialRoute/addFeedback' , obj);
+  }
+  public getOneFeedBack(commentId): Observable<any>{
+    return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneFeedBack/${commentId}`);
+  }
+
+
  
 }

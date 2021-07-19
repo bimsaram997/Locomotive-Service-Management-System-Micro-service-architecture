@@ -11,5 +11,8 @@ router.post('/makeComment', loadTrialController.makeComment);
 router.get('/getLoadComments/:id', loadTrialController.getLoadComments);
 
 router.get('/getOneComment/:id', loadTrialController.getOneComment);
-router.patch('/changeStatusComment', loadTrialController.changeStatusComment);
+router.put('/changeStatusComment', loadTrialController.changeStatusComment);
+
+router.post('/addFeedBack', loadTrialController.addFeedBack);
+router.get('/getOneFeedBack/:commentId', loadTrialController.getOneFeedBack);
 module.exports = router;

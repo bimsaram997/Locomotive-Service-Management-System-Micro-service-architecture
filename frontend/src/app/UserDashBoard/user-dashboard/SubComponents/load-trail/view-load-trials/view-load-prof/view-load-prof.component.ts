@@ -1,3 +1,4 @@
+import { ViewFeedBacksComponent } from './view-feed-backs/view-feed-backs.component';
 import { mergeMap } from 'rxjs/operators';
 import { LoadTrialService } from './../../../../../../service/load-trial.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
@@ -117,12 +118,24 @@ export class ViewLoadProfComponent implements OnInit {
       return 'done_all';
     }else if (val === 0){
       return 'build';
+    }else if (val === 4){
+      return 'thumb_up_off_alt';
     }
   }
   addFeedBack(_id: string) {
     console.log(_id)
     const dialogRef = this.dialog.open(AddFeedBacksComponent,{
       data: {id: _id},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+    });
+  }
+  viewFeedBack(commentId: string){
+    console.log(commentId)
+    const dialogRef = this.dialog.open(ViewFeedBacksComponent,{
+      data: {commentId: commentId},
     });
 
     dialogRef.afterClosed().subscribe(result => {

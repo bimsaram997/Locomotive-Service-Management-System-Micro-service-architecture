@@ -78,7 +78,7 @@
 
                         <button mat-icon-button (click)="viewLoad(tempLoad._id)" matTooltip="View more information"> <span class="material-icons" style="color:#67809f;">visibility</span></button>
 
-                        <span matTooltipShowDelay="1000" [matTooltipClass]="'tooltip'" style="font-weight: bold;" [matTooltip]="tempLoad.status !=2 ? 'You can add comments ' :  'Load trial is complete you can not add comments'">
+                        <span [matTooltipClass]="'tooltip'" style="font-weight: bold;" [matTooltip]="tempLoad.status !=2 ? 'You can add comments ' :  'Load trial is complete you can not add comments'">
                             <button  [disabled]="(tempLoad.status != 2)?false  :true"  mat-icon-button (click)="addComments(tempLoad._id)">
                                 <i class="fas fa-pencil-alt" style="color: #f62459;"></i>
                                </button>

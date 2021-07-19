@@ -85,6 +85,7 @@ import { ViewAdLoadTrialComponent } from './AdminDashBoard/admin-dash-board/sub-
 import { AddCommentLoadComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-ad-load-trial/add-comment-load/add-comment-load.component';
 import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
 import { AddFeedBacksComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/add-feed-backs/add-feed-backs.component';
+import { ViewFeedBacksComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-feed-backs/view-feed-backs.component';
 
 
 
@@ -182,6 +183,8 @@ import { AddFeedBacksComponent } from './UserDashBoard/user-dashboard/SubCompone
 
     AddFeedBacksComponent,
 
+    ViewFeedBacksComponent,
+
 
 
 
@@ -212,7 +215,7 @@ import { AddFeedBacksComponent } from './UserDashBoard/user-dashboard/SubCompone
   ],
   providers: [EventEmitterService],
   bootstrap: [AppComponent],
-  entryComponents: [ModelComponent,AddFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
+  entryComponents: [ModelComponent,AddFeedBacksComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
   SendProgressComponent, UpdateFinalMileageComponent, AddCommentLoadComponent]
 })
 export class AppModule { }

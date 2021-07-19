@@ -1,10 +1,11 @@
-
 import { first } from 'rxjs/operators';
+
 
 import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import swal from "sweetalert";
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -52,5 +53,51 @@ export class AddFeedBacksComponent implements OnInit {
   
   onSubmit(){
     console.log(this.feedBackGroup.value)
+    {
+      this.loadTrialService.addFeedBack(this.feedBackGroup.value).pipe(first()).subscribe(
+      res => {
+        console.log(res);
+        if (res.isSaved) {
+         this.changeStatusComment(this.feedBackGroup.value);
+         console.log('gfg')
+          swal({
+            title: 'Record Saved!',
+            text: 'Please Click OK',
+            icon: 'success',
+          });
+          setTimeout(() => {
+           // this.refresh();
+          }, 3000);
+  
+        } else {
+          swal({
+            title: 'Record already Exits',
+            text: 'Please Click OK',
+            icon: 'error',
+          });
+          setTimeout(() => {
+            //this.refresh();
+          }, 3000);
+        }
+      },
+  
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log('dss');
+      }
+    )
+    }
   }
+
+  changeStatusComment(obj){
+    this.loadTrialService.changeStatusComment(obj).pipe(first())
+    .subscribe((
+        res=>{
+          console.log(res);
+        }
+    ))
+  }
+
 }

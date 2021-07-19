@@ -51,7 +51,7 @@ const makeComment = (req, resp, next) => {
             const comment = new CommentDTO(req.body);
             comment.save().then(result => {
                 resp.status(200).json({ isSaved: true, data: result })
-                console.log(result)
+
             }).catch(error => {
                 resp.status(500).json(error);
             })
@@ -91,7 +91,7 @@ getLoadComments = async(req, resp, next) => {
             resp.status(500).json(err)
         } else {
             resp.status(200).json(result)
-            console.log(result)
+
         }
     })
 }
@@ -113,7 +113,7 @@ const changeStatusComment = async(req, res, next) => { //change status of the co
     if (_obj.status = 2) {
         if (_obj.commentId) {
             console.log(_obj.commentId)
-            await CommentDTO.updateOne({ commentId: _obj.commentId }, { $set: { status: 4, reason: "Resolve issues on Comments" } }, function(err, result) {
+            await CommentDTO.updateOne({ commentId: _obj.commentId }, { $set: { status: 4, reason: "Resolved issues on Comments" } }, function(err, result) {
 
                 if (err) {
                     res.status(500).json(err)
@@ -133,6 +133,38 @@ const changeStatusComment = async(req, res, next) => { //change status of the co
 //feedbacks
 
 
+const addFeedBack = (req, resp, next) => {
+    feedLoadTrialDTO.findOne({ feedId: req.body.feedId }).then(result => {
+        if (result == null) {
+            const feedback = new feedLoadTrialDTO(req.body);
+            feedback.save().then(result => {
+                resp.status(200).json({ isSaved: true, data: result })
+                console.log(result)
+            }).catch(error => {
+                resp.status(500).json(error);
+            })
+
+        } else {
+            res.status(200).json({ isSaved: false, data: result });
+        }
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+}
+
+const getOneFeedBack = async(req, res, next) => {
+    console.log(req.params.commentId);
+    await feedLoadTrialDTO.find({
+        commentId: req.params.commentId
+    }).then(result => {
+        res.status(200).json(result);
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+}
+
 module.exports = {
     saveLoadTrial,
     getAllLoadTrial,
@@ -142,5 +174,8 @@ module.exports = {
     makeComment,
     getLoadComments,
     getOneComment,
-    changeStatusComment
+    changeStatusComment,
+
+    addFeedBack,
+    getOneFeedBack
 }
