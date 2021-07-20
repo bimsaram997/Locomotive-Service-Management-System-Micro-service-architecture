@@ -44,6 +44,7 @@ const getOneLoad = (req, res) => {
 }
 
 
+
 //Comments
 const makeComment = (req, resp, next) => {
     CommentDTO.findOne({ commentId: req.body.commentId }).then(result => {
@@ -66,13 +67,13 @@ const makeComment = (req, resp, next) => {
 }
 
 const addComment = async(req, resp) => {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body) {
         await LoadTrialDTO.updateOne({ loadNo: req.body.loadNo }, { $set: req.body }, function(err, result) {
 
             if (err) {
                 resp.status(500).json(err)
-                console.log(err)
+
             } else {
                 resp.status(200).json(result)
 
@@ -85,7 +86,7 @@ const addComment = async(req, resp) => {
 
 getLoadComments = async(req, resp, next) => {
     const _id = req.params.id;
-    console.log(_id);
+    //console.log(_id);
     await CommentDTO.find({ loadNo: _id }, function(err, result) {
         if (err) {
             resp.status(500).json(err)
@@ -96,7 +97,7 @@ getLoadComments = async(req, resp, next) => {
     })
 }
 const getOneComment = async(req, res) => {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     await CommentDTO.find({
         _id: req.params.id
     }).then(result => {
@@ -108,7 +109,7 @@ const getOneComment = async(req, res) => {
 }
 const changeStatusComment = async(req, res, next) => { //change status of the comment after adding feedbacks by user
     const _obj = req.body;
-    console.log(_obj);
+    //console.log(_obj);
     //console.log(_obj.status)
     if (_obj.status = 2) {
         if (_obj.commentId) {
@@ -129,6 +130,34 @@ const changeStatusComment = async(req, res, next) => { //change status of the co
 
 }
 
+const getResolvedComments = async(req, res, next) => {
+    await CommentDTO.find({ status: 4 })
+        .then(result => {
+            res.status(200).json(result);
+            //console.log(result)
+        }).catch(er => {
+            res.status(500).json(er);
+        });
+}
+
+
+const acceptLoadTrial = async(req, res) => { //accept LoadTrial
+
+    if (req.params.loadNo) {
+        LoadTrialDTO.updateOne({ loadNo: req.params.loadNo }, { $set: { status: 2, reason: "Load Trial is Passed" } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+            }
+
+        })
+
+    }
+
+}
+
 
 //feedbacks
 
@@ -139,7 +168,7 @@ const addFeedBack = (req, resp, next) => {
             const feedback = new feedLoadTrialDTO(req.body);
             feedback.save().then(result => {
                 resp.status(200).json({ isSaved: true, data: result })
-                console.log(result)
+                    //onsole.log(result)
             }).catch(error => {
                 resp.status(500).json(error);
             })
@@ -165,16 +194,19 @@ const getOneFeedBack = async(req, res, next) => {
 
 }
 
+
 module.exports = {
     saveLoadTrial,
     getAllLoadTrial,
     getOneLoad,
+    acceptLoadTrial,
 
     addComment,
     makeComment,
     getLoadComments,
     getOneComment,
     changeStatusComment,
+    getResolvedComments,
 
     addFeedBack,
     getOneFeedBack

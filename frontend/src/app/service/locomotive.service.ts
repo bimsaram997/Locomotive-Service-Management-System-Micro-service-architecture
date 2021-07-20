@@ -72,6 +72,11 @@ export class LocomotiveService {
   public updateMileStatus(id):Observable<any> {
     return this.http.patch( this.myUrl + `locoRoute/patch-mile/${id}` , id);
   }
+
+  public acceptLoadLoco(obj):Observable<any> {
+    return this.http.put( this.myUrl + `locoRoute/acceptLoadLoco/` , obj);
+  }
+
   public updateRejectStatus(id, reason):Observable<any> {
     return this.http.patch( this.myUrl + `locoRoute/reject-mile/${id}/${reason}` , id, reason);
   }

@@ -2,7 +2,8 @@ const LocomotiveSchema = require('../model/LocomotiveDTO')
 const Schedule = require('../model/ScheduleDTO');
 const MileageSchema = require('../model/MileageDTO');
 const nodemailer = require('nodemailer');
-const config = require('../../Config/config.json')
+const config = require('../../Config/config.json');
+const LocomotiveDTO = require('../../ScheduleService/model/LocomotiveDTO');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -15,13 +16,13 @@ const transporter = nodemailer.createTransport({
 
 const getLocoSch = async(req, resp, next) => {
     const _id = req.params.id;
-    console.log(_id)
+    //  console.log(_id)
     await Schedule.find({ locoNumber: _id }, function(err, result) {
         if (err) {
             resp.status(500).json(err)
         } else {
             resp.status(200).json(result)
-            console.log(result)
+                // console.log(result)
         }
     })
 }
@@ -47,13 +48,13 @@ const saveReactiveLoco = async(req, res, next) => {
 
 
 
-    console.log('awa')
-    console.log(req.body)
+    // console.log('awa')
+    // console.log(req.body)
 }
 
 
 const getAllLocomotives = async(req, resp, next) => {
-    console.log(resp)
+    //console.log(resp)
     await LocomotiveSchema.find().then(result => {
         resp.status(200).json(result);
     }).catch(error => {
@@ -81,7 +82,7 @@ const deleteLoco = (req, resp) => {
 };
 
 const updateLocomotive = async(req, resp) => {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body) {
         await LocomotiveSchema.updateOne({ locoNumber: req.body.locoNumber }, { $set: req.body }, function(err, result) {
 
@@ -98,7 +99,7 @@ const updateLocomotive = async(req, resp) => {
 }
 
 const getAllLocoAssigned = async(req, resp) => {
-    console.log(req.query)
+    // console.log(req.query)
     if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk') {
         await LocomotiveSchema.find().then(result => {
             resp.status(200).json(result);
@@ -129,7 +130,7 @@ const getLocoReport = async(req, resp, next) => {
 }
 
 const getOneLoco = (req, res) => {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     LocomotiveSchema.find({
         _id: req.params.id
     }).then(result => {
@@ -140,7 +141,7 @@ const getOneLoco = (req, res) => {
 
 }
 const getOneLocoNew = (req, res) => {
-    console.log(req.params.mLocoNumber);
+    // console.log(req.params.mLocoNumber);
     LocomotiveSchema.find({
         locoNumber: req.params.mLocoNumber
     }).then(result => {
@@ -153,7 +154,7 @@ const getOneLocoNew = (req, res) => {
 }
 
 const sendLocoStatus = async(req, resp) => {
-    console.log(req.body.image);
+    // console.log(req.body.image);
     const _findEmail = await LocomotiveSchema.findOne({ supervisorEmail: req.body.email });
     if (_findEmail != null) {
         console.log(req.body.supervisorEmail);
@@ -166,8 +167,8 @@ const sendLocoStatus = async(req, resp) => {
 
 const patchFinalMile = async(req, res, next) => {
     const _obj = req.body;
-    console.log(_obj);
-    console.log(_obj.locoNumber)
+    // console.log(_obj);
+    //console.log(_obj.locoNumber)
     if (_obj.locoNumber) {
         await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
 
@@ -183,7 +184,7 @@ const patchFinalMile = async(req, res, next) => {
     }
 }
 const patchLocoSchedule = async(req, res, next) => {
-    console.log(req.params.locoNumber)
+    //console.log(req.params.locoNumber)
     if (req.params.locoNumber) {
         await LocomotiveSchema.updateOne({ locoNumber: req.params.locoNumber }, { $set: { locoStatus: 1, statusReason: 'I schedule' } }, function(err, result) {
 
@@ -202,8 +203,8 @@ const patchLocoSchedule = async(req, res, next) => {
 
 const patchSch = async(req, res, next) => {
     const _obj = req.body;
-    console.log(_obj);
-    console.log(_obj.locoNumber)
+    // console.log(_obj);
+    //console.log(_obj.locoNumber)
     if (_obj.locoNumber) {
         await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 1, statusReason: "In a Service Schedule" } }, function(err, result) {
 
@@ -221,8 +222,8 @@ const patchSch = async(req, res, next) => {
 
 const patchLoadLoco = async(req, res, next) => {
     const _obj = req.body;
-    console.log(_obj);
-    console.log(_obj.status)
+    //console.log(_obj);
+    //console.log(_obj.status)
     if (_obj.status = 2) {
         if (_obj.locoNumber) {
             console.log(_obj.locoNumber)
@@ -238,6 +239,25 @@ const patchLoadLoco = async(req, res, next) => {
             })
 
         }
+    }
+
+}
+
+const acceptLoadLoco = (req, res) => { //accept LoadTrial, and changes status of the locomotives
+
+    const _obj = req.body;
+    //console.log(_obj)
+    if (_obj.locoNumber) {
+        LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+            }
+
+        })
+
     }
 
 }
@@ -788,5 +808,6 @@ module.exports = {
     patchSch,
     patchLoadLoco,
     getLocoReport,
-    patchSchMileage
+    patchSchMileage,
+    acceptLoadLoco
 }
