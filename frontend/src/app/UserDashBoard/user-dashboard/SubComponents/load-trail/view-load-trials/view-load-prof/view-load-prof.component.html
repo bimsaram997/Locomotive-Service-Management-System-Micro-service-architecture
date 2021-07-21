@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="box-head">
         <img src="./assets/images/m9.png" alt="" style="height: 40px; width: 40px;">
-        <span class="heading-txt"><span style="color: #1e8bc3;">S</span>CHEDULE PROFILE</span>
+        <span class="heading-txt"><span style="color: #1e8bc3;">L</span>OAD TRIAL</span>
     </div>
     <hr>
     <div class="main-body">
@@ -79,7 +79,7 @@
                                 <h6 class="mb-0 label">Start Mileage</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.startMileage}}
+                                {{this.startMileage + ' Km'}}
                             </div>
                         </div>
                         <hr>
@@ -88,7 +88,7 @@
                                 <h6 class="mb-0 label">End Mileage</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.endMileage}}
+                                {{this.endMileage + ' Km'}}
                             </div>
                         </div>
                         <hr>
@@ -97,7 +97,7 @@
                                 <h6 class="mb-0 label">Status</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                <p [ngStyle]="{'color': (this.status == 1)?'blue':(this.status == 2)?'green':(this.status==3)?'red':'red'}"> <span class="material-icons" matTooltip="{{this.reason}}">
+                                <p [ngStyle]="{'color': (this.status == 1)?'#f7ca18':(this.status == 2)?'green':(this.status==3)?'#1f3a93':'red'}"> <span class="material-icons" matTooltip="{{this.reason}}">
                                     {{statusBinder(this.status)}}
                                     </span></p>
                             </div>
@@ -166,7 +166,12 @@
                         <hr>
                     </div>
                 </div>
-
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Special Remarks </h3>
+                        <p>{{this?.loadNote}}</p>
+                    </div>
+                </div>
             </div>
             <div class="col-md-8">
 
@@ -287,12 +292,7 @@
                         </mat-accordion>
                     </div>
                 </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h3>Special Remarks </h3>
-                        <p>{{this?.loadNote}}</p>
-                    </div>
-                </div>
+
                 <div class="card mb-3">
                     <div class="card-body">
                         <h3>Chief Engineer Comments </h3>
@@ -334,12 +334,12 @@
                                             <td>
                                                 <span [matTooltipClass]="'tooltip'" style="font-weight: bold;" [matTooltip]="element.status !=4 ? 'Add feedbacks to each Comment ' :  'You can not add feedbacks, Resolved issues on the comments'">
                                                 <button [disabled]="(element.status != 4)?false  :true" mat-icon-button (click)="addFeedBack(element._id)">
-                                                    <i class="fas fa-pencil-alt" style="color: #f62459;"></i>
+                                                    <i class="fas fa-chalkboard-teacher"  style="color: #013243; font-size: 18px;"></i>
                                                 </button>&nbsp;
                                             </span>
 
                                                 <button mat-icon-button (click)="viewFeedBack(element.commentId)" matTooltip="View Feedbacks issued!">
-                                                    <i class="fas fa-comment-alt" style="color: #f5ab35;"></i>
+                                                    <i class="fas fa-comment-alt" style="color: #f5ab35;  font-size: 18px;"></i>
                                                  </button>
                                             </td>
                                         </mat-cell>

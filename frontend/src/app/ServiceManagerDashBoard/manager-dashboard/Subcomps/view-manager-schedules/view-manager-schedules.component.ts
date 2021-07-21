@@ -39,11 +39,15 @@ export class ViewManagerSchedulesComponent implements OnInit {
   }
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+   
   }
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
   }
   statusBinder(scheduleStatus){
     if (scheduleStatus === 0){

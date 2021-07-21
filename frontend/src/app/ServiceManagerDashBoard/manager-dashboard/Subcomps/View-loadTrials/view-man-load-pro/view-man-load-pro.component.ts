@@ -1,4 +1,6 @@
+import { ViewFeedBacksComponent } from './../../../../../UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-feed-backs/view-feed-backs.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
@@ -24,7 +26,7 @@ export class ViewManLoadProComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns2: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns3: string[] = ['No', 'Notch', 'Track', 'Main'];
-  displayedColumns4: string[] = ['No', 'Status','Date', 'Comments'];
+  displayedColumns4: string[] = ['No', 'Status','Date', 'Comments', '#'];
   id:any;
   loadNo: any;
   loadDate: any;
@@ -50,7 +52,8 @@ export class ViewManLoadProComponent implements OnInit {
   dataSource3: any[]=[];
   dataSource4: any[]=[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService, private scheduleService: ScheduleService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService,
+    public dialog: MatDialog, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -99,9 +102,34 @@ export class ViewManLoadProComponent implements OnInit {
   }
   statusBinder(status){
     if (status === 1){
-      return 'pending_actions';
-    }else if (status === 2){
       return 'hourglass_top';
+    }else if (status === 2){
+      return 'check_circle_outline';
+    }else if (status === 3){
+      return 'pending_actions';
     }
+  }
+
+  cmtStatusBinder(val){
+    if (val === 3){
+      return 'pending_actions';
+    }else if (val === 2){
+      return 'done_all';
+    }else if (val === 0){
+      return 'build';
+    }else if (val === 4){
+      return 'thumb_up_off_alt';
+    }
+  }
+
+  viewFeedBack(commentId: string){
+    console.log(commentId)
+    const dialogRef = this.dialog.open(ViewFeedBacksComponent,{
+      data: {commentId: commentId},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     
+    });
   }
 }

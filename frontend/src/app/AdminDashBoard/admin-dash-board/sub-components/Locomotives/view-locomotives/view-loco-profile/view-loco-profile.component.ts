@@ -41,6 +41,7 @@ export class ViewLocoProfileComponent implements OnInit {
   supervisorEmail: any;
   supervisorName: any;
   finalMileage: any;
+  endMileDate: any;
   note: any;
   imageSt: any;
   scroll: any;
@@ -60,6 +61,7 @@ export class ViewLocoProfileComponent implements OnInit {
         this.locoPower = res[0].locoPower;
         this.locoMileage = res[0].locoMileage;
         this.finalMileage = res[0].endMileage;
+        this.endMileDate =  res[0].endMileDate
         this.date =  res[0].locoDate;
         this.supervisorNic = res[0].userNic;
         this.supervisorEmail = res[0].supervisorEmail;

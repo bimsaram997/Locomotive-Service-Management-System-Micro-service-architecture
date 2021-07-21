@@ -59,6 +59,7 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   specialNote: any;
   scheduleStatus: any;
   scheduleProgress: any;
+  schReason: any
   
 
   constructor(private route: ActivatedRoute, private router: Router, private scheduleService: ScheduleService) { }
@@ -94,6 +95,7 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
           this.specialNote= res[0].specialNote;
           this.scheduleStatus = res[0].scheduleStatus;
           this.scheduleProgress = res[0].scheduleProgress;
+          this.schReason = res[0].schReason;
         return _schedule;
       }),
       mergeMap(

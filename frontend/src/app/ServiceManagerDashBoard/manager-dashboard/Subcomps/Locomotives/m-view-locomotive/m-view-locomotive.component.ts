@@ -61,13 +61,17 @@ export class MViewLocomotiveComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+    //this.applyFilter();
   }
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
-  }
 
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
+  }
   viewLoco(locoNumber: string) {
     this.router.navigate(['/managerDashBoard/viewLoco', locoNumber]);
 
@@ -79,7 +83,7 @@ export class MViewLocomotiveComponent implements OnInit {
     }else if (locoStatus === 1){
       return 'garage';
     }else if (locoStatus === 2){
-      return 'construction';
+      return 'gpp_good';
     }
   }
 }

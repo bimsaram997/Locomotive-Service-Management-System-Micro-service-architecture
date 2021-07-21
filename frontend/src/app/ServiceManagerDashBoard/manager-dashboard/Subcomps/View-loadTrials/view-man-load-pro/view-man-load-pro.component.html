@@ -79,7 +79,7 @@
                                 <h6 class="mb-0 label">Start Mileage</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.startMileage}}
+                                {{this.startMileage + 'Km'}}
                             </div>
                         </div>
                         <hr>
@@ -88,7 +88,7 @@
                                 <h6 class="mb-0 label">End Mileage</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.endMileage}}
+                                {{this.endMileage + 'Km'}}
                             </div>
                         </div>
                         <hr>
@@ -97,7 +97,7 @@
                                 <h6 class="mb-0 label">Status</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                <p [ngStyle]="{'color': (this.status == 1)?'blue':(this.status == 2)?'green':(this.status==3)?'red':'red'}"> <span class="material-icons" matTooltip="{{this.reason}}">
+                                <p [ngStyle]="{'color': (this.status == 1)?'#f7ca18':(this.status == 2)?'green':(this.status==3)?'#1f3a93':'red'}"> <span class="material-icons" matTooltip="{{this.reason}}">
                                     {{statusBinder(this.status)}}
                                     </span></p>
                             </div>
@@ -314,7 +314,11 @@
                                     </ng-container>
                                     <ng-container matColumnDef="Status">
                                         <th mat-header-cell *matHeaderCellDef> Status </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element?.reason}}"> {{element?.reason}}</td>
+                                        <td mat-cell *matCellDef="let element" [ngStyle]="{'color': (element.status == 1)?'#1f3a93':(element.status == 2)?'green':(element.status==3)?'red':'blue'}">
+                                            <span class="material-icons" matTooltip="{{element.reason}}">
+                                                {{cmtStatusBinder(element.status)}}
+                                                </span>
+                                        </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Date">
                                         <th mat-header-cell *matHeaderCellDef> Date </th>
@@ -323,6 +327,17 @@
                                     <ng-container matColumnDef="Comments">
                                         <th mat-header-cell *matHeaderCellDef> Comments </th>
                                         <td mat-cell *matCellDef="let element" matTooltip="{{element?.comments}}"> {{element?.comments}} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="#">
+                                        <th mat-header-cell *matHeaderCellDef> </th>
+
+                                        <td mat-cell *matCellDef="let element" data-label="#">
+
+                                            <button mat-icon-button (click)="viewFeedBack(element.commentId)" matTooltip="View Feedbacks issued!">
+                                                    <i class="fas fa-comment-alt" style="color: #f5ab35;"></i>
+                                                 </button>
+                                        </td>
+
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
                                     <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>

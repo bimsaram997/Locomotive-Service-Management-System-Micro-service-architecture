@@ -166,39 +166,24 @@ const sendLocoStatus = async(req, resp) => {
 }
 
 const patchFinalMile = async(req, res, next) => {
-    const _obj = req.body;
-    // console.log(_obj);
-    //console.log(_obj.locoNumber)
-    if (_obj.locoNumber) {
-        await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
+        const _obj = req.body;
+        // console.log(_obj);
+        //console.log(_obj.locoNumber)
+        if (_obj.locoNumber) {
+            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
 
-            if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(result)
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
 
-            }
+                }
 
-        })
+            })
 
+        }
     }
-}
-const patchLocoSchedule = async(req, res, next) => {
-    //console.log(req.params.locoNumber)
-    if (req.params.locoNumber) {
-        await LocomotiveSchema.updateOne({ locoNumber: req.params.locoNumber }, { $set: { locoStatus: 1, statusReason: 'I schedule' } }, function(err, result) {
-
-            if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(result)
-            }
-
-        })
-
-    }
-
-}
+    // j
 
 
 const patchSch = async(req, res, next) => {
@@ -804,7 +789,7 @@ module.exports = {
     patchFinalMile,
     getOneLocoNew,
     getAllLocoAssigned,
-    patchLocoSchedule,
+
     patchSch,
     patchLoadLoco,
     getLocoReport,

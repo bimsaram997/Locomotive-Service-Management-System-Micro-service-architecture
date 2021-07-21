@@ -124,11 +124,11 @@ export class ViewMileageComponent implements OnInit {
     if (status === 1){
       return 'hourglass_top';
     }else if (status === 2){
-      return 'check_circle_outline';
+      return 'check';
+    }else if (status === 3){
+      return 'clear'
     }else if (status === 4){
       return 'assignment'
-    }else if (status === 3){
-      return 'dangerous'
     }
   }
 }

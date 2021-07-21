@@ -15,7 +15,7 @@ router.post('/sendLocoStatus', LocomotiveController.sendLocoStatus);
 router.post('/sendStatusEmail', LocomotiveController.sendPassEmail);
 router.get('/getlocoSche/:id', LocomotiveController.getLocoSch);
 router.get('/getAllLocoAssigned', LocomotiveController.getAllLocoAssigned);
-router.patch('/patchLocoSchedule/:locoNumber', LocomotiveController.patchLocoSchedule);
+
 router.put('/acceptLoadLoco', LocomotiveController.acceptLoadLoco);
 
 router.patch('/patchSch', LocomotiveController.patchSch);

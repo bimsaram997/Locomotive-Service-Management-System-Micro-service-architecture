@@ -17,12 +17,27 @@ const getAllSchedules = (req, resp) => {
     })
 }
 
+const getAllScheduleAssigned = async(req, resp) => {
+    // console.log(req.query)
+    if (req.query.userRole == 'Supervisor') {
+        await ScheduleSchema.find({ supervisorNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+            //console.log(result);
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+    }
+}
+
+
 const getAllCompSchedule = (req, resp) => { //get completed schedule
-    ScheduleSchema.find({ scheduleProgress: 100, scheduleStatus: 6 }).then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
+    if (req.query.userRole == 'Supervisor') {
+        ScheduleSchema.find({ scheduleProgress: 100, scheduleStatus: 6, supervisorNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+        }).catch(error => {
+            resp.status(500).json(error);
+        })
+    }
 }
 
 const deleteSchedule = (req, resp) => {
@@ -275,6 +290,7 @@ module.exports = {
     patchMileage,
     getProSchedule,
     getOneSchedule,
-    getAllCompSchedule
+    getAllCompSchedule,
+    getAllScheduleAssigned
 
 }

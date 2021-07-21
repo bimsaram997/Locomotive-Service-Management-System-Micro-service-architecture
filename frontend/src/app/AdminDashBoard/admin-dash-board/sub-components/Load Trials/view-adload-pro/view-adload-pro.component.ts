@@ -101,9 +101,7 @@ export class ViewAdloadProComponent implements OnInit {
           this.comments = res[0].comments;
           this.reason = res[0].reason;
           
-          if(this.status === 3){
-           this.isStatusRes = false;
-          }
+         
     
         return _load;
       }),
@@ -126,11 +124,11 @@ export class ViewAdloadProComponent implements OnInit {
   }
   statusBinder(status){
     if (status === 1){
-      return 'pending_actions';
+      return 'hourglass_top';
     }else if (status === 2){
-      return 'done_all';
+      return 'check_circle_outline';
     }else if (status === 3){
-      return 'build';
+      return 'pending_actions';
     }
   }
 

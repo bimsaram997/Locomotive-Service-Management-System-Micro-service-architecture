@@ -37,7 +37,15 @@ export class ViewSchedulesComponent implements OnInit {
     this.loadAllSchedule();
   }
   private loadAllSchedule(){
-    this.scheduleService.getAllSchedules().subscribe(resp =>{
+
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+    console.log(object)
+    this.scheduleService.getAllScheduleAssigned(object).subscribe(resp =>{
       this.scheduleList = resp;
       this.dataSource =  new MatTableDataSource<any>(this.scheduleList);
       setTimeout(() => {
@@ -64,6 +72,7 @@ export class ViewSchedulesComponent implements OnInit {
       return 'check_circle_outline';
     }
   }
+
   
 
 /*
@@ -90,8 +99,16 @@ export class ViewSchedulesComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+    
   }
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
+}
+
   onWarning(message: string){
     this.toastr.warning(message, 'Warning');
   }
@@ -99,10 +116,7 @@ export class ViewSchedulesComponent implements OnInit {
     this.toastr.success(message, 'Success');
   }
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
-  }
-
+  
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/userDashboard/viewSchedule', id]);

@@ -37,6 +37,8 @@ export class AddLoadTrialComponent implements OnInit {
   lCatId: string;
   lDate: string;
   display = false;
+  lengthCount: boolean =false;
+
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, 
     private scheduleService: ScheduleService, private accessService: AccessService,
     private loadTrialService: LoadTrialService,
@@ -203,9 +205,20 @@ console.log(data)
   this.display = !this.display;
 }
 getAllSchedules(){
+  
   this.loading = true;
-  this.scheduleService.getAllCompSchedule().subscribe(res=>{
+
+  const values =  JSON.parse( localStorage.getItem('currentUser'));
+    const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+  this.scheduleService.getAllCompSchedule(object).subscribe(res=>{
   this.scheduleArray = res;
+  if(this.scheduleArray.length===0){
+    this.lengthCount = true;
+  }
   this.loading =  true
   })
 }

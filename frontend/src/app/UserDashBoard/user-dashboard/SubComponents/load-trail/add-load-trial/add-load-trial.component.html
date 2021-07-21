@@ -91,6 +91,7 @@
                                         <mat-option>Choose one..</mat-option>
                                         <mat-option *ngFor="let tempSchNo of scheduleArray" value="{{tempSchNo.scheduleNo}}">{{tempSchNo.scheduleNo}}</mat-option>
                                     </mat-select>
+                                    <mat-hint style="color: red; font-size: 12px;" *ngIf="lengthCount"><b>*There are not available Completed Schedules</b></mat-hint>
                                     <div *ngIf="LoadTrial.controls['scheduleNo'].invalid && (LoadTrial.controls['scheduleNo'].dirty || LoadTrial.controls['scheduleNo'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['scheduleNo'].errors.required">
                                             Schedule Number is Required.
@@ -257,20 +258,12 @@
                                     </div>
                                 </div>
                                 <br>
-
-
                             </div>
-
                         </div>
                         <br>
                         <button mat-stroked-button color="primary" type="button" (click)="addItem()">Add Test </button>
                         <button mat-raised-button type="button" style="margin-left: 8px;" (click)="removeItem('', 'main')">Remove All</button>
-
                         <br>
-
-
-
-
                     </mat-card>
                 </mat-tab>
                 <mat-tab>

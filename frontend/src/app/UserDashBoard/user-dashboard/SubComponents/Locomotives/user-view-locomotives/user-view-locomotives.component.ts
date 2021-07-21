@@ -112,20 +112,22 @@ export class UserViewLocomotivesComponent implements OnInit {
     }else if (locoStatus === 1){
       return 'garage';
     }else if (locoStatus === 2){
-      return 'construction';
-    }else if (locoStatus === 3){
-      return 'hourglass_top';
+      return 'gpp_good';
     }
   }
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+    //this.applyFilter(ob:st);
   }
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
-  }
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
+}
 
 
 

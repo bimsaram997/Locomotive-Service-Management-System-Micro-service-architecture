@@ -39,21 +39,24 @@ export class ViewManLoadComponent implements OnInit {
 
   statusBinder(status){
     if (status === 1){
-      return 'pending_actions'
-        ;
+      return 'hourglass_top';
     }else if (status === 2){
-      return 'done_all';
+      return 'check_circle_outline';
     }else if (status === 3){
-      return 'build';
+      return 'pending_actions';
     }
   }
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+    
   }
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim(); 
+        filterValue = filterValue.toLowerCase(); 
+        this.dataSource.filter = filterValue; 
+    }
   }
   viewLoad(id: string){
     this.router.navigate(['/managerDashBoard/viewManLoadProf', id])

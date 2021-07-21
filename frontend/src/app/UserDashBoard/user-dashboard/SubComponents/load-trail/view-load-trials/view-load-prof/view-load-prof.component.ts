@@ -104,11 +104,11 @@ export class ViewLoadProfComponent implements OnInit {
   }
   statusBinder(status){
     if (status === 1){
-      return 'pending_actions';
+      return 'hourglass_top';
     }else if (status === 2){
-      return 'done_all';
+      return 'check_circle_outline';
     }else if (status === 3){
-      return 'build';
+      return 'pending_actions';
     }
   }
   cmtStatusBinder(val){

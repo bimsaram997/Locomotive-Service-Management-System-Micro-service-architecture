@@ -21,7 +21,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label class="Schedule Number">Schedule Number</mat-label>
-                                    <input required maxlength="4" minlength="3" matInput placeholder="Schedule Number" #searchInput formControlName="scheduleNo">
+                                    <input required maxlength="5" minlength="3" matInput placeholder="Schedule Number" #searchInput formControlName="scheduleNo">
                                     <div *ngIf="ScheduleGroup.controls['scheduleNo'].invalid && (ScheduleGroup.controls['scheduleNo'].dirty || ScheduleGroup.controls['scheduleNo'].touched)" class="error">
                                         <div *ngIf="ScheduleGroup.controls['scheduleNo'].errors.required">
                                             Number is Required.

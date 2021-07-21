@@ -3,6 +3,7 @@ const ScheduleController = require('../controller/ScheduleController');
 const router = express.Router();
 router.post('/saveSchedule', ScheduleController.saveSchedule);
 router.get('/getAllSchedules', ScheduleController.getAllSchedules);
+router.get('/getAllScheduleAssigned', ScheduleController.getAllScheduleAssigned);
 router.get('/getAllCompSchedule', ScheduleController.getAllCompSchedule);
 router.delete('/deleteSchedule', ScheduleController.deleteSchedule);
 router.put('/updateSchedule', ScheduleController.updateSchedule);

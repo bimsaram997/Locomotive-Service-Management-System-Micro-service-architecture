@@ -155,7 +155,7 @@ statusBinder(locoStatus){
   }else if (locoStatus === 1){
     return 'garage';
   }else if (locoStatus === 2){
-    return 'construction';
+    return 'gpp_good';
   }
 }
 

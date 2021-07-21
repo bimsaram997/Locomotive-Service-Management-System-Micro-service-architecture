@@ -85,12 +85,21 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6 class="mb-0 label">Progress Status</h6>
+                                <h6 class="mb-0 label">Progress Completed</h6>
+                            </div>
+                            <div class="col-sm-6 text-secondary">
+                                {{ this.scheduleProgress + '%'}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0 label">Schedule Status</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
                                 <p [ngStyle]="{'color': (this.scheduleStatus == 0)?'blue':(this.scheduleStatus == 1)?'yellow':
                                (this.scheduleStatus==2)?'#e87e04':(this.scheduleStatus==3)?'#9a12b3':(this.scheduleStatus==4)?'#663399':(this.scheduleStatus==5)?'#67809f':(this.scheduleStatus==6)?'green': 'red'}">
-                                    <span class="material-icons">
+                                    <span class="material-icons" matTooltip="{{this.schReason}}">
                                     {{statusBinder(this.scheduleStatus)}}
                                     </span></p>
                             </div>
