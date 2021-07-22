@@ -16,6 +16,15 @@ const MileageSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    finalMileage: {
+        type: Number,
+        required: false
+    },
+    gap: {
+        type: Number,
+        required: false
+    },
+
     mileageDate: {
         type: String,
         required: true

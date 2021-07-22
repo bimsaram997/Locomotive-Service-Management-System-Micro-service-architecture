@@ -2,7 +2,7 @@ import { LocomotiveService } from 'src/app/service/locomotive.service';
 import { first } from 'rxjs/operators';
 import { log } from 'util';
 import { ViewFeedBacksComponent } from './../../../../../UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-feed-backs/view-feed-backs.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { MatDialog } from '@angular/material/dialog';
 import swal from "sweetalert";
+import { ViewportScroller } from '@angular/common';
 @Component({
   selector: 'app-view-adload-pro',
   templateUrl: './view-adload-pro.component.html',
@@ -66,10 +67,15 @@ export class ViewAdloadProComponent implements OnInit {
   disabled = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor ( public dialog: MatDialog,private route: ActivatedRoute, 
+
+   pageYoffset = 0;
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+  constructor ( public dialog: MatDialog,private route: ActivatedRoute,
     private router: Router, private loadService: LoadTrialService,
      private scheduleService: ScheduleService,
-     private locoService: LocomotiveService) { }
+     private locoService: LocomotiveService, private scroll: ViewportScroller) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -100,15 +106,15 @@ export class ViewAdloadProComponent implements OnInit {
           this.endMileage = res[0].endMileage;
           this.comments = res[0].comments;
           this.reason = res[0].reason;
-          
-         
-    
+
+
+
         return _load;
       }),
       mergeMap(
         sch=> this.loadService.getRelevantComments(sch.loadNo))
 
-    
+
     ).subscribe(
       final=>{
        // console.log('Schedule');
@@ -120,8 +126,12 @@ export class ViewAdloadProComponent implements OnInit {
       }
     )
 
-    
+
   }
+
+      scrollToTop(){
+  this.scroll.scrollToPosition([0,0]);
+}
   statusBinder(status){
     if (status === 1){
       return 'hourglass_top';
@@ -151,7 +161,7 @@ export class ViewAdloadProComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+
     });
   }
 
@@ -204,7 +214,7 @@ export class ViewAdloadProComponent implements OnInit {
               }
 
 
-             
+
             }
           ))
   }
@@ -219,6 +229,6 @@ export class ViewAdloadProComponent implements OnInit {
     ))
   }
 
- 
+
 
 }

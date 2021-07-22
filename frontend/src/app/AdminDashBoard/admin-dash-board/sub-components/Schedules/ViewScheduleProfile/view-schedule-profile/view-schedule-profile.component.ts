@@ -1,5 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map, mergeMap } from 'rxjs/operators';
 import { ScheduleService } from 'src/app/service/schedule.service';
@@ -60,9 +61,14 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   scheduleStatus: any;
   scheduleProgress: any;
   schReason: any
-  
 
-  constructor(private route: ActivatedRoute, private router: Router, private scheduleService: ScheduleService) { }
+   pageYoffset = 0;
+
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+
+  constructor(private route: ActivatedRoute, private router: Router, private scheduleService: ScheduleService, private scroll: ViewportScroller) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -100,7 +106,7 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
       }),
       mergeMap(
         sch=> this.scheduleService.getRelevantProgress(sch.scheduleNo))
-    
+
     ).subscribe(
       final=>{
         console.log('Schedule');
@@ -109,9 +115,12 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
         console.log(this.dataSource9)
       }
     )
-    
+
 
   }
+  scrollToTop(){
+  this.scroll.scrollToPosition([0,0]);
+}
   statusBinder(scheduleStatus){
     if (scheduleStatus === 0){
       return 'not_started';

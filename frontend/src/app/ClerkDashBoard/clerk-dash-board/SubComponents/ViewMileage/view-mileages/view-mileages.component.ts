@@ -50,6 +50,7 @@ export class ViewMileagesComponent implements OnInit {
     this.applyFilter();
   }
 
+
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }

@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import LocoDTO from "../../../../../../dto/LocoDTO";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LocomotiveService} from "../../../../../../service/locomotive.service";
 import {first, map, mergeMap} from "rxjs/operators";
+import { ViewportScroller } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-loco',
@@ -39,7 +41,14 @@ export class ViewLocoComponent implements OnInit {
   finalMileage: any;
   endMileDate: any;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService) { }
+
+   pageYoffset = 0;
+
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+
+  constructor(private scroll: ViewportScroller,private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -69,7 +78,7 @@ export class ViewLocoComponent implements OnInit {
       }),
       mergeMap(
         sch=> this.locomotiveService.getRelevantSch(sch.locoNumber))
-    
+
     ).subscribe(
       final=>{
         console.log('Schedule');
@@ -80,9 +89,16 @@ export class ViewLocoComponent implements OnInit {
     )
 
   }
+scrollToTop(){
+  this.scroll.scrollToPosition([0,0]);
+}
+
+
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/userDashboard/viewSchedule', id]);
   }
+
+
 
 }

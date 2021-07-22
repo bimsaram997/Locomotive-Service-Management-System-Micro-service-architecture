@@ -1,4 +1,5 @@
 <div class="container-fluid">
+
     <div class="row">
         <div class="col-md-5">
             <!-- / project-info-box -->
@@ -270,6 +271,7 @@
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
+
             <!-- / project-info-box -->
             <div class="project-info-box">
                 <h2>Special Notice</h2>
@@ -278,5 +280,9 @@
             <!-- / project-info-box -->
         </div>
         <!-- / column -->
+
     </div>
+    <button mat-fab color="primary" class="float" (click)="scrollToTop()" *ngIf="pageYoffset > 0">
+<i class="fas fa-angle-double-up my-float" style="font-size: 35px;"></i>
+    </button>
 </div>

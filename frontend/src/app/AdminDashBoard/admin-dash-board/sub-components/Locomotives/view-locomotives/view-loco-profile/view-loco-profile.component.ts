@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first, map, mergeMap} from "rxjs/operators";
@@ -23,7 +24,7 @@ export class ViewLocoProfileComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Motor Part Name', 'Condition'];
   displayedColumns2: string[] = ['No', 'Fluids', 'Level'];
   displayedColumns3: string[] = ['Schedule No.', 'Supervisor Name', 'Report No.', 'Progress', '#'];
- 
+
   dataSource: any[] = [];
   dataSource1: any[] = [];
   dataSource2: any[] = [];
@@ -44,9 +45,15 @@ export class ViewLocoProfileComponent implements OnInit {
   endMileDate: any;
   note: any;
   imageSt: any;
-  scroll: any;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService, private router: Router) { }
+
+   pageYoffset = 0;
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+
+
+  constructor(private scroll: ViewportScroller,private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -77,7 +84,7 @@ export class ViewLocoProfileComponent implements OnInit {
       }),
       mergeMap(
         sch=> this.locomotiveService.getRelevantSch(sch.locoNumber))
-    
+
     ).subscribe(
       final=>{
         console.log('Schedule');
@@ -90,12 +97,16 @@ export class ViewLocoProfileComponent implements OnInit {
     // this.locomotiveService.getOneLoco(this.id).pipe(first())
     //   .subscribe(
     //     res=>{
-       
+
     //       console.log(res);
     //     }
     //   )
   }
-  
+
+    scrollToTop(){
+  this.scroll.scrollToPosition([0,0]);
+}
+
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/adminDashboard/viewSchedule', id]);

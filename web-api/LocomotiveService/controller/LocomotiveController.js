@@ -144,7 +144,7 @@ const getOneLocoNew = (req, res) => {
     // console.log(req.params.mLocoNumber);
     LocomotiveSchema.find({
         locoNumber: req.params.mLocoNumber
-    }).then(result => {
+    }, { locoStatus: 0 }).then(result => {
         res.status(200).json(result);
     }).catch(er => {
         res.status(500).json(er);

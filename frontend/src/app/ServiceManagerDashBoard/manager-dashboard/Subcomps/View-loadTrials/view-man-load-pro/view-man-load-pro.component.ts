@@ -1,11 +1,12 @@
 import { ViewFeedBacksComponent } from './../../../../../UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-feed-backs/view-feed-backs.component';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
 import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-view-man-load-pro',
@@ -52,7 +53,14 @@ export class ViewManLoadProComponent implements OnInit {
   dataSource3: any[]=[];
   dataSource4: any[]=[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService,
+
+
+   pageYoffset = 0;
+
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+  constructor(private scroll: ViewportScroller, private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService,
     public dialog: MatDialog, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
@@ -83,13 +91,13 @@ export class ViewManLoadProComponent implements OnInit {
           this.endMileage = res[0].endMileage;
           this.comments = res[0].comments;
           this.reason = res[0].reason;
-    
+
         return _load;
       }),
       mergeMap(
         sch=> this.loadService.getRelevantComments(sch.loadNo))
-    
-    
+
+
     ).subscribe(
       final=>{
        // console.log('Schedule');
@@ -100,6 +108,9 @@ export class ViewManLoadProComponent implements OnInit {
       }
     )
   }
+    scrollToTop(){
+  this.scroll.scrollToPosition([0,0]);
+}
   statusBinder(status){
     if (status === 1){
       return 'hourglass_top';
@@ -129,7 +140,7 @@ export class ViewManLoadProComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+
     });
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
@@ -7,6 +7,7 @@ import swal from "sweetalert";
 import {SendProgressComponent} from "../../../../UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/send-progress/send-progress.component";
 import {EditReqScheduleComponent} from "../request-schedule/edit-req-schedule/edit-req-schedule.component";
 import { Router } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-view-manager-schedules',
@@ -21,12 +22,20 @@ export class ViewManagerSchedulesComponent implements OnInit {
   displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Supervisor inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
   scheduleList: any[] = [];
   scheduleStatus: any;
-  constructor(private scheduleService: ScheduleService, private router: Router) { }
+
+     pageYoffset = 0;
+
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+  constructor(private scroll: ViewportScroller,private scheduleService: ScheduleService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadAllSchedule();
   }
-
+    scrollToTop(){
+  this.scroll.scrollToPosition([0,0]);
+}
   private loadAllSchedule(){
     this.scheduleService.getAllSchedules().subscribe(resp =>{
      this.scheduleList = resp;
@@ -39,14 +48,14 @@ export class ViewManagerSchedulesComponent implements OnInit {
   }
   onSearchClear() {
     this.searchKey = '';
-   
+
   }
 
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
   }
   statusBinder(scheduleStatus){

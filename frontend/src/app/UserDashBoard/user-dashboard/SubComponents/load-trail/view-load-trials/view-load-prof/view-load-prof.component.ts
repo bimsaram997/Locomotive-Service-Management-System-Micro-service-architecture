@@ -1,18 +1,23 @@
+import { fadeInAnimation } from 'src/app/_animations';
 import { ViewFeedBacksComponent } from './view-feed-backs/view-feed-backs.component';
 import { mergeMap } from 'rxjs/operators';
 import { LoadTrialService } from './../../../../../../service/load-trial.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component,HostListener,OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFeedBacksComponent } from '../add-feed-backs/add-feed-backs.component';
+import { ViewportScroller } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-view-load-prof',
   templateUrl: './view-load-prof.component.html',
-  styleUrls: ['./view-load-prof.component.css']
+  styleUrls: ['./view-load-prof.component.css'],
+
 })
 export class ViewLoadProfComponent implements OnInit {
   panelOpenState = false;
@@ -56,7 +61,16 @@ export class ViewLoadProfComponent implements OnInit {
   dataSource4: any[]=[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog,private router: Router, private loadService: LoadTrialService, private scheduleService: ScheduleService) { }
+
+
+   pageYoffset = 0;
+
+  @HostListener('window:scroll', ['$event']) onScroll(event){
+    this.pageYoffset = window.pageYOffset;
+  }
+
+
+  constructor(private scroll: ViewportScroller,  private route: ActivatedRoute, public dialog: MatDialog,private router: Router, private loadService: LoadTrialService, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -86,12 +100,12 @@ export class ViewLoadProfComponent implements OnInit {
           this.endMileage = res[0].endMileage;
           this.comments = res[0].comments;
           this.reason = res[0].reason;
-    
+
         return _load;
       }),
       mergeMap(
         sch=> this.loadService.getRelevantComments(sch.loadNo))
-    
+
     ).subscribe(
       final=>{
        // console.log('Schedule');
@@ -102,6 +116,12 @@ export class ViewLoadProfComponent implements OnInit {
       }
     )
   }
+
+ scrollToTopm(){
+  this.scroll.scrollToPosition([0,0]);
+}
+
+
   statusBinder(status){
     if (status === 1){
       return 'hourglass_top';
@@ -129,7 +149,7 @@ export class ViewLoadProfComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+
     });
   }
   viewFeedBack(commentId: string){
@@ -139,7 +159,9 @@ export class ViewLoadProfComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+
     });
   }
+
+
 }

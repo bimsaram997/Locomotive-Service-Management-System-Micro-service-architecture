@@ -6,12 +6,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { fadeInAnimation } from 'src/app/_animations';
 
 
 @Component({
   selector: 'app-view-load-trials',
   templateUrl: './view-load-trials.component.html',
-  styleUrls: ['./view-load-trials.component.css']
+  styleUrls: ['./view-load-trials.component.css'],
+
 })
 export class ViewLoadTrialsComponent implements OnInit {
   searchKey: string;
@@ -24,7 +26,7 @@ export class ViewLoadTrialsComponent implements OnInit {
   status: any;
 
   constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
-  
+
   ngOnInit(): void {
     this.getLoadTrial();
   }
@@ -69,7 +71,7 @@ export class ViewLoadTrialsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     
+
     });
   }
 
