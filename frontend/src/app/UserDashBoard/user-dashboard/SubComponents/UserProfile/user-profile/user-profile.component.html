@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-lg-4 col-xl-4">
             <div class="card-box text-center">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">
+                <img src="{{this.image}}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 150px; height:150px;">
 
-                <h4 class="mb-0">Nik G. Patel</h4>
-                <p class="text-muted">@webdesigner</p>
+                <h2 class="mb-0" style="color: #1f3a93;">{{this?.userName}}</h2>
+                <p class="text-muted">{{this?.userRole}}</p>
 
 
 
@@ -19,7 +19,7 @@
                             <h6 class="mb-0 label">Email</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.userEmail}}</span>
                         </div>
                     </div>
                     <hr>
@@ -28,7 +28,7 @@
                             <h6 class="mb-0 label">Gender</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.userGender}}</span>
                         </div>
                     </div>
                     <hr>
@@ -37,7 +37,7 @@
                             <h6 class="mb-0 label">NIC</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.userNic}}</span>
                         </div>
                     </div>
                     <hr>
@@ -46,7 +46,7 @@
                             <h6 class="mb-0 label">Mobile No</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.userMobile}}</span>
                         </div>
                     </div>
                     <hr>
@@ -55,7 +55,7 @@
                             <h6 class="mb-0 label">Address</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.address}}</span>
                         </div>
                     </div>
                     <hr>
@@ -64,7 +64,7 @@
                             <h6 class="mb-0 label">Appointment Date</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.appointmentDate}}</span>
                         </div>
                     </div>
                     <hr>
@@ -73,7 +73,7 @@
                             <h6 class="mb-0 label">Work Place</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.userWorks}}</span>
                         </div>
                     </div>
 
@@ -92,10 +92,10 @@
         <div class="col-lg-8 col-xl-8">
             <div class="card-box">
                 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle value="bold">Locomotives</mat-button-toggle>
-                    <mat-button-toggle value="italic">Schedules</mat-button-toggle>
+                    <mat-button-toggle matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
+                    <mat-button-toggle matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
                     <mat-button-toggle value="italic">Progress Reports</mat-button-toggle>
-                    <mat-button-toggle value="underline">Load Trials</mat-button-toggle>
+                    <mat-button-toggle matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div class="tab-content">
