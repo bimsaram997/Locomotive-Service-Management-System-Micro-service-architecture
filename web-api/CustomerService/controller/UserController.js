@@ -186,40 +186,62 @@ const requestPassword = async(req, res) => {
 
 const register = async(req, resp) => {
 
-    UserDTO.findOne({ userEmail: req.body.email }, (error, result) => {
-        if (error) {
-            resp.status(500).json({ message: error });
-        } else {
-            if (result != null) {
-                resp.status(200).json({ message: 'Already Exists!' });
-            } else {
+    console.log(req.body);
 
-                bcrypt.genSalt(10, function(err, salt) {
-                    bcrypt.hash(req.body.password, salt, function(error, hash) {
-                        const admin = new UserDTO({
-                            userEmail: req.body.email,
-                            userName: req.body.uName,
-                            userWorks: req.body.works,
-                            userNic: req.body.nic,
-                            userMobile: req.body.mobile,
-                            userRole: req.body.role,
-                            userPassword: hash,
-
-                        });
+    UserDTO.findOne({ userEmail: req.body.userEmail }).then(result => {
+        if (result == null) {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(req.body.userPassword, salt, function(error, hash) {
+                    const admin = new UserDTO(req.body);
+                    admin.userPassword = hash
+                        //userPassword: hash,
 
 
-                        admin.save().then(finalResult => {
-                            resp.status(200).json({ message: true });
-                        }).catch(finalError => {
-                            resp.status(500).json({ message: finalError })
-                        })
-
+                    admin.save().then(result => {
+                        resp.status(200).json({ isSaved: true, data: result });
+                    }).catch(error => {
+                        res.status(500).json(error);
                     })
-                });
 
-            }
+                })
+            })
+        } else {
+            resp.status(200).json({ isSaved: false, data: result });
         }
-    })
+    }).catch(er => {
+        reps.status(500).json(er);
+    });
+
+
+    // UserDTO.findOne({ userEmail: req.body.userEmail }, (error, result) => {
+
+
+    //     if (result == null) {
+    //         bcrypt.genSalt(10, function(err, salt) {
+    //             bcrypt.hash(req.body.userPassword, salt, function(error, hash) {
+    //                 const admin = new UserDTO(req.body);
+    //                 admin.userPassword = hash
+    //                     //userPassword: hash,
+
+
+    //                 admin.save().then(result => {
+    //                     resp.status(200).json({ message: true, data: result });
+    //                 }).catch(error => {
+    //                     res.status(500).json(error);
+    //                 })
+
+    //             })
+    //         });
+    //     } else {
+
+    //         res.status(200).json({ isSaved: false, data: result });
+
+    //     }
+
+    // }).catch(er => {
+    //     res.status(500).json(er);
+    // });
+
 
 
 
@@ -355,6 +377,18 @@ const getOneSup = (req, res) => {
         res.status(500).json(er);
     });
 }
+
+const getUserInfo = async(req, resp, next) => {
+    console.log(req.query)
+
+    await UserDTO.find({ userNic: req.query.userNic }).then(result => {
+        resp.status(200).json(result);
+        console.log(result)
+    }).catch(error => {
+        resp.status(500).json(result)
+    });
+
+}
 module.exports = {
     register,
     getAllUsers,
@@ -371,7 +405,8 @@ module.exports = {
     getManagers,
     getOneUser,
     getOneMan,
-    getOneSup
+    getOneSup,
+    getUserInfo
 
 
 }

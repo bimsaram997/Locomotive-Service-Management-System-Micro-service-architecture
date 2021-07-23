@@ -1,137 +1,117 @@
-
 <div class="container-fluid">
-  <br>
-  <div class="box-head">
-    <img src="./assets/images/sup.png" alt="" style="height: 70px; width: 70px;">
-    <span class="heading-txt">ADD USERS</span>
-  </div>
-  <hr>
-  <br>
-  <br>
-  <mat-grid-list cols="2"   rowHeight="500px" [gutterSize]="'-55px'" >
-    <mat-grid-tile>
-      <div class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label class="label-txt">User Email</mat-label>
-          <input required [email]="true" type="email" matInput placeholder="first.last@example.com" #searchInput [(ngModel)]="userEmail" >
-        </mat-form-field>
-        <br>
-        <mat-form-field class="example-full-width">
-          <mat-label class="label-txt">User Name</mat-label>
-          <input #name="ngModel" required maxlength="50" minlength="1" matInput placeholder="User Name" #searchInput [(ngModel)]="userName" >
-          <div  *ngIf="name.invalid && (name.dirty || name.touched)"
-                class="error">
-            <div *ngIf="name.errors.required">
-              Name is required.
-            </div>
-            <div *ngIf="name.errors.minlength">
-              Name must be at least 2 characters long.
-            </div>
-            <div *ngIf="name.errors.maxLength">
-              Name Number must be up to 50 characters long.
-            </div>
-          </div>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="example-full-width">
-          <mat-select required #sName="ngModel"  placeholder="Works At" aria-label="Supervisor In Charge" [(ngModel)]="userWorks">
-            <mat-option>None</mat-option>
-            <ng-container *ngFor="let place of places">
-              <mat-option value="{{place.value}}">{{place.value}}</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="example-full-width">
-          <mat-label class="label-txt">User NIC</mat-label>
-          <input #nic="ngModel" required  matInput placeholder="User NIC"[(ngModel)]="userNic"  maxlength="10" minlength="10">
-          <div  *ngIf="nic.invalid && (nic.dirty || nic.touched)"
-                class="error">
-            <div *ngIf="nic.errors.required">
-              NIC Number is required.
-            </div>
-            <div *ngIf="nic.errors.minlength">
-              NIC Number must be at least 10 characters long.
-            </div>
-            <div *ngIf="nic.errors.maxLength">
-              NIC Number must be up to 10 characters long.
-            </div>
-          </div>
-        </mat-form-field>
+    <br>
+    <div class="box-head">
+        <img src="./assets/images/sup.png" alt="" style="height: 70px; width: 70px;">
+        <span class="heading-txt">ADD USERS</span>
+    </div>
+    <hr>
+    <div class="example-container">
+        <form [formGroup]="UserGroup" (ngSubmit)="onSubmit()">
+            <mat-card class="card1">
+                <h3 class="sub-headers">Basic Details</h3>
+                <div class="row no-gutters">
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput formControlName="userName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="userEmail">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Gender</mat-label>
+                            <mat-select formControlName="userGender">
+                                <mat-option value="Male">Male</mat-option>
+                                <mat-option value="Female">Female</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-      </div>
+                    <div class="w-100">
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>NIC</mat-label>
+                            <input matInput formControlName="userNic">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput formControlName="userMobile">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="address">
+                        </mat-form-field>
+                    </div>
 
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <div class="example-form">
-        <mat-form-field class="example-full-width">
-          <mat-label class="label-txt">User Mobile</mat-label>
-          <input #mNum ="ngModel" maxlength="10" minlength="10" required  matInput placeholder="User Mobile"  [(ngModel)]="userMobile" >
-          <div  *ngIf="mNum.invalid && (mNum.dirty || mNum.touched)"
-                class="error">
-            <div *ngIf="mNum.errors.required">
-              Mobile Number is required.
-            </div>
-            <div *ngIf="mNum.errors.minlength">
-              Mobile Number must be at least 10 characters long.
-            </div>
-            <div *ngIf="mNum.errors.maxLength">
-              Mobile Number must be up to 10 characters long.
-            </div>
-          </div>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="example-full-width">
-          <mat-select required #cRole="ngModel" placeholder="Role" aria-label="Role" [(ngModel)] = "userRole">
-            <mat-option>None</mat-option>
-            <ng-container *ngFor="let role of roles">
-              <mat-option value="{{role.value}}">{{role.value}}</mat-option>
-            </ng-container>
-          </mat-select>
-          <div  *ngIf="cRole.invalid && (cRole.dirty || cRole.touched)"
-                class="error">
-            <div *ngIf="cRole.errors.required">
-              Employee Role is required.
-            </div>
-          </div>
-        </mat-form-field>
-        <br>
-        <mat-form-field  class="example-full-width">
-          <mat-label>Enter your password</mat-label>
-          <input required matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="userPassword" minlength="4" maxlength="6">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
-        <button mat-stroked-button color="primary" onclick="document.getElementById('selectedFile').click()">Add Images</button>
-        <br>
-        <br>
-        <input (change)="changeFiles($event)" multiple style="display: none; " type="file" accept="images/" id="selectedFile" >
-        <div class="main-wrap-for-selected-images">
-          <p *ngIf="isVisble" class="para-note"  ></p>
-          <img *ngIf="urls[0]!=null" [src]="urls[0]" alt="Image"
-               class="selected-image img-thumbnail">
-          <img *ngIf="urls[1]!=null"  [src]="urls[1]" alt="Image"
-               class="selected-image img-thumbnail">
-          <img *ngIf="urls[2]!=null"  [src]="urls[2]" alt="Image"
-               class="selected-image img-thumbnail">
-          <br>
-          <button (click)="signUp()"  mat-raised-button color="primary">Register</button>
-        </div>
+                    <div class="w-100">
+                    </div>
 
-      </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Role</mat-label>
+                            <mat-select formControlName="userRole">
 
-    </mat-grid-tile>
-
-  </mat-grid-list>
+                                <mat-option *ngFor="let role of userRoles" [value]="role">{{role}}</mat-option>
 
 
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Appointment Date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="appointmentDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Work Place</mat-label>
+                            <mat-select formControlName="userWorks">
+                                <ng-container *ngFor="let place of places">
+                                    <mat-option value="{{place.value}}">{{place.value}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-100">
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input formControlName="userPassword" matInput [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <br>
+                        <input type="file" (change)="uploadFile($event)" accept=".png, .jpg, .jpeg" style="height: 45px; background: white; " id="selectedFile">
 
+                    </div>
+                    <div class="col pr-0"></div>
+                </div>
+                <div class="box-head">
+                    <button mat-raised-button color="primary" type="submit">Submit</button>
+                    <!-- <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner> -->
+                </div>
+            </mat-card>
+        </form>
+    </div>
 
 
 
 
 </div>
-
-
-

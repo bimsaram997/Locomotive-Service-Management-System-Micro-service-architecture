@@ -14,11 +14,13 @@ export class UserProfileComponent implements OnInit {
   text = '';
   receive = '';
   isVisible =  false;
+  userList: any[]=[];
 
 
   constructor(private accessService: AccessService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getUserDetails();
   }
 
   sendMail() {
@@ -60,4 +62,21 @@ export class UserProfileComponent implements OnInit {
     const btn = document.getElementById('btn-pop-up') as HTMLElement;
     btn.click();
   }
+   getUserDetails(){
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+    console.log(object)
+    this.accessService.getUserInfo(object)
+    .subscribe(
+      res=>{
+        this.userList =  res;
+        console.log(this.userList)
+      }
+    )
+  }
+
 }

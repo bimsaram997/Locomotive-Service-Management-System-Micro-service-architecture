@@ -16,4 +16,5 @@ router.put('/updateUser', UserController.updateUser);
 router.get('/getOneUser/:userNic', UserController.getOneUser);
 router.get('/getOneMan/:managerName', UserController.getOneMan);
 router.get('/getOneSup/:supervisorName', UserController.getOneSup);
+router.get('/getUserInfo', UserController.getUserInfo);
 module.exports = router;

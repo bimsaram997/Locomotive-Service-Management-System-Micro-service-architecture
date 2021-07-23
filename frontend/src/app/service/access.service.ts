@@ -21,16 +21,8 @@ export class AccessService {
 
   }
 
- public register(email: string, uName: string, works: string, nic: string, mobile: string, role: string, password: string): Observable<any> {
-    return this.http.post(this.myUrl + 'accessRoute/signUp', {
-      email,
-      uName,
-      works,
-      nic,
-      mobile,
-      role,
-      password,
-    });
+ public register(obj): Observable<any> {
+    return this.http.post(this.myUrl + 'accessRoute/signUp', obj);
  }
  public sendEmail(email: string, receive: string, subject: string, text: string): Observable<any> {
     return this.http.post(this.myUrl + 'accessRoute/sendMails', {
@@ -108,5 +100,9 @@ export class AccessService {
   }
   getOneMan(managerName): Observable<any>{
     return this.http.get<any>(this.myUrl + `accessRoute/getOneMan/${managerName}`);
+  }
+
+  public getUserInfo(object):Observable<any> {
+    return this.http.get( this.myUrl + `accessRoute/getUserInfo/`, {params:object})
   }
 }

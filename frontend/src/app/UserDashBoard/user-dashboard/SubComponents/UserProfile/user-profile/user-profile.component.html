@@ -1,86 +1,148 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<br>
 <div class="container-fluid">
-  <div class="profile-header">
-    <div class="profile-img">
-      <img src="./assets/images/1615138550352.png" width="200" alt="Profile Image">
-    </div>
-    <div class="profile-nav-info">
-      <p class="welcome">Welcome...</p>
-      <h3 class="user-name">ADAM GILCHRIST</h3>
-    </div>
+    <div class="row">
+        <div class="col-lg-4 col-xl-4">
+            <div class="card-box text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image">
 
-
-  </div>
+                <h4 class="mb-0">Nik G. Patel</h4>
+                <p class="text-muted">@webdesigner</p>
 
 
 
-  <div class="main-bd">
-    <div class="left-side">
-      <div class="profile-side">
-        <br>
-        <br>
-        <br>
-        <p class="mobile-no"><i class="fa fa-phone"></i> +23470xxxxx700</p>
-        <p class="mobile-no"><i class="fa fa-envelope"></i> Brightisaac80@gmail.com</p>
-        <p class="mobile-no"><i class="fas fa-briefcase"></i> Electric Locomotive Shed</p>
-        <p class="mobile-no"><i class="fas fa-id-card-alt"></i>972363430V</p>
-        <br>
+                <div class="text-left mt-3">
+                    <h4 class="font-13 text-uppercase">About Me :</h4>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Email</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Gender</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">NIC</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Mobile No</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Address</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Appointment Date</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Work Place</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243"> Bimsara</span>
+                        </div>
+                    </div>
 
-        <div class="profile-btn">
-          <button class="chatbtn" id="chatBtn" (click)="view()"><i class="fa fa-comment" ></i> Email</button>
+                    <hr>
+                </div>
+            </div>
+            <!-- end card-box -->
+
+
+            <!-- end card-box-->
 
         </div>
-        <div class="contact">
-          <p>&nbsp;&nbsp;&nbsp;&nbsp; Contact Admin</p>
-          <p><i class="fa fa-phone"></i>+94768922413</p>
+        <!-- end col-->
+
+
+        <div class="col-lg-8 col-xl-8">
+            <div class="card-box">
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle value="bold">Locomotives</mat-button-toggle>
+                    <mat-button-toggle value="italic">Schedules</mat-button-toggle>
+                    <mat-button-toggle value="italic">Progress Reports</mat-button-toggle>
+                    <mat-button-toggle value="underline">Load Trials</mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <div class="tab-content">
+
+                    <div class="tab-pane show active" id="about-me">
+
+                        <h5 class="mb-4 text-uppercase"><i class="mdi mdi-briefcase mr-1"></i> Experience
+                        </h5>
+
+                        <ul class="list-unstyled timeline-sm">
+                            <li class="timeline-sm-item">
+                                <span class="timeline-sm-date">2015 - 19</span>
+                                <h5 class="mt-0 mb-1">Lead designer / Developer</h5>
+                                <p>websitename.com</p>
+                                <p class="text-muted mt-2">Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words.</p>
+
+                            </li>
+                            <li class="timeline-sm-item">
+                                <span class="timeline-sm-date">2012 - 15</span>
+                                <h5 class="mt-0 mb-1">Senior Graphic Designer</h5>
+                                <p>Software Inc.</p>
+                                <p class="text-muted mt-2">If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages.</p>
+                            </li>
+                            <li class="timeline-sm-item">
+                                <span class="timeline-sm-date">2010 - 12</span>
+                                <h5 class="mt-0 mb-1">Graphic Designer</h5>
+                                <p>Coderthemes LLP</p>
+                                <p class="text-muted mt-2 mb-0">The European languages are members of the same family. Their separate existence is a myth. For science music sport etc, Europe uses the same vocabulary. The languages only differ in their grammar their pronunciation.</p>
+                            </li>
+                        </ul>
+
+                        <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant mr-1"></i> Projects
+                        </h5>
+
+
+                    </div>
+                    <!-- end timeline content-->
+
+
+                    <!-- end settings content-->
+
+                </div>
+                <!-- end tab-content -->
+            </div>
+            <!-- end card-box-->
+
         </div>
-      </div>
-
+        <!-- end col -->
     </div>
-
-
-
-
-
-  </div>
-  <div class="container-wrp" *ngIf="isVisible" cdkDrag cdkDragBoundary=".app-content">
-    <div class="header">
-
-      <div class="box-container">
-        <span class="heading-update">SEND EMAIL</span>
-        <button style="left: 70%; color: white" mat-icon-button (click)="setState()"><span style="font-weight: bolder;" class="material-icons">clear</span></button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <div class="content">
-        <h2 class="header-one">GET IN TOUCH</h2>
-        <div class="email-inputs">
-         <p class="labels">Email: </p>
-         <mat-form-field class="example-full-width">
-           <input matInput placeholder="Your name here.." [(ngModel)]="email">
-         </mat-form-field>
-         <p class="labels">To: </p>
-         <mat-form-field class="example-full-width">
-           <input matInput placeholder="Recipient Email" [(ngModel)]="receive">
-         </mat-form-field>
-         <p class="labels">Subject: </p>
-         <mat-form-field class="example-full-width">
-           <input matInput placeholder="Subject" [(ngModel)]="subject">
-         </mat-form-field>
-         <mat-form-field class="example-full-width">
-           <mat-label>Leave a message</mat-label>
-           <textarea matInput placeholder="What would you like to tell admin.." [(ngModel)]="text"></textarea>
-         </mat-form-field>
-         <button class="btn-send" mat-raised-button color="primary" (click)="sendMail()">Send</button>
-
-
-       </div>
-      </div>
-
-
-    </div>
-
-  </div>
-  <button style="display: none"  type="button" id="btn-pop-up"  mat-stroked-button color="accent" (click)="setState()">
-  </button>
-
 </div>

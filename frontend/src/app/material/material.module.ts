@@ -45,7 +45,7 @@ import {CommonModule} from "@angular/common";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {NgImageFullscreenViewModule} from "ng-image-fullscreen-view";
 import {MatExpansionModule} from "@angular/material/expansion";
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -99,7 +99,8 @@ const MaterialComponents = [
   NgxEventCalendarModule,
   CommonModule,
   NgImageFullscreenViewModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatButtonToggleModule
 
 
 
