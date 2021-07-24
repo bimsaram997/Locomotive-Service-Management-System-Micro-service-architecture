@@ -249,27 +249,24 @@ const register = async(req, resp) => {
 };
 
 const loginUser = async(req, resp) => {
+    // console.log(req.headers.email )
     UserDTO.findOne({ userEmail: req.headers.email }).then(result => {
+        // console.log(result)
         if (result != null) {
-            //
             bcrypt.compare(req.headers.password, result.userPassword, function(err, finalOutput) {
                 if (finalOutput === true) {
                     const user = {
                             "email": result.userEmail
-                        }
-                        //  const user =  UserDTO.findOne({email})
-
+                        };
                     const { userPassword, ...userWithoutHash } = result.toObject();
-
                     const token = jwt.sign({ sub: result.id }, config.secret);
-
-
                     resp.status(200).json({ message: "Success!", userData: user, ...userWithoutHash, token });
                 } else {
                     resp.status(200).json({ message: "User Email or Passwords are Not Valid" });
                 }
             });
         } else {
+            // console.log('dsa')
             resp.status(200).json({ message: "Record Not Found!" });
         }
     }).catch(onerror => {

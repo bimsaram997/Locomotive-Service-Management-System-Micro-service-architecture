@@ -34,17 +34,9 @@ export class SendProgressComponent implements OnInit {
   checkLength:any[] = [];
   checkArrayNew: any[] = [];
   image: string = './assets/logo/1618837407350.png';
-
   constructor(private formBuilder: FormBuilder ,
               @Inject(MAT_DIALOG_DATA) public data: any, private scheduleService: ScheduleService, private router: Router, private progressReport: ProgressReportService) { }
-
   ngOnInit(): void {
-
-    // this.data.id = ev.target.value;
-
-    //alert(this.data.id)
-
-
     this.ReportGroup = this.formBuilder.group({
       scheduleNo: ['', [Validators.required]],
       progressReportNumber: ['', [Validators.required]],
@@ -75,24 +67,36 @@ export class SendProgressComponent implements OnInit {
        this.ReportGroup.controls['managerName'].setValue(resp[0].managerName);
        this.ReportGroup.controls['managerEmail'].setValue(resp[0].managerEmail);
 
-        if(resp[0].schProgressReport && resp[0].schProgressReport.length > 0){
-                const _checkArr = resp[0].schProgressReport
-              //  .checkArray;
-                for(const param of _checkArr){
-                  for(const sub of param.checkArray){
-                    const _findCh = this.Data.find(p=>p.value ==sub);
-                    if(_findCh){
-                      this.pushCheckBoxDefault(_findCh.value);
-                    }
-                  }
-                     
-                }
 
+      //  methanata thamai ara oyage report eke array eka enne oya ewele ara hasangi kiyna kella gena katha kara kara hitye
+      //  methnata thamai progress report eke enne methna idala debug point ekak thiyala balanna history okkoma methanta enne ,ekath methanta enne sds
+        if(resp[0].schProgressReport && resp[0].schProgressReport.length > 0){
+                const _checkArr = resp[0].schProgressReport;
+                const formCheckControl = this.getFm.checkArray as FormArray;
+                for(const param of _checkArr){
+                        if(param.checkArray.length > 0){
+                          this.pushCheckDefaultValue(param.checkArray ,formCheckControl);
+                        }
+                }
         }
 
      }
    })
 
+  }
+
+  pushCheckDefaultValue(array , controlName) {
+      for(const par of array){
+        const checkArray = this.getFm.checkArray.value;
+        const _findDup = checkArray.find(p=> p.par == par);
+        if(!_findDup){
+          controlName.push(
+            this.formBuilder.group(
+             { par }   
+            )
+          )
+        }
+      }
   }
 
   get getFm(){
@@ -102,7 +106,7 @@ export class SendProgressComponent implements OnInit {
     this.logic();
     this.getBase64();
     //console.log(this.ReportGroup.value);
-   
+
     if (this.ReportGroup){
       const reportData = {
         scheduleNo: this.ReportGroup.controls.scheduleNo.value,
@@ -117,15 +121,15 @@ export class SendProgressComponent implements OnInit {
         checkArray: this.ReportGroup.controls.checkArray.value,
         progressValue: this.ReportGroup.controls.progressValue.value,
         extraNote: this.ReportGroup.controls.extraNote.value,
-       
-        
+
+
 
 
       }
       this.progressReport.saveProgress(reportData).pipe(
         map(res=>{
           if (res.isSaved) {
-           
+
             this.patchMileage(this.ReportGroup.controls.scheduleNo.value, this.ReportGroup.controls.progressValue.value)
            // this.sendNewEmail(this.ReportGroup.controls.managerEmail.value, this.ReportGroup.controls.scheduleNo.value)
             swal({
@@ -157,11 +161,11 @@ export class SendProgressComponent implements OnInit {
         final=>{
           console.log('Schedule');
           console.log(final);
-         
+
         }
       )
 
-  
+
     }
   }
 
@@ -175,7 +179,7 @@ export class SendProgressComponent implements OnInit {
         }
       ))
   }
- 
+
   sendNewEmail(from, text){
     this.progressReport.sendProEmail(
       this.ReportGroup.controls.managerEmail.value,
@@ -204,13 +208,13 @@ export class SendProgressComponent implements OnInit {
       console.log('Porgress is 0')
     }
   }
-  
+
   pushCheckBoxDefault(e){
     const checkArray: FormArray = this.ReportGroup.get('checkArray') as FormArray;
-    
+
       const _findCheck = this.ReportGroup.controls.checkArray.value.find(p=>p==e);
           if(_findCheck){
-            checkArray.push(new FormControl(e.value));   
+            checkArray.push(new FormControl(e.value));
           }
   }
 
@@ -317,5 +321,14 @@ export class SendProgressComponent implements OnInit {
 
 getBase64(){
     this.image = this.image as string;
+}
+
+checktypeDefault(event){
+   const _checkArray = this.getFm.checkArray.value;
+        const _findCheck = _checkArray.find(p=>p.par == event);
+        if(_findCheck){
+          return true;
+        }
+   return false;
 }
 }
