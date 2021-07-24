@@ -69,7 +69,7 @@ export class SendProgressComponent implements OnInit {
 
 
       //  methanata thamai ara oyage report eke array eka enne oya ewele ara hasangi kiyna kella gena katha kara kara hitye
-      //  methnata thamai progress report eke enne methna idala debug point ekak thiyala balanna history okkoma methanta enne ,ekath methanta enne
+      //  methnata thamai progress report eke enne methna idala debug point ekak thiyala balanna history okkoma methanta enne ,ekath methanta enne sds
         if(resp[0].schProgressReport && resp[0].schProgressReport.length > 0){
                 const _checkArr = resp[0].schProgressReport;
                 const formCheckControl = this.getFm.checkArray as FormArray;
