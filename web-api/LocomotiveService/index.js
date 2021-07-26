@@ -29,7 +29,7 @@ mongoose.connect('mongodb://localhost:27017/RailwayProject', {
 //     var today = new Date();
 //     const _getAllSchedule = await LocomotiveSchema.find({ locoStatus: 2 });
 //     if (_getAllSchedule && _getAllSchedule > 0) {
-//         if (new Date(param.enMileDate) < today) {
+//         if (new Date(param.endMileDate) < today) {
 //             await LocomotiveSchema.updateOne
 //         }
 //     }

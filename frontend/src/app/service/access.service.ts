@@ -39,13 +39,18 @@ export class AccessService {
     });
  }
 
- public requestPassword(body): Observable<any>{
-    return this.http.post(this.myUrl + 'accessRoute/requestPassword' , body)
- }
+//  public requestPassword(body): Observable<any>{
+//     return this.http.post(this.myUrl + 'accessRoute/requestPassword' , body)
+//  }
+ requestReset(body): Observable<any> {
+    return this.http.post(this.myUrl + `accessRoute/req-reset-password`, body);
+  }
  public newPassword(body): Observable<any>{
-   return this.http.post(this.myUrl + 'accessRoute/requestPassword' , body)
+   return this.http.post(this.myUrl + 'accessRoute/newPass' , body)
  }
-
+ validPasswordToken(body): Observable<any> {
+    return this.http.post(this.myUrl +`accessRoute/valid-password-token`, body);
+  }
   // public get currentUsrValue() {
   //   return this.currntUserSubject.value;
   // }

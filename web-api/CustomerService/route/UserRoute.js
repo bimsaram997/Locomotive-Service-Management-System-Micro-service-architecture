@@ -7,8 +7,9 @@ router.get('/getMangers', UserController.getManagers);
 router.get('/loginUser', UserController.loginUser);
 router.get('/getUser/:id', UserController.getUser)
 router.post('/sendMails', UserController.sendMails);
-router.post('/requestPassword', UserController.requestPassword);
-router.post('/newPassword', UserController.newPassword);
+router.post('/req-reset-password', UserController.requestPassword);
+router.post('/newPass', UserController.newPassword);
+router.post('/valid-password-token', UserController.validPasswordToken);
 router.post('/sendPassEmail', UserController.sendPassEmail);
 router.get('/getUsers', UserController.getAllUserNew);
 router.delete('/deleteUser', UserController.deleteUser);

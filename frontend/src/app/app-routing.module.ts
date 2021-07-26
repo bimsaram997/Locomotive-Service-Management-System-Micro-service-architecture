@@ -49,6 +49,7 @@ import {ViewLocoComponent} from "./UserDashBoard/user-dashboard/SubComponents/Lo
 import { AddLoadTrialComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/add-load-trial/add-load-trial.component';
 import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/Schedules/ViewScheduleProfile/view-schedule-profile/view-schedule-profile.component';
 import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
+import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
 
 
 
@@ -60,6 +61,7 @@ const routes: Routes = [
   {path: '', component: LoginAndSignupComponent},
   {path: 'MainLogin', component: MainLoginPageComponent},
   {path: 'ForgetPassword', component: ForgotPasswordComponent},
+   {path: 'resetPasswordCommon/:id', component: ResetPasswordCommonComponent},
   {path: 'adminDashboard',  canActivate: [AdminAuthGuardGuard], component: AdminDashBoardComponent, children: [
       {path: 'adminDashContent', component: AdminDashContentComponent},
       {path: 'createCustomer', component: CreateCustomerComponent},
@@ -90,7 +92,7 @@ const routes: Routes = [
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewLoad', component: ViewLoadTrialsComponent },
       {path: 'viewLoadProf/:id', component: ViewLoadProfComponent}
-    
+
 
 
     ]},

@@ -9,8 +9,8 @@ const config = require('../../Config/config.json')
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'bimsaram997@gmail.com',
-        pass: 'BimsaraM9@123'
+        user: 'hirushanbim123@gmail.com',
+        pass: 'Janith@12345'
     }
 })
 
@@ -60,13 +60,16 @@ const sendReqEmailContent = (email, text, cb) => {
 
 }
 const sendPassEmail = (email, resettoken) => {
-    console.log(resettoken)
+    console.log(resettoken.resettoken)
 
     const mailOptions = {
-        from: email,
-        to: 'bimsaram997@gmail.com',
+        from: 'your emil',
+        to: email,
         subject: 'Password Reset',
-        html: ``,
+        html: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    'http://localhost:4200/resetPasswordCommon/${resettoken. resettoken}' +  + '\n\n' +
+    'If you did not request this, please ignore this email and your password will remain unchanged.\n'`,
 
     };
     transporter.sendMail(mailOptions, function(err, data) {
@@ -89,100 +92,6 @@ const sendPassEmail = (email, resettoken) => {
         // console.log("Data", req.body)
 }
 
-const validPasswordToken = async(req, res) => {
-    if (!req.body.resetToken) {
-        return res.status(500).json({ message: 'Token is required!' })
-    }
-    const user = await ResetPassword.findOne({
-        resetToken: req.body.resetToken
-    });
-    if (!user) {
-        return res.status(409).json({ message: 'Invalid URl' })
-    }
-    UserDTO.updateOne(({ _id: user._userID }, { $set: { _id: user.userID } }))
-        .then(() => {
-            res.status(200).json({ message: 'Token is verified!' })
-        }).catch((err) => {
-            return res.status(500).sed({ message: err.message })
-        })
-
-
-
-}
-const newPassword = async(req, res) => {
-    //userId  hoyaganna ona email eka balala
-
-    ResetPassword.findOne({ resetToken: req.body.resetToken }, function(err, userToken, next) {
-        if (!userToken) {
-            return res.status(409).json({ message: "Token has expired!" })
-        }
-        UserDTO.findOne({
-            _id: userToken.userID
-        }, function(err, userEmail, next) {
-            if (!userEmail) {
-                return res.status(409)
-                    .json({ message: 'User dos not exist' })
-            }
-            return bcrypt.hash((req.body.newPassword, 10, (err, hash) => {
-                if (err) {
-                    return res.status(400).json({ message: 'Error hassing passowrd' })
-                }
-                userEmail.hash = hash;
-                userEmail.save(function(err) {
-                    if (err) {
-                        return res.status(400).json({ message: 'Password can not reset' })
-                    } else {
-                        userToken.remove();
-
-                        //send karanna mail eka katada userta
-                        //email password
-
-
-                        return res.status(201).json({ message: 'Password reser succesfully' })
-                    }
-                })
-
-
-            }))
-
-
-
-        })
-
-    })
-}
-
-const requestPassword = async(req, res) => {
-    console.log(req.body)
-    const _findEmail = await UserDTO.findOne({ userEmail: req.body.email });
-    console.log(_findEmail);
-    if (_findEmail != null) {
-        var resetToken = new ResetPassword({
-            userID: _findEmail._id,
-            resetToken: crypto.randomBytes(16).toString("hex"),
-        });
-
-        resetToken.save(function(err) {
-            if (err) {
-                return;
-            }
-            ResetPassword.find({
-                userID: _findEmail._id,
-                resetToken: { $ne: resetToken.resetToken }
-            }).remove().exec();
-
-            sendPassEmail(req.body.email, resetToken)
-                ///Nodamailer eka
-
-            //methana mail body ekak hdala
-            //methanin yanne new paswowrd component redirect karanna ona
-        })
-    } else {
-        res.status(404).json({ message: false });
-    }
-
-
-}
 
 const register = async(req, resp) => {
 
@@ -256,8 +165,8 @@ const loginUser = async(req, resp) => {
             bcrypt.compare(req.headers.password, result.userPassword, function(err, finalOutput) {
                 if (finalOutput === true) {
                     const user = {
-                            "email": result.userEmail
-                        };
+                        "email": result.userEmail
+                    };
                     const { userPassword, ...userWithoutHash } = result.toObject();
                     const token = jwt.sign({ sub: result.id }, config.secret);
                     resp.status(200).json({ message: "Success!", userData: user, ...userWithoutHash, token });
@@ -273,6 +182,115 @@ const loginUser = async(req, resp) => {
         resp.status(500).json(onerror);
     })
 };
+
+
+const validPasswordToken = async(req, res) => {
+
+    if (!req.body.resettoken) {
+        return res
+            .status(500)
+            .json({ message: 'Token is required' });
+    }
+    const user = await ResetPassword.findOne({
+        resetToken: req.body.resettoken
+    });
+    if (!user) {
+        return res
+            .status(409)
+            .json({ message: 'Invalid URL' });
+    }
+    User.findOneAndUpdate({ _id: user._userId }).then(() => {
+        res.status(200).json({ message: 'Token verified successfully.' });
+    }).catch((err) => {
+        return res.status(500).send({ msg: err.message });
+    });
+
+
+
+
+
+
+}
+const newPassword = (req, res) => {
+    //userId  hoyaganna ona email eka balala
+
+    ResetPassword.findOne({ resettoken: req.body.resettoken }, function(err, userToken, next) {
+        if (!userToken) {
+            return res
+                .status(409)
+                .json({ message: 'Token has expired' });
+        }
+
+        UserDTO.findOne({
+            _id: userToken._userId
+
+        }, function(err, userEmail, next) {
+            if (!userEmail) {
+                return res
+                    .status(409)
+                    .json({ message: 'User does not exist' });
+            }
+            return bcrypt.hash(req.body.newPassword, 10, (err, hash) => {
+                if (err) {
+                    return res
+                        .status(400)
+                        .json({ message: 'Error hashing password' });
+                }
+                userEmail.userPassword = hash;
+                console.log(userEmail.userPassword)
+
+                userEmail.save(function(err) {
+                    if (err) {
+                        console.log(err)
+                        return res
+                            .status(400)
+                            .json({ message: 'Password can not reset.' });
+                    } else {
+                        userToken.remove();
+                        return res
+                            .status(201)
+                            .json({ message: 'Password reset successfully' });
+                    }
+
+                });
+            });
+        });
+
+    })
+
+
+
+
+}
+
+const requestPassword = async(req, res) => {
+    if (!req.body.email) {
+        return res
+            .status(500)
+            .json({ message: 'Email is required' });
+    }
+    const user = await UserDTO.findOne({
+        userEmail: req.body.email
+    });
+    console.log(req.body.email)
+    if (!user) {
+        return res
+            .status(409)
+            .json({ message: 'Email does not exist' });
+    }
+    var resettoken = new ResetPassword({ _userId: user._id, resettoken: crypto.randomBytes(16).toString('hex') });
+    resettoken.save(function(err) {
+        if (err) { return res.status(500).send({ msg: err.message }); }
+        ResetPassword.find({ _userId: user._id, resettoken: { $ne: resettoken.resettoken } }).remove().exec();
+        res.status(200).json({ message: 'Reset Password successfully.' });
+
+        sendPassEmail(req.body.email, resettoken)
+            ///Nodamailer eka
+    })
+
+
+}
+
 
 const getAllUsers = (req, resp) => {
     UserDTO.find({ userRole: 'Supervisor' }).then(result => {

@@ -7,35 +7,35 @@ const UserSchema = new mongoose.Schema({
     },
     userName: {
         type: String,
-        required: true
+        required: false
     },
     userGender: {
         type: String,
-        required: true
+        required: false
     },
     userNic: {
         type: String,
-        required: true
+        required: false
     },
     userMobile: {
         type: Number,
-        required: true
+        required: false
     },
     address: {
         type: String,
-        required: true
+        required: false
     },
     userRole: {
         type: String,
-        required: true
+        required: false
     },
     appointmentDate: {
         type: String,
-        required: true
+        required: false
     },
     userWorks: {
         type: String,
-        required: true
+        required: false
     },
 
 
