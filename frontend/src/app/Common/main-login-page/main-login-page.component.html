@@ -1,74 +1,72 @@
 <app-common-header></app-common-header>
 <main>
-  <article class="main-container">
-    <div class="login-wrapper">
+    <article class="main-container">
+        <div class="login-wrapper">
 
-      <!-- Contenido del lado izquierdo -->
-      <section class="form-wrapper">
+            <!-- Contenido del lado izquierdo -->
+            <section class="form-wrapper">
 
 
 
-        <!-- Contenedor del formulario y sus mensajes -->
-        <div class="form-container">
+                <!-- Contenedor del formulario y sus mensajes -->
+                <div class="form-container">
 
-          <!-- Mensaje de login -->
-          <div class="form-messages">
-            <h2 class="heading">LOGIN</h2>
-            <hr class="separator">
-            <p>Welcome! Please, fill username and password to sign in into your account.</p>
-          </div>
+                    <!-- Mensaje de login -->
+                    <div class="form-messages">
+                        <h2 class="heading">LOGIN</h2>
+                        <hr class="separator">
+                        <p>Welcome! Please, fill username and password to sign in into your account.</p>
+                    </div>
 
-          <br>
-            <mat-form-field  style="width: 18vw;" >
-              <mat-label>Email</mat-label>
-              <input matInput required type="email" [(ngModel)]="loginEmail" [email]="true" (keydown.enter)="login()"
-                     placeholder="first.last@example.com"
-                      >
-            </mat-form-field>
-          <br>
-          <br>
-            <mat-form-field style="width: 18vw;">
-              <mat-label>Enter your password</mat-label>
-              <input (keydown.enter)="login()" matInput [type]="hide ? 'password' : 'text'" required [(ngModel)]="loginPassword">
-              <br>
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <br>
+                    <mat-form-field style="width: 18vw;" appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput required type="email" [(ngModel)]="loginEmail" [email]="true" (keydown.enter)="login()" placeholder="first.last@example.com">
+                    </mat-form-field>
+                    <br>
+                    <br>
+                    <mat-form-field style="width: 18vw;" appearance="fill">
+                        <mat-label>Enter your password</mat-label>
+                        <input (keydown.enter)="login()" matInput [type]="hide ? 'password' : 'text'" required [(ngModel)]="loginPassword">
+                        <br>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-            </mat-form-field>
-          <br>
-          <a href="ForgetPassword" style="">Forget Password?</a>
-            <br>
-          <br>
-            <button class="login-btn" mat-raised-button color="primary"  (click)="login()">Login</button>
+                    </mat-form-field>
+                    <br>
+                    <a href="ForgetPassword" style="color: #db0a5b; font-weight: bold;">Forget Password?</a>
+                    <br>
+                    <br>
+                    <button mat-raised-button color="primary" (click)="login()">Login</button>
 
 
-          <!-- Separador entre botón y opciones -->
-          <hr class="separator">
+                    <!-- Separador entre botón y opciones -->
+                    <hr class="separator">
 
 
-          <!-- Otras opciones de inicio login -->
+                    <!-- Otras opciones de inicio login -->
 
 
+                </div>
+
+            </section>
+
+            <!-- Contenido del lado derecho -->
+            <section class="image-wrapper">
+
+                <div class="image-message">
+
+                    <div class="image-hr-container">
+                        <hr class="image-hr">
+                    </div>
+
+                    <div class="image-text">
+
+                    </div>
+
+                </div>
+
+            </section>
         </div>
-
-      </section>
-
-      <!-- Contenido del lado derecho -->
-      <section class="image-wrapper">
-
-        <div class="image-message">
-
-          <div class="image-hr-container">
-            <hr class="image-hr">
-          </div>
-
-          <div class="image-text">
-
-          </div>
-
-        </div>
-
-      </section>
-    </div>
-  </article>
+    </article>
 </main>

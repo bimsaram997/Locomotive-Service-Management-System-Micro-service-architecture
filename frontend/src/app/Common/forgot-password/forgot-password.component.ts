@@ -20,6 +20,16 @@ export class ForgotPasswordComponent implements OnInit {
   forgetPasswordGroup: FormGroup;
   submitted = false;
   IsvalidForm = true;
+  successMessage: string;
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
 
   constructor(private formBuilder: FormBuilder , private accessService: AccessService, private toastr: ToastrService, private router: Router) { }
 
@@ -37,12 +47,18 @@ console.log(form)
 
       this.accessService.requestReset(this.forgetPasswordGroup.value).subscribe(
         data => {
+            swal({
+             title: 'Email is Sent!',
+             icon: 'success',
+           });
+           setTimeout(() => {
+             //this.MileageGroup.reset();
+            // this.router.navigate(['/clerkDashBoard/viewMileages']);
+             //this.spinner = false
+           }, 3000);
+             this.router.navigate(['MainLogin']);
+           this.successMessage = data.message;
           this.forgetPasswordGroup.reset();
-
-          setTimeout(() => {
-
-            this.router.navigate(['sign-in']);
-          }, 3000);
         },
         err => {
 
