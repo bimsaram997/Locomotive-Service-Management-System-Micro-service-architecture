@@ -83,7 +83,7 @@
                     <mat-cell *matCellDef="let tempLoco" data-label="#">
 
                         <button mat-icon-button (click)="viewLoco(tempLoco._id)" matTooltip="Click for more information"><i class="fas fa-eye" style="color: #013243; font-size: 18px;"></i></button>
-                        <button mat-icon-button (click)="editLoco(tempLoco._id)" routerLink="/adminDashboard/EditLocomotive" matTooltip="Edit the Details">   
+                        <button mat-icon-button (click)="editLoco(tempLoco._id)" routerLink="/adminDashboard/EditLocomotive" matTooltip="Edit the Details">
                             <i class="fas fa-pencil-alt" style="color: #f62459; font-size: 18px;"></i></button>
                     </mat-cell>
                 </ng-container>
@@ -93,6 +93,13 @@
             </mat-table>
 
             <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6 text-right">
+                <button mat-button style="background: #F39C12; color: white;" routerLink="/adminDashboard/createLocomotive">Add Locomotive</button>
+            </div>
         </div>
     </div>
 
