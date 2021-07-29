@@ -1,29 +1,110 @@
-.right-li{
-  float: right;
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300&display=swap');
+.right-li {
+    float: right;
 }
-.example-spacer {
-  flex: 1 1 auto;
-}
-ul{ text-align:right;width:450px;}
-li{ display:inline-block;padding:15px;}
 
-a{
-  text-decoration: none;
-  color: white;
+.example-spacer {
+    flex: 1 1 auto;
 }
-a:hover, a:active{
-  color: lightgrey;
+
+ul {
+    text-align: right;
+    width: 450px;
 }
-.navigation-items{
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+
+li {
+    display: inline-block;
+    padding: 15px;
 }
-::ng-deep mat-toolbar{
-  border-radius: 0px;
+
+a {
+    text-decoration: none;
+    color: white;
 }
-@media (max-width: 959px) {
-  mat-toolbar{
-    border-radius: 0px;
-  }
+
+a:hover,
+a:active {
+    color: lightgrey;
+}
+
+.navigation-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.example-spacer {
+    font-family: 'Roboto', sans-serif;
+}
+
+.nav {
+    width: auto;
+}
+
+mat-toolbar {
+    width: auto;
+}
+
+.back-card {
+    height: 120px;
+    background-color: #03254c;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.new {
+    margin-top: -12px;
+    margin-left: -30px;
+}
+
+.container .welcome {
+    font-family: 'Tajawal', sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    left: 20%;
+    top: 35px;
+    transform: translate(-50%, -50%);
+    /*隐藏作用：如果没有用transform方式进行居中显示，则width：100%会向右侧延申，左侧为空*/
+    width: 30%;
+}
+
+.name {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+}
+
+.welcome {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    animation: text 3s 1;
+}
+
+.muzile {
+    font-size: 13px;
+    color: #70a1ff;
+}
+
+@keyframes text {
+    0% {
+        color: #000;
+        margin-bottom: -40px;
+    }
+    30% {
+        letter-spacing: 5px;
+        margin-bottom: -40px;
+    }
+    85% {
+        letter-spacing: 1px;
+        margin-bottom: -40px;
+    }
 }

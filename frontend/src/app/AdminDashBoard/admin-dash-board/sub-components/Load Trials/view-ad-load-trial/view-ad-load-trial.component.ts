@@ -23,37 +23,38 @@ export class ViewAdLoadTrialComponent implements OnInit {
   status: any;
   disabled = true;
   reason: any
-  
+  defChecked: boolean = false
+
   constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLoadTrial();
-    
+
   }
 
   private getLoadTrial(){
     this.loadService.getAllLoadTrial().subscribe(resp=>{
       this.loadArray = resp;
-   
+
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
-      
+
       setTimeout(()=>{
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort
-      
+
       })
     })
   }
 
   addComments(id: string): void {
     const dialogRef = this.dialog.open(AddCommentLoadComponent, {
-      data: {id: id},
+      data: {id: id, defChecked: this.defChecked},
       width: '520px',
-      
+
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      
+
     });
   }
   statusBinder(status){

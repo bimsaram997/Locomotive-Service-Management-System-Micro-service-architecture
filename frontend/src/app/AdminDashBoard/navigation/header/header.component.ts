@@ -10,7 +10,10 @@ import {CookieService} from "ngx-cookie";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  loading =  false;
+  cont: Array<any>[] = [];
+  currentDate = new Date();
+  name: any;
   @Output() public sidenavToggle = new EventEmitter();
   constructor(private router: Router, private route: ActivatedRoute,
               private accessService: AccessService,
@@ -18,6 +21,8 @@ export class HeaderComponent implements OnInit {
               private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userName
   }
 
   onToogleSlidenav() {

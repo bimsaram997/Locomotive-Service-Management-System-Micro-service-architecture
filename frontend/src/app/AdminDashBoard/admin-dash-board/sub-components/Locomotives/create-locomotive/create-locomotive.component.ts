@@ -34,6 +34,8 @@ export class CreateLocomotiveComponent implements OnInit {
     return value;
   }
   searchKey: string;
+  searchKey1: string;
+  searchKey2: string;
   filesToUpload: Array<File> = [];
   urls = new Array<string>();
   statuses: string[] = ['In', 'Out'];
@@ -334,6 +336,15 @@ export class CreateLocomotiveComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
+    //this.applyFilter();
+  }
+   onSearchClear1() {
+    this.searchKey1 = '';
+    //this.applyFilter();
+  }
+  onSearchClear2() {
+    this.searchKey2 = '';
+    //this.applyFilter();
   }
 
   onChangeSelect(value: string){

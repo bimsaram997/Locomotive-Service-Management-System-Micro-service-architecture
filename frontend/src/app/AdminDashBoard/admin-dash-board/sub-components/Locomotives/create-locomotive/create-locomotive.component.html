@@ -158,7 +158,8 @@
                             <div class="col-sm pr-0">
                                 <mat-form-field appearance="fill" style="width: 300px;">
                                     <mat-label class="Locomotive Number">Add Motor Item</mat-label>
-                                    <input required maxlength="20" minlength="1" matInput placeholder="E.g: Pistons" #searchInput formControlName="mtrType" (keyup)="onkeyUp($event)">
+                                    <input [(ngModel)]="searchKey" required maxlength="20" minlength="1" matInput placeholder="E.g: Pistons" #searchInput formControlName="mtrType" (keyup)="onkeyUp($event)">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
                                 </mat-form-field>
                                 &nbsp;&nbsp;
                                 <button type="button" mat-stroked-button color="primary" (click)="onClickMotor()" matTooltip="Add Motor Part">Add Item</button>&nbsp;
@@ -201,7 +202,8 @@
                             <div class="col-sm pr-0">
                                 <mat-form-field appearance="fill" style="width: 300px;">
                                     <mat-label class="Locomotive Number">Add Break Item</mat-label>
-                                    <input required maxlength="20" minlength="1" matInput placeholder="E.g: Vacumm breaks" #searchInput formControlName="brkType">
+                                    <input [(ngModel)]="searchKey1" required maxlength="20" minlength="1" matInput placeholder="E.g: Vacumm breaks" #searchInput formControlName="brkType">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey1" (click)="onSearchClear1()"><mat-icon>close</mat-icon></button>
                                 </mat-form-field> &nbsp;&nbsp;
                                 <button type="button" mat-stroked-button color="primary" (click)="onClickBreaks()" matTooltip="Add Break Types">Add Item</button> &nbsp;
                                 <button type="button" mat-raised-button (click)="onClickremoveBreakField('','main')" matTooltip="Remove All Break Types">Remove All</button>
@@ -232,7 +234,8 @@
                             <div class="col-sm pr-0">
                                 <mat-form-field appearance="fill" style="width: 300px;">
                                     <mat-label class="Locomotive Number">Add Fluid Item</mat-label>
-                                    <input required maxlength="20" minlength="3" matInput placeholder="E.g: Oil" #searchInput formControlName="fldType">
+                                    <input [(ngModel)]="searchKey2" required maxlength="20" minlength="3" matInput placeholder="E.g: Oil" #searchInput formControlName="fldType">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey2" (click)="onSearchClear2()"><mat-icon>close</mat-icon></button>
                                 </mat-form-field> &nbsp;&nbsp;
                                 <button type="button" mat-stroked-button color="primary" (click)="onClickFluids()" matTooltip="Add Liquid Levels">Add Item</button>&nbsp;
                                 <button mat-raised-button type="button" mat-raised-button (click)="onClickremoveFluidField('','main')" matTooltip="Remove All Liquid Levels">Remove All</button>

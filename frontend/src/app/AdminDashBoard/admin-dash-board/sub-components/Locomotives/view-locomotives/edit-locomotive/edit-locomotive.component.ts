@@ -15,7 +15,9 @@ import swal from "sweetalert";
 export class EditLocomotiveComponent implements OnInit {
   editLocoGroup: FormGroup;
   myControl = new FormControl();
-    searchKey: string;
+  searchKey: string;
+  searchKey1: string;
+  searchKey2: string;
   userList: UserDTO[] = [];
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   statuses: string[] = ['In', 'Out'];
@@ -379,9 +381,18 @@ onClickMotor() {
       )
   }
 
-   onSearchClear() {
+  onSearchClear() {
     this.searchKey = '';
     //this.applyFilter();
   }
+   onSearchClear1() {
+    this.searchKey1 = '';
+    //this.applyFilter();
+  }
+  onSearchClear2() {
+    this.searchKey2 = '';
+    //this.applyFilter();
+  }
+
 
 }
