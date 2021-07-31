@@ -30,7 +30,7 @@ export class ViewSchedulesComponent implements OnInit {
   constructor(private scheduleService: ScheduleService ,private router: Router,  private toastr: ToastrService,public dialog: MatDialog) {
 
     //this.loadCount();
-    
+
   }
 
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class ViewSchedulesComponent implements OnInit {
     }
   }
 
-  
+
 
 /*
   loadCount(){
@@ -89,23 +89,25 @@ export class ViewSchedulesComponent implements OnInit {
 
 
   openProgress(id: string) {
-    
+
     this.dialog.open(SendProgressComponent, {
       data: {id: id}
-      
-      
-    });
+
+
+    })
+    ;
+    // this.loadAllSchedule();
   }
 
   onSearchClear() {
     this.searchKey = '';
-    
+
   }
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
 }
 
@@ -116,7 +118,7 @@ export class ViewSchedulesComponent implements OnInit {
     this.toastr.success(message, 'Success');
   }
 
-  
+
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/userDashboard/viewSchedule', id]);

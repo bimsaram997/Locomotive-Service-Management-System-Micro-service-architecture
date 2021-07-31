@@ -23,6 +23,7 @@ export interface  DialogData{
 export class SendProgressComponent implements OnInit {
 
   ReportGroup: FormGroup;
+  currentDsiableArray = [];
   Data: Array<any> = [
     { name: 'Main Motors', value: 'Main Motor ' },
     { name: 'Track Motor', value: 'Track Motor' },
@@ -72,7 +73,8 @@ export class SendProgressComponent implements OnInit {
       //  methnata thamai progress report eke enne methna idala debug point ekak thiyala balanna history okkoma methanta enne ,ekath methanta enne sds
         if(resp[0].schProgressReport && resp[0].schProgressReport.length > 0){
                 const _checkArr = resp[0].schProgressReport;
-                const formCheckControl = this.getFm.checkArray as FormArray;
+                // const formCheckControl = this.getFm.checkArray as FormArray;
+                const formCheckControl: FormArray = this.ReportGroup.get('checkArray') as FormArray;
                 for(const param of _checkArr){
                         if(param.checkArray.length > 0){
                           this.pushCheckDefaultValue(param.checkArray ,formCheckControl);
@@ -86,15 +88,18 @@ export class SendProgressComponent implements OnInit {
   }
 
   pushCheckDefaultValue(array , controlName) {
+
       for(const par of array){
         const checkArray = this.getFm.checkArray.value;
-        const _findDup = checkArray.find(p=> p.par == par);
+        const _findDup = checkArray.find(p=> p == par);
         if(!_findDup){
-          controlName.push(
-            this.formBuilder.group(
-             { par }
-            )
-          )
+          controlName.push(new FormControl(par));
+          // controlName.push(
+          //   this.formBuilder.group(
+          //    { par }
+          //   )
+          // )
+
         }
       }
   }
@@ -221,13 +226,22 @@ export class SendProgressComponent implements OnInit {
 
   onCheckboxChange(e) {
     const checkArray: FormArray = this.ReportGroup.get('checkArray') as FormArray;
+    //  const checkArray = this.getFm.checkArray.value;
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
+      const _Dupp =  this.currentDsiableArray.find(para=>para == e.target.value);
+      if(!_Dupp)
+      this.currentDsiableArray.push(e.target.value)
 
-      console.log(checkArray)
       this.checkLength = checkArray.value;
     } else {
       let i: number = 0;
+      const _index = this.currentDsiableArray.findIndex(param=> param ==e.target.value);
+
+
+      this.currentDsiableArray.splice( _index,1)
+
+      this.currentDsiableArray.push(e.target.value)
       checkArray.controls.forEach((item: FormControl) => {
         if (item.value === e.target.value) {
           checkArray.removeAt(i);
@@ -325,10 +339,18 @@ getBase64(){
 
 checktypeDefault(event){
    const _checkArray = this.getFm.checkArray.value;
-        const _findCheck = _checkArray.find(p=>p.par == event);
+        const _findCheck = _checkArray.find(p=>p == event);
         if(_findCheck){
           return true;
         }
    return false;
+}
+
+CheckCurrnDisable(event) {
+ const _findCu = this.currentDsiableArray.find(p=>p == event);
+ if(_findCu){
+   return false;
+ }
+return true;
 }
 }
