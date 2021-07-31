@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+esimport {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ScheduleService} from "../../../../../../service/schedule.service";
@@ -92,7 +92,7 @@ export class SendProgressComponent implements OnInit {
         if(!_findDup){
           controlName.push(
             this.formBuilder.group(
-             { par }   
+             { par }
             )
           )
         }
