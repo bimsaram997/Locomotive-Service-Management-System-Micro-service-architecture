@@ -172,14 +172,17 @@
                         <p>{{this?.loadNote}}</p>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <button mat-raised-button color="accent" (click)="generatePDF()">Print PDF</button>
-                    </div>
-                </div>
+
             </div>
             <div class="col-md-8">
-
+                <p>
+                    Print:
+                    <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle style="background: #0909FF; color: white;" (click)="printBasic()">Basic Details</mat-button-toggle>
+                        <mat-button-toggle style="background: #1F45FC; color: white;" (click)="printTestInfo()">Testing Information</mat-button-toggle>
+                        <mat-button-toggle style="background: #1974D2; color: white;" (click)="printComments()">Comments</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </p>
                 <div class="card mb-3">
                     <div class="card-body">
                         <h3>Testing Information </h3>
@@ -194,7 +197,7 @@
                                         Currently {{panelOpenState8 ? 'open' : 'closed'}}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+                                <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8" id="ExampleTable">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -234,7 +237,7 @@
                                         Currently {{panelOpenState8 ? 'open' : 'closed'}}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+                                <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8" id="ExampleTable1">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -314,7 +317,7 @@
                                         Currently {{panelOpenState9 ? 'open' : 'closed'}}
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
-                                <table mat-table [dataSource]="dataSource4" class="mat-elevation-z8">
+                                <table mat-table [dataSource]="dataSource4" class="mat-elevation-z8" id="ExampleTable3">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
