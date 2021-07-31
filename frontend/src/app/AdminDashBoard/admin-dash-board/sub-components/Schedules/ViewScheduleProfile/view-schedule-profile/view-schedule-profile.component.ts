@@ -138,5 +138,9 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
     else if (scheduleStatus === 6){
       return 'check_circle_outline';
     }
+    else if (scheduleStatus === 7){
+      return 'sports_score';
+    }
+
   }
 }

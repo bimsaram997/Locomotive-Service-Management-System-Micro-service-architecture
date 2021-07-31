@@ -24,7 +24,7 @@ const saveLoadTrial = async(req, res, next) => {
     });
 }
 const getAllLoadTrial = async(req, resp, next) => {
-    console.log(resp)
+    //console.log(resp)
     LoadTrialDTO.find().then(result => {
         resp.status(200).json(result);
     }).catch(error => {
@@ -32,7 +32,7 @@ const getAllLoadTrial = async(req, resp, next) => {
     })
 };
 const getOneLoad = (req, res) => {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     LoadTrialDTO.find({
         _id: req.params.id
     }).then(result => {
@@ -71,16 +71,26 @@ const addComment = async(req, resp) => {
     if (req.body) {
         await LoadTrialDTO.updateOne({ loadNo: req.body.loadNo }, { $set: req.body }, function(err, result) {
 
-            if (err) {
-                resp.status(500).json(err)
+                if (err) {
+                    resp.status(500).json(err)
 
-            } else {
-                resp.status(200).json(result)
+                } else {
+                    resp.status(200).json(result)
 
-            }
+                }
 
-        })
+            })
+            // await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 7, schReason: "Load Trial Reviewed and Passed" } }, function(err, result) {
 
+        //     if (err) {
+        //         resp.status(500).json(err)
+
+        //     } else {
+        //         resp.status(200).json(result)
+
+        //     }
+
+        // })
     }
 }
 
@@ -155,6 +165,8 @@ const acceptLoadTrial = async(req, res) => { //accept LoadTrial
         })
 
     }
+
+
 
 }
 

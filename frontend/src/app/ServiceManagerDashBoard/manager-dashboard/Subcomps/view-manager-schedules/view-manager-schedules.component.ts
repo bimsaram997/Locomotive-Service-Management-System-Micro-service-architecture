@@ -75,6 +75,9 @@ export class ViewManagerSchedulesComponent implements OnInit {
     else if (scheduleStatus === 6){
       return 'check_circle_outline';
     }
+    else if (scheduleStatus === 7){
+      return 'sports_score';
+    }
   }
 
   deleteSchedule(scheduleNo: string) {

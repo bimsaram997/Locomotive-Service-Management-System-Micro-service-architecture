@@ -25,23 +25,23 @@ mongoose.connect('mongodb://localhost:27017/RailwayProject', {
     console.log(error);
 });
 
-const job = new CronJob('* * * * * *', async function() {
-    var today = new Date();
-    // console.log('ddd')
+// const job = new CronJob('* * * * * *', async function() {
+//     var today = new Date();
+//     // console.log('ddd')
 
 
-    const _getAllLoco = await LocomotiveSchema.find({ locoStatus: 2 });
-    //console.log(param.endMileDate)
-    if (_getAllLoco && _getAllLoco.length > 0) {
-        for (const param of _getAllLoco) {
-            if (new Date(param.endMileDate) < today) {
-                await LocomotiveSchema.updateOne({ _id: param._id }, { $set: { locoStatus: 0, statusReason: 'In Operating' } });
-            }
-        }
-    }
+//     const _getAllLoco = await LocomotiveSchema.find({ locoStatus: 2 });
+//     //console.log(param.endMileDate)
+//     if (_getAllLoco && _getAllLoco.length > 0) {
+//         for (const param of _getAllLoco) {
+//             if (new Date(param.endMileDate) < today) {
+//                 await LocomotiveSchema.updateOne({ _id: param._id }, { $set: { locoStatus: 0, statusReason: 'In Operating' } });
+//             }
+//         }
+//     }
 
-}, null, true, 'Asia/Colombo');
-job.start();
+// }, null, true, 'Asia/Colombo');
+// job.start();
 
 app.use('/api/v1/locoRoute', LocomotiveRoute);
 

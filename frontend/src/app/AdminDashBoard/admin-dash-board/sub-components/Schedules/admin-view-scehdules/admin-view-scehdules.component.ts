@@ -54,9 +54,9 @@ export class AdminViewScehdulesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
 }
 
@@ -76,6 +76,9 @@ export class AdminViewScehdulesComponent implements OnInit {
     }
     else if (scheduleStatus === 6){
       return 'check_circle_outline';
+    }
+    else if (scheduleStatus === 7){
+      return 'sports_score';
     }
   }
   viewSchedule(id: string){

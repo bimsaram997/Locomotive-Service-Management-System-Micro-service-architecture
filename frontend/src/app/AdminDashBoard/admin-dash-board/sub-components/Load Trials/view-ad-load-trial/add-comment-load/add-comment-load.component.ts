@@ -1,3 +1,4 @@
+import { ScheduleService } from 'src/app/service/schedule.service';
 import { LocomotiveService } from 'src/app/service/locomotive.service';
 
 
@@ -24,7 +25,9 @@ export class AddCommentLoadComponent implements OnInit {
   statuses: any[] = [1,2,3];
   nameStatus: string[] = ['Viewed', 'Pending']
   options:string  [] = ['Viewed and Confirmed', 'Viewed, do actions for comments'];
-  constructor(private router: Router,private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder, private loadService: LoadTrialService) { }
+  scheduleNo:any;
+  isShow:boolean = false;
+  constructor(private router: Router,private scheduleService:ScheduleService, private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder, private loadService: LoadTrialService) { }
 
   ngOnInit(): void {
     this.commentAdd = this.formBuilder.group({
@@ -35,7 +38,8 @@ export class AddCommentLoadComponent implements OnInit {
       comDate: ['', [Validators.required]],
       reason:[' '],
       comments: ['',  [Validators.required]],
-      checked: ['Unchecked']
+      checked: ['Unchecked'],
+      scheduleNo: ['']
     })
 
     this.loadService.getOneLoad(this.data.id)
@@ -46,14 +50,18 @@ export class AddCommentLoadComponent implements OnInit {
         this.commentAdd.controls['reason'].setValue(res[0].reason);
         this.commentAdd.controls['status'].setValue(res[0].status);
         this.commentAdd.controls['locoNumber'].setValue(res[0].locoNumber);
-     this.reason = res[0].reason;
+        this.commentAdd.controls['scheduleNo'].setValue(res[0].scheduleNo);
+        this.scheduleNo =  res[0].scheduleNo;
+        this.reason = res[0].reason;
+        // console.log(this.scheduleNo)
       }
     })
+
     this.loadAll();
   }
   addComment(){
 
-
+  console.log(this.scheduleNo)
 
 
       console.log(this.commentAdd.value);
@@ -62,7 +70,8 @@ export class AddCommentLoadComponent implements OnInit {
         this.makeComment(this.commentAdd.value);
         this.updateLoadStatus(this.commentAdd.value)
         this.patchLoadLoco(this.commentAdd.value);
-       
+        this.changeScheduleSeven(this.commentAdd.value);
+
     }
   }
   get getFm(){
@@ -71,9 +80,16 @@ export class AddCommentLoadComponent implements OnInit {
   public loadAll(){
     this.loadService.getAllLoadTrial().subscribe(
       res=>{
-      
+
       }
     )
+  }
+
+  changeScheduleSeven(obj:any){
+    this.scheduleService.changeScheduleSeven(obj)
+    .subscribe(res=>{
+       console.log('Schedule updated successfully!');
+    })
   }
 
   updateLoadStatus(obj: any){
@@ -95,7 +111,7 @@ export class AddCommentLoadComponent implements OnInit {
     res => {
       console.log(res);
       if (res.isSaved) {
-       
+
         swal({
           title: 'Record Saved!',
           text: 'Please Click OK',
@@ -124,11 +140,11 @@ export class AddCommentLoadComponent implements OnInit {
       console.log('dss');
     }
   )
-    
+
   }
 
   patchLoadLoco(object){
-      
+
     this.locomotiveService.patchLoadLoco(object).pipe(first())
     .subscribe((
       res=>{

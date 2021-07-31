@@ -32,5 +32,9 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    scheduleNo: {
+        type: String,
+        required: true
+    },
 })
 module.exports = mongoose.model('Comments', CommentSchema);

@@ -24,11 +24,13 @@ export class ViewLoadTrialsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   loadArray: any[] = [];
   status: any;
+  ids:any[] = [];
 
   constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLoadTrial();
+
   }
 
   private getLoadTrial(){
@@ -74,5 +76,6 @@ export class ViewLoadTrialsComponent implements OnInit {
 
     });
   }
+
 
 }

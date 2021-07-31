@@ -38,11 +38,16 @@ export class AddLoadTrialComponent implements OnInit {
   lDate: string;
   display = false;
   lengthCount: boolean =false;
+  checkId: boolean = false;
+  searchKey: string;
 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, 
+  ids:any[] = [];
+
+
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
     private scheduleService: ScheduleService, private accessService: AccessService,
     private loadTrialService: LoadTrialService,
-    private locomotiveService: LocomotiveService) { 
+    private locomotiveService: LocomotiveService) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 0, 7, -32);
     this.maxDate = new Date(currentYear + 0, 6, 31);
@@ -76,6 +81,7 @@ export class AddLoadTrialComponent implements OnInit {
     this.getAllSchedules();
     this.loadSupervisor();
     this.loadMangers();
+    this.showIds();
   }
 
   get getFm(){
@@ -97,11 +103,11 @@ export class AddLoadTrialComponent implements OnInit {
             text: 'Please Click OK',
             icon: 'success',
           });
-         
+
           setTimeout(() => {
             //this.refresh();
             this.LoadTrial.reset();
-           
+
           }, 3000);
 
         } else {
@@ -112,11 +118,11 @@ export class AddLoadTrialComponent implements OnInit {
           });
           setTimeout(() => {
            // this.refresh();
-          
-           
+
+
           }, 3000);
         }
-      
+
       },
 
       error => {
@@ -153,7 +159,7 @@ console.log(data)
       notch: '',
       tractionMtr: [0,  [Validators.required]],
       mainGen: 0,
-      
+
     });
   }
   addItem(): void {
@@ -177,13 +183,13 @@ console.log(data)
     //const van = this.items.value.condition
     console.log(this.items.value)
   //console.log( while(c <4){
- 
-      this.items.push(this.createDynItem()); 
+
+      this.items.push(this.createDynItem());
       this.buttonCount++;
       console.log(this.buttonCount)
-   
-    
-    
+
+
+
 
   }
   removeItem(index = null, value) {
@@ -205,7 +211,7 @@ console.log(data)
   this.display = !this.display;
 }
 getAllSchedules(){
-  
+
   this.loading = true;
 
   const values =  JSON.parse( localStorage.getItem('currentUser'));
@@ -277,7 +283,7 @@ onChangeSelectSch(value: string){
         this.LoadTrial.controls['managerName'].setValue(res[0].managerName);
         this.LoadTrial.controls['managerEmail'].setValue(res[0].managerEmail);
         this.LoadTrial.controls['managerNic'].setValue(res[0].managerNic);
-      
+
       console.log(res);
       this.lNumber = res[0].locoNumber;
       this.lCatId = res[0].locoCatId;
@@ -288,16 +294,53 @@ onChangeSelectSch(value: string){
 }
   getMileVal(val1: string, val2: string){
     this.dataArray.push(val1, val2);
-    //console.log(this.dataArray); 
+    //console.log(this.dataArray);
   }
 
     patchFinalMile(object){
-      
+
       this.locomotiveService.patchFinalMile(object).pipe(first())
       .subscribe((
         res=>{
           console.log(res);
         }
       ))
+  }
+
+  showIds(){
+   this.loadTrialService.getAllLoadTrial().subscribe(resp=>{
+     console.log(resp)
+      for(let i=0; i<resp.length; i++){
+
+
+      this.ids.push(resp[i].loadNo)
+
+      }
+
+
+    })
+     console.log(this.ids);
+  }
+
+  checkIDs(value: string){
+
+    const id = this.getFm.loadNo.value;
+
+    for(let i=0; i< this.ids.length; i++){
+      if(id ===this.ids[i]){
+        console.log('error')
+        this.checkId = true;
+      }else{
+        console.log('hshs')
+         //this.checkId = false;
+      }
+    }
+
+  }
+
+   onSearchClear() {
+    this.searchKey = '';
+    //this.applyFilter();
+    this.checkId = false;
   }
 }

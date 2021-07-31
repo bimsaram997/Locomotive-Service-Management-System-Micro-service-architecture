@@ -19,12 +19,14 @@
                             <div class="col-4 justify-content-start">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Load Trial Number</mat-label>
-                                    <input formControlName="loadNo" matInput placeholder="L-001" required maxlength="5" minlength="5">
+                                    <input formControlName="loadNo" [(ngModel)]="searchKey" matInput placeholder="L-001" required maxlength="5" minlength="5" (input)="checkIDs($event)">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
                                     <div *ngIf="LoadTrial.controls['loadNo'].invalid && (LoadTrial.controls['loadNo'].dirty || LoadTrial.controls['loadNo'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['loadNo'].errors.required">
                                             Load Trial Number is Required.
                                         </div>
                                     </div>
+                                    <mat-hint style="color: red; font-size: 12px;" *ngIf="checkId"><b>*Number is already inserted</b></mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col-4 justify-content-start">

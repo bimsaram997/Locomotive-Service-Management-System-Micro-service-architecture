@@ -273,6 +273,22 @@ const getProSchedule = async(req, resp, next) => {
     })
 }
 
+const changeScheduleSeven = async(req, resp) => { //accepting load trial chamnge shedule status to 7
+    // console.log(req.body);
+
+    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 7, schReason: "Load Trial is Processed" } }, function(err, result) {
+
+        if (err) {
+            resp.status(500).json(err)
+
+        } else {
+            resp.status(200).json(result)
+
+        }
+
+    })
+
+}
 
 
 module.exports = {
@@ -291,6 +307,7 @@ module.exports = {
     getProSchedule,
     getOneSchedule,
     getAllCompSchedule,
-    getAllScheduleAssigned
+    getAllScheduleAssigned,
+    changeScheduleSeven
 
 }

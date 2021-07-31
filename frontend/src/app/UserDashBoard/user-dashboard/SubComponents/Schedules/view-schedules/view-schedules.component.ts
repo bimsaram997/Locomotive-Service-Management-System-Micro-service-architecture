@@ -72,6 +72,9 @@ export class ViewSchedulesComponent implements OnInit {
     else if (scheduleStatus === 6){
       return 'check_circle_outline';
     }
+    else if (scheduleStatus === 7){
+      return 'sports_score';
+    }
   }
 
 
@@ -91,10 +94,13 @@ export class ViewSchedulesComponent implements OnInit {
 
   openProgress(id: string) {
 
-    this.dialog.open(SendProgressComponent, {
+     const dialogRef =this.dialog.open(SendProgressComponent, {
       data: {id: id}
+    });
 
-
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+       this.loadAllSchedule();
     });
   }
 

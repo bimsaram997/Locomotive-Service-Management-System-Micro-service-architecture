@@ -17,4 +17,6 @@ router.get('/sendOneSchedule/:id', ScheduleController.sendOneSchedule);
 router.patch('/patchMileage/:scheduleNo/:progressValue', ScheduleController.patchMileage);
 router.get('/getProSchedule/:id', ScheduleController.getProSchedule);
 router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
+
+router.put('/changeScheduleSeven', ScheduleController.changeScheduleSeven);
 module.exports = router
