@@ -20,6 +20,16 @@ export class ForgotPasswordComponent implements OnInit {
   forgetPasswordGroup: FormGroup;
   submitted = false;
   IsvalidForm = true;
+  successMessage: string;
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
 
   constructor(private formBuilder: FormBuilder , private accessService: AccessService, private toastr: ToastrService, private router: Router) { }
 
@@ -31,51 +41,84 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   submitForm(form) {
-    console.log(form);
-    if(this.forgetPasswordGroup.valid){
-      this.IsvalidForm = true;
-        let userData = {
-          email :this.forgetPasswordGroup.controls.email.value,
 
-        }
+console.log(form)
+    if (form.valid) {
 
-      swal({
-        title: 'Email is Send!',
-        text: 'Please Click OK',
-        icon: 'success',
-      });
-      setTimeout(() => {
-        this.router.navigate(['MainLogin']);
-      }, 3000);
-        console.log(userData.email);
+      this.accessService.requestReset(this.forgetPasswordGroup.value).subscribe(
+        data => {
+            swal({
+             title: 'Email is Sent!',
+             icon: 'success',
+           });
+           setTimeout(() => {
+             //this.MileageGroup.reset();
+            // this.router.navigate(['/clerkDashBoard/viewMileages']);
+             //this.spinner = false
+           }, 3000);
+             this.router.navigate(['MainLogin']);
+           this.successMessage = data.message;
+          this.forgetPasswordGroup.reset();
+        },
+        err => {
 
-      this.accessService.requestPassword(userData)
-        .pipe(first()).subscribe(
-          res => {
-
-            console.log(res);
-            this.sendNewMail(this.forgetPasswordGroup.controls.email.value, this.forgetPasswordGroup.controls.email.value)
+          if (err.error.message) {
 
           }
-      )
+        }
+      );
+    } else {
+      this.IsvalidForm = false;
     }
   }
-  sendNewMail(from, text){
-    this.accessService.sendPasEmail(
-      this.forgetPasswordGroup.controls.email.value,
-      this.forgetPasswordGroup.controls.email.value,
 
-    ).subscribe(result =>{
-      if (result){
-        this.onSucess('Sent');
-        console.log(result);
-      }else {
-        console.log('failed')
-      }
 
-    })
-  }
-  onSucess(message: string){
-    this.toastr.success(message, 'Success');
-  }
+
+  //   console.log(form);
+  //   if(this.forgetPasswordGroup.valid){
+  //     this.IsvalidForm = true;
+  //       let userData = {
+  //         email :this.forgetPasswordGroup.controls.email.value,
+
+  //       }
+
+  //     swal({
+  //       title: 'Email is Send!',
+  //       text: 'Please Click OK',
+  //       icon: 'success',
+  //     });
+  //     setTimeout(() => {
+  //       this.router.navigate(['MainLogin']);
+  //     }, 3000);
+  //       console.log(userData.email);
+
+  //     this.accessService.requestPassword(userData)
+  //       .pipe(first()).subscribe(
+  //         res => {
+
+  //           console.log(res);
+  //           this.sendNewMail(this.forgetPasswordGroup.controls.email.value, this.forgetPasswordGroup.controls.email.value)
+
+  //         }
+  //     )
+  //   }
+  // }
+  // sendNewMail(from, text){
+  //   this.accessService.sendPasEmail(
+  //     this.forgetPasswordGroup.controls.email.value,
+  //     this.forgetPasswordGroup.controls.email.value,
+
+  //   ).subscribe(result =>{
+  //     if (result){
+  //       this.onSucess('Sent');
+  //       console.log(result);
+  //     }else {
+  //       console.log('failed')
+  //     }
+
+  //   })
+  // }
+  // onSucess(message: string){
+  //   this.toastr.success(message, 'Success');
+  // }
 }

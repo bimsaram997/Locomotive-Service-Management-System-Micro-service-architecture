@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Install Angular</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Develop across all platforms</h3>
+    <div class="container-fluid">
+        <div class="search-div">
+            <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
+                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
+                <mat-hint>Search by Loco Category, Loco Number, </mat-hint>
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                  <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="main-table">
+            <div class="mat-elevation-z8">
+                <mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="Progress No">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Progress No </mat-header-cell>
+                        <mat-cell *matCellDef="let tempSchedule" data-label="Progress No">{{tempSchedule?.progressReportNumber}} </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Schedule No">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Schedule No </mat-header-cell>
+                        <mat-cell *matCellDef="let tempSchedule" data-label="Schedule No"> {{tempSchedule?.scheduleNo}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Date">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Date</mat-header-cell>
+                        <mat-cell *matCellDef="let tempSchedule" data-label="Date"> {{tempSchedule?.progressDate | date}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="Progress Value">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Progress Value </mat-header-cell>
+                        <mat-cell *matCellDef="let tempSchedule" data-label="Progress Value"> {{tempSchedule?.progressValue}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Checked Items">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Checked Items </mat-header-cell>
+                        <mat-cell *matCellDef="let tempSchedule" data-label="Checked Items"> {{tempSchedule?.checkArray}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="Note">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> Note </mat-header-cell>
+                        <mat-cell *matCellDef="let tempSchedule" data-label="Note"> {{tempSchedule?.extraNote}}</mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>

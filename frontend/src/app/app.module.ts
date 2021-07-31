@@ -86,6 +86,8 @@ import { AddCommentLoadComponent } from './AdminDashBoard/admin-dash-board/sub-c
 import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
 import { AddFeedBacksComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/add-feed-backs/add-feed-backs.component';
 import { ViewFeedBacksComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-feed-backs/view-feed-backs.component';
+import { ViewProgressComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
+import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
 
 
 
@@ -185,6 +187,10 @@ import { ViewFeedBacksComponent } from './UserDashBoard/user-dashboard/SubCompon
 
     ViewFeedBacksComponent,
 
+    ViewProgressComponent,
+
+    ResetPasswordCommonComponent,
+
 
 
 
@@ -212,10 +218,11 @@ import { ViewFeedBacksComponent } from './UserDashBoard/user-dashboard/SubCompon
     MatButtonModule,
     LayoutModule,
 
+
   ],
   providers: [EventEmitterService],
   bootstrap: [AppComponent],
-  entryComponents: [ModelComponent,AddFeedBacksComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
+  entryComponents: [ModelComponent,AddFeedBacksComponent, ViewProgressComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
   SendProgressComponent, UpdateFinalMileageComponent, AddCommentLoadComponent]
 })
 export class AppModule { }

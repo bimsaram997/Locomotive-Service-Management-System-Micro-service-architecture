@@ -34,6 +34,7 @@ export class SendProgressComponent implements OnInit {
   ];
   checkLength:any[] = [];
   checkArrayNew: any[] = [];
+  presentage: number[] = []
   image: string = './assets/logo/1618837407350.png';
   constructor(private formBuilder: FormBuilder ,
               @Inject(MAT_DIALOG_DATA) public data: any, private scheduleService: ScheduleService, private router: Router, private progressReport: ProgressReportService) { }
@@ -57,7 +58,7 @@ export class SendProgressComponent implements OnInit {
     ///backend call karala me id ekata adala data tika load karaganna harithaee
     //ita passe e ena data object eka ara formgrop eke values walta assign karaganna harithe
    this.scheduleService.sendOneSchedule(this.data.id).subscribe(resp =>{
-     console.log(resp);
+     //console.log(resp);
      if(resp != undefined){
        this.ReportGroup.controls['scheduleNo'].setValue(resp[0].scheduleNo);
        //this.ReportGroup.controls['mReportNumber'].setValue(resp.mReportNumber);
@@ -67,6 +68,7 @@ export class SendProgressComponent implements OnInit {
        this.ReportGroup.controls['supervisorName'].setValue(resp[0].supervisorName);
        this.ReportGroup.controls['managerName'].setValue(resp[0].managerName);
        this.ReportGroup.controls['managerEmail'].setValue(resp[0].managerEmail);
+       //console.log(resp[0].schProgressReport)
 
 
       //  methanata thamai ara oyage report eke array eka enne oya ewele ara hasangi kiyna kella gena katha kara kara hitye
@@ -201,14 +203,14 @@ export class SendProgressComponent implements OnInit {
   }
 
   logic() {
-    const presentage = [20 , 30 , 45 , 60, 75,90, 100];
+   this.presentage= [ 30, 45 , 60, 75,90, 100];
 
     this.checkArrayNew = this.checkLength;
 
     const checkPresent = this.checkArrayNew.filter(pr => pr.value !== '');
     if(checkPresent.length > 0){
-      console.log(presentage[checkPresent.length]);
-      this.ReportGroup.controls.progressValue.setValue(presentage[checkPresent.length]) ;
+      console.log(this.presentage[checkPresent.length]);
+      this.ReportGroup.controls.progressValue.setValue(this.presentage[checkPresent.length-1]) ;
     }else{
       console.log('Porgress is 0')
     }
@@ -219,7 +221,7 @@ export class SendProgressComponent implements OnInit {
 
       const _findCheck = this.ReportGroup.controls.checkArray.value.find(p=>p==e);
           if(_findCheck){
-            checkArray.push(new FormControl(e.value));
+            checkArray.push(new FormControl(e.target.value));
           }
   }
 
@@ -304,7 +306,7 @@ export class SendProgressComponent implements OnInit {
           columns : [
             {
               ul : [
-                this.ReportGroup.get('checkArray').value
+                //this.ReportGroup.get('checkArray').value
               ]
             },
           ]

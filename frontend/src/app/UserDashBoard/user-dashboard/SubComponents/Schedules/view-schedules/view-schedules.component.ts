@@ -1,3 +1,4 @@
+import { ViewProgressComponent } from './view-progress/view-progress.component';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
@@ -94,9 +95,7 @@ export class ViewSchedulesComponent implements OnInit {
       data: {id: id}
 
 
-    })
-    ;
-    // this.loadAllSchedule();
+    });
   }
 
   onSearchClear() {
@@ -122,6 +121,15 @@ export class ViewSchedulesComponent implements OnInit {
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/userDashboard/viewSchedule', id]);
+  }
+
+  viewProgressHist(id: string){
+
+    this.dialog.open(ViewProgressComponent, {
+      data: {id: id},
+      width: '1200px'
+    });
+    console.log('ho')
   }
 
 /*
