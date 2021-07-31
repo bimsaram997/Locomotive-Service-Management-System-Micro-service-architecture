@@ -113,7 +113,7 @@
             <br>
             <div *ngFor="let data of Data; let i=index">
                 <label>
-            <input type="checkbox" [checked]= "checktypeDefault(data.value)" [value]="data.value" (change)="onCheckboxChange($event)" />
+            <input type="checkbox"  [disabled]="checktypeDefault(data.value) && CheckCurrnDisable(data.value)" [checked]= "checktypeDefault(data.value)" [value]="data.value" (change)="onCheckboxChange($event)" />
             {{data.name}}
           </label>
             </div>
