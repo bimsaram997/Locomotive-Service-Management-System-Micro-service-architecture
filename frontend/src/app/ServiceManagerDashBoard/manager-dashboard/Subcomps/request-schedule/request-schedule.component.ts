@@ -25,6 +25,7 @@ export class RequestScheduleComponent implements OnInit {
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   top = new FormControl();
   spinner = false
+  name: any;
   constructor(private formBuilder: FormBuilder, private accessService: AccessService, private scheduleService: ScheduleService,
               private locomotiveService: LocomotiveService) { }
   locoStatus: string[] = [
@@ -36,9 +37,11 @@ export class RequestScheduleComponent implements OnInit {
   mileageReport: any[] = [];
   lengthCount =false;
 
+  locoNumber: any;
+
   ngOnInit(): void {
     this.ScheduleGroup = this.formBuilder.group({
-      scheduleNo: ['', [Validators.required]],
+      scheduleNo: [''],
       mReportNumber:  ['', [Validators.required]],
       scheduleDate: ['', [Validators.required]],
       completedDate: ['', [Validators.required]],
@@ -47,9 +50,9 @@ export class RequestScheduleComponent implements OnInit {
       locoMileage: ['', [Validators.required, Validators.minLength(5)]],
       locoStatus: ['', [Validators.required]],
       managerNic: ['', [Validators.required]],
-      managerEmail: ['', [Validators.required]],
-      managerName: ['', [Validators.required]],
-      supervisorNic: ['', [Validators.required]],
+      managerEmail: [''],
+      managerName: [''],
+      supervisorNic: [''],
       supervisorEmail: ['', [Validators.required]],
       supervisorName: ['', [Validators.required]],
       mechanical: [''],
@@ -78,6 +81,8 @@ export class RequestScheduleComponent implements OnInit {
     this.loadMangers();
     this.loadSupervisor();
     this.loadMileageRep();
+    this.defaultMethod();
+
   }
   get getFm(){
     return this.ScheduleGroup.controls;
@@ -112,8 +117,8 @@ export class RequestScheduleComponent implements OnInit {
       if(!_findDupli){
         this.otherMechArray.push(this.formBuilder.group({
           Name: [this.getFm.mOther.value],
-  
-  
+
+
         }));
       }else {
         swal({
@@ -138,7 +143,7 @@ export class RequestScheduleComponent implements OnInit {
     }
   }
   onClickElectric() {
-    
+
     if (this.getFm.eOther.value !== ''){
       const _findDupli = this.getFm.otherElectric.value.find(f=>f.Name==this.getFm.eOther.value);
 
@@ -155,7 +160,7 @@ export class RequestScheduleComponent implements OnInit {
         icon: 'error',
       });
     }
-      
+
     }
 
   }
@@ -214,6 +219,7 @@ export class RequestScheduleComponent implements OnInit {
       }
     )
   }
+
   private loadMangers() {
     this.loading = true;
     this.accessService.getMangers().subscribe(result => {
@@ -221,6 +227,7 @@ export class RequestScheduleComponent implements OnInit {
       this.loading = true;
     });
   }
+
   private loadSupervisor() {
     this.loading = true;
     this.accessService.getAllUsers().subscribe(result => {
@@ -256,9 +263,11 @@ export class RequestScheduleComponent implements OnInit {
         }
       )
   }
+
   onChangeSelectMan(value: string){
     const userNic = value ;
     console.log(this.getFm.managerNic.value);
+
     this.accessService.getOneMan(this.getFm.managerName.value).pipe(first())
       .subscribe(
         res=>{
@@ -279,13 +288,45 @@ export class RequestScheduleComponent implements OnInit {
           this.ScheduleGroup.controls['locoNumber'].setValue(res[0].mLocoNumber);
           this.ScheduleGroup.controls['locoMileage'].setValue(res[0].mLocoMileage);
           this.ScheduleGroup.controls['locoStatus'].setValue(res[0].userEmail);
+          this.locoNumber = res[0].mLocoNumber;
+          this.getLoco(this.locoNumber);
+          this.setManagerDetails();
+
           //console.log(res);
         }
       )
   }
 
+  setManagerDetails(){
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userName;
+    this.accessService.getOneMan(this.name).pipe(first())
+      .subscribe(
+        res=>{
+          this.ScheduleGroup.controls['managerName'].setValue(res[0].userName);
+          this.ScheduleGroup.controls['managerEmail'].setValue(res[0].userEmail);
+          this.ScheduleGroup.controls['managerNic'].setValue(res[0].userNic);
+
+          console.log(res);
+        }
+      )
+
+  }
+  getLoco(obj){
+      //console.log(obj)
+      this.locomotiveService.getLocoNum(obj).pipe(first())
+      .subscribe(
+        res=>{
+          console.log(res);
+          this.ScheduleGroup.controls['supervisorNic'].setValue(res[0].userNic);
+          this.ScheduleGroup.controls['supervisorEmail'].setValue(res[0].supervisorEmail);
+          this.ScheduleGroup.controls['supervisorName'].setValue(res[0].supervisorName);
+        }
+      )
+  }
+
   patchSch(object){
-      
+
     this.locomotiveService.patchSch(object).pipe(first())
     .subscribe((
       res=>{
@@ -300,6 +341,24 @@ patchSchMileage(object){
       console.log(res);
     }
   ))
+}
+
+defaultMethod(){
+ //Id Gen
+      var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+
+      var string_length = 8;
+      var scheduleNo = "SH_" + "";
+      //var sysId = "ST_"+"";
+      for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        scheduleNo += chars.substring(rnum, rnum + 1);
+        ///sysId += chars.substring(rnum, rnum + 1);
+        this.ScheduleGroup.controls["scheduleNo"].setValue(scheduleNo);
+        //this.LocoGroup.controls["id"].setValue(sysId);
+      }
+//this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+
 }
 
 }

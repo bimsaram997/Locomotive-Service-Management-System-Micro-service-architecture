@@ -21,12 +21,12 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label class="Schedule Number">Schedule Number</mat-label>
-                                    <input required maxlength="5" minlength="3" matInput placeholder="Schedule Number" #searchInput formControlName="scheduleNo">
-                                    <div *ngIf="ScheduleGroup.controls['scheduleNo'].invalid && (ScheduleGroup.controls['scheduleNo'].dirty || ScheduleGroup.controls['scheduleNo'].touched)" class="error">
+                                    <input readonly required maxlength="5" minlength="3" matInput placeholder="Schedule Number" #searchInput formControlName="scheduleNo">
+                                    <!-- <div *ngIf="ScheduleGroup.controls['scheduleNo'].invalid && (ScheduleGroup.controls['scheduleNo'].dirty || ScheduleGroup.controls['scheduleNo'].touched)" class="error">
                                         <div *ngIf="ScheduleGroup.controls['scheduleNo'].errors.required">
                                             Number is Required.
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </mat-form-field>
                             </div>
                             <div class="col">
@@ -92,7 +92,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label class="Locomotive Number">Locomotive Number</mat-label>
-                                    <input required maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="locoNumber">
+                                    <input required maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="locoNumber" readonly>
                                     <div *ngIf="ScheduleGroup.controls['locoNumber'].invalid && (ScheduleGroup.controls['locoNumber'].dirty || ScheduleGroup.controls['locoNumber'].touched)" class="error">
                                         <div *ngIf="ScheduleGroup.controls['locoNumber'].errors.required">
                                             Number is Required.
@@ -109,7 +109,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label class="label-txt">Locomotive Mileage</mat-label>
-                                    <input minlength="4" required matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage">
+                                    <input minlength="4" required matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage" readonly>
                                     <div *ngIf="ScheduleGroup.controls['locoMileage'].invalid && (ScheduleGroup.controls['locoMileage'].dirty || ScheduleGroup.controls['locoMileage'].touched)" class="error">
                                         <div *ngIf="ScheduleGroup.controls['locoMileage'].errors.required">
                                             Mileage is Required.
@@ -145,49 +145,19 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manger Name</mat-label>
-                                    <mat-select formControlName="managerName" required (selectionChange)="onChangeSelectMan($event)">
-                                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userName}}">
-                                            {{temIds.userName}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="ScheduleGroup.controls['managerName'].invalid && (ScheduleGroup.controls['managerName'].dirty || ScheduleGroup.controls['managerName'].touched)" class="error">
-                                        <div *ngIf="ScheduleGroup.controls['managerName'].errors.required">
-                                            Service manger Name Required
-                                        </div>
-
-                                    </div>
+                                    <input required readonly maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="managerName">
                                 </mat-form-field>
                             </div>
                             <div class="col">
-
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manger NIC</mat-label>
-                                    <mat-select formControlName="managerNic" required>
-                                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userNic}}">
-                                            {{temIds.userNic}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="ScheduleGroup.controls['managerNic'].invalid && (ScheduleGroup.controls['managerNic'].dirty || ScheduleGroup.controls['managerNic'].touched)" class="error">
-                                        <div *ngIf="ScheduleGroup.controls['managerNic'].errors.required">
-                                            Service manger NIC Required
-                                        </div>
-                                    </div>
+                                    <input required readonly maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="managerNic">
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manger Email</mat-label>
-                                    <mat-select formControlName="managerEmail" requiredreadonly>
-                                        <mat-option *ngFor="let temIds of managerList" value="{{temIds.userEmail}}">
-                                            {{temIds.userEmail}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="ScheduleGroup.controls['managerEmail'].invalid && (ScheduleGroup.controls['managerEmail'].dirty || ScheduleGroup.controls['managerEmail'].touched)" class="error">
-                                        <div *ngIf="ScheduleGroup.controls['managerEmail'].errors.required">
-                                            Service manger Email Required
-                                        </div>
-
-                                    </div>
+                                    <input required readonly maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="managerEmail">
                                 </mat-form-field>
                             </div>
                             <div class="w-100">
@@ -195,48 +165,19 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor Name</mat-label>
-                                    <mat-select formControlName="supervisorName" required (selectionChange)="onChangeSelect($event)">
-                                        <mat-option *ngFor="let temIds of supervisorList" value="{{temIds.userName}}">
-                                            {{temIds.userName}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="ScheduleGroup.controls['supervisorName'].invalid && (ScheduleGroup.controls['supervisorName'].dirty || ScheduleGroup.controls['supervisorName'].touched)" class="error">
-                                        <div *ngIf="ScheduleGroup.controls['supervisorName'].errors.required">
-                                            Supervisor Name Required
-                                        </div>
-                                    </div>
+                                    <input required readonly maxlength="3" minlength="1" matInput #searchInput formControlName="supervisorName">
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor Email</mat-label>
-                                    <mat-select formControlName="supervisorEmail" required readonly>
-                                        <mat-option *ngFor="let temIds of supervisorList" value="{{temIds.userEmail}}">
-                                            {{temIds.userEmail}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="ScheduleGroup.controls['supervisorEmail'].invalid && (ScheduleGroup.controls['supervisorEmail'].dirty || ScheduleGroup.controls['supervisorEmail'].touched)" class="error">
-                                        <div *ngIf="ScheduleGroup.controls['supervisorEmail'].errors.required">
-                                            Supervisor Email Required
-                                        </div>
-
-                                    </div>
+                                    <input required readonly maxlength="3" minlength="1" matInput #searchInput formControlName="supervisorEmail">
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor NIC</mat-label>
-                                    <mat-select formControlName="supervisorNic" required>
-                                        <mat-option *ngFor="let temIds of supervisorList" value="{{temIds.userNic}}">
-                                            {{temIds.userNic}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <div *ngIf="ScheduleGroup.controls['supervisorNic'].invalid && (ScheduleGroup.controls['supervisorNic'].dirty || ScheduleGroup.controls['supervisorNic'].touched)" class="error">
-                                        <div *ngIf="ScheduleGroup.controls['supervisorNic'].errors.required">
-                                            Supervisor NIC Required
-                                        </div>
-
-                                    </div>
+                                    <input required readonly maxlength="3" minlength="1" matInput #searchInput formControlName="supervisorNic">
                                 </mat-form-field>
                             </div>
                             <br>

@@ -9,6 +9,7 @@ router.delete('/deleteLoco', LocomotiveController.deleteLoco);
 router.put('/updateLocomotive', LocomotiveController.updateLocomotive);
 router.post('/save-locomotive', LocomotiveController.saveReactiveLoco);
 router.get('/getOneLoco/:id', LocomotiveController.getOneLoco);
+router.get('/getLocoNum/:locoNumber', LocomotiveController.getLocoNum);
 router.get('/getLocoReport', LocomotiveController.getLocoReport);
 router.get('/getOneLocoNew/:mLocoNumber', LocomotiveController.getOneLocoNew);
 router.post('/sendLocoStatus', LocomotiveController.sendLocoStatus);

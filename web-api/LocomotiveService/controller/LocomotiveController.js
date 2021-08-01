@@ -130,16 +130,29 @@ const getLocoReport = async(req, resp, next) => {
 }
 
 const getOneLoco = (req, res) => {
-    // console.log(req.params.id);
+    console.log(req.params.id);
     LocomotiveSchema.find({
         _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+        //console.log(result)
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+
+}
+
+const getLocoNum = (req, res) => {
+    LocomotiveSchema.find({
+        locoNumber: req.params.locoNumber
     }).then(result => {
         res.status(200).json(result);
     }).catch(er => {
         res.status(500).json(er);
     });
-
 }
+
 const getOneLocoNew = (req, res) => {
     // console.log(req.params.mLocoNumber);
     LocomotiveSchema.find({
@@ -789,6 +802,7 @@ module.exports = {
     patchFinalMile,
     getOneLocoNew,
     getAllLocoAssigned,
+    getLocoNum,
 
     patchSch,
     patchLoadLoco,

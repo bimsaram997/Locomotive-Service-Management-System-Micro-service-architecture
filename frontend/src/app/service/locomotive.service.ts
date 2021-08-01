@@ -84,6 +84,10 @@ export class LocomotiveService {
     return this.http.get<any>(this.myUrl + `locoRoute/getOneLoco/${id}`);
   }
 
+  getLocoNum(locoNumber): Observable<any>{
+    return this.http.get<any>(this.myUrl + `locoRoute/getLocoNum/${locoNumber}`);
+  }
+
   getRelevantSch(id): Observable<any>{
     return this.http.get<any>(this.myUrl + `locoRoute/getlocoSche/${id}`);
   }
@@ -122,5 +126,5 @@ export class LocomotiveService {
   public patchSchMileage(object):Observable<any> {
     return this.http.patch( this.myUrl + `locoRoute/patchSchMileage/` , object);
   }
-    
+
 }

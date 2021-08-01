@@ -55,7 +55,7 @@ export class AddLoadTrialComponent implements OnInit {
 
   ngOnInit(): void {
     this.LoadTrial = this.formBuilder.group({
-      loadNo: ['', [Validators.required]],
+      loadNo: [''],
       loadDate: ['', [Validators.required]],
       loadFrom: ['', [Validators.required]],
       loadTo: ['', [Validators.required]],
@@ -82,6 +82,7 @@ export class AddLoadTrialComponent implements OnInit {
     this.loadSupervisor();
     this.loadMangers();
     this.showIds();
+    this.defaultMethod();
   }
 
   get getFm(){
@@ -343,4 +344,23 @@ onChangeSelectSch(value: string){
     //this.applyFilter();
     this.checkId = false;
   }
+
+
+  defaultMethod(){
+ //Id Gen
+      var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+
+      var string_length = 8;
+      var  loadNo = "L_" + "";
+      //var sysId = "ST_"+"";
+      for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+         loadNo += chars.substring(rnum, rnum + 1);
+        ///sysId += chars.substring(rnum, rnum + 1);
+        this.LoadTrial.controls["loadNo"].setValue(loadNo);
+        //this.LocoGroup.controls["id"].setValue(sysId);
+      }
+//this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+
+}
 }
