@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     const values =  JSON.parse( localStorage.getItem('currentUser'));
     this.name = values.userName
+    console.log(this.name)
   }
 
   onToogleSlidenav() {

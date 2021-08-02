@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
@@ -35,7 +36,7 @@ export class ViewMileageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['Report Number', 'Loco Category', 'Loco Number', 'Mileage', 'Date', 'mileageNote', 'status', '#'];
-  constructor(private locomotiveService: LocomotiveService, public dialog: MatDialog) {
+  constructor(private locomotiveService: LocomotiveService, public dialog: MatDialog, private router: Router) {
 
   }
 
@@ -61,6 +62,10 @@ export class ViewMileageComponent implements OnInit {
 
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  }
+
+  viewMileage(id: string){
+    this.router.navigate(['/managerDashBoard/viewOneMileage', id])
   }
 
   openAcceptDialog(data): void {

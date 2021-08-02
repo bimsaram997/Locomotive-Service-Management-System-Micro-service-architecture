@@ -1,3 +1,4 @@
+import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mileage.component';
 import { ViewAdLoadTrialComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-ad-load-trial/view-ad-load-trial.component';
 import { MViewLocomotiveComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/m-view-locomotive.component';
 import { ViewManLoadProComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/View-loadTrials/view-man-load-pro/view-man-load-pro.component';
@@ -61,7 +62,7 @@ const routes: Routes = [
   {path: '', component: LoginAndSignupComponent},
   {path: 'MainLogin', component: MainLoginPageComponent},
   {path: 'ForgetPassword', component: ForgotPasswordComponent},
-   {path: 'resetPasswordCommon/:id', component: ResetPasswordCommonComponent},
+  {path: 'resetPasswordCommon/:id', component: ResetPasswordCommonComponent},
   {path: 'adminDashboard',  canActivate: [AdminAuthGuardGuard], component: AdminDashBoardComponent, children: [
       {path: 'adminDashContent', component: AdminDashContentComponent},
       {path: 'createCustomer', component: CreateCustomerComponent},
@@ -124,6 +125,7 @@ const routes: Routes = [
       {path: 'mViewLocomotives', component: MViewLocomotiveComponent },
       {path: 'viewLoco/:id', component: ViewLocoComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
+      {path: 'viewOneMileage/:mReportNumber', component: ViewOneMileageComponent}
 
 
     ]}

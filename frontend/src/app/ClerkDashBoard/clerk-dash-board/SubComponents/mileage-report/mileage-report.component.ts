@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import UserDTO from "../../../../dto/UserDTO";
@@ -24,13 +24,17 @@ export class MileageReportComponent implements OnInit {
   finalMile: number;
   currentMile: number;
   mileageGap: number;
+  name:any;
+  id:any;
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   constructor(private accessService: AccessService, private formBuilder: FormBuilder,
-              private locomotiveService: LocomotiveService, private router: Router) { }
+              private locomotiveService: LocomotiveService, private router: Router,private route: ActivatedRoute) {
+
+              }
 
   ngOnInit(): void {
     this.MileageGroup = this.formBuilder.group({
-      mReportNumber:  ['', [Validators.required]],
+      mReportNumber:  [''],
       mLocoCatId: ['',  [Validators.required]],
       mLocoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       mLocoMileage: ['', [Validators.required, Validators.minLength(5)]],
@@ -42,12 +46,21 @@ export class MileageReportComponent implements OnInit {
       mileageNote: ['', [Validators.required, Validators.maxLength(1000)]],
       status: [1],
       reason: ['Draft'],
-      gap: ['']
+      gap: [''],
+      clerkEmail: [''],
+      managerEmail:['']
 
     });
     this.loadMangerEmail();
     this.loadLocoNum();
+    this.defaultMethod();
     console.log(this.mileageGap)
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userEmail
+
+    this.MileageGroup.controls['clerkEmail'].setValue(this.name);
+
+
 
   }
 
@@ -84,6 +97,7 @@ export class MileageReportComponent implements OnInit {
 
   onSubmit(){
     console.log(this.MileageGroup.value);
+    this.sendMileEmail(this.MileageGroup.value)
     this.spinner = true;
      this.locomotiveService.saveMileage(this.MileageGroup.value)
        .pipe(first()).subscribe(
@@ -144,7 +158,7 @@ export class MileageReportComponent implements OnInit {
       .subscribe(
         res=>{
           this.MileageGroup.controls['managerNic'].setValue(res[0].userNic);
-
+this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
           console.log(res);
         }
       )
@@ -160,5 +174,34 @@ export class MileageReportComponent implements OnInit {
       this.loading = true;
     });
   }
+
+  sendMileEmail(MileObj){
+    this.locomotiveService.sendMileEmail(MileObj).subscribe(result=>{
+        if (result){
+        //this.onSucess('Sent');
+        console.log(result);
+      }else {
+        console.log('failed')
+      }
+    })
+  }
+
+defaultMethod(){
+ //Id Gen
+      var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+
+      var string_length = 8;
+      var  mReportNumber = "MI_" + "";
+      //var sysId = "ST_"+"";
+      for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+         mReportNumber += chars.substring(rnum, rnum + 1);
+        ///sysId += chars.substring(rnum, rnum + 1);
+        this.MileageGroup.controls["mReportNumber"].setValue(mReportNumber);
+        //this.LocoGroup.controls["id"].setValue(sysId);
+      }
+//this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+
+}
 
 }

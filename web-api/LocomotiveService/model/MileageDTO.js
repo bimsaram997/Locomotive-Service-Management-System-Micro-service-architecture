@@ -37,6 +37,10 @@ const MileageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    managerEmail: {
+        type: String,
+        required: true,
+    },
     mileageNote: {
         type: String,
         required: true,
@@ -46,6 +50,10 @@ const MileageSchema = new mongoose.Schema({
         required: true,
     },
     reason: {
+        type: String,
+        required: false
+    },
+    clerkEmail: {
         type: String,
         required: false
     }

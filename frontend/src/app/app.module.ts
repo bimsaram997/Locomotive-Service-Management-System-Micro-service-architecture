@@ -88,6 +88,7 @@ import { AddFeedBacksComponent } from './UserDashBoard/user-dashboard/SubCompone
 import { ViewFeedBacksComponent } from './UserDashBoard/user-dashboard/SubComponents/load-trail/view-load-trials/view-load-prof/view-feed-backs/view-feed-backs.component';
 import { ViewProgressComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
 import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
+import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mileage.component';
 
 
 
@@ -190,6 +191,8 @@ import { ResetPasswordCommonComponent } from './Common/reset-password/reset-pass
     ViewProgressComponent,
 
     ResetPasswordCommonComponent,
+
+    ViewOneMileageComponent,
 
 
 

@@ -74,8 +74,8 @@ export class ViewAdLoadTrialComponent implements OnInit {
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
-  viewLoad(id: string){
-    this.router.navigate(['/adminDashboard/viewAdLoadProd', id])
+  viewLoad(mReportNumber: string){
+    this.router.navigate(['/adminDashboard/viewAdLoadProd', mReportNumber])
   }
 
   alert() {
