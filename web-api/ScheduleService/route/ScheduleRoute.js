@@ -19,4 +19,5 @@ router.get('/getProSchedule/:id', ScheduleController.getProSchedule);
 router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
 
 router.put('/changeScheduleSeven', ScheduleController.changeScheduleSeven);
+router.post('/scheduleEmail', ScheduleController.scheduleEmail);
 module.exports = router

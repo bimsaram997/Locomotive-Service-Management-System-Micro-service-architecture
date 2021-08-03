@@ -73,7 +73,7 @@ export class ViewLoadTrialsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.getLoadTrial();
     });
   }
 

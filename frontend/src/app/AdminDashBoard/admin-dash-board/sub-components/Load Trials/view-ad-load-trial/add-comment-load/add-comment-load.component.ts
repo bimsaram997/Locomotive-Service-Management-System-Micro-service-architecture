@@ -27,19 +27,24 @@ export class AddCommentLoadComponent implements OnInit {
   options:string  [] = ['Viewed and Confirmed', 'Viewed, do actions for comments'];
   scheduleNo:any;
   isShow:boolean = false;
+  name: any;
   constructor(private router: Router,private scheduleService:ScheduleService, private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder, private loadService: LoadTrialService) { }
 
   ngOnInit(): void {
     this.commentAdd = this.formBuilder.group({
       loadNo: ['',  [Validators.required]],
-      commentId: ['', [Validators.required]],
-      locoNumber: ['', [Validators.required]],
+      commentId: [''],
+      locoNumber: [''],
+      locoCatId:[''],
       status:[2],
       comDate: ['', [Validators.required]],
       reason:[' '],
       comments: ['',  [Validators.required]],
       checked: ['Unchecked'],
-      scheduleNo: ['']
+      scheduleNo: [''],
+      supervisorEmail: [''],
+      chiefEngEmail: [''],
+      loadSid: ['']
     })
 
     this.loadService.getOneLoad(this.data.id)
@@ -50,14 +55,22 @@ export class AddCommentLoadComponent implements OnInit {
         this.commentAdd.controls['reason'].setValue(res[0].reason);
         this.commentAdd.controls['status'].setValue(res[0].status);
         this.commentAdd.controls['locoNumber'].setValue(res[0].locoNumber);
+        this.commentAdd.controls['locoCatId'].setValue(res[0].locoCatId);
         this.commentAdd.controls['scheduleNo'].setValue(res[0].scheduleNo);
+        this.commentAdd.controls['supervisorEmail'].setValue(res[0].supervisorEmail);
+        this.commentAdd.controls['loadSid'].setValue(res[0]._id);
+
         this.scheduleNo =  res[0].scheduleNo;
         this.reason = res[0].reason;
         // console.log(this.scheduleNo)
       }
     })
-
+    this.defaultMethod();
     this.loadAll();
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userEmail
+
+    this.commentAdd.controls['chiefEngEmail'].setValue(this.name);
   }
   addComment(){
 
@@ -67,10 +80,9 @@ export class AddCommentLoadComponent implements OnInit {
       console.log(this.commentAdd.value);
       if (window.confirm('Are you sure?')) {
         let id = this.route.snapshot.paramMap.get('id');
+
         this.makeComment(this.commentAdd.value);
-        this.updateLoadStatus(this.commentAdd.value)
-        this.patchLoadLoco(this.commentAdd.value);
-        this.changeScheduleSeven(this.commentAdd.value);
+
 
     }
   }
@@ -117,6 +129,10 @@ export class AddCommentLoadComponent implements OnInit {
           text: 'Please Click OK',
           icon: 'success',
         });
+        this.updateLoadStatus(obj)
+        this.patchLoadLoco(obj);
+        this.changeScheduleSeven(obj);
+         this.commentEmail(obj)
         setTimeout(() => {
          // this.refresh();
         }, 3000);
@@ -152,4 +168,32 @@ export class AddCommentLoadComponent implements OnInit {
       }
     ))
   }
+
+  commentEmail(obj){
+    this.loadService.commentEmail(obj).pipe(first())
+    .subscribe(res=>{
+
+    }, (error) => {
+      console.log(error)
+    })
+  }
+
+  defaultMethod(){
+  //Id Gen
+        var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+
+        var string_length = 8;
+        var  commentId = "CO_" + "";
+        //var sysId = "ST_"+"";
+        for (var i = 0; i < string_length; i++) {
+          var rnum = Math.floor(Math.random() * chars.length);
+          commentId += chars.substring(rnum, rnum + 1);
+          ///sysId += chars.substring(rnum, rnum + 1);
+          this.commentAdd.controls["commentId"].setValue(commentId);
+          //this.LocoGroup.controls["id"].setValue(sysId);
+        }
+  //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+
+  }
+
 }

@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>Add Comment</h2>
-<form (ngSubmit)="addComment()" [formGroup]="commentAdd">
-    <mat-dialog-content class="mat-typography">
-        <h4><span>Previous Status of Load Trial </span>{{this.reason}}</h4>
-        <div class="container" style="margin-left: 23px;">
+<div class="container">
+    <h2 mat-dialog-title>Add Comment</h2>
+    <form (ngSubmit)="addComment()" [formGroup]="commentAdd">
+        <mat-dialog-content class="mat-typography">
+            <h4><span>Previous Status of Load Trial </span>{{this.reason}}</h4>
+
             <div class="row">
                 <div class="col-sm pr-0">
                     <mat-form-field appearance="fill">
@@ -13,35 +14,22 @@
                 </div>
                 <div class="col-sm pr-0">
                     <mat-form-field appearance="fill">
-                        <mat-label>locoNumber Number</mat-label>
-                        <input required readonly matInput formControlName="locoNumber">
-                    </mat-form-field>&nbsp;
-
-                </div>
-                <div class="col-sm pr-0">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Schedule No</mat-label>
-                        <input required readonly matInput formControlName="scheduleNo">
-                    </mat-form-field>&nbsp;
-
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm pr-0">
-                    <mat-form-field appearance="fill">
                         <mat-label>Comment ID</mat-label>
-                        <input required matInput formControlName="commentId">
+                        <input readonly required matInput formControlName="commentId">
                     </mat-form-field>
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="col-sm pr-0">
                     <mat-radio-group required aria-label="Select an option" formControlName="status">
                         <mat-radio-button value="2">Viewed</mat-radio-button>&nbsp;
                         <mat-radio-button value="3">Pending</mat-radio-button>
                     </mat-radio-group>
                 </div>
+                <div class="col-sm"></div>
             </div>
-
+            <br>
             <div class="row">
                 <div class="col-sm">
                     <mat-form-field appearance="fill" style="width: 200px;">
@@ -74,15 +62,16 @@
                 </div>
             </div>
 
-        </div>
 
 
 
 
-    </mat-dialog-content>
-    <mat-dialog-actions style="margin-left: 320px;">
-        <button mat-button mat-dialog-close>Cancel</button>
-        <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
 
-    </mat-dialog-actions>
-</form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
+
+        </mat-dialog-actions>
+    </form>
+</div>

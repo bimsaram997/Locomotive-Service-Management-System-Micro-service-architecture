@@ -40,6 +40,10 @@ export class LoadTrialService {
     return this.http.get( this.myUrl + 'loadTrialRoute/getResolvedComments');
   }
 
+  public commentEmail(data): Observable<any>{
+    return this.http.post(this.myUrl + `loadTrialRoute/commentEmail`, data);
+  }
+
   public acceptLoadTrial(loadNo):Observable<any> {
     return this.http.patch( this.myUrl + `loadTrialRoute/acceptLoadTrial/${loadNo}` ,loadNo);
   }
@@ -54,5 +58,5 @@ export class LoadTrialService {
   }
 
 
- 
+
 }

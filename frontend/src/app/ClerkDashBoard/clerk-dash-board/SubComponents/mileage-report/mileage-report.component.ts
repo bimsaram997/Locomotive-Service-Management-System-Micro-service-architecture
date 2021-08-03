@@ -186,22 +186,22 @@ this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
     })
   }
 
-defaultMethod(){
- //Id Gen
-      var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+  defaultMethod(){
+  //Id Gen
+        var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
 
-      var string_length = 8;
-      var  mReportNumber = "MI_" + "";
-      //var sysId = "ST_"+"";
-      for (var i = 0; i < string_length; i++) {
-        var rnum = Math.floor(Math.random() * chars.length);
-         mReportNumber += chars.substring(rnum, rnum + 1);
-        ///sysId += chars.substring(rnum, rnum + 1);
-        this.MileageGroup.controls["mReportNumber"].setValue(mReportNumber);
-        //this.LocoGroup.controls["id"].setValue(sysId);
-      }
-//this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+        var string_length = 8;
+        var  mReportNumber = "MI_" + "";
+        //var sysId = "ST_"+"";
+        for (var i = 0; i < string_length; i++) {
+          var rnum = Math.floor(Math.random() * chars.length);
+          mReportNumber += chars.substring(rnum, rnum + 1);
+          ///sysId += chars.substring(rnum, rnum + 1);
+          this.MileageGroup.controls["mReportNumber"].setValue(mReportNumber);
+          //this.LocoGroup.controls["id"].setValue(sysId);
+        }
+  //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
 
-}
+  }
 
 }

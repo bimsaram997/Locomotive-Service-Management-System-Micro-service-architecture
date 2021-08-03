@@ -180,6 +180,7 @@ export class RequestScheduleComponent implements OnInit {
 
   onSubmit(){
     console.log(this.ScheduleGroup.value);
+    this.scheduleEmail(this.ScheduleGroup.value);
     // if(this.filesToUpload.)
     this.spinner = true;
     this.scheduleService.saveOfSchedule(this.ScheduleGroup.value)
@@ -360,5 +361,16 @@ defaultMethod(){
 //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
 
 }
+
+  scheduleEmail(obj){
+    this.scheduleService.scheduleEmail(obj).pipe(first())
+    .subscribe(
+      res=>{
+
+      }, (error) => {
+      console.log(error)
+    })
+
+  }
 
 }

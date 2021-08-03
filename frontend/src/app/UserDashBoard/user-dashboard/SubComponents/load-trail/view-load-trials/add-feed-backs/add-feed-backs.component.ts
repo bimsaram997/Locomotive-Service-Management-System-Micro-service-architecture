@@ -23,14 +23,14 @@ export class AddFeedBacksComponent implements OnInit {
   ngOnInit(): void {
     this.feedBackGroup = this.formBuilder.group({
       loadNo: ['', [Validators.required]],
-      feedId: ['', [Validators.required]],
+      feedId: ['', ],
       locoNumber: ['', [Validators.required]],
       comments: ['', [Validators.required]],
       action: ['', [Validators.required]],
       status: [1],
       reason:['Resolved Issues on'],
       commentId:['', [Validators.required]]
-      
+
     })
     this.loadTrialService.getOneComment(this.data.id).pipe(first())
     .subscribe(
@@ -47,10 +47,10 @@ export class AddFeedBacksComponent implements OnInit {
       }
     )
 //console.log(this.loadNo)
-    
+      this.defaultMethod()
   }
 
-  
+
   onSubmit(){
     console.log(this.feedBackGroup.value)
     {
@@ -68,7 +68,7 @@ export class AddFeedBacksComponent implements OnInit {
           setTimeout(() => {
            // this.refresh();
           }, 3000);
-  
+
         } else {
           swal({
             title: 'Record already Exits',
@@ -80,7 +80,7 @@ export class AddFeedBacksComponent implements OnInit {
           }, 3000);
         }
       },
-  
+
       error => {
         console.log(error);
       },
@@ -98,6 +98,24 @@ export class AddFeedBacksComponent implements OnInit {
           console.log(res);
         }
     ))
+  }
+
+  defaultMethod(){
+  //Id Gen
+        var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+
+        var string_length = 8;
+        var  feedId = "FE_" + "";
+        //var sysId = "ST_"+"";
+        for (var i = 0; i < string_length; i++) {
+          var rnum = Math.floor(Math.random() * chars.length);
+          feedId += chars.substring(rnum, rnum + 1);
+          ///sysId += chars.substring(rnum, rnum + 1);
+          this.feedBackGroup.controls["feedId"].setValue(feedId);
+          //this.LocoGroup.controls["id"].setValue(sysId);
+        }
+  //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+
   }
 
 }

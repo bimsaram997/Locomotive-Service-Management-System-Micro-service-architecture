@@ -669,10 +669,6 @@ const sendMileEmail = async(req, res, next) => {
         res.status(500).json(err);
     }
 
-
-    // console.log(MileObj.locoNumber)
-
-
 }
 
 const getOneMileageById = (req, res) => {

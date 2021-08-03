@@ -12,6 +12,10 @@ const CommentSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    locoCatId: {
+        type: String,
+        required: true
+    },
     commentId: {
         type: String,
         required: true
@@ -36,5 +40,17 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    supervisorEmail: {
+        type: String,
+        required: false,
+    },
+    chiefEngEmail: {
+        type: String,
+        required: false,
+    },
+    loadSid: {
+        type: String,
+        required: false,
+    }
 })
 module.exports = mongoose.model('Comments', CommentSchema);

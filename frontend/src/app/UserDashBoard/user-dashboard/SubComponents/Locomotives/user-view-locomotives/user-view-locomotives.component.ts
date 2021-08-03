@@ -71,7 +71,7 @@ export class UserViewLocomotivesComponent implements OnInit {
       res=>{
         this.locoArray = res;
         this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
-  
+
         setTimeout(() => {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -98,11 +98,14 @@ export class UserViewLocomotivesComponent implements OnInit {
 
   OpenEditDialog(_id: string){
     console.log(_id)
-    this.dialog.open(EditLocoComponent, {
+    const dialogRef=this.dialog.open(EditLocoComponent, {
       data: {id: _id},
-      height: '650px',
-      width: '840px',
+
+      width: '900px',
     })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllLoco();
+    });
   }
 
 
@@ -123,9 +126,9 @@ export class UserViewLocomotivesComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
 }
 
