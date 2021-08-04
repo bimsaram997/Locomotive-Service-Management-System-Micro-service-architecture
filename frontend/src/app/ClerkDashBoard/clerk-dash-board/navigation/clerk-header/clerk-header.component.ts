@@ -12,16 +12,23 @@ import {CookieService} from "ngx-cookie";
 export class ClerkHeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   @Input() public resultGridList = '';
-  data = '';
+ loading =  false;
+  cont: Array<any>[] = [];
+  currentDate = new Date();
+  name: any;
   constructor(private router: Router, private route: ActivatedRoute,
               private accessService: AccessService,
               private toastr: ToastrService,
               private cookieService: CookieService) { }
 
   ngOnInit(): void {
+     const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userName
+    console.log(this.name)
   }
   onToogleSlidenav() {
     this.sidenavToggle.emit();
+
   }
   logOut(){
 

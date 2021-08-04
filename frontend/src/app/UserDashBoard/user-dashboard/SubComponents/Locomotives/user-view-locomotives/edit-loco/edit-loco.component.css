@@ -1,13 +1,3 @@
-.example-container .mat-form-field+.mat-form-field {}
-
-.mat-form-field {
-    width: 90%;
-}
-
-.example-container form {
-    margin-bottom: 10px;
-}
-
-.example-container form>* {
-    margin: 5px 0px;
+.radio-text {
+    font-size: 12px;
 }

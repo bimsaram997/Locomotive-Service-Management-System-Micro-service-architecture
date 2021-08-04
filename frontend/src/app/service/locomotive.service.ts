@@ -131,4 +131,8 @@ export class LocomotiveService {
     return this.http.post(this.myUrl + `locoRoute/sendMileEmail`, data);
   }
 
+   public sendLocoEmail(data): Observable<any>{
+    return this.http.post(this.myUrl + `locoRoute/sendLocoEmail`, data);
+  }
+
 }

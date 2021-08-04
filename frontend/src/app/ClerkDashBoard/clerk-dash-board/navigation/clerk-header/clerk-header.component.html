@@ -1,9 +1,16 @@
-<mat-toolbar style="background-color: #03254c; color: white;">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="onToogleSlidenav()">
-    <mat-icon>menu</mat-icon>
+<mat-toolbar style="background-color: #03254c; color: white; height: 75px;">
+    <br>
+
+    <button style="margin-bottom: 10px;" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="onToogleSlidenav()">
+ <mat-icon>menu</mat-icon>
   </button>
-    <span>LOCOMOTIVE SERVICE CENTER</span>
+    <div class="container">
+        <span class="welcome col-md">Welcome Back, &nbsp;<span class="name">{{this.name}}</span> </span>
+        <br>
+        <span class="muzile">{{currentDate | date:'dd MMM yyyy hh:mm a'}}</span>
+    </div>
     <span class="example-spacer"></span>
+    <span routerLink="/adminDashboard/adminDashContent" style="cursor: pointer;">&nbsp;LOCOMOTIVE SERVICE CENTER</span>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
   <span class="material-icons">
 notification_important

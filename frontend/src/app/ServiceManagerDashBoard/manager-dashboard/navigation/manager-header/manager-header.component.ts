@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AccessService} from "../../../../service/access.service";
 import {ToastrService} from "ngx-toastr";
 import {CookieService} from "ngx-cookie";
+import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
 
 @Component({
   selector: 'app-manager-header',
@@ -12,13 +13,19 @@ import {CookieService} from "ngx-cookie";
 export class ManagerHeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   @Input() public resultGridList = '';
-  data = '';
+   loading =  false;
+  cont: Array<any>[] = [];
+  currentDate = new Date();
+  name: any;
   constructor(private router: Router, private route: ActivatedRoute,
               private accessService: AccessService,
               private toastr: ToastrService,
               private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    this.name = values.userName
+    console.log(this.name)
   }
   onToogleSlidenav() {
     this.sidenavToggle.emit();

@@ -148,7 +148,7 @@ export class EditLocoComponent implements OnInit  {
         let id = this.route.snapshot.paramMap.get('id');
         this.locomotiveService.updateLoco(this.editLocoGroup.value)
           .subscribe(res => {
-
+            this.sendLocoEmail(this.editLocoGroup.value)
             //this.router.navigateByUrl('/employees-list');
             console.log('Content updated successfully!');
             console.log(res);
@@ -159,20 +159,16 @@ export class EditLocoComponent implements OnInit  {
     }
   }
 
-  sendNewEmail(from, text){
-    this.locomotiveService.sendStatusEmail(
-      this.editLocoGroup.controls.locoNumber.value,
-      this.editLocoGroup.controls.supervisorEmail.value
-    ).subscribe(result =>{
-      if (result){
-        //this.onSucess('Sent');
-        console.log(result);
-      }else {
-        console.log('failed')
-      }
+  sendLocoEmail(obj){
+    this.locomotiveService.sendLocoEmail(obj).pipe(first())
+    .subscribe(
+      res=>{
 
+      }, (error) => {
+            console.log(error)
     })
   }
+
   loadAll(){
     this.locomotiveService.getAllLocomotives().subscribe(resp => {
       this.locoArray = resp;
@@ -248,15 +244,22 @@ export class EditLocoComponent implements OnInit  {
   }
 
 
-
-  onClickMotor() {
+onClickMotor() {
     if (this.getFm.mtrType.value !== ''){
-      this.mtrArray.push(this.formBuilder.group({
-        Name: [this.getFm.mtrType.value],
-        working: [true],
-
-
-      }));
+      const _findDupli = this.getFm.locoMotors.value.find(f=>f.Name==this.getFm.mtrType.value);
+        if(!_findDupli){
+            this.mtrArray.push(this.formBuilder.group({
+              Name: [this.getFm.mtrType.value, Validators.required],
+              working: [''],
+              //notWorking: [false],
+        }
+      ));
+    }else {
+        swal({
+          title: 'Value already Exits',
+          icon: 'error',
+        });
+      }
     }
 
   }
@@ -299,28 +302,45 @@ export class EditLocoComponent implements OnInit  {
         break;
     }
   }
-
   onClickBreaks() {
     if (this.getFm.brkType.value !== ''){
-      this.brkArray.push(this.formBuilder.group({
-        bName: [this.getFm.brkType.value],
-        working: [true],
-        notWorking: [false]
+      const _findDupli = this.getFm.locoBreaks.value.find(f=>f.bName==this.getFm.brkType.value);
 
+      if(!_findDupli){
+        this.brkArray.push(this.formBuilder.group({
+          bName: [this.getFm.brkType.value],
+          working: [''],
 
-      }))
+        }));
+      }else {
+        swal({
+          title: 'Value already Exits',
+          text: 'Please Click OK',
+          icon: 'error',
+        });
+      }
     }
-    this.val = this.getFm.brkType.value;
 
   }
   onClickFluids(){
     if (this.getFm.fldType.value !== ''){
-      this.fluidArray.push(this.formBuilder.group({
-        fName: [this.getFm.fldType.value],
-        fluids: [''],
-      }))
+      const _findDupli = this.getFm.locoFluids.value.find(f=>f.fName==this.getFm.fldType.value);
+
+      if(!_findDupli){
+        this.fluidArray.push(this.formBuilder.group({
+          fName: [this.getFm.fldType.value],
+          fluids: [''],
+
+        }));
+      }else {
+        swal({
+          title: 'Value already Exits',
+          text: 'Please Click OK',
+          icon: 'error',
+        });
+      }
     }
-    this.val2 = this.getFm.fldType.value;
+
   }
 
   onKeyUp(value: string){}

@@ -101,7 +101,7 @@ export class UserViewLocomotivesComponent implements OnInit {
     const dialogRef=this.dialog.open(EditLocoComponent, {
       data: {id: _id},
 
-      width: '900px',
+      width: '700px',
     })
     dialogRef.afterClosed().subscribe(result => {
       this.getAllLoco();

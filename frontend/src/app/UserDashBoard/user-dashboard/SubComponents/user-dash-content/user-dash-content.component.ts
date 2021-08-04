@@ -4,8 +4,9 @@ import {ScheduleService} from "../../../../service/schedule.service";
 import {CalendarView} from "angular-calendar";
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import {MatCalendarCellClassFunction} from "@angular/material/datepicker";
-import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
+import { CalendarOptions } from '@fullcalendar/angular';
+
+
 @Component({
   selector: 'app-user-dash-content',
   templateUrl: './user-dash-content.component.html',
@@ -18,6 +19,9 @@ export class UserDashContentComponent implements OnInit {
   cont: Array<any>[] = [];
   currentDate = new Date();
   name: any;
+ calendarOptions: CalendarOptions;
+
+
   constructor(private schedulesService: ScheduleService) {
     this.loadDate();
 
@@ -27,6 +31,15 @@ export class UserDashContentComponent implements OnInit {
   ngOnInit(): void {
     const values =  JSON.parse( localStorage.getItem('currentUser'));
     this.name = values.userName
+    setTimeout(() => {
+        this.calendarOptions = {
+          initialView: 'dayGridMonth',
+          height:'400px'
+
+        };
+      }, 2500);
+
+
   }
 
  loadDate() {
@@ -44,5 +57,5 @@ export class UserDashContentComponent implements OnInit {
     });
   }
 
- 
+
 }

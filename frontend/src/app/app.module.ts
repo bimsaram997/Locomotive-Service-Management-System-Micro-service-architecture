@@ -35,7 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './UserDashBoard/user-dashboard/SubComponents/home/home.component';
-import { CardsComponent } from './UserDashBoard/user-dashboard/SubComponents/user-dash-content/cards/cards.component';
+
 import { ClerkDashBoardComponent } from './ClerkDashBoard/clerk-dash-board/clerk-dash-board.component';
 import { ClerkHeaderComponent } from './ClerkDashBoard/clerk-dash-board/navigation/clerk-header/clerk-header.component';
 import { ClerkSideNavComponent } from './ClerkDashBoard/clerk-dash-board/navigation/clerk-side-nav/clerk-side-nav.component';
@@ -89,16 +89,15 @@ import { ViewFeedBacksComponent } from './UserDashBoard/user-dashboard/SubCompon
 import { ViewProgressComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
 import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
 import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mileage.component';
+import { AppCardsComponent } from './Common/app-cards/app-cards.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
-
-
-
-
-
-
-
-
-
+FullCalendarModule.registerPlugins([
+  interactionPlugin,
+  dayGridPlugin
+]);
 
 
 @NgModule({
@@ -124,7 +123,7 @@ import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mile
     UserDashContentComponent,
     AdminDashContentComponent,
     HomeComponent,
-    CardsComponent,
+
     ClerkDashBoardComponent,
     ClerkHeaderComponent,
     ClerkSideNavComponent,
@@ -194,6 +193,9 @@ import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mile
 
     ViewOneMileageComponent,
 
+    AppCardsComponent,
+
+
 
 
 
@@ -220,6 +222,7 @@ import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mile
     MatIconModule,
     MatButtonModule,
     LayoutModule,
+    FullCalendarModule,
 
 
   ],

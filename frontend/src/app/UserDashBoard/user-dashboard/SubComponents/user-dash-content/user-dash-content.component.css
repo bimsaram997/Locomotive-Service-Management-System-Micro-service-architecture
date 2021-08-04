@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&family=Tajawal:wght@200;300&display=swap');
 .box-head {
     display: flex;
     align-items: center;
@@ -40,21 +41,22 @@
     top: 50px;
     transform: translate(-50%, -50%);
     /*隐藏作用：如果没有用transform方式进行居中显示，则width：100%会向右侧延申，左侧为空*/
-    width: 100%;
+    width: 70%;
 }
 
 .welcome {
     font-size: 18px;
     font-weight: 700;
     color: #fff;
-    letter-spacing: 4px;
+    letter-spacing: 1px;
     margin-bottom: 20px;
-    animation: text 4s 1;
+    animation: text 3s 1;
 }
 
 .muzile {
     font-size: 13px;
     color: #70a1ff;
+    margin-bottom: 30px;
 }
 
 @keyframes text {
@@ -63,11 +65,11 @@
         margin-bottom: -40px;
     }
     30% {
-        letter-spacing: 18px;
+        letter-spacing: 5px;
         margin-bottom: -40px;
     }
     85% {
-        letter-spacing: 8px;
+        letter-spacing: 1px;
         margin-bottom: -40px;
     }
 }
@@ -267,4 +269,26 @@ a.float+div.label-container {
 a.float:hover+div.label-container {
     visibility: visible;
     opacity: 1;
+}
+
+.label-txt {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    bottom: 5px;
+}
+
+.value {
+    font-size: 18px;
+    color: white;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.info-label {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
 }

@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,100;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300&display=swap');
 .right-li {
     float: right;
 }
@@ -62,27 +63,30 @@ mat-toolbar {
 }
 
 .container .welcome {
-    font-family: sans-serif;
-    text-transform: uppercase;
+    font-family: 'Tajawal', sans-serif;
 }
 
 .container {
     text-align: center;
     position: relative;
     left: 20%;
-    top: 40px;
+    top: 35px;
     transform: translate(-50%, -50%);
     /*隐藏作用：如果没有用transform方式进行居中显示，则width：100%会向右侧延申，左侧为空*/
-    width: 100%;
+    width: 30%;
+}
+
+.name {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
 }
 
 .welcome {
     font-size: 18px;
     font-weight: 700;
     color: #fff;
-    letter-spacing: 8px;
-    margin-bottom: 20px;
-    animation: text 4s 1;
+    letter-spacing: 1px;
+    animation: text 3s 1;
 }
 
 .muzile {
@@ -96,11 +100,11 @@ mat-toolbar {
         margin-bottom: -40px;
     }
     30% {
-        letter-spacing: 18px;
+        letter-spacing: 5px;
         margin-bottom: -40px;
     }
     85% {
-        letter-spacing: 8px;
+        letter-spacing: 1px;
         margin-bottom: -40px;
     }
 }
