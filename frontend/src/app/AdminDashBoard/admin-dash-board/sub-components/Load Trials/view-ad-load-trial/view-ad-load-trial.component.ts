@@ -33,15 +33,20 @@ export class ViewAdLoadTrialComponent implements OnInit {
   }
 
   private getLoadTrial(){
-    this.loadService.getAllLoadTrial().subscribe(resp=>{
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+      const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+
+    this.loadService.getLoadTrialAssigned(object).subscribe(resp=>{
       this.loadArray = resp;
-
+      console.log(this.loadArray)
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
-
       setTimeout(()=>{
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort
-
       })
     })
   }

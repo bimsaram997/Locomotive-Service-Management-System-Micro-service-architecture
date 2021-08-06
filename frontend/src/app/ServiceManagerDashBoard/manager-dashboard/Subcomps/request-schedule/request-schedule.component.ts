@@ -6,6 +6,13 @@ import {ScheduleService} from "../../../../service/schedule.service";
 import {first} from "rxjs/operators";
 import swal from "sweetalert";
 import {LocomotiveService} from "../../../../service/locomotive.service";
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { formatDate } from '@angular/common';
+import * as moment from 'moment';
+
+
+
 
 @Component({
   selector: 'app-request-schedule',
@@ -43,7 +50,7 @@ export class RequestScheduleComponent implements OnInit {
     this.ScheduleGroup = this.formBuilder.group({
       scheduleNo: [''],
       mReportNumber:  ['', [Validators.required]],
-      scheduleDate: ['', [Validators.required]],
+      scheduleDate: [''],
       completedDate: ['', [Validators.required]],
       locoCatId: ['', [Validators.required]],
       locoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -78,12 +85,16 @@ export class RequestScheduleComponent implements OnInit {
 
       //mainMotor: ['', [Validators.required]]
     });
+
+
     this.loadMangers();
     this.loadSupervisor();
     this.loadMileageRep();
     this.defaultMethod();
 
   }
+
+
   get getFm(){
     return this.ScheduleGroup.controls;
   }

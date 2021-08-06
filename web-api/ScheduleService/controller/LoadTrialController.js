@@ -32,13 +32,31 @@ const saveLoadTrial = async(req, res, next) => {
         res.status(500).json(er);
     });
 }
-const getAllLoadTrial = async(req, resp, next) => {
+const getLoadTrialAssigned = async(req, resp, next) => {
     //console.log(resp)
-    LoadTrialDTO.find().then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(result)
-    })
+    // LoadTrialDTO.find().then(result => {
+    //     resp.status(200).json(result);
+    // }).catch(error => {
+    //     resp.status(500).json(result)
+    // })
+
+    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk') {
+        await LoadTrialDTO.find().then(result => {
+            resp.status(200).json(result);
+
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+
+    } else if (req.query.userRole == 'Supervisor') {
+        await LoadTrialDTO.find({ supervisorNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+            //console.log(result);
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+    }
+
 };
 const getOneLoad = (req, res) => {
     //console.log(req.params.id);
@@ -563,7 +581,7 @@ const getOneFeedBack = async(req, res, next) => {
 
 module.exports = {
     saveLoadTrial,
-    getAllLoadTrial,
+    getLoadTrialAssigned,
     getOneLoad,
     acceptLoadTrial,
 

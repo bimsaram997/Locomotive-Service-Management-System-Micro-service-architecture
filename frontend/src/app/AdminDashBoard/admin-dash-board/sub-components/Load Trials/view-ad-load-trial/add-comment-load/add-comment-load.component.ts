@@ -19,6 +19,7 @@ import swal from "sweetalert";
 })
 export class AddCommentLoadComponent implements OnInit {
   commentAdd: FormGroup;
+  nextSchedule: FormGroup;
   items: FormArray;
   buttonCount = 0;
   reason: any;
@@ -28,7 +29,15 @@ export class AddCommentLoadComponent implements OnInit {
   scheduleNo:any;
   isShow:boolean = false;
   name: any;
-  constructor(private router: Router,private scheduleService:ScheduleService, private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder, private loadService: LoadTrialService) { }
+  send_date: Date;
+  formattedDate: string;
+  commentStatus = 0;
+  commentReason = '';
+  constructor(private router: Router,private scheduleService:ScheduleService, private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,
+  private formBuilder: FormBuilder, private loadService: LoadTrialService) {
+
+
+  }
 
   ngOnInit(): void {
     this.commentAdd = this.formBuilder.group({
@@ -63,34 +72,69 @@ export class AddCommentLoadComponent implements OnInit {
         this.scheduleNo =  res[0].scheduleNo;
         this.reason = res[0].reason;
         // console.log(this.scheduleNo)
+
+
+        this.nextSchedule.controls['locoCatId'].setValue(res[0].locoCatId);
+        this.nextSchedule.controls['locoNumber'].setValue(res[0].locoNumber);
       }
     })
+
+    this.nextSchedule = this.formBuilder.group({
+      nxtSchId:[''],
+      locoNumber: [''],
+      locoCatId:[''],
+      date:[''],
+      nxtSchStatus: [0],
+      nxtSchReason: ['Draft']
+    })
+
     this.defaultMethod();
     this.loadAll();
+    this.setValuesForNextSchedule();
     const values =  JSON.parse( localStorage.getItem('currentUser'));
     this.name = values.userEmail
 
     this.commentAdd.controls['chiefEngEmail'].setValue(this.name);
   }
-  addComment(){
 
-  console.log(this.scheduleNo)
+  setValuesForNextSchedule(){
+
+      this.send_date=new Date();
+      this.send_date.setMonth(this.send_date.getMonth()+1);
+      this.formattedDate=this.send_date.toISOString().slice(0,10);
+      this.nextSchedule.controls['date'].setValue(this.formattedDate);
+  }
+  checkNextScheduleDate(){
+      //console.log(this.commentAdd.value);
+
+      this.commentStatus = this.commentAdd.controls['status'].value;
+      this.commentReason = this.commentAdd.controls['reason'].value;
+
+      if(!(this.commentStatus === 2) && !(this.commentReason === 'Viewed and Confirmed')){
+
+      }else{
+ console.log(this.nextSchedule.value);
+      }
+    //   if (window.confirm('Are you sure?')) {
+    //     let id = this.route.snapshot.paramMap.get('id');
+
+    //     this.makeComment(this.commentAdd.value);
 
 
-      console.log(this.commentAdd.value);
-      if (window.confirm('Are you sure?')) {
-        let id = this.route.snapshot.paramMap.get('id');
-
-        this.makeComment(this.commentAdd.value);
-
-
-    }
+    // }
   }
   get getFm(){
     return this.commentAdd.controls;
   }
   public loadAll(){
-    this.loadService.getAllLoadTrial().subscribe(
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+      const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+
+    this.loadService.getLoadTrialAssigned(object).subscribe(
       res=>{
 
       }
@@ -118,44 +162,48 @@ export class AddCommentLoadComponent implements OnInit {
     })
 
   }
-  makeComment(obj:any){
-    this.loadService.makeComment(obj).pipe(first()).subscribe(
-    res => {
-      console.log(res);
-      if (res.isSaved) {
+  makeComment(){
 
-        swal({
-          title: 'Record Saved!',
-          text: 'Please Click OK',
-          icon: 'success',
-        });
-        this.updateLoadStatus(obj)
-        this.patchLoadLoco(obj);
-        this.changeScheduleSeven(obj);
-         this.commentEmail(obj)
-        setTimeout(() => {
-         // this.refresh();
-        }, 3000);
+    console.log(this.commentAdd.value);
+    this.checkNextScheduleDate();
 
-      } else {
-        swal({
-          title: 'Record already Exits',
-          text: 'Please Click OK',
-          icon: 'error',
-        });
-        setTimeout(() => {
-          //this.refresh();
-        }, 3000);
-      }
-    },
+  //   this.loadService.makeComment(this.commentAdd.value).pipe(first()).subscribe(
+  //   res => {
+  //     console.log(res);
+  //     if (res.isSaved) {
 
-    error => {
-      console.log(error);
-    },
-    () => {
-      console.log('dss');
-    }
-  )
+  //       swal({
+  //         title: 'Record Saved!',
+  //         text: 'Please Click OK',
+  //         icon: 'success',
+  //       });
+  //       this.updateLoadStatus(this.commentAdd.value)
+  //       this.patchLoadLoco(this.commentAdd.value);
+  //       this.changeScheduleSeven(this.commentAdd.value);
+  //        this.commentEmail(this.commentAdd.value)
+  //       setTimeout(() => {
+  //        // this.refresh();
+  //       }, 3000);
+
+  //     } else {
+  //       swal({
+  //         title: 'Record already Exits',
+  //         text: 'Please Click OK',
+  //         icon: 'error',
+  //       });
+  //       setTimeout(() => {
+  //         //this.refresh();
+  //       }, 3000);
+  //     }
+  //   },
+
+  //   error => {
+  //     console.log(error);
+  //   },
+  //   () => {
+  //     console.log('dss');
+  //   }
+  // )
 
   }
 
@@ -184,12 +232,15 @@ export class AddCommentLoadComponent implements OnInit {
 
         var string_length = 8;
         var  commentId = "CO_" + "";
+        var nxtSchId = "NSCH_" + "";
         //var sysId = "ST_"+"";
         for (var i = 0; i < string_length; i++) {
           var rnum = Math.floor(Math.random() * chars.length);
           commentId += chars.substring(rnum, rnum + 1);
+          nxtSchId += chars.substring(rnum, rnum + 1);
           ///sysId += chars.substring(rnum, rnum + 1);
           this.commentAdd.controls["commentId"].setValue(commentId);
+          this.nextSchedule.controls['nxtSchId'].setValue(nxtSchId);
           //this.LocoGroup.controls["id"].setValue(sysId);
         }
   //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));

@@ -3,7 +3,7 @@ const loadTrialController = require('../controller/LoadTrialController');
 const router = express.Router();
 
 router.post('/saveLoadTrial', loadTrialController.saveLoadTrial);
-router.get('/getAllLoadTrial', loadTrialController.getAllLoadTrial);
+router.get('/getLoadTrialAssigned', loadTrialController.getLoadTrialAssigned);
 router.get('/getOneLoad/:id', loadTrialController.getOneLoad);
 router.patch('/acceptLoadTrial/:loadNo', loadTrialController.acceptLoadTrial);
 

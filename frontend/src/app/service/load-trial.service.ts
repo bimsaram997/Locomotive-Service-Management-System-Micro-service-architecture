@@ -16,8 +16,8 @@ export class LoadTrialService {
   public makeComment(obj): Observable<any>{
     return this.http.post(this.myUrl + 'loadTrialRoute/makeComment' , obj);
   }
-  public getAllLoadTrial(): Observable<any> {
-    return this.http.get( this.myUrl + 'loadTrialRoute/getAllLoadTrial');
+  public getLoadTrialAssigned(object): Observable<any> {
+    return this.http.get( this.myUrl + 'loadTrialRoute/getLoadTrialAssigned/', {params:object});
   }
   getOneLoad(id): Observable<any>{
     return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneLoad/${id}`);

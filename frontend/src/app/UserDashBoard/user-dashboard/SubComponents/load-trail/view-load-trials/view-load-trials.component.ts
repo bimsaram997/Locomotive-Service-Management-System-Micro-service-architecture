@@ -29,12 +29,22 @@ export class ViewLoadTrialsComponent implements OnInit {
   constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getLoadTrial();
+    this.getLoadTrialAssigned();
+
+
 
   }
 
-  private getLoadTrial(){
-    this.loadService.getAllLoadTrial().subscribe(resp=>{
+  private getLoadTrialAssigned(){
+
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+      const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+
+    this.loadService.getLoadTrialAssigned(object).subscribe(resp=>{
       this.loadArray = resp;
       console.log(this.loadArray)
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
@@ -73,7 +83,7 @@ export class ViewLoadTrialsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getLoadTrial();
+      this.getLoadTrialAssigned();
     });
   }
 
