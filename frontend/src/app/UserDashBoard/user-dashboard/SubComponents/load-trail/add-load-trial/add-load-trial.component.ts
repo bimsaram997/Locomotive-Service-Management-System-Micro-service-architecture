@@ -309,18 +309,18 @@ onChangeSelectSch(value: string){
   }
 
   showIds(){
-   this.loadTrialService.getAllLoadTrial().subscribe(resp=>{
-     console.log(resp)
-      for(let i=0; i<resp.length; i++){
+  //  this.loadTrialService.getAllLoadTrial().subscribe(resp=>{
+  //    console.log(resp)
+  //     for(let i=0; i<resp.length; i++){
 
 
-      this.ids.push(resp[i].loadNo)
+  //     this.ids.push(resp[i].loadNo)
 
-      }
+  //     }
 
 
-    })
-     console.log(this.ids);
+  //   })
+  //    console.log(this.ids);
   }
 
   checkIDs(value: string){
