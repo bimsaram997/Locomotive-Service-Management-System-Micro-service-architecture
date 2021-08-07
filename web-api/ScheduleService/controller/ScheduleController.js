@@ -1,5 +1,6 @@
 const ScheduleSchema = require('../model/ScheduleDTO');
 const MileageDTO = require('../model/MileageDTO');
+const NextScheduleDTO = require('../model/NextScheduleDTO');
 const accountSid = 'AC3d297c7a3fe526424aa2fc97aaa56128'; // Your Account SID from www.twilio.com/console
 const authToken = '19a795c6575eb243f23ce9598a28db56'; // Your Auth Token from www.twilio.com/console
 const twilio = require('twilio');
@@ -183,7 +184,6 @@ const sendOneSchedule = (req, res) => {
     }).catch(er => {
         res.status(500).json(er);
     });
-
 
 }
 const getOneSchedule = (req, res) => {
@@ -659,6 +659,40 @@ const changeScheduleSeven = async(req, resp) => { //accepting load trial chamnge
 
 }
 
+//nextschedule
+
+const saveNextSchedule = async(req, res, next) => {
+
+    NextScheduleDTO.findOne({ nxtSchId: req.body.nxtSchId }).then(result => {
+        if (result == null) {
+            const nxtSchedule = new NextScheduleDTO(req.body);
+            nxtSchedule.save().then(result => {
+                res.status(200).json({ isSaved: true, data: result })
+            }).catch(error => {
+                res.status(500).json(error);
+            })
+        } else {
+            res.status(200).json({ isSaved: false, data: result });
+        }
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+}
+
+const getAllNextSchedules = async(req, res, next) => { //get completed schedule
+    console.log(req.params.locoNumberNextSchedule);
+    await NextScheduleDTO.find({
+        locoNumber: req.params.locoNumberNextSchedule
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+}
+
+
+
 
 module.exports = {
     saveSchedule,
@@ -678,6 +712,11 @@ module.exports = {
     getAllCompSchedule,
     getAllScheduleAssigned,
     changeScheduleSeven,
-    scheduleEmail
+    scheduleEmail,
+
+
+    //next Schedule
+    saveNextSchedule,
+    getAllNextSchedules
 
 }

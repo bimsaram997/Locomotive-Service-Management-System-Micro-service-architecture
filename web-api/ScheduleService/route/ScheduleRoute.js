@@ -20,4 +20,10 @@ router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
 
 router.put('/changeScheduleSeven', ScheduleController.changeScheduleSeven);
 router.post('/scheduleEmail', ScheduleController.scheduleEmail);
+
+
+//next Schedule
+router.post('/saveNextSchedule', ScheduleController.saveNextSchedule);
+router.get('/getAllNextSchedules/:locoNumberNextSchedule', ScheduleController.getAllNextSchedules);
+
 module.exports = router

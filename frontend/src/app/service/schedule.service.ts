@@ -29,26 +29,33 @@ export class ScheduleService {
       scheduleRemark: dto.scheduleRemark
     });
   }
+
   public saveOfSchedule(obj): Observable<any>{
     return this.http.post(this.myUrl + 'scheduleRoute/saveSchedule' , obj);
   }
+
   public getAllSchedules(): Observable<any> {
     return this.http.get(this.myUrl + 'scheduleRoute/getAllSchedules');
   }
+
   public getAllScheduleAssigned(object):Observable<any> {
     return this.http.get( this.myUrl + `scheduleRoute/getAllScheduleAssigned/`, {params:object})
   }
+
   public getAllCompSchedule(object): Observable<any> {
     return this.http.get( this.myUrl + 'scheduleRoute/getAllCompSchedule/', {params:object});
   }
+
   public deleteSchedule(id: string): Observable<any> {
     return this.http.delete( this.myUrl + 'scheduleRoute/deleteSchedule', {headers: {id}});
 
   }
+
   public getOneSchedule(scheduleNo: string): Observable<any>{
     return this.http.get<any>(this.myUrl + `scheduleRoute/getOneSchedule/${scheduleNo}`);
 
   }
+
   public updateSchedule(dto: LocoScheduleDTO): Observable<any> {
     return this.http.put( this.myUrl + 'scheduleRoute/updateSchedule', {
       scheduleNo: dto.scheduleNo,
@@ -69,6 +76,7 @@ export class ScheduleService {
     });
 
   }
+
   public getSchedule(customerNic: string): Observable<LocoScheduleDTO>
   {
     return this.http.get<LocoScheduleDTO>(this.myUrl + 'scheduleRoute/getSchedule/: id',{headers: {customerNic}})
@@ -77,12 +85,15 @@ export class ScheduleService {
   public getMySampleData(): Observable<any> {
     return this.http.get(this.myUrl + 'scheduleRoute/getSample');
   }
+
   public getSMS(): Observable<any> {
     return this.http.get(this.myUrl + 'scheduleRoute/sendSMS');
   }
+
   public sendOneSchedule(id): Observable<any>{
     return this.http.get<any>(this.myUrl + `scheduleRoute/sendOneSchedule/${id}`);
   }
+
   public patchMileage(scheduleNo, progressValue):Observable<any> {
     return this.http.patch( this.myUrl + `scheduleRoute/patchMileage/${scheduleNo}/${progressValue}` , scheduleNo, progressValue);
   }
@@ -95,9 +106,18 @@ export class ScheduleService {
     return this.http.put(this.myUrl + `scheduleRoute/changeScheduleSeven`, data);
   }
 
-    public scheduleEmail(data): Observable<any>{
+  public scheduleEmail(data): Observable<any>{
     return this.http.post(this.myUrl + `scheduleRoute/scheduleEmail`, data);
   }
 
+  //nextSchedules
+
+  public saveNextSchedule(obj): Observable<any>{
+    return this.http.post(this.myUrl + 'scheduleRoute/saveNextSchedule' , obj);
+  }
+
+  public getAllNextSchedules(locoNumber):Observable<any> {
+    return this.http.get( this.myUrl + `scheduleRoute/getAllNextSchedules/${locoNumber}`)
+  }
 
 }

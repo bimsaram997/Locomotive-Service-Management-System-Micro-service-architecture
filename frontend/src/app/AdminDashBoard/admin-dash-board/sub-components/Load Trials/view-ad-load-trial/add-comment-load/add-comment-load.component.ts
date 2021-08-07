@@ -113,7 +113,41 @@ export class AddCommentLoadComponent implements OnInit {
       if(!(this.commentStatus === 2) && !(this.commentReason === 'Viewed and Confirmed')){
 
       }else{
- console.log(this.nextSchedule.value);
+        console.log(this.nextSchedule.value);
+        this.scheduleService.saveNextSchedule(this.nextSchedule.value).pipe(first()).subscribe(
+          res=>{
+            console.log(res);
+        if (res.isSaved) {
+
+          swal({
+            title: 'Record Saved!',
+            text: 'Please Click OK',
+            icon: 'success',
+          });
+          setTimeout(() => {
+           // this.refresh();
+          }, 3000);
+
+        } else {
+          swal({
+            title: 'Record already Exits',
+            text: 'Please Click OK',
+            icon: 'error',
+          });
+          setTimeout(() => {
+            //this.refresh();
+          }, 3000);
+        }
+      },
+
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log('dss');
+          }
+        )
+
       }
     //   if (window.confirm('Are you sure?')) {
     //     let id = this.route.snapshot.paramMap.get('id');

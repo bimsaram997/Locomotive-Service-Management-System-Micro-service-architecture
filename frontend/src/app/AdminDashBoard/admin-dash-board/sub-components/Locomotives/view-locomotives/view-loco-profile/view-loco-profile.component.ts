@@ -1,3 +1,4 @@
+import { ScheduleService } from 'src/app/service/schedule.service';
 import { ViewportScroller } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
@@ -45,25 +46,29 @@ export class ViewLocoProfileComponent implements OnInit {
   endMileDate: any;
   note: any;
   imageSt: any;
+  locoNumberNextSchedule: any;
 
 
-   pageYoffset = 0;
+
+  pageYoffset = 0;
   @HostListener('window:scroll', ['$event']) onScroll(event){
     this.pageYoffset = window.pageYOffset;
   }
 
 
-  constructor(private scroll: ViewportScroller,private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService, private router: Router) { }
+  constructor(private scroll: ViewportScroller,private formBuilder: FormBuilder,
+     private route: ActivatedRoute, private locomotiveService: LocomotiveService, private router: Router, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
 
     this.id = (this.route.snapshot.paramMap.get('id'));
     this.viewLocoGroup = this.formBuilder.group({})
-    console.log(this.id);
+
     this.locomotiveService.getOneLoco(this.id).pipe(
       map(res=>{
         const _loco = res[0];
         this.locoNumber = res[0].locoNumber;
+        this.locoNumberNextSchedule = res[0].locoNumber;
         this.locoCategory = res[0].locoCatId;
         this.locoPower = res[0].locoPower;
         this.locoMileage = res[0].locoMileage;
@@ -78,7 +83,7 @@ export class ViewLocoProfileComponent implements OnInit {
         this.dataSource2 = res[0].locoFluids;
         this.note = res[0].locoNote;
         this.imageSt = res[0].image;
-        console.log(this.locoNumber);
+
         this.dataSource = this.motorArray;
         return _loco;
       }),
@@ -87,20 +92,15 @@ export class ViewLocoProfileComponent implements OnInit {
 
     ).subscribe(
       final=>{
-        console.log('Schedule');
-        console.log(final);
+
         this.dataSource3 = final;
-        console.log(this.dataSource3)
+
+          this.viewNextSchedules();
+
       }
     )
 
-    // this.locomotiveService.getOneLoco(this.id).pipe(first())
-    //   .subscribe(
-    //     res=>{
 
-    //       console.log(res);
-    //     }
-    //   )
   }
 
     scrollToTop(){
@@ -110,6 +110,15 @@ export class ViewLocoProfileComponent implements OnInit {
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/adminDashboard/viewSchedule', id]);
+  }
+
+  viewNextSchedules(){
+    console.log(this.locoNumberNextSchedule)
+    this.scheduleService.getAllNextSchedules(this.locoNumberNextSchedule).subscribe(
+      res=>{
+        console.log(res)
+      }
+    )
   }
 
 }

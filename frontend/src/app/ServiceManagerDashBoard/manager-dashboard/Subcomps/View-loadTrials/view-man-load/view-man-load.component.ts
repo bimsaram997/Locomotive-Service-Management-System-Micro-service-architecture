@@ -23,11 +23,18 @@ export class ViewManLoadComponent implements OnInit {
   constructor(private loadService: LoadTrialService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getLoadTrial();
+    this.getLoadTrialAssigned();
   }
 
-  private getLoadTrial(){
-    this.loadService.getAllLoadTrial().subscribe(resp=>{
+  private getLoadTrialAssigned(){
+
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+      const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+    this.loadService.getLoadTrialAssigned(object).subscribe(resp=>{
       this.loadArray = resp;
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
       setTimeout(()=>{
@@ -49,13 +56,13 @@ export class ViewManLoadComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
-    
+
   }
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
   }
   viewLoad(id: string){
