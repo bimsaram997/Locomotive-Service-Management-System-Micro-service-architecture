@@ -65,8 +65,8 @@ export class UserDashContentComponent implements OnInit {
                           let eventObject = {
                             title: `${(sub.loadNo ==undefined)?sub.scheduleNo:sub.loadNo}`,
                             id: sub._id,
-                            start: moment(sub.completedDate).format("YYYY-MM-DD"),
-                            end:moment(sub.scheduleDate).format("YYYY-MM-DD"),
+                            start:`${moment(sub.completedDate?sub.completedDate: sub.loadDate ).format("YYYY-MM-DD")}` ,
+                            //end:moment(sub.scheduleDate).format("YYYY-MM-DD"),
                             color: (sub.items == undefined)?"blue":"gold",
 
                           };
@@ -74,6 +74,7 @@ export class UserDashContentComponent implements OnInit {
                         }
                       }
                   }
+                  console.log(this.calanderArray)
             }
       )
       setTimeout(() => {

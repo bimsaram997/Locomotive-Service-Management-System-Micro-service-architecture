@@ -8,7 +8,7 @@ const client = new twilio(accountSid, authToken);
 const basicAuth = require('express-basic-auth');
 const ProgressDTO = require('../model/ProgressDTO');
 const nodemailer = require('nodemailer');
-const LoadTrailDTO  = require('../model/LoadTrialDTO');
+const LoadTrailDTO = require('../model/LoadTrialDTO');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -28,30 +28,37 @@ const getAllSchedules = (req, resp) => {
 }
 
 const getAllScheduleAssigned = async(req, resp) => {
-	let returnArray = [];
+    let returnArray = [];
 
-	if(req.query.type == 'calender'){
-		if (req.query.userRole == 'Supervisor') {
-			var _findSche = await ScheduleSchema.find({ supervisorNic: req.query.userNic })
-			if(_findSche.length > 0 ){
-				returnArray.push(_findSche);
-	
-			}
-			var _findLoadTrail = await LoadTrailDTO.find({ supervisorNic: req.query.userNic })
-			if(_findLoadTrail.length > 0 ){
-				returnArray.push(_findLoadTrail);
-	
-			}
-			if(returnArray.length == 2){
-				resp.status(200).json(returnArray);
-			}else{
-	
-			}
-	}
-    
-}else{
-	
-}
+    if (req.query.type == 'calender') {
+        if (req.query.userRole == 'Supervisor') {
+            var _findSche = await ScheduleSchema.find({ supervisorNic: req.query.userNic })
+            if (_findSche.length > 0) {
+                returnArray.push(_findSche);
+
+            }
+            var _findLoadTrail = await LoadTrailDTO.find({ supervisorNic: req.query.userNic })
+            if (_findLoadTrail.length > 0) {
+                returnArray.push(_findLoadTrail);
+
+            }
+            if (returnArray.length == 2) {
+                resp.status(200).json(returnArray);
+            } else {
+
+            }
+        }
+
+    } else {
+        if (req.query.userRole == 'Supervisor') {
+            await ScheduleSchema.find({ supervisorNic: req.query.userNic }).then(result => {
+                resp.status(200).json(result);
+                //console.log(result);
+            }).catch(error => {
+                resp.status(500).json(result)
+            });
+        }
+    }
 
 }
 const getAllCompSchedule = (req, resp) => { //get completed schedule

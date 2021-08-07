@@ -50,7 +50,7 @@ export class AddLoadTrialComponent implements OnInit {
     private locomotiveService: LocomotiveService) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 0, 7, -32);
-    this.maxDate = new Date(currentYear + 0, 6, 31);
+    this.maxDate = new Date(currentYear + 1, 6, 31);
   }
 
   ngOnInit(): void {
