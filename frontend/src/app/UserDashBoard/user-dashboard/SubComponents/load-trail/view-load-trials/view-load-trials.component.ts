@@ -35,18 +35,31 @@ export class ViewLoadTrialsComponent implements OnInit {
 
   }
 
-  private getLoadTrialAssigned(){
+
+  // me
+  public onchangeSelection(type){
+    if(type != 'all'){
+
+
+
+      return
+    }
+    this.getLoadTrialAssigned();
+
+  }
+
+  private getLoadTrialAssigned(type = false){
 
     const values =  JSON.parse( localStorage.getItem('currentUser'));
       const object  = {
       userNic:values.userNic,
-      userRole:values.userRole
-
+      userRole:values.userRole,
     }
-
     this.loadService.getLoadTrialAssigned(object).subscribe(resp=>{
       this.loadArray = resp;
       console.log(this.loadArray)
+      // this.loadArray.length = 0;
+      // this.loadArray = aluthres;
       this.dataSource =  new MatTableDataSource<any>(this.loadArray);
       setTimeout(()=>{
         this.dataSource.paginator = this.paginator;

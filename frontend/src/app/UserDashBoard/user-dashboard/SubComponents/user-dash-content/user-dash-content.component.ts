@@ -52,22 +52,26 @@ export class UserDashContentComponent implements OnInit {
     const value =  JSON.parse( localStorage.getItem('currentUser'));
     const object  = {
       userNic:value.userNic,
-      userRole:value.userRole
+      userRole:value.userRole,
+      type:'calender'
     }
     this.schedulesService.getAllScheduleAssigned(object).subscribe(
             res=>{
                       console.log(res)
                   if(res && res.length>0){
                       for(const param of res){
-                          let eventObject = {
-                              title: `${param.scheduleNo}`,
-                              id: param._id,
-                              start: moment(param.completedDate).format("YYYY-MM-DD"),
-                              end:moment(param.scheduleDate).format("YYYY-MM-DD"),
-                              color: "blue",
 
-                            };
-                            this.calanderArray.push(eventObject)
+                        for(const sub of param){
+                          let eventObject = {
+                            title: `${(sub.loadNo ==undefined)?sub.scheduleNo:sub.loadNo}`,
+                            id: sub._id,
+                            start: moment(sub.completedDate).format("YYYY-MM-DD"),
+                            end:moment(sub.scheduleDate).format("YYYY-MM-DD"),
+                            color: (sub.items == undefined)?"blue":"gold",
+
+                          };
+                          this.calanderArray.push(eventObject)
+                        }
                       }
                   }
             }
