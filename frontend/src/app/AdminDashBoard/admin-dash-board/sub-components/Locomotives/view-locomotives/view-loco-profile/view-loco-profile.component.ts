@@ -25,12 +25,14 @@ export class ViewLocoProfileComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Motor Part Name', 'Condition'];
   displayedColumns2: string[] = ['No', 'Fluids', 'Level'];
   displayedColumns3: string[] = ['Schedule No.', 'Supervisor Name', 'Report No.', 'Progress', '#'];
+  displayedColumns5: string[] = ['Next Schedule No.', 'Loco Category', 'Loco Number', 'Date', 'Status'];
 
   dataSource: any[] = [];
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[]=[];
   dataSource4: any[]=[];
+  dataSource5: any[]=[];
   id: any;
   panelOpenState = false;
   motorArray: any[] = [];
@@ -47,6 +49,7 @@ export class ViewLocoProfileComponent implements OnInit {
   note: any;
   imageSt: any;
   locoNumberNextSchedule: any;
+  isShowNextSchedule: boolean = false;
 
 
 
@@ -116,9 +119,24 @@ export class ViewLocoProfileComponent implements OnInit {
     console.log(this.locoNumberNextSchedule)
     this.scheduleService.getAllNextSchedules(this.locoNumberNextSchedule).subscribe(
       res=>{
-        console.log(res)
+        console.log(res);
+        this.dataSource5  = res;
+        if(this.dataSource5.length>0){
+          this.isShowNextSchedule = true;
+        }
+
       }
     )
+  }
+
+    statusBinder(nxtSchStatus){
+    if (nxtSchStatus === 0){
+      return 'hourglass_top';
+    }else if (nxtSchStatus === 1){
+      return 'clear';
+    }else if (nxtSchStatus === 2){
+      return 'assignment';
+    }
   }
 
 }

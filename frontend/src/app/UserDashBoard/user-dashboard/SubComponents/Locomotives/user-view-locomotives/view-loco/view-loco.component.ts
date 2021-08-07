@@ -1,3 +1,4 @@
+import { ScheduleService } from 'src/app/service/schedule.service';
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import LocoDTO from "../../../../../../dto/LocoDTO";
@@ -20,10 +21,12 @@ export class ViewLocoComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Motor Part Name', 'Condition'];
   displayedColumns2: string[] = ['No', 'Fluids', 'Level'];
   displayedColumns3: string[] = ['Schedule No.', 'Supervisor Name', 'Report No.', 'Progress', '#'];
+  displayedColumns5: string[] = ['Next Schedule No.', 'Loco Category', 'Loco Number', 'Date', 'Status'];
   dataSource: any[] = [];
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[]=[];
+    dataSource5: any[]=[];
   id: any;
   panelOpenState = false;
   motorArray: any[] = [];
@@ -40,6 +43,8 @@ export class ViewLocoComponent implements OnInit {
   imageSt: any;
   finalMileage: any;
   endMileDate: any;
+  locoNumberNextSchedule: any;
+  isShowNextSchedule: boolean = false;
 
 
    pageYoffset = 0;
@@ -48,7 +53,9 @@ export class ViewLocoComponent implements OnInit {
     this.pageYoffset = window.pageYOffset;
   }
 
-  constructor(private scroll: ViewportScroller,private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute, private locomotiveService: LocomotiveService) { }
+  constructor(private scroll: ViewportScroller,private router: Router, private formBuilder: FormBuilder,
+    private route: ActivatedRoute, private locomotiveService: LocomotiveService,
+    private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -58,6 +65,7 @@ export class ViewLocoComponent implements OnInit {
       map(res=>{
         const _loco = res[0];
         this.locoNumber = res[0].locoNumber;
+        this.locoNumberNextSchedule = res[0].locoNumber;
         this.locoCategory = res[0].locoCatId;
         this.locoPower = res[0].locoPower;
         this.locoMileage = res[0].locoMileage;
@@ -81,10 +89,9 @@ export class ViewLocoComponent implements OnInit {
 
     ).subscribe(
       final=>{
-        console.log('Schedule');
-        console.log(final);
         this.dataSource3 = final;
-        console.log(this.dataSource3)
+          this.viewNextSchedules();
+
       }
     )
 
@@ -99,6 +106,29 @@ scrollToTop(){
     this.router.navigate(['/userDashboard/viewSchedule', id]);
   }
 
+  viewNextSchedules(){
+    console.log(this.locoNumberNextSchedule)
+    this.scheduleService.getAllNextSchedules(this.locoNumberNextSchedule).subscribe(
+      res=>{
+        console.log(res);
+        this.dataSource5  = res;
+        if(this.dataSource5.length>0){
+          this.isShowNextSchedule = true;
+        }
+
+      }
+    )
+  }
+
+    statusBinder(nxtSchStatus){
+    if (nxtSchStatus === 0){
+      return 'hourglass_top';
+    }else if (nxtSchStatus === 1){
+      return 'clear';
+    }else if (nxtSchStatus === 2){
+      return 'assignment';
+    }
+  }
 
 
 }

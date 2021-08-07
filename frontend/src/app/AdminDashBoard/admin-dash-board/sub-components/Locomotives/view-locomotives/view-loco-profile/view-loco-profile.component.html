@@ -266,6 +266,51 @@
                     </mat-expansion-panel>
                 </mat-accordion>
                 <br>
+                <ng-container *ngIf="isShowNextSchedule">
+                    <h2>Next Schedule Info</h2>
+                    <mat-accordion>
+
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    View Fluid Levels
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    Currently {{panelOpenState ? 'open' : 'closed'}}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <table mat-table [dataSource]="dataSource5" class="mat-elevation-z8">
+
+                                <ng-container matColumnDef="Next Schedule No.">
+                                    <th mat-header-cell *matHeaderCellDef> Next Schedule No.</th>
+                                    <td mat-cell *matCellDef="let elemen; let i = index">{{elemen.nxtSchId}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="Loco Category">
+                                    <th mat-header-cell *matHeaderCellDef> Loco Category </th>
+                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoCatId}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Loco Number">
+                                    <th mat-header-cell *matHeaderCellDef> Loco Number</th>
+                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoNumber}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Date">
+                                    <th mat-header-cell *matHeaderCellDef> Date</th>
+                                    <td mat-cell *matCellDef="let elemen"> {{elemen.date}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Status">
+                                    <th mat-header-cell *matHeaderCellDef> Status</th>
+                                    <td mat-cell *matCellDef="let elemen" [ngStyle]="{'color': (elemen.nxtSchStatus == 0)?'#f7ca18':(elemen.nxtSchStatus == 1)?'red':(elemen.nxtSchStatus==2)?'green':'blue'}">
+                                        <span class="material-icons" matTooltip="{{elemen.nxtSchReason}}">{{statusBinder(elemen.nxtSchStatus)}}</span> </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
+                            </table>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </ng-container>
+
 
             </div>
             <!-- / project-info-box -->
