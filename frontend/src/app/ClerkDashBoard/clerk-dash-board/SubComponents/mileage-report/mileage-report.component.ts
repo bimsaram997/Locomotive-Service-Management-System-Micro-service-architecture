@@ -1,3 +1,5 @@
+import { ScheduleService } from 'src/app/service/schedule.service';
+import { LoadTrialService } from './../../../../service/load-trial.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -6,6 +8,8 @@ import {AccessService} from "../../../../service/access.service";
 import {first} from "rxjs/operators";
 import swal from "sweetalert";
 import {LocomotiveService} from "../../../../service/locomotive.service";
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mileage-report',
@@ -16,8 +20,11 @@ export class MileageReportComponent implements OnInit {
   managerList: UserDTO[] = [];
   locoStatus: string[] = ['In', 'Out'];
   myControl = new FormControl();
+  myControl1 = new FormControl();
   loading =  false;
+  currentDate: any;
   locoList:any[]= [];
+  nxtScheduleList: any[]  =[];
   MileageGroup: FormGroup;
   spinner = false;
   locoCount = false;
@@ -26,9 +33,11 @@ export class MileageReportComponent implements OnInit {
   mileageGap: number;
   name:any;
   id:any;
+  isEmergency: boolean = false;
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   constructor(private accessService: AccessService, private formBuilder: FormBuilder,
-              private locomotiveService: LocomotiveService, private router: Router,private route: ActivatedRoute) {
+              private locomotiveService: LocomotiveService, private router: Router,private route: ActivatedRoute,
+              private scheduleService: ScheduleService,   private toastr: ToastrService,) {
 
               }
 
@@ -39,14 +48,16 @@ export class MileageReportComponent implements OnInit {
       mLocoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       mLocoMileage: ['', [Validators.required, Validators.minLength(5)]],
       finalMileage: [''],
+      nxtScheduleId: [''],
       mileageDate: ['', [Validators.required]],
       locoStatus: ['', Validators.required],
       managerNic: ['', [Validators.required]],
+      emergencyCheck: ['', [Validators.required]],
       managerName: ['', [Validators.required]],
       mileageNote: ['', [Validators.required, Validators.maxLength(1000)]],
       status: [1],
       reason: ['Draft'],
-      gap: [''],
+
       clerkEmail: [''],
       managerEmail:['']
 
@@ -54,6 +65,7 @@ export class MileageReportComponent implements OnInit {
     this.loadMangerEmail();
     this.loadLocoNum();
     this.defaultMethod();
+    this.getAllNextSchedulesNotFilter();
     console.log(this.mileageGap)
     const values =  JSON.parse( localStorage.getItem('currentUser'));
     this.name = values.userEmail
@@ -80,10 +92,10 @@ export class MileageReportComponent implements OnInit {
 
         this.finalMile = res[0].endMileage;
         this.currentMile = res[0].locoMileage;
-        this.MileageGroup.controls['gap'].setValue(this.finalMile - this.currentMile);
+       // this.MileageGroup.controls['gap'].setValue(this.finalMile - this.currentMile);
        // this.mileageGap =
         //this.MileageGroup.controls['gap'].setValue(this.mileageGap)
-        this.calculateMileageGap(this.finalMile, this.currentMile);
+        //  this.calculateMileageGap(this.finalMile, this.currentMile);
 
         }
       )
@@ -158,12 +170,52 @@ export class MileageReportComponent implements OnInit {
       .subscribe(
         res=>{
           this.MileageGroup.controls['managerNic'].setValue(res[0].userNic);
-this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
+          this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
           console.log(res);
         }
       )
   }
 
+  onChangeEmergency(value: string){
+    console.log(this.getFM.emergencyCheck.value);
+    const isCheck = this.getFM.emergencyCheck.value;
+    if(isCheck === "No"){
+      this.isEmergency = true;
+
+    }else{
+      this.isEmergency = false;
+
+    }
+  }
+
+  sendOneNextSchedule(value: string){
+    const nxtScheduleId = this.getFM.nxtScheduleId.value;
+    this.currentDate =  new Date();
+
+    this.scheduleService.sendOneNextSchedule(nxtScheduleId).subscribe(
+      res=>{
+        console.log(moment(this.currentDate).format("YYYY-MM-DD"));
+        const cDate = moment(this.currentDate).format("YYYY-MM-DD");
+        const nxtDate = res[0].date
+
+        if(nxtDate === cDate){
+           this.MileageGroup.controls['nxtScheduleId'].setValue(res[0].nxtSchId);
+          this.MileageGroup.controls['mLocoCatId'].setValue(res[0].locoCatId);
+          this.MileageGroup.controls['mLocoNumber'].setValue(res[0].locoNumber);
+          this.MileageGroup.controls['mLocoMileage'].setValue(res[0].startMileage);
+          this.MileageGroup.controls['finalMileage'].setValue(res[0].endMileage);
+        }else{
+          console.log('sdsd');
+          this.isEmergency  = false
+          this.onError('Current Date and next schedule is not match.Please Add Emergency Schedule!');
+          this.MileageGroup.controls['emergencyCheck'].setValue('');
+           this.MileageGroup.controls['nxtScheduleId'].setValue('');``
+
+        }
+
+      }
+    )
+  }
   loadLocoNum(){
     this.loading = true;
     this.locomotiveService.getLocoReport().subscribe(result => {
@@ -182,6 +234,7 @@ this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
         console.log(result);
       }else {
         console.log('failed')
+
       }
     })
   }
@@ -202,6 +255,18 @@ this.MileageGroup.controls['managerEmail'].setValue(res[0].userEmail);
         }
   //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
 
+  }
+
+  getAllNextSchedulesNotFilter(){
+    this.scheduleService.getAllNextSchedulesNotFilter().subscribe(
+      res=>{
+       this.nxtScheduleList = res;
+      }
+    )
+  }
+
+   onError(message: string){
+    this.toastr.info(message, 'Success');
   }
 
 }

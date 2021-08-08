@@ -47,6 +47,8 @@ const getAllScheduleAssigned = async(req, resp) => {
             } else {
 
             }
+        } else {
+
         }
 
     } else {
@@ -712,6 +714,27 @@ const getAllNextSchedules = async(req, res, next) => { //get completed schedule
     });
 }
 
+const getAllNextSchedulesNotFilter = async(req, resp, next) => { //get completed schedul
+    await NextScheduleDTO.find({ nxtSchStatus: 0 }).then(result => {
+        resp.status(200).json(result);
+    }).catch(error => {
+        resp.status(500).json(error);
+    })
+}
+
+const sendOneNextSchedule = async(req, res, next) => {
+    console.log(req.params.nxtSchId);
+    await NextScheduleDTO.find({
+        nxtSchId: req.params.nxtSchId
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+}
+
 
 
 
@@ -738,6 +761,8 @@ module.exports = {
 
     //next Schedule
     saveNextSchedule,
-    getAllNextSchedules
+    getAllNextSchedules,
+    getAllNextSchedulesNotFilter,
+    sendOneNextSchedule
 
 }

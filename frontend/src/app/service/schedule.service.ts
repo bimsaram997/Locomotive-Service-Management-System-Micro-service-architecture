@@ -120,4 +120,12 @@ export class ScheduleService {
     return this.http.get( this.myUrl + `scheduleRoute/getAllNextSchedules/${locoNumber}`)
   }
 
+  public getAllNextSchedulesNotFilter(): Observable<any> {
+    return this.http.get(this.myUrl + 'scheduleRoute/getAllNextSchedulesNotFilter');
+  }
+
+  public sendOneNextSchedule(nxtSchId): Observable<any>{
+    return this.http.get<any>(this.myUrl + `scheduleRoute/sendOneNextSchedule/${nxtSchId}`);
+  }
+
 }

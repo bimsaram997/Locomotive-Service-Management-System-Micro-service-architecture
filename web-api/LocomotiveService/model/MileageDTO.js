@@ -20,6 +20,14 @@ const MileageSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
+    nxtScheduleId: {
+        type: String,
+        required: false
+    },
+    emergencyCheck: {
+        type: String,
+        required: false
+    },
     gap: {
         type: Number,
         required: false

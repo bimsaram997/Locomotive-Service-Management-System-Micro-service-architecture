@@ -33,6 +33,8 @@ export class AddCommentLoadComponent implements OnInit {
   formattedDate: string;
   commentStatus = 0;
   commentReason = '';
+  startMileage:any;
+  endMileage: any
   constructor(private router: Router,private scheduleService:ScheduleService, private locomotiveService:LocomotiveService, private route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data: any,
   private formBuilder: FormBuilder, private loadService: LoadTrialService) {
 
@@ -76,6 +78,9 @@ export class AddCommentLoadComponent implements OnInit {
 
         this.nextSchedule.controls['locoCatId'].setValue(res[0].locoCatId);
         this.nextSchedule.controls['locoNumber'].setValue(res[0].locoNumber);
+        this.nextSchedule.controls['startMileage'].setValue(res[0].startMileage);
+        this.nextSchedule.controls['endMileage'].setValue(res[0].endMileage);
+
       }
     })
 
@@ -85,7 +90,9 @@ export class AddCommentLoadComponent implements OnInit {
       locoCatId:[''],
       date:[''],
       nxtSchStatus: [0],
-      nxtSchReason: ['Draft']
+      nxtSchReason: ['Draft'],
+      startMileage: [],
+      endMileage: []
     })
 
     this.defaultMethod();

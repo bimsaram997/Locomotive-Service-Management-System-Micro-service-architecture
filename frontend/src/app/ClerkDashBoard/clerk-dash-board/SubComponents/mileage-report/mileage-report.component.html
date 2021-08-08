@@ -25,42 +25,68 @@
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
+                            <mat-label>Emergency Schedule?</mat-label>
+                            <mat-select formControlName="emergencyCheck" required (selectionChange)="onChangeEmergency($event)">
+                                <mat-option value="Yes">
+                                    Yes
+                                </mat-option>
+                                <mat-option value="No">
+                                    No
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill" *ngIf="isEmergency">
+                            <mat-label>next Schedule Id</mat-label>
+                            <mat-select formControlName="nxtScheduleId" required (selectionChange)="sendOneNextSchedule($event)">
+                                <mat-option *ngFor="let temIds of nxtScheduleList" value="{{temIds.nxtSchId}}">
+                                    {{temIds.nxtSchId}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </div>
+                    <div class="w-100">
+                    </div>
+
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Locomotive Numbers</mat-label>
+                            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl1" formControlName="mLocoNumber" [matAutocomplete]="auto1" [readonly]="isEmergency">
+
+                            <mat-autocomplete #auto1="matAutocomplete">
+                                <mat-option *ngFor="let opt of locoList " [value]="opt">
+                                    {{opt.locoNumber}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <!-- <mat-select formControlName="mLocoNumber" required (selectionChange)="onChangeSelect($event)">
+                                <mat-option *ngFor="let temIds of locoList" value="{{temIds.locoNumber}}">
+                                    {{temIds.locoNumber}}
+                                </mat-option>
+                            </mat-select> -->
+                        </mat-form-field>
+                        <mat-hint style="color: red; font-size: 12px;" *ngIf="locoCount"><b>*There are not available Locomotives</b></mat-hint>
+                    </div>
+
+
+                    <div class="col">
+                        <mat-form-field appearance="fill">
                             <mat-label>Locomotive Category</mat-label>
-                            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto">
+                            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto2" [readonly]="isEmergency">
                             <div *ngIf="MileageGroup.controls['mLocoCatId'].invalid && (MileageGroup.controls['mLocoCatId'].dirty || MileageGroup.controls['mLocoCatId'].touched)" class="error">
                                 <div *ngIf="MileageGroup.controls['mLocoCatId'].errors.required">
                                     Required.
                                 </div>
                             </div>
-                            <mat-autocomplete #auto="matAutocomplete">
+                            <mat-autocomplete #auto2="matAutocomplete">
                                 <mat-option *ngFor="let option of options " [value]="option">
                                     {{option}}
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>
 
-                    </div>
-                    <div class="col pr-0">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Locomotive Numbers</mat-label>
-                            <mat-select formControlName="mLocoNumber" required (selectionChange)="onChangeSelect($event)">
-                                <mat-option *ngFor="let temIds of locoList" value="{{temIds.locoNumber}}">
-                                    {{temIds.locoNumber}}
-                                </mat-option>
-                            </mat-select>
-                            <div *ngIf="MileageGroup.controls['mLocoNumber'].invalid && (MileageGroup.controls['mLocoNumber'].dirty || MileageGroup.controls['mLocoNumber'].touched)" class="error">
-                                <div *ngIf="MileageGroup.controls['mLocoNumber'].errors.required">
-                                    Number is Required.
-                                </div>
-                                <div *ngIf="MileageGroup.controls['mLocoNumber'].errors.pattern">
-                                    Enter only numbers
-                                </div>
-                            </div>
-                        </mat-form-field>
-                        <mat-hint style="color: red; font-size: 12px;" *ngIf="locoCount"><b>*There are not available Locomotives</b></mat-hint>
-                    </div>
-
-                    <div class="w-100">
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
@@ -74,6 +100,8 @@
                             </div>
                         </mat-form-field>
                     </div>
+                    <div class="w-100">
+                    </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Mileage After last Load Trial (Km)</mat-label>
@@ -81,16 +109,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="col pr-0">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Mileage Difference (km)</mat-label>
-                            <input matInput formControlName="gap" readonly>
-                            <mat-hint>Mileage difference between Mileage of Last Load Trial and Current Mileage</mat-hint>
-                        </mat-form-field>
 
-                    </div>
-                    <div class="w-100">
-                    </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Status</mat-label>
@@ -119,7 +138,7 @@
                             </div>
                         </mat-form-field>
                     </div>
-                    <div class="col pr-0"></div>
+
                     <div class="w-100">
                         <h3 class="sub-headers">Responsible</h3>
                         <hr class="line">

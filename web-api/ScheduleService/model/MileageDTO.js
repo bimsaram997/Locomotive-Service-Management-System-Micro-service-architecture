@@ -1,42 +1,54 @@
 const mongoose = require('mongoose');
 const MileageSchema = new mongoose.Schema({
-    mReportNumber:{
+    mReportNumber: {
         type: Number,
         required: true
     },
-    mLocoCatId:{
+    mLocoCatId: {
         type: String,
         required: true,
     },
-    mLocoNumber:{
+    mLocoNumber: {
         type: Number,
         required: true
     },
-    mLocoMileage:{
+    finalMileage: {
+        type: Number,
+        required: false
+    },
+    mLocoMileage: {
         type: Number,
         required: true
     },
-    mileageDate:{
+    nxtScheduleId: {
+        type: String,
+        required: false
+    },
+    emergencyCheck: {
+        type: String,
+        required: false
+    },
+    mileageDate: {
         type: String,
         required: true
     },
-    userNic:{
+    userNic: {
         type: String,
         required: true,
     },
-    userEmail:{
+    userEmail: {
         type: String,
         required: true,
     },
-    mileageNote:{
+    mileageNote: {
         type: String,
         required: true,
     },
-    status:{
+    status: {
         type: Number,
         required: true,
     },
-    reason:{
+    reason: {
         type: String,
         required: false
     }

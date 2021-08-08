@@ -25,5 +25,6 @@ router.post('/scheduleEmail', ScheduleController.scheduleEmail);
 //next Schedule
 router.post('/saveNextSchedule', ScheduleController.saveNextSchedule);
 router.get('/getAllNextSchedules/:locoNumberNextSchedule', ScheduleController.getAllNextSchedules);
-
+router.get('/getAllNextSchedulesNotFilter', ScheduleController.getAllNextSchedulesNotFilter);
+router.get('/sendOneNextSchedule/:nxtSchId', ScheduleController.sendOneNextSchedule);
 module.exports = router

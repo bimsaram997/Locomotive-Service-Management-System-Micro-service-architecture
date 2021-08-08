@@ -24,6 +24,14 @@ const NextScheduleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    startMileage: {
+        type: Number,
+        required: false
+    },
+    endMileage: {
+        type: Number,
+        required: false
+    },
 })
 
 module.exports = mongoose.model('NextSchedule', NextScheduleSchema);
