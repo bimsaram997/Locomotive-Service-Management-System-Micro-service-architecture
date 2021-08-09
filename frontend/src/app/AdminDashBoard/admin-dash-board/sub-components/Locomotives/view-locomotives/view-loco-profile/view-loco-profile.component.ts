@@ -133,9 +133,9 @@ export class ViewLocoProfileComponent implements OnInit {
     if (nxtSchStatus === 0){
       return 'hourglass_top';
     }else if (nxtSchStatus === 1){
-      return 'clear';
-    }else if (nxtSchStatus === 2){
       return 'assignment';
+    }else if (nxtSchStatus === 2){
+      return 'clear';
     }
   }
 

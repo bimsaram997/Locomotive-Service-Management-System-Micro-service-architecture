@@ -159,12 +159,9 @@ const changeStatusComment = async(req, res, next) => { //change status of the co
                     res.status(200).json(result)
 
                 }
-
             })
-
         }
     }
-
 }
 
 const getResolvedComments = async(req, res, next) => {

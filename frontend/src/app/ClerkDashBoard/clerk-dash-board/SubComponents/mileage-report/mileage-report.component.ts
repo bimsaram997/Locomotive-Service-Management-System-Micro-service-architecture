@@ -34,6 +34,8 @@ export class MileageReportComponent implements OnInit {
   name:any;
   id:any;
   isEmergency: boolean = false;
+  isEmpty: boolean = false;
+  isLoco: boolean = true;
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   constructor(private accessService: AccessService, private formBuilder: FormBuilder,
               private locomotiveService: LocomotiveService, private router: Router,private route: ActivatedRoute,
@@ -111,11 +113,13 @@ export class MileageReportComponent implements OnInit {
     console.log(this.MileageGroup.value);
     this.sendMileEmail(this.MileageGroup.value)
     this.spinner = true;
-     this.locomotiveService.saveMileage(this.MileageGroup.value)
+    const checkEmergency =  this.MileageGroup.controls['emergencyCheck'].value;
+    if(checkEmergency === 'No'){
+      this.locomotiveService.saveMileage(this.MileageGroup.value)
        .pipe(first()).subscribe(
        res => {
-         console.log(res)
          if (res.isSaved) {
+           this.changeStatusNextSchedule(this.MileageGroup.value)
            swal({
              title: 'Record Saved!',
              text: 'Please Click OK',
@@ -147,6 +151,46 @@ export class MileageReportComponent implements OnInit {
          console.log('dss')
        }
      )
+    }else{
+      this.locomotiveService.saveMileage(this.MileageGroup.value)
+       .pipe(first()).subscribe(
+       res => {
+
+         if (res.isSaved) {
+           swal({
+             title: 'Record Saved!',
+             text: 'Please Click OK',
+             icon: 'success',
+           });
+           setTimeout(() => {
+             this.MileageGroup.reset();
+             //this.router.navigate(['/clerkDashBoard/viewMileages']);
+             this.spinner = false
+           }, 3000);
+
+       } else {
+           swal({
+             title: 'Record already Exits',
+             text: 'Please Click OK',
+             icon: 'error',
+           });
+           setTimeout(() => {
+            // this.refresh();
+            this.spinner = false
+           }, 3000);
+         }
+       },
+
+       error => {
+         console.log(error)
+       },
+       () => {
+         console.log('dss')
+       }
+     )
+     console.log('dsdsdsdsd');
+    }
+
 
 
 
@@ -181,9 +225,11 @@ export class MileageReportComponent implements OnInit {
     const isCheck = this.getFM.emergencyCheck.value;
     if(isCheck === "No"){
       this.isEmergency = true;
+      this.isLoco = false
 
     }else{
       this.isEmergency = false;
+      this.isLoco = true;
 
     }
   }
@@ -204,13 +250,17 @@ export class MileageReportComponent implements OnInit {
           this.MileageGroup.controls['mLocoNumber'].setValue(res[0].locoNumber);
           this.MileageGroup.controls['mLocoMileage'].setValue(res[0].startMileage);
           this.MileageGroup.controls['finalMileage'].setValue(res[0].endMileage);
+
         }else{
           console.log('sdsd');
           this.isEmergency  = false
+
           this.onError('Current Date and next schedule is not match.Please Add Emergency Schedule!');
           this.MileageGroup.controls['emergencyCheck'].setValue('');
-           this.MileageGroup.controls['nxtScheduleId'].setValue('');``
-
+          this.MileageGroup.controls['nxtScheduleId'].setValue('');
+          this.MileageGroup.controls['mLocoCatId'].setValue('');
+          this.MileageGroup.controls['mLocoNumber'].setValue('');
+          this.MileageGroup.controls['mLocoMileage'].setValue('');
         }
 
       }
@@ -261,6 +311,17 @@ export class MileageReportComponent implements OnInit {
     this.scheduleService.getAllNextSchedulesNotFilter().subscribe(
       res=>{
        this.nxtScheduleList = res;
+       if(this.nxtScheduleList.length ===0){
+          this.isEmpty = true;
+       }
+      }
+    )
+  }
+
+  changeStatusNextSchedule(obj){
+    this.scheduleService.changeStatusNextSchedule(obj).subscribe(
+      res=>{
+        console.log('dsd')
       }
     )
   }

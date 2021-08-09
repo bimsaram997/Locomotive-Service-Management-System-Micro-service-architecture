@@ -723,7 +723,7 @@ const getAllNextSchedulesNotFilter = async(req, resp, next) => { //get completed
 }
 
 const sendOneNextSchedule = async(req, res, next) => {
-    console.log(req.params.nxtSchId);
+
     await NextScheduleDTO.find({
         nxtSchId: req.params.nxtSchId
     }).then(result => {
@@ -735,6 +735,25 @@ const sendOneNextSchedule = async(req, res, next) => {
 
 }
 
+const changeStatusNextSchedule = async(req, res, next) => { //change status of the comment after adding feedbacks by user
+    const _obj = req.body;
+    console.log(_obj);
+    //console.log(_obj.status)
+
+    if (_obj.nxtScheduleId) {
+        console.log(_obj.nxtSchId)
+        await NextScheduleDTO.updateOne({ nxtSchId: _obj.nxtScheduleId }, { $set: { nxtSchStatus: 1, nxtSchReason: "Assigned to Mileage Report" } }, function(err, result) {
+
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+        })
+    }
+
+}
 
 
 
@@ -763,6 +782,7 @@ module.exports = {
     saveNextSchedule,
     getAllNextSchedules,
     getAllNextSchedulesNotFilter,
-    sendOneNextSchedule
+    sendOneNextSchedule,
+    changeStatusNextSchedule
 
 }

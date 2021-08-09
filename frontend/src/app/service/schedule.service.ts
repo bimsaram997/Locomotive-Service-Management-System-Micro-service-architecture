@@ -128,4 +128,8 @@ export class ScheduleService {
     return this.http.get<any>(this.myUrl + `scheduleRoute/sendOneNextSchedule/${nxtSchId}`);
   }
 
+  public  changeStatusNextSchedule(data): Observable<any>{
+    return this.http.put(this.myUrl + `scheduleRoute/changeStatusNextSchedule`, data);
+  }
+
 }

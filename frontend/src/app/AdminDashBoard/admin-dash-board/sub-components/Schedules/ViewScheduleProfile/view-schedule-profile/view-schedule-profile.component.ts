@@ -1,16 +1,18 @@
 
 import { ViewportScroller } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { interval } from 'rxjs';
 import { first, map, mergeMap } from 'rxjs/operators';
 import { ScheduleService } from 'src/app/service/schedule.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-view-schedule-profile',
   templateUrl: './view-schedule-profile.component.html',
   styleUrls: ['./view-schedule-profile.component.css']
 })
-export class ViewScheduleProfileComponent implements OnInit {
+export class ViewScheduleProfileComponent implements OnInit,  OnDestroy {
   panelOpenState = false;
   panelOpenState1 = false;
   panelOpenState2 = false;
@@ -62,11 +64,24 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   scheduleProgress: any;
   schReason: any
 
-   pageYoffset = 0;
-
+  pageYoffset = 0;
   @HostListener('window:scroll', ['$event']) onScroll(event){
     this.pageYoffset = window.pageYOffset;
   }
+
+    public dateNow = new Date();
+
+    milliSecondsInASecond = 1000;
+    hoursInADay = 24;
+    minutesInAnHour = 60;
+    SecondsInAMinute  = 60;
+
+    public timeDifference;
+    public secondsToDday;
+    public minutesToDday;
+    public hoursToDday;
+    public daysToDday;
+ private subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private scheduleService: ScheduleService, private scroll: ViewportScroller) { }
 
@@ -79,7 +94,8 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
         this.scheduleNo = res[0].scheduleNo;
           this.mReportNumber = res[0].mReportNumber;
           this.scheduleDate = res[0].scheduleDate;
-          this.completedDate = res[0].completedDate;
+          this.completedDate =    moment.utc(res[0].completedDate).format("MMMM DD YYYY hh:mm:ss");
+
           this.locoCatId = res[0].locoCatId;
           this.locoNumber = res[0].locoNumber;
           this.locoMileage = res[0].locoMileage;
@@ -102,6 +118,8 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
           this.scheduleStatus = res[0].scheduleStatus;
           this.scheduleProgress = res[0].scheduleProgress;
           this.schReason = res[0].schReason;
+
+
         return _schedule;
       }),
       mergeMap(
@@ -115,12 +133,34 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
         console.log(this.dataSource9)
       }
     )
-
+this.subscription = interval(1000)
+           .subscribe(x => { this.getTimeDifference(); });
 
   }
+
   scrollToTop(){
   this.scroll.scrollToPosition([0,0]);
-}
+  }
+
+  private getTimeDifference () {
+
+        let d = this.completedDate
+        console.log(new Date(d).getTime())
+        this.timeDifference = new Date(d).getTime() - new  Date().getTime();
+        this.allocateTimeUnits(this.timeDifference);
+
+
+    }
+
+  private allocateTimeUnits (timeDifference) {
+        this.secondsToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond) % this.SecondsInAMinute);
+        this.minutesToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour) % this.SecondsInAMinute);
+        this.hoursToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute) % this.hoursInADay);
+        this.daysToDday = Math.floor((timeDifference) / (this.milliSecondsInASecond * this.minutesInAnHour * this.SecondsInAMinute * this.hoursInADay));
+  }
+
+
+
   statusBinder(scheduleStatus){
     if (scheduleStatus === 0){
       return 'not_started';
@@ -143,4 +183,8 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
     }
 
   }
+
+   ngOnDestroy() {
+      this.subscription.unsubscribe();
+   }
 }

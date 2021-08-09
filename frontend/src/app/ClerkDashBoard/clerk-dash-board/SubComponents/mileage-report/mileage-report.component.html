@@ -45,27 +45,33 @@
                                     {{temIds.nxtSchId}}
                                 </mat-option>
                             </mat-select>
-
                         </mat-form-field>
+                        <br>
+                        <mat-hint style="color: red; font-size: 12px;" *ngIf="isEmpty && isEmergency"><b>*There are not available schedules</b></mat-hint>
                     </div>
                     <div class="w-100">
                     </div>
 
                     <div class="col pr-0">
-                        <mat-form-field appearance="fill">
+                        <mat-form-field appearance="fill" *ngIf="isEmergency">
                             <mat-label>Locomotive Numbers</mat-label>
                             <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl1" formControlName="mLocoNumber" [matAutocomplete]="auto1" [readonly]="isEmergency">
 
                             <mat-autocomplete #auto1="matAutocomplete">
-                                <mat-option *ngFor="let opt of locoList " [value]="opt">
+                                <mat-option *ngFor="let opt of locoList " [value]="opt.locoNumber" (selectionChange)="onChangeSelect($event.opt.locoNumber)">
                                     {{opt.locoNumber}}
                                 </mat-option>
                             </mat-autocomplete>
-                            <!-- <mat-select formControlName="mLocoNumber" required (selectionChange)="onChangeSelect($event)">
+
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" *ngIf="isLoco">
+                            <mat-label>Locomotive Numbers</mat-label>
+                            <mat-select formControlName="mLocoNumber" required (selectionChange)="onChangeSelect($event)">
                                 <mat-option *ngFor="let temIds of locoList" value="{{temIds.locoNumber}}">
                                     {{temIds.locoNumber}}
                                 </mat-option>
-                            </mat-select> -->
+                            </mat-select>
                         </mat-form-field>
                         <mat-hint style="color: red; font-size: 12px;" *ngIf="locoCount"><b>*There are not available Locomotives</b></mat-hint>
                     </div>
