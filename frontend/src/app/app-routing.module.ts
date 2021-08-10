@@ -125,7 +125,8 @@ const routes: Routes = [
       {path: 'mViewLocomotives', component: MViewLocomotiveComponent },
       {path: 'viewLoco/:id', component: ViewLocoComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
-      {path: 'viewOneMileage/:mReportNumber', component: ViewOneMileageComponent}
+      {path: 'viewOneMileage/:mReportNumber', component: ViewOneMileageComponent},
+       {path: 'viewManSchedule/:id', component: ViewMoreSchedulesComponent},
 
 
     ]}

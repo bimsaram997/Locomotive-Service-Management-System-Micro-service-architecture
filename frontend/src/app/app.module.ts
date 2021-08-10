@@ -93,6 +93,7 @@ import { AppCardsComponent } from './Common/app-cards/app-cards.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { ViewMangerScheduleComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-manger-schedule/view-manger-schedule.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -194,6 +195,8 @@ FullCalendarModule.registerPlugins([
     ViewOneMileageComponent,
 
     AppCardsComponent,
+
+    ViewMangerScheduleComponent,
 
 
 

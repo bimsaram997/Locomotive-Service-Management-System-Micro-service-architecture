@@ -90,7 +90,7 @@ export class UserDashContentComponent implements OnInit {
 
               };
 
-            }, 2500);
+            }, 500);
 
 
   }

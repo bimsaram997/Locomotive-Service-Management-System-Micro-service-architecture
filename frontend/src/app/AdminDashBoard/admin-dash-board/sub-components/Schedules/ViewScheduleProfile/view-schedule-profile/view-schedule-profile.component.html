@@ -3,12 +3,13 @@
         <img src="./assets/images/m9.png" alt="" style="height: 40px; width: 40px;">
         <span class="heading-txt"><span style="color: #1e8bc3;">S</span>CHEDULE PROFILE
         </span>
-        <div class="timer">
+        <div class="timer" *ngIf="isTimer">
             <span id="days"> {{daysToDday}} </span>Day(s)
             <span id="hours"> {{hoursToDday}} </span>Hrs
             <span id="minutes"> {{minutesToDday}} </span>Min
             <span id="seconds"> {{secondsToDday}} </span>S
         </div>
+        <mat-card class="chip" *ngIf="!isTimer">Schedule is lapsed!</mat-card>
     </div>
     <hr>
 
@@ -506,7 +507,5 @@
         </div>
 
     </div>
-    <button mat-fab color="primary" class="float" (click)="scrollToTop()" *ngIf="pageYoffset > 0">
-<i class="fas fa-angle-double-up my-float" style="font-size: 35px;"></i>
-    </button>
+
 </div>

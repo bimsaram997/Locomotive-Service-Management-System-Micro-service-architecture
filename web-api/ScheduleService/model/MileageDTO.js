@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const MileageSchema = new mongoose.Schema({
     mReportNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     mLocoCatId: {
@@ -12,13 +12,13 @@ const MileageSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    finalMileage: {
-        type: Number,
-        required: false
-    },
     mLocoMileage: {
         type: Number,
         required: true
+    },
+    finalMileage: {
+        type: Number,
+        required: false
     },
     nxtScheduleId: {
         type: String,
@@ -28,15 +28,24 @@ const MileageSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    gap: {
+        type: Number,
+        required: false
+    },
+
     mileageDate: {
         type: String,
         required: true
     },
-    userNic: {
+    managerNic: {
         type: String,
         required: true,
     },
-    userEmail: {
+    managerName: {
+        type: String,
+        required: true,
+    },
+    managerEmail: {
         type: String,
         required: true,
     },
@@ -49,6 +58,10 @@ const MileageSchema = new mongoose.Schema({
         required: true,
     },
     reason: {
+        type: String,
+        required: false
+    },
+    clerkEmail: {
         type: String,
         required: false
     }

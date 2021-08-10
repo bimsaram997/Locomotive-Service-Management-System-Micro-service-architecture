@@ -36,14 +36,22 @@ export class ViewManagerSchedulesComponent implements OnInit {
     scrollToTop(){
   this.scroll.scrollToPosition([0,0]);
 }
-  private loadAllSchedule(){
-    this.scheduleService.getAllSchedules().subscribe(resp =>{
-     this.scheduleList = resp;
-     this.dataSource =  new MatTableDataSource<any>(this.scheduleList);
-     setTimeout(() => {
-       this.dataSource.paginator =  this.paginator;
-       this.dataSource.sort = this.sort;
-     })
+private loadAllSchedule(){
+
+    const values =  JSON.parse( localStorage.getItem('currentUser'));
+    const object  = {
+      userNic:values.userNic,
+      userRole:values.userRole
+
+    }
+    console.log(object)
+    this.scheduleService.getAllScheduleAssignedManager(object).subscribe(resp =>{
+      this.scheduleList = resp;
+      this.dataSource =  new MatTableDataSource<any>(this.scheduleList);
+      setTimeout(() => {
+        this.dataSource.paginator =  this.paginator;
+        this.dataSource.sort = this.sort;
+      })
     })
   }
   onSearchClear() {
@@ -98,7 +106,7 @@ export class ViewManagerSchedulesComponent implements OnInit {
   }
   viewSchedule(id: string){
     console.log(id);
-    this.router.navigate(['/managerDashBoard/viewSchedule', id]);
+    this.router.navigate(['/managerDashBoard/viewManSchedule', id]);
   }
   /*
   openEdit(scheduleNo: string) {

@@ -1,4 +1,3 @@
-
 import { ViewportScroller } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -62,7 +61,9 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   specialNote: any;
   scheduleStatus: any;
   scheduleProgress: any;
-  schReason: any
+  schReason: any;
+  isTimer: boolean = true;
+  scheduleObj:any[] =[];
 
   pageYoffset = 0;
   @HostListener('window:scroll', ['$event']) onScroll(event){
@@ -91,6 +92,7 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
     this.scheduleService.sendOneSchedule(this.id).pipe(
       map(res=>{
         const _schedule = res[0];
+        this.scheduleObj = res[0]
         this.scheduleNo = res[0].scheduleNo;
           this.mReportNumber = res[0].mReportNumber;
           this.scheduleDate = res[0].scheduleDate;
@@ -127,14 +129,13 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
 
     ).subscribe(
       final=>{
-        console.log('Schedule');
-        console.log(final);
+
         this.dataSource9 = final;
         console.log(this.dataSource9)
       }
     )
-this.subscription = interval(1000)
-           .subscribe(x => { this.getTimeDifference(); });
+    this.loadSchedule();
+    this.subscription = interval(1000).subscribe(x => { this.getTimeDifference(); });
 
   }
 
@@ -146,8 +147,20 @@ this.subscription = interval(1000)
 
         let d = this.completedDate
         console.log(new Date(d).getTime())
+
         this.timeDifference = new Date(d).getTime() - new  Date().getTime();
-        this.allocateTimeUnits(this.timeDifference);
+        if(this.timeDifference<0){
+
+          this.isTimer = false;
+          return;
+
+        }else if(this.timeDifference === 2){
+this.scheduleLapseEmail(this.scheduleObj)
+        }else{
+
+           this.allocateTimeUnits(this.timeDifference);
+        }
+
 
 
     }
@@ -184,6 +197,29 @@ this.subscription = interval(1000)
 
   }
 
+  loadSchedule(){
+    this.scheduleService.sendOneSchedule(this.id).subscribe(
+      res=>{
+        this.scheduleObj = res;
+        console.log(this.scheduleObj)
+      }
+    )
+  }
+
+  scheduleLapseEmail(obj){
+    this.scheduleService.scheduleLapseEmail(obj).subscribe(
+      result=>{
+      if (result){
+        //this.onSucess('Sent');
+        return
+        console.log(result);
+      }else {
+        console.log('failed')
+
+      }
+      }
+    )
+  }
    ngOnDestroy() {
       this.subscription.unsubscribe();
    }

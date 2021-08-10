@@ -110,6 +110,19 @@ export class ScheduleService {
     return this.http.post(this.myUrl + `scheduleRoute/scheduleEmail`, data);
   }
 
+  public scheduleLapseEmail(data): Observable<any>{
+    return this.http.post(this.myUrl + `scheduleRoute/scheduleLapseEmail`, data);
+  }
+
+  public getAllScheduleCalendar(): Observable<any> {
+    return this.http.get(this.myUrl + 'scheduleRoute/getAllScheduleCalendar');
+  }
+
+  public getAllScheduleAssignedManager(object):Observable<any> {
+    return this.http.get( this.myUrl + `scheduleRoute/getAllScheduleAssignedManager/`, {params:object})
+  }
+
+
   //nextSchedules
 
   public saveNextSchedule(obj): Observable<any>{

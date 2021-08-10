@@ -40,7 +40,7 @@ const getLoadTrialAssigned = async(req, resp, next) => {
     //     resp.status(500).json(result)
     // })
 
-    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk') {
+    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Clerk') {
         await LoadTrialDTO.find().then(result => {
             resp.status(200).json(result);
 
@@ -50,6 +50,13 @@ const getLoadTrialAssigned = async(req, resp, next) => {
 
     } else if (req.query.userRole == 'Supervisor') {
         await LoadTrialDTO.find({ supervisorNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+            //console.log(result);
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+    } else if (req.query.userRole == 'Service Manager') {
+        await LoadTrialDTO.find({ managerNic: req.query.userNic }).then(result => {
             resp.status(200).json(result);
             //console.log(result);
         }).catch(error => {

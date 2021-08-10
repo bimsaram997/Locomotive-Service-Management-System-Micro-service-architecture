@@ -20,7 +20,9 @@ router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
 
 router.put('/changeScheduleSeven', ScheduleController.changeScheduleSeven);
 router.post('/scheduleEmail', ScheduleController.scheduleEmail);
-
+router.post('/scheduleLapseEmail', ScheduleController.scheduleLapseEmail);
+router.get('/getAllScheduleCalendar', ScheduleController.getAllScheduleCalendar);
+router.get('/getAllScheduleAssignedManager', ScheduleController.getAllScheduleAssignedManager);
 
 //next Schedule
 router.post('/saveNextSchedule', ScheduleController.saveNextSchedule);
