@@ -1,3 +1,4 @@
+import { ProgressReportService } from 'src/app/service/progress-report.service';
 import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
@@ -8,6 +9,8 @@ import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import LocoDTO from "../../../../../dto/LocoDTO";
 import {LocomotiveService} from "../../../../../service/locomotive.service";
+import { ViewProgressComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-view-scehdules',
@@ -26,8 +29,11 @@ export class AdminViewScehdulesComponent implements OnInit {
   displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Supervisor inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
   scheduleList: any[] = [];
   scheduleStatus: any;
-
-  constructor(private scheduleService: ScheduleService, private router: Router) {
+  progressList: any[] = [];
+  dataArray: any[] = [];
+  dataArrayLength:any;
+  isShowPrTable: boolean = true;
+  constructor(private scheduleService: ScheduleService, private router: Router,public dialog: MatDialog, public ProgressReportService: ProgressReportService) {
     this.loadAllSchedule();
   }
 
@@ -84,6 +90,25 @@ export class AdminViewScehdulesComponent implements OnInit {
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/adminDashboard/viewSchedule', id]);
+  }
+
+ viewProgressHist(id: string){
+
+    this.dialog.open(ViewProgressComponent, {
+      data: {id: id},
+      width: '1200px'
+    });
+    console.log('ho')
+
+     this.scheduleService.sendOneSchedule(id).subscribe(resp =>{
+     //console.log(resp);
+        if(resp != undefined){
+          this.dataArray = resp[0].schProgressReport
+          this.dataArrayLength =  this.dataArray.length;
+
+
+        }
+      })
   }
 
 

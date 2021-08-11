@@ -94,6 +94,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { ViewMangerScheduleComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-manger-schedule/view-manger-schedule.component';
+import { ViewAllLocoBarChartComponent } from './Common/Graphs/Locomotives/view-all-loco-bar-chart/view-all-loco-bar-chart.component';
+import { ChartsModule } from 'ng2-charts';
+import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -198,6 +201,10 @@ FullCalendarModule.registerPlugins([
 
     ViewMangerScheduleComponent,
 
+    ViewAllLocoBarChartComponent,
+
+    AdminProfileComponent,
+
 
 
 
@@ -226,6 +233,7 @@ FullCalendarModule.registerPlugins([
     MatButtonModule,
     LayoutModule,
     FullCalendarModule,
+    ChartsModule
 
 
   ],

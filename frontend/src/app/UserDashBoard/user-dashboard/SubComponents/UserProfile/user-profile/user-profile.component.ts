@@ -45,6 +45,7 @@ export class UserProfileComponent implements OnInit {
         this.userList =  res;
         console.log(this.userList);
         this.userName =  res[0].userName;
+        this.userEmail = res[0].userEmail;
         this.userGender =  res[0].userGender;
         this.userNic =  res[0].userNic;
         this.userMobile =  res[0].userMobile;

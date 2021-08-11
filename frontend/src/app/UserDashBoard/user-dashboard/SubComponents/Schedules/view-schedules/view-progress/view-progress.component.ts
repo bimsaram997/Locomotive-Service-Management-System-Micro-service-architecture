@@ -19,6 +19,10 @@ export class ViewProgressComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['Progress No', 'Schedule No', 'Date', 'Progress Value', 'Checked Items', 'Note'];
   dataArray: any[] = [];
+  dataArrayLength: number;
+  isShowPrTable: boolean=true;
+  isShowLabel: boolean = false;
+  scheduleNo: string;
 
   constructor(private formBuilder: FormBuilder ,
               @Inject(MAT_DIALOG_DATA) public data: any, private scheduleService: ScheduleService, private router: Router) { }
@@ -27,8 +31,16 @@ export class ViewProgressComponent implements OnInit {
       this.scheduleService.sendOneSchedule(this.data.id).subscribe(resp =>{
      //console.log(resp);
         if(resp != undefined){
-          this.dataArray = resp[0].schProgressReport
+          this.scheduleNo = resp[0].scheduleNo
+          this.dataArray = resp[0].schProgressReport;
+          this.dataArrayLength =  this.dataArray.length;
           this.dataSource =  new MatTableDataSource<any>(this.dataArray);
+          if(this.dataArrayLength<1){
+            this.isShowPrTable = false;
+            this.isShowLabel = true;
+          }else{
+                this.isShowPrTable = true;
+          }
           setTimeout(() => {
           this.dataSource.paginator =  this.paginator;
           this.dataSource.sort = this.sort;

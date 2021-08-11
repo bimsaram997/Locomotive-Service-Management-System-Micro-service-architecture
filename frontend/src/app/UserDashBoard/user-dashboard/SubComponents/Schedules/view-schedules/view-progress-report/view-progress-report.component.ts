@@ -1,6 +1,6 @@
 import { log } from 'util';
 import { ProgressReportService } from './../../../../../../service/progress-report.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,6 +19,9 @@ export class ViewProgressReportComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['repNo', 'schNo', 'locoCatId', 'Loco Number', 'Supervisor inCharge', 'date', 'progValue', '#'];
   progressList: any[] = [];
+  progressLength: any;
+
+  @Output() public lengthFound = new EventEmitter<any>();
   constructor(private ProgressReportService: ProgressReportService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -27,6 +30,8 @@ export class ViewProgressReportComponent implements OnInit {
  loadAllProgress(){
     this.ProgressReportService.getAllProgress().subscribe(resp =>{
       this.progressList = resp;
+      this.progressLength =  this.progressList.length;
+      this.lengthFound.emit(this.progressLength);
       this.dataSource =  new MatTableDataSource<any>(this.progressList);
       setTimeout(() => {
         this.dataSource.paginator =  this.paginator;
@@ -34,7 +39,7 @@ export class ViewProgressReportComponent implements OnInit {
       })
     })
   }
-  
+
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
@@ -45,12 +50,12 @@ export class ViewProgressReportComponent implements OnInit {
   openDialog(id: string) {
     const dialogRef = this.dialog.open(ViewMoreProgressComponent,{
       data: {id: id}
-     
+
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-    
+
   }
 
 }

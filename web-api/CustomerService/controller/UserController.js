@@ -36,12 +36,12 @@ const sendMails = (req, resp) => {
     sendContent(email, receive, subject, text, function(err, data) {
         if (err) {
             resp.status(500).json({ message: 'Internal error' });
-            console.log(err)
+
         } else {
             resp.json({ message: 'Email Sent' });
         }
     })
-    console.log("Data", req.body)
+
 }
 const sendReqEmailContent = (email, text, cb) => {
     const mailOptions = {
@@ -60,7 +60,7 @@ const sendReqEmailContent = (email, text, cb) => {
 
 }
 const sendPassEmail = (email, resettoken) => {
-    console.log(resettoken.resettoken)
+
 
     const mailOptions = {
         from: 'your emil',
@@ -390,7 +390,7 @@ const sendPassEmail = (email, resettoken) => {
 
 const register = async(req, resp) => {
 
-    console.log(req.body);
+
 
     UserDTO.findOne({ userEmail: req.body.userEmail }).then(result => {
         if (result == null) {
@@ -532,7 +532,7 @@ const newPassword = (req, res) => {
                         .json({ message: 'Error hashing password' });
                 }
                 userEmail.userPassword = hash;
-                console.log(userEmail.userPassword)
+
 
                 userEmail.save(function(err) {
                     if (err) {
@@ -646,7 +646,7 @@ const updateUser = (req, resp) => {
         }
     }).then(result => {
         if (result.nModified > 0) {
-            console.log(result)
+
             resp.status(200).json({ message: 'updated' })
         } else {
             resp.status(500).json({ message: 'Try Again' })
@@ -658,7 +658,7 @@ const updateUser = (req, resp) => {
 
 }
 const getOneUser = (req, res) => {
-    console.log(req.params.userNic);
+
     UserDTO.find({
         userNic: req.params.userNic
     }).then(result => {
@@ -668,7 +668,7 @@ const getOneUser = (req, res) => {
     });
 }
 const getOneMan = (req, res) => {
-    console.log(req.params.managerName);
+
     UserDTO.find({
         userName: req.params.managerName
     }).then(result => {
@@ -678,7 +678,7 @@ const getOneMan = (req, res) => {
     });
 }
 const getOneSup = (req, res) => {
-    console.log(req.params.supervisorName);
+
     UserDTO.find({
         userName: req.params.supervisorName
     }).then(result => {
@@ -689,11 +689,10 @@ const getOneSup = (req, res) => {
 }
 
 const getUserInfo = async(req, resp, next) => {
-    console.log(req.query)
 
     await UserDTO.find({ userNic: req.query.userNic }).then(result => {
         resp.status(200).json(result);
-        console.log(result)
+
     }).catch(error => {
         resp.status(500).json(result)
     });

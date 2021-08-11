@@ -67,13 +67,11 @@
             <div class="col-md-5 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 label">Basic Details</h6>
-
-
+                        <full-calendar [options]="calendarOptions" style="height: 170px;"></full-calendar>
                     </div>
                 </div>
                 <br>
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-body">
 
                     </div>
@@ -83,16 +81,16 @@
 
 
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-7">
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <full-calendar [options]="calendarOptions" style="height: 150px;"></full-calendar>
+                        <app-view-all-loco-bar-chart></app-view-all-loco-bar-chart>
                     </div>
                 </div>
-                <div class="card mb-3">
+                <!-- <div class="card mb-3">
 
                     <div class="card-body">
                         <h4 class="d-flex align-items-center mb-3"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Engine at Stopped Conditions </h4>
@@ -110,7 +108,7 @@
 
 
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 

@@ -1,0 +1,11 @@
+.empty-state {
+    margin: auto;
+    width: 50%;
+    padding-left: 60px;
+}
+
+.txt-error {
+    padding-left: 50px;
+    font-size: 25px;
+    color: #FF4081;
+}

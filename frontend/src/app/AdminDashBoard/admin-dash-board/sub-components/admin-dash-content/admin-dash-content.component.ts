@@ -56,7 +56,7 @@ export class AdminDashContentComponent implements OnInit {
 
                 },
                 events: this.calanderArray,
-                contentHeight: '300px',
+                contentHeight: '350px',
 
 
               };

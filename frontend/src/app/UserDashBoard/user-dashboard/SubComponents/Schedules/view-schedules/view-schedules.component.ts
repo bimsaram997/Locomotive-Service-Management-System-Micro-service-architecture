@@ -27,7 +27,7 @@ export class ViewSchedulesComponent implements OnInit {
   displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Manager inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
   scheduleList: any[] = [];
   scheduleStatus: any;
-
+ // @Input() public len
   constructor(private scheduleService: ScheduleService ,private router: Router,  private toastr: ToastrService,public dialog: MatDialog) {
 
     //this.loadCount();

@@ -51,6 +51,7 @@ import { AddLoadTrialComponent } from './UserDashBoard/user-dashboard/SubCompone
 import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/Schedules/ViewScheduleProfile/view-schedule-profile/view-schedule-profile.component';
 import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
 import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
+import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
 
 
 
@@ -78,7 +79,8 @@ const routes: Routes = [
       {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewAdLoadTrial', component: ViewAdLoadTrialComponent},
-      {path: 'viewAdLoadProd/:id', component: ViewAdloadProComponent}
+      {path: 'viewAdLoadProd/:id', component: ViewAdloadProComponent},
+       {path: 'adminProfile', component: AdminProfileComponent},
 
     ]},
   {path: 'userDashboard', canActivate: [AuthGuard], component: UserDashboardComponent,  children: [
