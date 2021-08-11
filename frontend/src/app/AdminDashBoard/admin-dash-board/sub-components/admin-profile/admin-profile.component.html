@@ -1,1 +1,129 @@
-<p>admin-profile works!</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-xl-4">
+            <div class="card-box text-center">
+                <img src="{{this.image}}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 150px; height:150px;">
+
+                <h2 class="mb-0" style="color: #1f3a93;">{{this?.userName}}</h2>
+                <p class="text-muted">{{this?.userRole}}</p>
+
+
+
+                <div class="text-left mt-3">
+                    <h4 class="font-13 text-uppercase">About Me :</h4>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Email</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.userEmail}}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Gender</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.userGender}}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">NIC</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.userNic}}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Mobile No</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.userMobile}}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Address</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.address}}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Appointment Date</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.appointmentDate}}</span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="color: black;">
+                        <div class="col-sm-4">
+                            <h6 class="mb-0 label">Work Place</h6>
+                        </div>
+                        <div class="col-sm-6 text-secondary" style="color: black;">
+                            <span style="font-size: 14px; color:#013243">{{this?.userWorks}}</span>
+                        </div>
+                    </div>
+
+                    <hr>
+                </div>
+            </div>
+            <!-- end card-box -->
+
+
+            <!-- end card-box-->
+
+        </div>
+        <!-- end col-->
+
+
+        <div class="col-lg-8 col-xl-8">
+            <div class="card-box">
+                <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
+                    <mat-button-toggle matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
+                    <mat-button-toggle value="italic">Progress Reports</mat-button-toggle>
+                    <mat-button-toggle matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
+                </mat-button-toggle-group> -->
+
+                <div class="tab-content">
+                    <div class="row">
+                        <div class="col">
+
+                        </div>
+                        <div class="col">
+
+                        </div>
+
+
+
+
+
+
+
+                        <!-- end timeline content-->
+
+
+                        <!-- end settings content-->
+
+                    </div>
+                    <!-- end tab-content -->
+                </div>
+                <!-- end card-box-->
+
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
