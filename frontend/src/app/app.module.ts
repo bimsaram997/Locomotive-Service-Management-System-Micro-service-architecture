@@ -97,6 +97,8 @@ import { ViewMangerScheduleComponent } from './UserDashBoard/user-dashboard/SubC
 import { ViewAllLocoBarChartComponent } from './Common/Graphs/Locomotives/view-all-loco-bar-chart/view-all-loco-bar-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
+import { LoadTrialDohNutComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/Charts/load-trial-doh-nut/load-trial-doh-nut.component';
+import { CommnetsDohNutComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/Charts/commnets-doh-nut/commnets-doh-nut.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -204,6 +206,10 @@ FullCalendarModule.registerPlugins([
     ViewAllLocoBarChartComponent,
 
     AdminProfileComponent,
+
+    LoadTrialDohNutComponent,
+
+    CommnetsDohNutComponent,
 
 
 

@@ -91,20 +91,27 @@
 
         <div class="col-lg-8 col-xl-8">
             <div class="card-box">
-                <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
-                    <mat-button-toggle matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
+                <p>
+                    Print:
+                    <button mat-raised-button color="primary">Basic Details</button>
+                </p>
+                <br>
+                <h3>Quick Links</h3>
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle matTooltip="View Locomotives Details" value="bold" routerLink="/adminDashboard/viewLocomotives">Locomotives</mat-button-toggle>
+                    <mat-button-toggle matTooltip="View Schedule Details" value="italic" routerLink="/adminDashboard/adminViewSchedules">Schedules</mat-button-toggle>
                     <mat-button-toggle value="italic">Progress Reports</mat-button-toggle>
-                    <mat-button-toggle matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
-                </mat-button-toggle-group> -->
-
+                    <mat-button-toggle matTooltip="View Load Trial Details" value="underline" routerLink="/adminDashboard/viewAdLoadTrial">Load Trials</mat-button-toggle>
+                </mat-button-toggle-group>
+                <br>
+                <br>
                 <div class="tab-content">
                     <div class="row">
                         <div class="col">
-
+                            <app-load-trial-doh-nut></app-load-trial-doh-nut>
                         </div>
                         <div class="col">
-
+                            <app-commnets-doh-nut></app-commnets-doh-nut>
                         </div>
 
 
