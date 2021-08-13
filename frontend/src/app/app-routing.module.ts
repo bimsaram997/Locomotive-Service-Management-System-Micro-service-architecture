@@ -1,3 +1,4 @@
+import { ManagerprofileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/managerprofile.component';
 import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mileage.component';
 import { ViewAdLoadTrialComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-ad-load-trial/view-ad-load-trial.component';
 import { MViewLocomotiveComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/m-view-locomotive.component';
@@ -129,6 +130,8 @@ const routes: Routes = [
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewOneMileage/:mReportNumber', component: ViewOneMileageComponent},
        {path: 'viewManSchedule/:id', component: ViewMoreSchedulesComponent},
+        {path: 'managerProfile', component: ManagerprofileComponent},
+
 
 
     ]}

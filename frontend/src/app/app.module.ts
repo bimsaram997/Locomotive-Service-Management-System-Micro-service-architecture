@@ -99,6 +99,14 @@ import { ChartsModule } from 'ng2-charts';
 import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
 import { LoadTrialDohNutComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/Charts/load-trial-doh-nut/load-trial-doh-nut.component';
 import { CommnetsDohNutComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/Charts/commnets-doh-nut/commnets-doh-nut.component';
+import { LocomotiveDohNutComponent } from './UserDashBoard/user-dashboard/SubComponents/UserProfile/Charts/locomotive-doh-nut/locomotive-doh-nut.component';
+import { ScheduleDohNutComponent } from './UserDashBoard/user-dashboard/SubComponents/UserProfile/Charts/schedule-doh-nut/schedule-doh-nut.component';
+import { ComposComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/Charts/compos/compos.component';
+import { UserLoadTrialDohNutComponent } from './UserDashBoard/user-dashboard/SubComponents/UserProfile/Charts/user-load-trial-doh-nut/user-load-trial-doh-nut.component';
+import { UserPerformanceLineComponent } from './UserDashBoard/user-dashboard/SubComponents/UserProfile/Charts/user-performance-line/user-performance-line.component';
+import { ManagerprofileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/managerprofile.component';
+import { MileageDohNutComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/mileage-doh-nut/mileage-doh-nut.component';
+import { SchedulePieComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/schedule-pie/schedule-pie.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -210,6 +218,22 @@ FullCalendarModule.registerPlugins([
     LoadTrialDohNutComponent,
 
     CommnetsDohNutComponent,
+
+    LocomotiveDohNutComponent,
+
+    ScheduleDohNutComponent,
+
+    ComposComponent,
+
+    UserLoadTrialDohNutComponent,
+
+    UserPerformanceLineComponent,
+
+    ManagerprofileComponent,
+
+    MileageDohNutComponent,
+
+    SchedulePieComponent,
 
 
 

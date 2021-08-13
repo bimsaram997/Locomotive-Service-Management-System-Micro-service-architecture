@@ -64,7 +64,7 @@
                             <h6 class="mb-0 label">Appointment Date</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.appointmentDate}}</span>
+                            <span style="font-size: 14px; color:#013243">{{this?.appointmentDate | date}}</span>
                         </div>
                     </div>
                     <hr>
@@ -95,6 +95,7 @@
                     Print:
                     <button mat-raised-button color="primary">Basic Details</button>
                 </p>
+                <br>
                 <h3>Quick Links</h3>
                 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
                     <mat-button-toggle matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
@@ -102,24 +103,25 @@
                     <mat-button-toggle value="italic">Progress Reports</mat-button-toggle>
                     <mat-button-toggle matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
                 </mat-button-toggle-group>
-
+                <br>
+                <br>
                 <div class="tab-content">
                     <div class="row">
                         <div class="col-md-6">
-                            <app-locomotive-doh-nut></app-locomotive-doh-nut>
+                            <app-mileage-doh-nut></app-mileage-doh-nut>
                         </div>
                         <div class="col-md-6">
-                            <app-schedule-doh-nut></app-schedule-doh-nut>
+                            <app-schedule-pie></app-schedule-pie>
                         </div>
 
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-6">
-                            <app-user-load-trial-doh-nut></app-user-load-trial-doh-nut>
+
                         </div>
                         <div class="col-md-6">
-                            <app-user-performance-line></app-user-performance-line>
+
                         </div>
 
 
