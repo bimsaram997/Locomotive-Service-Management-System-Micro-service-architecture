@@ -4,6 +4,7 @@ const MileageSchema = require('../model/MileageDTO');
 const nodemailer = require('nodemailer');
 const config = require('../../Config/config.json');
 const LocomotiveDTO = require('../../ScheduleService/model/LocomotiveDTO');
+const HistoryLocoDTO = require('../model/HistoryLocoDTO');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -45,11 +46,6 @@ const saveReactiveLoco = async(req, res, next) => {
     }).catch(er => {
         res.status(500).json(er);
     });
-
-
-
-    // console.log('awa')
-    // console.log(req.body)
 }
 
 
@@ -1452,7 +1448,53 @@ const sendPassEmail = (supervisorEmail, locoNumber, locoCatId, locoAvailability,
 }
 
 
+//history loco
 
+const saveLocoHistory = async(req, res, next) => {
+
+    await HistoryLocoDTO.findOne({ _id: req.body.id }).then(result => {
+        if (result == null) {
+            const loco = new HistoryLocoDTO(req.body);
+            loco.save().then(result => {
+                res.status(200).json({ isSaved: true, data: result })
+            }).catch(error => {
+                res.status(500).json(error);
+            })
+        } else {
+            res.status(200).json({ isSaved: false, data: result });
+        }
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+}
+
+
+const getAllHistoryLoco = async(req, res, next) => { //get completed schedule
+    console.log(req.params.locoNumber);
+    await HistoryLocoDTO.find({
+        locoNumber: req.params.locoNumber
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+}
+
+
+const getOneLocoHistory = async(req, res, next) => {
+    console.log(req.params.id);
+    await HistoryLocoDTO.find({
+        _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+        //console.log(result)
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+
+}
 
 module.exports = {
     getAllLocomotives,
@@ -1483,5 +1525,10 @@ module.exports = {
 
     getOneMileageById,
     sendMileEmail,
-    sendLocoEmail
+    sendLocoEmail,
+
+    //loco Histry
+    saveLocoHistory,
+    getAllHistoryLoco,
+    getOneLocoHistory
 }

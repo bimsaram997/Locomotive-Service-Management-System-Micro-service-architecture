@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScheduleDohNutComponent implements OnInit {
 
-  public doughnutChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  public doughnutChartData = [120, 150, 180, 90];
+  public doughnutChartLabels = ['Fully Completed', 'Very Close to complete', '(3/4)', 'half is completed', 'Just Started'];
+  public doughnutChartData = [120, 150, 70, 90, 110];
   public doughnutChartType = 'doughnut';
   constructor() { }
 

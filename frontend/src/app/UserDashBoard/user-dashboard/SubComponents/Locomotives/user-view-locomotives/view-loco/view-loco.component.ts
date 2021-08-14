@@ -1,6 +1,7 @@
+import { ViewHistoryLocoComponent } from './view-history-loco/view-history-loco.component';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import LocoDTO from "../../../../../../dto/LocoDTO";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -22,11 +23,13 @@ export class ViewLocoComponent implements OnInit {
   displayedColumns2: string[] = ['No', 'Fluids', 'Level'];
   displayedColumns3: string[] = ['Schedule No.', 'Supervisor Name', 'Report No.', 'Progress', '#'];
   displayedColumns5: string[] = ['Next Schedule No.', 'Loco Category', 'Loco Number', 'Date', 'Status'];
+  displayedColumns6: string[] = ['Loco Category', 'Loco Number', 'Last Updated Date', 'Loco Mileage', '#'];
   dataSource: any[] = [];
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[]=[];
-    dataSource5: any[]=[];
+  dataSource5: any[]=[];
+  dataSource6: any[]=[];
   id: any;
   panelOpenState = false;
   motorArray: any[] = [];
@@ -45,6 +48,7 @@ export class ViewLocoComponent implements OnInit {
   endMileDate: any;
   locoNumberNextSchedule: any;
   isShowNextSchedule: boolean = false;
+  isShowHisLoco: boolean = true;
 
 
    pageYoffset = 0;
@@ -53,7 +57,7 @@ export class ViewLocoComponent implements OnInit {
     this.pageYoffset = window.pageYOffset;
   }
 
-  constructor(private scroll: ViewportScroller,private router: Router, private formBuilder: FormBuilder,
+  constructor(private scroll: ViewportScroller,public dialog: MatDialog, private router: Router, private formBuilder: FormBuilder,
     private route: ActivatedRoute, private locomotiveService: LocomotiveService,
     private scheduleService: ScheduleService) { }
 
@@ -91,6 +95,7 @@ export class ViewLocoComponent implements OnInit {
       final=>{
         this.dataSource3 = final;
           this.viewNextSchedules();
+          this.getAllHistoryLoco();
 
       }
     )
@@ -110,7 +115,7 @@ scrollToTop(){
     console.log(this.locoNumberNextSchedule)
     this.scheduleService.getAllNextSchedules(this.locoNumberNextSchedule).subscribe(
       res=>{
-        console.log(res);
+       // console.log(res);
         this.dataSource5  = res;
         if(this.dataSource5.length>0){
           this.isShowNextSchedule = true;
@@ -120,14 +125,44 @@ scrollToTop(){
     )
   }
 
-    statusBinder(nxtSchStatus){
+  getAllHistoryLoco(){
+    console.log(this.locoNumber)
+    this.locomotiveService.getAllHistoryLoco(this.locoNumber).subscribe(
+      res=>{
+        console.log(res);
+        this.dataSource6  = res;
+        if(this.dataSource6.length>0){
+          this.isShowHisLoco = true;
+        }
+
+      }
+    )
+  }
+
+
+
+  statusBinder(nxtSchStatus){
     if (nxtSchStatus === 0){
       return 'hourglass_top';
     }else if (nxtSchStatus === 1){
-      return 'clear';
-    }else if (nxtSchStatus === 2){
       return 'assignment';
+    }else if (nxtSchStatus === 2){
+      return 'clear';
     }
+  }
+
+  viewHistoryMore(_id:string){
+    const dialogRef = this.dialog.open(ViewHistoryLocoComponent, {
+       data: {id: _id},
+
+      width: '700px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
   }
 
 

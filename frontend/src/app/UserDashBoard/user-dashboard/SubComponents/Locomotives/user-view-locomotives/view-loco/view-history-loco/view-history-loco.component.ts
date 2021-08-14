@@ -1,27 +1,22 @@
-import {Component, OnInit, Inject, ViewChild, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {LocomotiveService} from "../../../../../../service/locomotive.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import LocoDTO from "../../../../../../dto/LocoDTO";
+import { AccessService } from 'src/app/service/access.service';
+import { LocomotiveService } from 'src/app/service/locomotive.service';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import UserDTO from 'src/app/dto/UserDTO';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import LocoDTO from 'src/app/dto/LocoDTO';
 import swal from "sweetalert";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import UserDTO from "../../../../../../dto/UserDTO";
-import {AccessService} from "../../../../../../service/access.service";
-import {first} from "rxjs/operators";
-import { th } from 'date-fns/locale';
+import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-edit-loco',
-  templateUrl: './edit-loco.component.html',
-  styleUrls: ['./edit-loco.component.css']
+  selector: 'app-view-history-loco',
+  templateUrl: './view-history-loco.component.html',
+  styleUrls: ['./view-history-loco.component.css']
 })
-export class EditLocoComponent implements OnInit  {
-
-
-
+export class ViewHistoryLocoComponent implements OnInit {
   editLocoGroup: FormGroup;
-  historyLocoGroup: FormGroup;
   myControl = new FormControl();
   userList: UserDTO[] = [];
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
@@ -53,43 +48,25 @@ export class EditLocoComponent implements OnInit  {
   imageSt: any;
   submitted = false;
   disableSelect = new FormControl(true);
-  @Output() myEvent =  new EventEmitter();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService,
+
+ constructor(@Inject(MAT_DIALOG_DATA) public data: any, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService,
               private formBuilder: FormBuilder, private accessService: AccessService, private cd: ChangeDetectorRef,
               private route: ActivatedRoute,) {
     this.loadAll();
   }
   locoArray: LocoDTO[] = [];
+
   ngOnInit(): void {
-
-    this.editLocoGroup = this.formBuilder.group({
-      locoCatId: ['', [Validators.required]],
-      locoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      locoPower: ['', [Validators.required, Validators.minLength(5),  Validators.pattern('^[0-9]*$')]],
-      locoMileage: ['', [Validators.required, Validators.minLength(10),  Validators.pattern('^[0-9]*$')]],
-      locoDate: ['', [Validators.required]],
-      userNic: ['', [Validators.required]],
-      supervisorName: ['', [Validators.required]],
-      supervisorEmail: ['', [Validators.required]],
-      locoAvailability: ['', [Validators.required]],
-      locoMotors: new FormArray ([]),
-      locoBreaks: new FormArray([]),
-      locoFluids: new FormArray([]),
-      locoNote: ['', [Validators.required, Validators.maxLength(1000),  Validators.pattern('^[0-9]*$')]],
-      //image: [''],
-      mtrType: ['', Validators.required],
-      brkType: ['', Validators.required],
-      fldType: ['', Validators.required]
-    });
-
-    this.historyLocoGroup = this.formBuilder.group({
+     this.editLocoGroup = this.formBuilder.group({
       locoCatId: [''],
       locoNumber: [''],
       locoPower: [''],
       locoMileage: [''],
       locoDate: [''],
       userNic: [''],
+      supervisorName: [''],
+      supervisorEmail: [''],
       locoAvailability: [''],
       locoMotors: new FormArray ([]),
       locoBreaks: new FormArray([]),
@@ -100,13 +77,9 @@ export class EditLocoComponent implements OnInit  {
       brkType: [''],
       fldType: ['']
     });
-
-
-
-  this.loadAll();
   this.loadAllIds();
 
-    this.locomotiveService.getOneLoco(this.data.id).pipe(first())
+    this.locomotiveService.getOneLocoHistory(this.data.id).pipe(first())
       .subscribe(
         res => {
           if (res !== undefined){
@@ -115,15 +88,6 @@ export class EditLocoComponent implements OnInit  {
             this.editLocoGroup.controls['locoNumber'].setValue(res[0].locoNumber);
             this.editLocoGroup.controls['locoPower'].setValue(res[0].locoPower);
             this.editLocoGroup.controls['locoMileage'].setValue(res[0].locoMileage);
-
-             this.historyLocoGroup.controls['locoCatId'].setValue(res[0].locoCatId);
-            this.historyLocoGroup.controls['locoNumber'].setValue(res[0].locoNumber);
-            this.historyLocoGroup.controls['locoPower'].setValue(res[0].locoPower);
-            this.historyLocoGroup.controls['locoMileage'].setValue(res[0].locoMileage);
-            this.historyLocoGroup.controls['locoDate'].setValue(res[0].locoDate);
-            this.historyLocoGroup.controls['locoAvailability'].setValue(res[0]. locoAvailability);
-            this.historyLocoGroup.controls['locoNote'].setValue(res[0].locoNote);
-
             this.editLocoGroup.controls['userNic'].setValue(res[0].userNic);
             this.editLocoGroup.controls['locoDate'].setValue(res[0].locoDate);
             this.editLocoGroup.controls['supervisorName'].setValue(res[0].supervisorName);
@@ -170,81 +134,7 @@ export class EditLocoComponent implements OnInit  {
         }
       )
   }
-
-  onEdit(){
-    //console.log(this.editLocoGroup.value);
-
-   // this.submitted = true;
-    //this.submitted = true;
-
-      if (window.confirm('Are you sure?')) {
-        let id = this.route.snapshot.paramMap.get('id');
-        this.locomotiveService.updateLoco(this.editLocoGroup.value)
-          .subscribe(res => {
-            this.sendLocoEmail(this.editLocoGroup.value)
-            this.saveLocoHistory(this.editLocoGroup.value)
-            //this.router.navigateByUrl('/employees-list');
-            console.log('Content updated successfully!');
-           console.log(this.editLocoGroup.value);
-            console.log(res);
-          }, (error) => {
-            console.log(error)
-          })
-
-    }
-  }
-
-  saveLocoHistory(obj){
-    this.locomotiveService.saveLocoHistory(obj).pipe(first()).subscribe(
-            res => {
-        console.log(res);
-        if (res.isSaved) {
-          swal({
-            title: 'Record Saved!',
-            text: 'Please Click OK',
-            icon: 'success',
-          });
-
-          setTimeout(() => {
-
-          }, 3000);
-
-        } else {
-          swal({
-            title: 'Record already Exits',
-            text: 'Please Click OK',
-            icon: 'error',
-          });
-          setTimeout(() => {
-           // this.refresh();
-
-
-          }, 3000);
-        }
-
-      },
-
-      error => {
-        console.log(error);
-      },
-      () => {
-        console.log('dss');
-      }
-    )
-  }
-
-
-  sendLocoEmail(obj){
-    this.locomotiveService.sendLocoEmail(obj).pipe(first())
-    .subscribe(
-      res=>{
-
-      }, (error) => {
-            console.log(error)
-    })
-  }
-
-  loadAll(){
+ loadAll(){
     this.locomotiveService.getAllLocomotives().subscribe(resp => {
       this.locoArray = resp;
       console.log(this.locoArray);
@@ -254,7 +144,7 @@ export class EditLocoComponent implements OnInit  {
 
   }
 
-  get getFm(){
+get getFm(){
     return this.editLocoGroup.controls;
   }
   get mtrArray(){
@@ -449,4 +339,5 @@ onClickMotor() {
     }
     console.log(this.filesToUpload);
   }
+
 }

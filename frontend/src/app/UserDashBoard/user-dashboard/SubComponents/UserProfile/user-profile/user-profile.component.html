@@ -7,7 +7,7 @@
             <div class="card-box text-center">
                 <img src="{{this.image}}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 150px; height:150px;">
 
-                <h2 class="mb-0" style="color: #1f3a93;">{{this?.userName}}</h2>
+                <h2 class="mb-0" style="color: #1f3a93; font-size: 25px;">{{this?.userName}}</h2>
                 <p class="text-muted">{{this?.userRole}}</p>
 
 
@@ -19,16 +19,16 @@
                             <h6 class="mb-0 label">Email</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.userEmail}}</span>
+                            <span class="info">{{this?.userEmail}}</span>
                         </div>
                     </div>
                     <hr>
-                    <div class="row" style="color: black;">
+                    <div class="row">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Gender</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.userGender}}</span>
+                            <span class="info">{{this?.userGender}}</span>
                         </div>
                     </div>
                     <hr>
@@ -37,7 +37,7 @@
                             <h6 class="mb-0 label">NIC</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.userNic}}</span>
+                            <span class="info">{{this?.userNic}}</span>
                         </div>
                     </div>
                     <hr>
@@ -46,7 +46,7 @@
                             <h6 class="mb-0 label">Mobile No</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.userMobile}}</span>
+                            <span class="info">{{this?.userMobile}}</span>
                         </div>
                     </div>
                     <hr>
@@ -55,7 +55,7 @@
                             <h6 class="mb-0 label">Address</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.address}}</span>
+                            <span class="info">{{this?.address}}</span>
                         </div>
                     </div>
                     <hr>
@@ -64,7 +64,7 @@
                             <h6 class="mb-0 label">Appointment Date</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.appointmentDate}}</span>
+                            <span class="info">{{this?.appointmentDate}}</span>
                         </div>
                     </div>
                     <hr>
@@ -73,7 +73,7 @@
                             <h6 class="mb-0 label">Work Place</h6>
                         </div>
                         <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span style="font-size: 14px; color:#013243">{{this?.userWorks}}</span>
+                            <span class="info">{{this?.userWorks}}</span>
                         </div>
                     </div>
 
@@ -92,15 +92,16 @@
         <div class="col-lg-8 col-xl-8">
             <div class="card-box">
                 <p>
-                    Print:
-                    <button mat-raised-button color="primary">Basic Details</button>
+                    <span class="print">Print Details</span>&nbsp;
+                    <button class="btn" mat-raised-button color="primary" (click)="printTestInfo()">Basic Details</button>
                 </p>
-                <h3>Quick Links</h3>
+                <hr class="hr">
+                <h3 class="print">Quick Links</h3>
                 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
-                    <mat-button-toggle matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
-                    <mat-button-toggle value="italic">Progress Reports</mat-button-toggle>
-                    <mat-button-toggle matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
+                    <mat-button-toggle style="background-color: #1f3a93; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
+                    <mat-button-toggle style="background-color: #1e8bc3; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
+                    <mat-button-toggle style="background-color: #19b5fe; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" value="italic">Progress Reports</mat-button-toggle>
+                    <mat-button-toggle style="background-color: #89c4f4; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
                 </mat-button-toggle-group>
 
                 <div class="tab-content">

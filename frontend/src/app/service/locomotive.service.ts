@@ -135,4 +135,17 @@ export class LocomotiveService {
     return this.http.post(this.myUrl + `locoRoute/sendLocoEmail`, data);
   }
 
+  //locoHistry
+
+   public saveLocoHistory(obj): Observable<any>{
+    return this.http.post(this.myUrl + 'locoRoute/saveLocoHistory' , obj);
+  }
+
+    public getAllHistoryLoco(locoNumber):Observable<any> {
+    return this.http.get( this.myUrl + `locoRoute/getAllHistoryLoco/${locoNumber}`)
+  }
+
+  getOneLocoHistory(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `locoRoute/getOneLocoHistory/${id}`);
+  }
 }

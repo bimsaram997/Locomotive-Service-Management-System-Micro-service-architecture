@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class UserLoadTrialDohNutComponent implements OnInit {
 
   constructor() { }
-  public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
-  public pieChartData = [120, 150, 180, 90];
+  public pieChartLabels = ['Draft', 'Passed', ];
+  public pieChartData = [200,160];
   public pieChartType = 'pie';
   ngOnInit(): void {
   }

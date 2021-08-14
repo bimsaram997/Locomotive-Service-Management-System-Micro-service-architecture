@@ -34,4 +34,10 @@ router.patch('/patch-mile/:id', LocomotiveController.patchMileController);
 router.patch('/reject-mile/:id/:reason', LocomotiveController.rejectMileController);
 router.patch('/patchFinalMile', LocomotiveController.patchFinalMile);
 router.patch('/patchSchMileage', LocomotiveController.patchSchMileage);
+
+//locohistr
+router.post('/saveLocoHistory', LocomotiveController.saveLocoHistory);
+router.get('/getAllHistoryLoco/:locoNumber', LocomotiveController.getAllHistoryLoco);
+router.get('/getOneLocoHistory/:id', LocomotiveController.getOneLocoHistory);
+
 module.exports = router;

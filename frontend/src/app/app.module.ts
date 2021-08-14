@@ -107,6 +107,7 @@ import { UserPerformanceLineComponent } from './UserDashBoard/user-dashboard/Sub
 import { ManagerprofileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/managerprofile.component';
 import { MileageDohNutComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/mileage-doh-nut/mileage-doh-nut.component';
 import { SchedulePieComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/schedule-pie/schedule-pie.component';
+import { ViewHistoryLocoComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-loco/view-history-loco.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -235,6 +236,8 @@ FullCalendarModule.registerPlugins([
 
     SchedulePieComponent,
 
+    ViewHistoryLocoComponent,
+
 
 
 
@@ -269,7 +272,7 @@ FullCalendarModule.registerPlugins([
   ],
   providers: [EventEmitterService],
   bootstrap: [AppComponent],
-  entryComponents: [ModelComponent,AddFeedBacksComponent, ViewProgressComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
+  entryComponents: [ModelComponent, ViewHistoryLocoComponent, AddFeedBacksComponent, ViewProgressComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
   SendProgressComponent, UpdateFinalMileageComponent, AddCommentLoadComponent]
 })
 export class AppModule { }

@@ -5,6 +5,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first, map, mergeMap} from "rxjs/operators";
 import {LocomotiveService} from "../../../../../../service/locomotive.service";
+import { MatDialog } from '@angular/material/dialog';
+import { ViewHistoryLocoComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-loco/view-history-loco.component';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -26,13 +28,14 @@ export class ViewLocoProfileComponent implements OnInit {
   displayedColumns2: string[] = ['No', 'Fluids', 'Level'];
   displayedColumns3: string[] = ['Schedule No.', 'Supervisor Name', 'Report No.', 'Progress', '#'];
   displayedColumns5: string[] = ['Next Schedule No.', 'Loco Category', 'Loco Number', 'Date', 'Status'];
-
+displayedColumns6: string[] = ['Loco Category', 'Loco Number', 'Last Updated Date', 'Loco Mileage', '#'];
   dataSource: any[] = [];
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[]=[];
   dataSource4: any[]=[];
   dataSource5: any[]=[];
+  dataSource6: any[]=[];
   id: any;
   panelOpenState = false;
   motorArray: any[] = [];
@@ -54,12 +57,13 @@ export class ViewLocoProfileComponent implements OnInit {
 
 
   pageYoffset = 0;
+  isShowHisLoco: boolean;
   @HostListener('window:scroll', ['$event']) onScroll(event){
     this.pageYoffset = window.pageYOffset;
   }
 
 
-  constructor(private scroll: ViewportScroller,private formBuilder: FormBuilder,
+  constructor(private scroll: ViewportScroller,public dialog: MatDialog, private formBuilder: FormBuilder,
      private route: ActivatedRoute, private locomotiveService: LocomotiveService, private router: Router, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
@@ -97,7 +101,7 @@ export class ViewLocoProfileComponent implements OnInit {
       final=>{
 
         this.dataSource3 = final;
-
+        this.getAllHistoryLoco();
           this.viewNextSchedules();
 
       }
@@ -138,5 +142,31 @@ export class ViewLocoProfileComponent implements OnInit {
       return 'clear';
     }
   }
+getAllHistoryLoco(){
+    console.log(this.locoNumber)
+    this.locomotiveService.getAllHistoryLoco(this.locoNumber).subscribe(
+      res=>{
+        console.log(res);
+        this.dataSource6  = res;
+        if(this.dataSource6.length>0){
+          this.isShowHisLoco = true;
+        }
 
+      }
+    )
+  }
+
+viewHistoryMore(_id:string){
+    const dialogRef = this.dialog.open(ViewHistoryLocoComponent, {
+       data: {id: _id},
+
+      width: '700px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+  }
 }
