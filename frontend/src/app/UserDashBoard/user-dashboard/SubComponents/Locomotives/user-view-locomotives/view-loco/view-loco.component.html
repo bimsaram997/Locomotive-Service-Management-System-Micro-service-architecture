@@ -10,105 +10,99 @@
                         <h4 class="mb-0 label">Locomotive Category</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.locoCategory}}
+                        <span class="info">{{this.locoCategory}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Locomotive No.</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.locoNumber}}
+                        <span class="info">{{this.locoNumber}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Locomotive Power</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.locoPower}}
+                        <span class="info">{{this.locoPower}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Last Update Date</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.date | date}}
+                        <span class="info"> {{this.date | date}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Last Checked Mileage</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.locoMileage + 'Km'}}
+                        <span class="info">{{this.locoMileage + 'Km'}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Last Load Trial Date</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.endMileDate | date}}
+                        <span class="info">{{this.endMileDate | date}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Mileage after Last Load Trial</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.endMileage + 'Km'}}
+                        <span class="info">{{this.endMileage + 'Km'}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Supervisor NIC</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.supervisorNic}}
+                        <span class="info">{{this.supervisorNic}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Supervisor Email</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.supervisorEmail}}
+                        <span class="info"> {{this.supervisorEmail}}</span>
                     </div>
                 </div>
-                <hr>
+                <hr class="hr">
                 <div class="row" style="color: black;">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Supervisor Name</h4>
                     </div>
                     <div class="col-sm-6 text-secondary" style="color: black;">
-                        {{this.supervisorName}}
+                        <span class="info"> {{this.supervisorName}}</span>
                     </div>
                 </div>
-                <hr>
+
 
             </div>
             <!-- / project-info-box -->
-
-            <div class="project-info-box mt-0 mb-0">
-                <p class="mb-0">
-                    <span class="fw-bold mr-10 va-middle hide-mobile">Share:</span>
-                    <a href="#x" class="btn btn-xs btn-facebook btn-circle btn-icon mr-5 mb-0"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#x" class="btn btn-xs btn-twitter btn-circle btn-icon mr-5 mb-0"><i class="fab fa-twitter"></i></a>
-                    <a href="#x" class="btn btn-xs btn-pinterest btn-circle btn-icon mr-5 mb-0"><i class="fab fa-pinterest"></i></a>
-                    <a href="#x" class="btn btn-xs btn-linkedin btn-circle btn-icon mr-5 mb-0"><i class="fab fa-linkedin-in"></i></a>
-                </p>
+            <div class="project-info-box">
+                <h2 class="print">Special Notice</h2>
+                <p class="info">{{this.note}}</p>
             </div>
-            <!-- / project-info-box -->
+
         </div>
         <!-- / column -->
 
@@ -116,43 +110,48 @@
 
 
             <div class="project-info-box mt-0">
-                <h2>Schedules Assigned</h2>
+                <p>
+                    <span class="print">Print Details</span>&nbsp;
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" appearance="legacy">
+                        <mat-button-toggle style="background-color: #1f3a93; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Locomotives Details" value="bold" (click)="printBasic()">Basic Details</mat-button-toggle>
+                        <mat-button-toggle style="background-color: #1e8bc3; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Loco Part Details" value="italic" (click)="printTestInfo()">Loco Parts</mat-button-toggle>
+                        <mat-button-toggle style="background-color: #19b5fe; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Assigned Schedule Details" (click)="printAssignedSchedule()">Schedules Assigned</mat-button-toggle>
+                        <mat-button-toggle style="background-color: #89c4f4; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Next Schedule Details" value="underline" (click)="printNextSchedules()">Next Schedules</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </p>
+                <h2 class="print">Schedules Assigned</h2>
                 <mat-accordion>
-
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title class="accord-head">
                                 View Schedules
                             </mat-panel-title>
-                            <mat-panel-description>
-                                Currently {{panelOpenState ? 'open' : 'closed'}}
-                            </mat-panel-description>
                         </mat-expansion-panel-header>
                         <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8">
 
                             <ng-container matColumnDef="Schedule No.">
                                 <th mat-header-cell *matHeaderCellDef> Schedule No. </th>
-                                <td mat-cell *matCellDef="let elemen; ">{{elemen.scheduleNo}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen; ">{{elemen.scheduleNo}} </td>
                             </ng-container>
                             <ng-container matColumnDef="Supervisor Name">
                                 <th mat-header-cell *matHeaderCellDef> Supervisor Name </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.supervisorName}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.supervisorName}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="Report No.">
                                 <th mat-header-cell *matHeaderCellDef> Report No. </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.mReportNumber}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.mReportNumber}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="Progress">
                                 <th mat-header-cell *matHeaderCellDef> Progress </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.scheduleProgress}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.scheduleProgress}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="#">
                                 <th mat-header-cell *matHeaderCellDef> </th>
                                 <td mat-cell *matCellDef="let elemen">
-                                    <button mat-icon-button (click)="viewSchedule(elemen._id)"><mat-icon>visibility</mat-icon></button>
+                                    <button mat-icon-button (click)="viewSchedule(elemen._id)"><mat-icon class="mat-icon">visibility</mat-icon></button>
                                 </td>
                             </ng-container>
 
@@ -163,32 +162,30 @@
                     </mat-expansion-panel>
                 </mat-accordion>
                 <br>
-                <h2>Motor Parts</h2>
+                <h2 class="print">Motor Parts</h2>
                 <mat-accordion>
 
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title class="accord-head ">
                                 View Motor Parts
                             </mat-panel-title>
-                            <mat-panel-description>
-                                Currently {{panelOpenState ? 'open' : 'closed'}}
-                            </mat-panel-description>
+
                         </mat-expansion-panel-header>
                         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                             <ng-container matColumnDef="No">
                                 <th mat-header-cell *matHeaderCellDef> No. </th>
-                                <td mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
                             </ng-container>
                             <ng-container matColumnDef="Motor Part Name">
                                 <th mat-header-cell *matHeaderCellDef> Motor Part Name </th>
-                                <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let element"> {{element.Name}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="Condition">
                                 <th mat-header-cell *matHeaderCellDef> Condition </th>
-                                <td mat-cell *matCellDef="let element"> {{element.working}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let element"> {{element.working}} </td>
                             </ng-container>
 
 
@@ -199,32 +196,30 @@
                 </mat-accordion>
                 <br>
                 <br>
-                <h2>Breaks Types</h2>
+                <h2 class="print">Breaks Types</h2>
                 <mat-accordion>
 
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title class="accord-head">
                                 View Breaks Types
                             </mat-panel-title>
-                            <mat-panel-description>
-                                Currently {{panelOpenState ? 'open' : 'closed'}}
-                            </mat-panel-description>
+
                         </mat-expansion-panel-header>
                         <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
 
                             <ng-container matColumnDef="No">
                                 <th mat-header-cell *matHeaderCellDef> No. </th>
-                                <td mat-cell *matCellDef="let elemen; let i = index">{{i + 1}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen; let i = index">{{i + 1}} </td>
                             </ng-container>
                             <ng-container matColumnDef="Motor Part Name">
                                 <th mat-header-cell *matHeaderCellDef> Break Type </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.bName}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.bName}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="Condition">
                                 <th mat-header-cell *matHeaderCellDef> Condition </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.working}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.working}} </td>
                             </ng-container>
 
 
@@ -236,32 +231,30 @@
                 </mat-accordion>
                 <br>
                 <br>
-                <h2>Liquid Levels</h2>
+                <h2 class="print">Liquid Levels</h2>
                 <mat-accordion>
 
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title class="accord-head">
                                 View Fluid Levels
                             </mat-panel-title>
-                            <mat-panel-description>
-                                Currently {{panelOpenState ? 'open' : 'closed'}}
-                            </mat-panel-description>
+
                         </mat-expansion-panel-header>
                         <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
 
                             <ng-container matColumnDef="No">
                                 <th mat-header-cell *matHeaderCellDef> No. </th>
-                                <td mat-cell *matCellDef="let elemen; let i = index">{{i + 1}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen; let i = index">{{i + 1}} </td>
                             </ng-container>
                             <ng-container matColumnDef="Fluids">
-                                <th mat-header-cell *matHeaderCellDef> Break Type </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.fName}} </td>
+                                <th mat-header-cell *matHeaderCellDef> Fluids </th>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.fName}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="Level">
                                 <th mat-header-cell *matHeaderCellDef> Level </th>
-                                <td mat-cell *matCellDef="let elemen"> {{elemen.fluids}} </td>
+                                <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.fluids}} </td>
                             </ng-container>
 
 
@@ -272,40 +265,36 @@
                 </mat-accordion>
                 <br>
                 <ng-container *ngIf="isShowNextSchedule">
-                    <h2>Next Schedule Info</h2>
+                    <h2 class="print">Next Schedule Info</h2>
                     <mat-accordion>
 
                         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    View Fluid Levels
+                                <mat-panel-title class="accord-head">
+                                    View Next Schedules
                                 </mat-panel-title>
-                                <mat-panel-description>
-                                    Currently {{panelOpenState ? 'open' : 'closed'}}
-                                </mat-panel-description>
                             </mat-expansion-panel-header>
                             <table mat-table [dataSource]="dataSource5" class="mat-elevation-z8">
 
                                 <ng-container matColumnDef="Next Schedule No.">
                                     <th mat-header-cell *matHeaderCellDef> Next Schedule No.</th>
-                                    <td mat-cell *matCellDef="let elemen; let i = index">{{elemen.nxtSchId}}</td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen; let i = index">{{elemen.nxtSchId}}</td>
                                 </ng-container>
                                 <ng-container matColumnDef="Loco Category">
                                     <th mat-header-cell *matHeaderCellDef> Loco Category </th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoCatId}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.locoCatId}} </td>
                                 </ng-container>
-
                                 <ng-container matColumnDef="Loco Number">
                                     <th mat-header-cell *matHeaderCellDef> Loco Number</th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoNumber}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.locoNumber}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Date">
                                     <th mat-header-cell *matHeaderCellDef> Date</th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.date}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.date}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Status">
                                     <th mat-header-cell *matHeaderCellDef> Status</th>
-                                    <td mat-cell *matCellDef="let elemen" [ngStyle]="{'color': (elemen.nxtSchStatus == 0)?'#f7ca18':(elemen.nxtSchStatus == 1)?'red':(elemen.nxtSchStatus==2)?'green':'blue'}">
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen" [ngStyle]="{'color': (elemen.nxtSchStatus == 0)?'#f7ca18':(elemen.nxtSchStatus == 1)?'red':(elemen.nxtSchStatus==2)?'green':'blue'}">
                                         <span class="material-icons" matTooltip="{{elemen.nxtSchReason}}">{{statusBinder(elemen.nxtSchStatus)}}</span> </td>
                                 </ng-container>
 
@@ -317,37 +306,35 @@
                 </ng-container>
                 <br>
                 <ng-container *ngIf="isShowHisLoco">
-                    <h2>Locomotive History Info</h2>
+                    <h2 class="print">Locomotive History Info</h2>
                     <mat-accordion>
 
                         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                             <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    View Fluid Levels
+                                <mat-panel-title class="accord-head">
+                                    History
                                 </mat-panel-title>
-                                <mat-panel-description>
-                                    Currently {{panelOpenState ? 'open' : 'closed'}}
-                                </mat-panel-description>
+
                             </mat-expansion-panel-header>
                             <table mat-table [dataSource]="dataSource6" class="mat-elevation-z8">
 
 
                                 <ng-container matColumnDef="Loco Category">
                                     <th mat-header-cell *matHeaderCellDef> Loco Category </th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoCatId}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.locoCatId}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="Loco Number">
                                     <th mat-header-cell *matHeaderCellDef> Loco Number</th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoNumber}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.locoNumber}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Last Updated Date">
                                     <th mat-header-cell *matHeaderCellDef> Date</th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoDate | date}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.locoDate | date}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="Loco Mileage">
                                     <th mat-header-cell *matHeaderCellDef> Loco Mileage </th>
-                                    <td mat-cell *matCellDef="let elemen"> {{elemen.locoMileage + ' Km'}} </td>
+                                    <td class="label-txt" mat-cell *matCellDef="let elemen"> {{elemen.locoMileage + ' Km'}} </td>
                                 </ng-container>
                                 <ng-container matColumnDef="#">
                                     <th mat-header-cell *matHeaderCellDef></th>
@@ -363,10 +350,7 @@
             </div>
 
             <!-- / project-info-box -->
-            <div class="project-info-box">
-                <h2>Special Notice</h2>
-                <p style="color: black">{{this.note}}</p>
-            </div>
+
             <!-- / project-info-box -->
         </div>
         <!-- / column -->

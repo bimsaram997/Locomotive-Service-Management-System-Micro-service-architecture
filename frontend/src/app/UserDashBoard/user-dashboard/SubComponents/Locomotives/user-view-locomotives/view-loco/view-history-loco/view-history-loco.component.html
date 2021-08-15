@@ -36,14 +36,14 @@
                             <div class="col-md-4">
                                 <mat-form-field appearance="fill">
                                     <mat-label class="label-txt">Locomotive Mileage</mat-label>
-                                    <input minlength="4" required matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage">
+                                    <input readonly minlength="4" required matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage">
 
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4">
                                 <mat-form-field appearance="fill" style="width: 200px;">
                                     <mat-label>Choose a date</mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="locoDate" readonly>
+                                    <input disabled matInput [matDatepicker]="picker" formControlName="locoDate" readonly>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                 </mat-form-field>

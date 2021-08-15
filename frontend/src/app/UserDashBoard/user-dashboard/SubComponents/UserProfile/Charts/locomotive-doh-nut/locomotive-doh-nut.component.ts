@@ -1,3 +1,4 @@
+import { LocomotiveService } from './../../../../../../service/locomotive.service';
 import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 
@@ -10,20 +11,26 @@ export class LocomotiveDohNutComponent implements OnInit {
 public doughnutChartLabels = ['Operating', 'In Schedules', 'In Load Trials'];
   public doughnutChartData = [120, 150, 180, 90];
   public doughnutChartType = 'doughnut';
-  constructor() { }
+  locoList: any[]=[];
+  statusTwo:number;
+
+  constructor(
+    public locomotiveService: LocomotiveService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllLoco();
   }
-  print(){
-     var canvas = document.querySelector('#cool-canvas');
-	//creates image
-	var newCanvasImg = canvas.toDataURL("image/jpeg", 1.0);
 
-	//creates PDF from img
-		var doc = new jsPDF('landscape');
-	doc.setFontSize(20);
-//	doc.text(15, 15, "Super Cool Chart");
-	doc.addImage(newCanvasImg, 'JPEG', 10, 10, 280, 150 );
-	doc.save('new-canvas.pdf');
+  getAllLoco(){
+    this.locomotiveService.getAllLocomotives().subscribe(
+      res=>{
+        this.locoList = res
+        const loco = this.locoList?.filter(x=>x.locoStatus===2);
+        this.statusTwo = loco.length;
+        console.log(loco.length);
+      }
+    )
   }
+
 }

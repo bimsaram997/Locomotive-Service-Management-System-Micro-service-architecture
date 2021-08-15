@@ -27,7 +27,7 @@ export class UserViewLocomotivesComponent implements OnInit {
   searchKey: string;
 
   isVisibleSecond = false;
-  statuses: string[] = ['In', 'Out'];
+  statuses: string[] = ['All','In', 'Out'];
   tMotors: string[] = ['Working', 'Not Working'];
   mainMotors: string[] = ['Working', 'Not Working'];
   vBreaks: string[] = ['Working', 'Not Working'];
@@ -130,7 +130,7 @@ export class UserViewLocomotivesComponent implements OnInit {
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
-}
+  }
 
 
 

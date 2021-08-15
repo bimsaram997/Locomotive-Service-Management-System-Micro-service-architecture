@@ -203,7 +203,7 @@ export class UserProfileComponent implements OnInit {
                       [{text: '6.Mobile No', fontSize: 12, bold: true,  color: '#aaaaab'}, this.userMobile],
                       [{text: '7.Address', fontSize: 12, bold: true,  color: '#aaaaab'}, this.address],
                       [{text: '8.Appointment Date', fontSize: 12, bold: true,  color: '#aaaaab'}, `${new Date( this.appointmentDate).toLocaleString()}`],
-                      [{text: '6.Work Place', fontSize: 12, bold: true,  color: '#aaaaab'}, this.userWorks],
+                      [{text: '9.Work Place', fontSize: 12, bold: true,  color: '#aaaaab'}, this.userWorks],
 
                     ],
                   },
