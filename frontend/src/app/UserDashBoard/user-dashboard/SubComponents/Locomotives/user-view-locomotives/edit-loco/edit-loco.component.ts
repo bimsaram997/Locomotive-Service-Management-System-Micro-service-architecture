@@ -33,6 +33,7 @@ export class EditLocoComponent implements OnInit  {
   isVisble = true;
   val = '';
   loading =  false;
+  statusLoco: number;
   filesToUpload: Array<File> = [];
   urls = new Array<string>();
   public selectedIndex: number = 0;
@@ -70,6 +71,8 @@ export class EditLocoComponent implements OnInit  {
       locoMileage: ['', [Validators.required, Validators.minLength(10),  Validators.pattern('^[0-9]*$')]],
       locoDate: ['', [Validators.required]],
       userNic: ['', [Validators.required]],
+      locoStatus:[''],
+       statusReason:[''],
       supervisorName: ['', [Validators.required]],
       supervisorEmail: ['', [Validators.required]],
       locoAvailability: ['', [Validators.required]],
@@ -89,7 +92,9 @@ export class EditLocoComponent implements OnInit  {
       locoPower: [''],
       locoMileage: [''],
       locoDate: [''],
+      locoStatus:[''],
       userNic: [''],
+
       locoAvailability: [''],
       locoMotors: new FormArray ([]),
       locoBreaks: new FormArray([]),
@@ -115,7 +120,9 @@ export class EditLocoComponent implements OnInit  {
             this.editLocoGroup.controls['locoNumber'].setValue(res[0].locoNumber);
             this.editLocoGroup.controls['locoPower'].setValue(res[0].locoPower);
             this.editLocoGroup.controls['locoMileage'].setValue(res[0].locoMileage);
-
+             this.editLocoGroup.controls['locoStatus'].setValue(res[0].locoStatus);
+               this.editLocoGroup.controls['statusReason'].setValue(res[0].statusReason);
+            this.statusLoco = res[0].locoStatus;
              this.historyLocoGroup.controls['locoCatId'].setValue(res[0].locoCatId);
             this.historyLocoGroup.controls['locoNumber'].setValue(res[0].locoNumber);
             this.historyLocoGroup.controls['locoPower'].setValue(res[0].locoPower);
@@ -130,6 +137,7 @@ export class EditLocoComponent implements OnInit  {
             this.editLocoGroup.controls['supervisorEmail'].setValue(res[0].supervisorEmail);
             this.editLocoGroup.controls['locoAvailability'].setValue(res[0]. locoAvailability);
             this.editLocoGroup.controls['locoNote'].setValue(res[0].locoNote);
+            console.log(this.statusLoco)
             const _locoMotors  = this.getFm.locoMotors as FormArray
             res[0].locoMotors.forEach((data , index)=>{
               _locoMotors.push(
@@ -179,7 +187,13 @@ export class EditLocoComponent implements OnInit  {
 
       if (window.confirm('Are you sure?')) {
         let id = this.route.snapshot.paramMap.get('id');
-        this.locomotiveService.updateLoco(this.editLocoGroup.value)
+        if(this.statusLoco ===2){
+         this.statusLoco =0;
+          this.editLocoGroup.controls['locoStatus'].setValue(this.statusLoco);
+           this.editLocoGroup.controls['statusReason'].setValue('In Operating');
+          //  this.historyLocoGroup.controls['locoStatus'].setValue(this.statusLoco);
+          //  this.historyLocoGroup.controls['locoNumber'].setValue('In Operating');
+          this.locomotiveService.updateLoco(this.editLocoGroup.value)
           .subscribe(res => {
             this.sendLocoEmail(this.editLocoGroup.value)
             this.saveLocoHistory(this.editLocoGroup.value)
@@ -190,6 +204,21 @@ export class EditLocoComponent implements OnInit  {
           }, (error) => {
             console.log(error)
           })
+        }else{
+
+ this.locomotiveService.updateLoco(this.editLocoGroup.value)
+          .subscribe(res => {
+            this.sendLocoEmail(this.editLocoGroup.value)
+            this.saveLocoHistory(this.editLocoGroup.value)
+            //this.router.navigateByUrl('/employees-list');
+            console.log('Content updated successfully!');
+           console.log(this.editLocoGroup.value);
+            console.log(res);
+          }, (error) => {
+            console.log(error)
+          })
+        }
+
 
     }
   }

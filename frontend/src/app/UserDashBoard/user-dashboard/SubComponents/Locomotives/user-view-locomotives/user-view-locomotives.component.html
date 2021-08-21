@@ -4,13 +4,14 @@
         <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px">
         <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW LOCOMOTIVES</span>
     </div>
+    <br>
     <mat-divider></mat-divider>
 
     <div class="row">
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 25px;">
                 <mat-label>Search loco</mat-label>
-                <input class="label" matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
+                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
                 <mat-hint>Search by Loco Category, Loco Number, </mat-hint>
                 <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
     <mat-icon>close</mat-icon>
@@ -19,8 +20,8 @@
         </div>
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080;">
-                <mat-label class="place-holder">Availability</mat-label>
-                <mat-select>
+                <mat-label>Availability</mat-label>
+                <mat-select (selectionChange)="onChangeSelect($event)">
                     <mat-option *ngFor="let option of statuses" [value]="option">
                         {{option}}
                     </mat-option>

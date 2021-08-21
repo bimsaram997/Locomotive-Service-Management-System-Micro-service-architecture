@@ -24,10 +24,11 @@ export class ViewSchedulesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
+  displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Request Date', 'To be Complete', 'Progress', 'Status', '#'];
   scheduleList: any[] = [];
   scheduleStatus: any;
-   statuses: number[] = [100,90,75,60,45,30,0];
+   statuses: any[] = ['All',100,90,75,60,45,30,0];
+     tableArray :any;
  // @Input() public len
   constructor(private scheduleService: ScheduleService ,private router: Router,  private toastr: ToastrService,public dialog: MatDialog) {
 
@@ -56,6 +57,22 @@ export class ViewSchedulesComponent implements OnInit {
       })
     })
   }
+
+  onChangeSelect(value){
+    let _cloneArrat = [];
+    const _findValue  = this.scheduleList.filter(x=>x.scheduleProgress==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
+    }
+    else{
+      this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
+    }
+  }
+
   statusBinder(scheduleStatus){
     if (scheduleStatus === 0){
       return 'not_started';
@@ -78,6 +95,9 @@ export class ViewSchedulesComponent implements OnInit {
     }
   }
 
+  addLoadTrial(){
+      this.router.navigate(['/userDashboard/addLoadTrial']);
+  }
 
 
 /*

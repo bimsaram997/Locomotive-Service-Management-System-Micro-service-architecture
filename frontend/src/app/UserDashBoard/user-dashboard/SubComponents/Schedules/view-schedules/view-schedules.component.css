@@ -252,7 +252,23 @@ body {
 }
 
 .label-txt {
-    font-size: 18px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.place-holder {
+    font-size: 13px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
 }
 
 #aria-label {

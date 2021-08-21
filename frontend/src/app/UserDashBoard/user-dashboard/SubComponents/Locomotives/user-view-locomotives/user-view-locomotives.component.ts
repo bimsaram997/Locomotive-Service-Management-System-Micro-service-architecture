@@ -32,7 +32,7 @@ export class UserViewLocomotivesComponent implements OnInit {
   mainMotors: string[] = ['Working', 'Not Working'];
   vBreaks: string[] = ['Working', 'Not Working'];
   dBreaks: string[] = ['Working', 'Not Working'];
-
+  tableArray :any;
   userNic: any;
   userRole: any;
 
@@ -58,6 +58,23 @@ export class UserViewLocomotivesComponent implements OnInit {
     });
   }*/
 
+  onChangeSelect(value){
+    let _cloneArrat = [];
+    const _findValue  = this.locoArray.filter(x=>x.locoAvailability==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    }
+  }
+
+
+
   getAllLoco(){
     const values =  JSON.parse( localStorage.getItem('currentUser'));
     const object  = {
@@ -70,6 +87,7 @@ export class UserViewLocomotivesComponent implements OnInit {
     .subscribe(
       res=>{
         this.locoArray = res;
+        this.tableArray =res;
         this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
 
         setTimeout(() => {
@@ -132,6 +150,8 @@ export class UserViewLocomotivesComponent implements OnInit {
     }
   }
 
-
+   onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
+  }
 
 }

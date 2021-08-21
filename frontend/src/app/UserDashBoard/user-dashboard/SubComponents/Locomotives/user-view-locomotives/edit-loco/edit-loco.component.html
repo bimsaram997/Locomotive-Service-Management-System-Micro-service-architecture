@@ -27,8 +27,8 @@
                             </div>
                             <div class="col-md-4">
                                 <mat-form-field appearance="fill">
-                                    <mat-label class="label-txt">Locomotive Power</mat-label>
-                                    <input readonly minlength="4" maxlength="5" required matInput placeholder="Locomotive Power" #searchInput formControlName="locoPower">
+                                    <mat-label>Locomotive Power</mat-label>
+                                    <input class="label-txt" readonly minlength="4" maxlength="5" required matInput placeholder="Locomotive Power" #searchInput formControlName="locoPower">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-md-4" style="padding-top: 20px;">
                                 <mat-radio-group aria-label="Select an option" formControlName="locoAvailability">
-                                    <span>Availability</span> &nbsp;
+                                    <span class="radio-text">Availability</span> &nbsp;
                                     <mat-radio-button *ngFor="let status of statuses" [value]="status">{{status}}&nbsp;</mat-radio-button>
                                 </mat-radio-group>
                             </div>
