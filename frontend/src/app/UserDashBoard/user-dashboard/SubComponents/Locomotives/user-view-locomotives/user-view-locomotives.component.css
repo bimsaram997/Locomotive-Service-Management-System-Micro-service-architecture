@@ -257,9 +257,16 @@ body {
     font-weight: 400;
 }
 
+.label {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
 .place-holder {
     font-size: 13px;
-    color: #3F51B5;
+    color: black;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
 }

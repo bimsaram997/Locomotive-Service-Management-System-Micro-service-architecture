@@ -223,6 +223,7 @@ getAllSchedules(){
     }
   this.scheduleService.getAllCompSchedule(object).subscribe(res=>{
   this.scheduleArray = res;
+  console.log(this.scheduleArray)
   if(this.scheduleArray.length===0){
     this.lengthCount = true;
   }

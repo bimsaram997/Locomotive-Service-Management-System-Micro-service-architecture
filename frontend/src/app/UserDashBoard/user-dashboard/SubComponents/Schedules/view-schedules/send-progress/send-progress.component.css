@@ -1,8 +1,28 @@
-.example-container .mat-form-field + .mat-form-field {
-  margin-left: 5px;
-
-
-
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 5px;
 }
 
+.radio-text {
+    font-size: 12px;
+}
 
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.input-label {
+    font-weight: bold;
+    color: black;
+}
+
+.btn-color {
+    color: #1f3a93;
+}

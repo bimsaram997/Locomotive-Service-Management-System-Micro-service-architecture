@@ -101,7 +101,7 @@ const getAllScheduleAssignedManager = async(req, resp) => {
 
 }
 const getAllCompSchedule = (req, resp) => { //get completed schedule
-    if (req.query.userRole == 'Service Manager') {
+    if (req.query.userRole == 'Supervisor') {
         ScheduleSchema.find({ scheduleProgress: 100, scheduleStatus: 6, supervisorNic: req.query.userNic }).then(result => {
             resp.status(200).json(result);
         }).catch(error => {

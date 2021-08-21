@@ -24,9 +24,10 @@ export class ViewSchedulesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Manager inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
+  displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
   scheduleList: any[] = [];
   scheduleStatus: any;
+   statuses: number[] = [100,90,75,60,45,30,0];
  // @Input() public len
   constructor(private scheduleService: ScheduleService ,private router: Router,  private toastr: ToastrService,public dialog: MatDialog) {
 

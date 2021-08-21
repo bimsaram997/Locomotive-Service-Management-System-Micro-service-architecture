@@ -34,19 +34,22 @@ export class SendProgressComponent implements OnInit {
   ];
   checkLength:any[] = [];
   checkArrayNew: any[] = [];
-  presentage: number[] = []
+  presentage: number[] = [];
+
+  percentage: number;
+  checkPercentage: boolean;
   image: string = './assets/logo/1618837407350.png';
   constructor(private formBuilder: FormBuilder ,
               @Inject(MAT_DIALOG_DATA) public data: any, private scheduleService: ScheduleService, private router: Router, private progressReport: ProgressReportService) { }
   ngOnInit(): void {
     this.ReportGroup = this.formBuilder.group({
-      scheduleNo: ['', [Validators.required]],
-      progressReportNumber: ['', [Validators.required]],
-      locoCatId: ['', [Validators.required]],
-      locoNumber: ['', [Validators.required]],
-      supervisorEmail: ['', [Validators.required]],
-      supervisorName: ['', [Validators.required]],
-      managerName: ['', [Validators.required]],
+      scheduleNo: [''],
+      progressReportNumber: [''],
+      locoCatId: [''],
+      locoNumber: [''],
+      supervisorEmail: [''],
+      supervisorName: [''],
+      managerName: [''],
       managerEmail: [''],
       progressDate: [''],
       checkArray: new FormArray([]),
@@ -54,6 +57,8 @@ export class SendProgressComponent implements OnInit {
       extraNote: ['', [Validators.required]]
 
     });
+    this.check()
+    this.defaultMethod();
 
     ///backend call karala me id ekata adala data tika load karaganna harithaee
     //ita passe e ena data object eka ara formgrop eke values walta assign karaganna harithe
@@ -69,25 +74,53 @@ export class SendProgressComponent implements OnInit {
        this.ReportGroup.controls['managerName'].setValue(resp[0].managerName);
        this.ReportGroup.controls['managerEmail'].setValue(resp[0].managerEmail);
        //console.log(resp[0].schProgressReport)
+       console.log(resp[0].schProgressReport.length )
 
-
-      //  methanata thamai ara oyage report eke array eka enne oya ewele ara hasangi kiyna kella gena katha kara kara hitye
-      //  methnata thamai progress report eke enne methna idala debug point ekak thiyala balanna history okkoma methanta enne ,ekath methanta enne sds
         if(resp[0].schProgressReport && resp[0].schProgressReport.length > 0){
-                const _checkArr = resp[0].schProgressReport;
+            if(resp[0].schProgressReport.length===5){
+              console.log('assa');
+              this.checkPercentage = false;
+            }else{
+               this.checkPercentage = true;
+ const _checkArr = resp[0].schProgressReport;
                 // const formCheckControl = this.getFm.checkArray as FormArray;
                 const formCheckControl: FormArray = this.ReportGroup.get('checkArray') as FormArray;
                 for(const param of _checkArr){
+
                         if(param.checkArray.length > 0){
+                          this.percentage = param.checkArray.length
+                          //console.log()
                           this.pushCheckDefaultValue(param.checkArray ,formCheckControl);
                         }
                 }
-        }
+            }
 
-     }
-   })
+        }
+      }
+      })
 
   }
+  check(){
+    console.log(this.percentage)
+  }
+
+    defaultMethod(){
+ //Id Gen
+      var chars = "ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890";
+
+      var string_length = 8;
+      var  progressReportNumber = "PR_" + "";
+      //var sysId = "ST_"+"";
+      for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+         progressReportNumber += chars.substring(rnum, rnum + 1);
+        ///sysId += chars.substring(rnum, rnum + 1);
+        this.ReportGroup.controls["progressReportNumber"].setValue(progressReportNumber);
+        //this.LocoGroup.controls["id"].setValue(sysId);
+      }
+//this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+
+}
 
   pushCheckDefaultValue(array , controlName) {
 

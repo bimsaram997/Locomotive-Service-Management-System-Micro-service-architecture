@@ -208,43 +208,43 @@ export class AddCommentLoadComponent implements OnInit {
     console.log(this.commentAdd.value);
     this.checkNextScheduleDate();
 
-  //   this.loadService.makeComment(this.commentAdd.value).pipe(first()).subscribe(
-  //   res => {
-  //     console.log(res);
-  //     if (res.isSaved) {
+    this.loadService.makeComment(this.commentAdd.value).pipe(first()).subscribe(
+    res => {
+      console.log(res);
+      if (res.isSaved) {
 
-  //       swal({
-  //         title: 'Record Saved!',
-  //         text: 'Please Click OK',
-  //         icon: 'success',
-  //       });
-  //       this.updateLoadStatus(this.commentAdd.value)
-  //       this.patchLoadLoco(this.commentAdd.value);
-  //       this.changeScheduleSeven(this.commentAdd.value);
-  //        this.commentEmail(this.commentAdd.value)
-  //       setTimeout(() => {
-  //        // this.refresh();
-  //       }, 3000);
+        swal({
+          title: 'Record Saved!',
+          text: 'Please Click OK',
+          icon: 'success',
+        });
+        this.updateLoadStatus(this.commentAdd.value)
+        this.patchLoadLoco(this.commentAdd.value);
+        this.changeScheduleSeven(this.commentAdd.value);
+         this.commentEmail(this.commentAdd.value)
+        setTimeout(() => {
+         // this.refresh();
+        }, 3000);
 
-  //     } else {
-  //       swal({
-  //         title: 'Record already Exits',
-  //         text: 'Please Click OK',
-  //         icon: 'error',
-  //       });
-  //       setTimeout(() => {
-  //         //this.refresh();
-  //       }, 3000);
-  //     }
-  //   },
+      } else {
+        swal({
+          title: 'Record already Exits',
+          text: 'Please Click OK',
+          icon: 'error',
+        });
+        setTimeout(() => {
+          //this.refresh();
+        }, 3000);
+      }
+    },
 
-  //   error => {
-  //     console.log(error);
-  //   },
-  //   () => {
-  //     console.log('dss');
-  //   }
-  // )
+    error => {
+      console.log(error);
+    },
+    () => {
+      console.log('dss');
+    }
+  )
 
   }
 
