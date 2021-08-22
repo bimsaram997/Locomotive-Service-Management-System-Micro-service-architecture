@@ -106,6 +106,10 @@ export class ScheduleService {
     return this.http.put(this.myUrl + `scheduleRoute/changeScheduleSeven`, data);
   }
 
+     public  assignedLoadTrial(data): Observable<any>{
+    return this.http.put(this.myUrl + `scheduleRoute/assignedLoadTrial`, data);
+  }
+
   public scheduleEmail(data): Observable<any>{
     return this.http.post(this.myUrl + `scheduleRoute/scheduleEmail`, data);
   }

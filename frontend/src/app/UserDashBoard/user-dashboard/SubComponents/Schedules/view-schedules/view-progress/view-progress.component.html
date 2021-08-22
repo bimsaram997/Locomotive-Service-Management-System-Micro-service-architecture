@@ -1,6 +1,6 @@
 <div>
 
-    <h2 mat-dialog-title>Progress History <span> ({{this.scheduleNo}})</span></h2>
+    <h2 mat-dialog-title class="heading">Progress History <span class="schedule-No"> ({{this.scheduleNo}})</span></h2>
     <mat-dialog-content class="mat-typography" *ngIf="isShowLabel">
         <div class="empty-state">
             <div class="empty-state__content">
@@ -11,11 +11,7 @@
 
             </div>
         </div>
-
-
     </mat-dialog-content>
-
-
     <mat-dialog-content class="mat-typography" *ngIf="isShowPrTable">
         <div class="container-fluid">
             <div class="search-div">
@@ -27,38 +23,39 @@
                 </button>
                 </mat-form-field>
             </div>
+            <br>
             <div class="main-table">
                 <div class="mat-elevation-z8">
                     <mat-table [dataSource]="dataSource" matSort>
 
                         <ng-container matColumnDef="Progress No">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Progress No </mat-header-cell>
-                            <mat-cell *matCellDef="let tempSchedule" data-label="Progress No">{{tempSchedule?.progressReportNumber}} </mat-cell>
+                            <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Progress No">{{tempSchedule?.progressReportNumber}} </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="Schedule No">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Schedule No </mat-header-cell>
-                            <mat-cell *matCellDef="let tempSchedule" data-label="Schedule No"> {{tempSchedule?.scheduleNo}}</mat-cell>
+                            <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Schedule No"> {{tempSchedule?.scheduleNo}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="Date">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Date</mat-header-cell>
-                            <mat-cell *matCellDef="let tempSchedule" data-label="Date"> {{tempSchedule?.progressDate | date}} </mat-cell>
+                            <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Date"> {{tempSchedule?.progressDate | date}} </mat-cell>
                         </ng-container>
 
                         <!-- Name Column -->
                         <ng-container matColumnDef="Progress Value">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Progress Value </mat-header-cell>
-                            <mat-cell *matCellDef="let tempSchedule" data-label="Progress Value"> {{tempSchedule?.progressValue}} </mat-cell>
+                            <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Progress Value"> {{tempSchedule?.progressValue+'%'}} </mat-cell>
                         </ng-container>
 
-                        <ng-container matColumnDef="Checked Items">
+                        <ng-container matColumnDef="CheckedItems">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Checked Items </mat-header-cell>
-                            <mat-cell *matCellDef="let tempSchedule" data-label="Checked Items"> {{tempSchedule?.checkArray}} </mat-cell>
+                            <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Checked Items"> {{tempSchedule?.checkArray}} </mat-cell>
                         </ng-container>
 
                         <!-- Weight Column -->
                         <ng-container matColumnDef="Note">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Note </mat-header-cell>
-                            <mat-cell *matCellDef="let tempSchedule" data-label="Note"> {{tempSchedule?.extraNote}}</mat-cell>
+                            <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Note"> {{tempSchedule?.extraNote}}</mat-cell>
                         </ng-container>
 
 
@@ -72,8 +69,9 @@
             </div>
         </div>
     </mat-dialog-content>
+    <br>
     <mat-dialog-actions align="end">
 
-        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+        <button mat-raised-button [mat-dialog-close]="true">Close</button>
     </mat-dialog-actions>
 </div>

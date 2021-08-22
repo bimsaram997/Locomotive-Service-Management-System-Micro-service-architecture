@@ -9,7 +9,8 @@
             <span id="minutes"> {{minutesToDday}} </span>Min
             <span id="seconds"> {{secondsToDday}} </span>S
         </div>
-        <mat-card class="chip" *ngIf="!isTimer">Schedule is lapsed!</mat-card>
+        <mat-card class="chip" *ngIf="lapseBanner">Schedule is lapsed <br> <span class="sub-note">Need load trial</span> </mat-card>
+        <mat-card class="chip-com" *ngIf="completedBanner">Schedule is Completed</mat-card>
     </div>
     <hr>
 

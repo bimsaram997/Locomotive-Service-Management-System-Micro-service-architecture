@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap');
 .box-head {
     display: flex;
     align-items: center;
@@ -52,7 +53,38 @@
     padding-left: 10px;
 }
 
+.sub-header {
+    color: #1f3a93;
+    font-family: 'Assistant', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
 .dyanmic {
     margin-left: -40px;
     ;
+}
+
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.input-label {
+    font-weight: bold;
+    color: black;
+}
+
+.btn-color {
+    color: #1f3a93;
+}
+
+.error {
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: red;
 }

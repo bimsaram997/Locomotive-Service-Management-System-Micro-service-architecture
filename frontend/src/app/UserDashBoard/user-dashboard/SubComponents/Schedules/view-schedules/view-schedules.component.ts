@@ -93,6 +93,9 @@ export class ViewSchedulesComponent implements OnInit {
     else if (scheduleStatus === 7){
       return 'sports_score';
     }
+     else if (scheduleStatus === 8){
+      return 'assignment';
+    }
   }
 
   addLoadTrial(){

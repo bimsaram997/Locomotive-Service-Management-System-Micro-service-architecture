@@ -9,6 +9,7 @@ import { UpdateFinalMileageComponent } from '../update-final-mileage/update-fina
 import { first } from 'rxjs/operators';
 import { isThisISOWeek } from 'date-fns';
 import swal from "sweetalert";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-load-trial',
@@ -40,13 +41,14 @@ export class AddLoadTrialComponent implements OnInit {
   lengthCount: boolean =false;
   checkId: boolean = false;
   searchKey: string;
+  spinner = false
 
   ids:any[] = [];
 
 
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog,
     private scheduleService: ScheduleService, private accessService: AccessService,
-    private loadTrialService: LoadTrialService,
+    private loadTrialService: LoadTrialService, private router: Router,
     private locomotiveService: LocomotiveService) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 0, 7, -32);
@@ -57,8 +59,8 @@ export class AddLoadTrialComponent implements OnInit {
     this.LoadTrial = this.formBuilder.group({
       loadNo: [''],
       loadDate: ['', [Validators.required]],
-      loadFrom: ['', [Validators.required]],
-      loadTo: ['', [Validators.required]],
+      loadFrom: ['', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]],
+      loadTo: ['', [Validators.required,Validators.pattern('^[a-zA-Z ]*$')]],
       scheduleNo: ['', [Validators.required]],
       locoCatId: ['', [Validators.required]],
       locoNumber: ['', [Validators.required]],
@@ -72,8 +74,8 @@ export class AddLoadTrialComponent implements OnInit {
       itemsStop: this.formBuilder.array([ this.createStopItem() ]),
       dynamicBrake: this.formBuilder.array([this.createDynItem()]),
       loadNote: ['', [Validators.required]],
-      startMileage: [''],
-      endMileage: [''],
+      startMileage: ['', [Validators.pattern('^[0-9]*$')]],
+      endMileage: ['', [Validators.pattern('^[0-9]*$')]],
       status: [1],
       reason:['Draft'],
       comments:['']
@@ -92,34 +94,34 @@ export class AddLoadTrialComponent implements OnInit {
     console.log(this.LoadTrial.value);
 
     // if(this.filesToUpload.)
-
+ this.spinner = true;
     this.loadTrialService.saveLoadTrial(this.LoadTrial.value)
       .pipe(first()).subscribe(
       res => {
         console.log(res);
         if (res.isSaved) {
-          this.patchFinalMile(this.LoadTrial.value)
+          this.patchFinalMile(this.LoadTrial.value);
+          this.assignedLoadTrial(this.LoadTrial.value)
           swal({
             title: 'Record Saved!',
-            text: 'Please Click OK',
             icon: 'success',
           });
 
           setTimeout(() => {
             //this.refresh();
             this.LoadTrial.reset();
-
+            this.spinner = false
+            this.router.navigate(['/userDashboard/viewLoad']);
           }, 3000);
 
         } else {
           swal({
             title: 'Record already Exits',
-            text: 'Please Click OK',
             icon: 'error',
           });
           setTimeout(() => {
            // this.refresh();
-
+           this.spinner = false
 
           }, 3000);
         }
@@ -137,6 +139,13 @@ export class AddLoadTrialComponent implements OnInit {
 
   add(data){
 console.log(data)
+  }
+
+   assignedLoadTrial(obj:any){
+    this.scheduleService.assignedLoadTrial(obj)
+    .subscribe(res=>{
+       console.log('Schedule updated successfully!');
+    })
   }
 
   createItem(): FormGroup {

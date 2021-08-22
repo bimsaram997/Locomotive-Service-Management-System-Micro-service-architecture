@@ -151,3 +151,52 @@ a.float:hover+div.label-container {
     color: white;
     font-size: 15px;
 }
+
+.chip-com {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    background-color: #00e640;
+    color: white;
+    font-size: 15px;
+}
+
+.print {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1f3a93;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: underline;
+}
+
+.info {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+}
+
+.accord-head {
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #3F51B5;
+}
+
+.sub-note {
+    font-size: 12px;
+}
+
+br {
+    content: "";
+    margin: 2em;
+    display: block;
+    margin-bottom: -8px;
+}

@@ -20,7 +20,7 @@ export class ViewLoadTrialsComponent implements OnInit {
   isVisible =  false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Load No', 'Load Date','Loco Category', 'Loco Number', 'Loco Category','Form','To',  'Schedule No', 'Responsible', 'Status',  '#'];
+  displayedColumns: string[] = ['Load No', 'Load Date','Loco Category', 'Loco Number','Form','To',  'Schedule No', 'Responsible', 'Status',  '#'];
   @ViewChild(MatSort) sort: MatSort;
   loadArray: any[] = [];
   status: any;

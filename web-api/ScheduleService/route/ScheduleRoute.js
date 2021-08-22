@@ -19,6 +19,7 @@ router.get('/getProSchedule/:id', ScheduleController.getProSchedule);
 router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
 
 router.put('/changeScheduleSeven', ScheduleController.changeScheduleSeven);
+router.put('/assignedLoadTrial', ScheduleController.assignedLoadTrial);
 router.post('/scheduleEmail', ScheduleController.scheduleEmail);
 router.post('/scheduleLapseEmail', ScheduleController.scheduleLapseEmail);
 router.get('/getAllScheduleCalendar', ScheduleController.getAllScheduleCalendar);

@@ -8,6 +8,8 @@ import {SendProgressComponent} from "../../../../UserDashBoard/user-dashboard/Su
 import {EditReqScheduleComponent} from "../request-schedule/edit-req-schedule/edit-req-schedule.component";
 import { Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
+import { ViewProgressComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-manager-schedules',
@@ -28,7 +30,8 @@ export class ViewManagerSchedulesComponent implements OnInit {
   @HostListener('window:scroll', ['$event']) onScroll(event){
     this.pageYoffset = window.pageYOffset;
   }
-  constructor(private scroll: ViewportScroller,private scheduleService: ScheduleService, private router: Router) { }
+  constructor(private scroll: ViewportScroller,private scheduleService: ScheduleService,
+    private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadAllSchedule();
@@ -86,6 +89,9 @@ private loadAllSchedule(){
     else if (scheduleStatus === 7){
       return 'sports_score';
     }
+    else if (scheduleStatus === 8){
+      return 'assignment';
+    }
   }
 
   deleteSchedule(scheduleNo: string) {
@@ -114,4 +120,13 @@ private loadAllSchedule(){
       data: {id: scheduleNo}
     });
   }*/
+
+  viewProgressHist(id: string){
+
+    this.dialog.open(ViewProgressComponent, {
+      data: {id: id},
+      width: '1200px'
+    });
+    console.log('ho')
+  }
 }

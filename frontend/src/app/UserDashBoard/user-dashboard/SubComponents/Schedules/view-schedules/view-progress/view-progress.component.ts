@@ -17,7 +17,7 @@ export class ViewProgressComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Progress No', 'Schedule No', 'Date', 'Progress Value', 'Checked Items', 'Note'];
+  displayedColumns: string[] = ['Progress No', 'Schedule No', 'Date', 'Progress Value', 'CheckedItems', 'Note'];
   dataArray: any[] = [];
   dataArrayLength: number;
   isShowPrTable: boolean=true;

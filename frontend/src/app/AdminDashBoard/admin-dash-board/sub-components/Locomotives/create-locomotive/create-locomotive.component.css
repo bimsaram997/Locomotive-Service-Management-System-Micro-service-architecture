@@ -76,3 +76,19 @@
     color: #5333ed;
     font-size: 18px;
 }
+
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.input-label {
+    font-weight: bold;
+    color: black;
+}
+
+.btn-color {
+    color: #1f3a93;
+}

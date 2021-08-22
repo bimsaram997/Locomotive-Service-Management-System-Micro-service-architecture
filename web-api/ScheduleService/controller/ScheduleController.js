@@ -719,6 +719,22 @@ const changeScheduleSeven = async(req, resp) => { //accepting load trial chamnge
 
 }
 
+const assignedLoadTrial = async(req, resp) => { //accepting load trial chamnge shedule status to 7
+    // console.log(req.body);
+
+    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 8, schReason: "Assigned to Load Trial" } }, function(err, result) {
+
+        if (err) {
+            resp.status(500).json(err)
+
+        } else {
+            resp.status(200).json(result)
+
+        }
+
+    })
+
+}
 
 const getAllScheduleCalendar = async(req, resp) => {
     let returnArray = [];
@@ -1117,6 +1133,7 @@ module.exports = {
     getAllCompSchedule,
     getAllScheduleAssigned,
     changeScheduleSeven,
+    assignedLoadTrial,
     scheduleEmail,
     scheduleLapseEmail,
     getAllScheduleCalendar,

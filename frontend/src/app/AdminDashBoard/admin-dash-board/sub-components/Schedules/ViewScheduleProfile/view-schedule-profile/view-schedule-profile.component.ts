@@ -64,6 +64,8 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   schReason: any;
   isTimer: boolean = true;
   scheduleObj:any[] =[];
+  completedBanner: boolean= false;
+  lapseBanner: boolean= false;
 
   pageYoffset = 0;
   @HostListener('window:scroll', ['$event']) onScroll(event){
@@ -149,17 +151,22 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
         console.log(new Date(d).getTime())
 
         this.timeDifference = new Date(d).getTime() - new  Date().getTime();
-        if(this.timeDifference<0){
-
+        if(this.scheduleStatus===7 || this.scheduleStatus===8){
+          this.completedBanner = true;
           this.isTimer = false;
-          return;
-
-        }else if(this.timeDifference === 2){
-this.scheduleLapseEmail(this.scheduleObj)
+          return
         }else{
-
-           this.allocateTimeUnits(this.timeDifference);
+           if(this.timeDifference<0){
+            this.isTimer = false;
+            this.lapseBanner = true;
+          return;
+        }else if(this.timeDifference === 2){
+          this.scheduleLapseEmail(this.scheduleObj)
+        }else{
+          this.allocateTimeUnits(this.timeDifference);
         }
+        }
+
 
 
 
@@ -193,6 +200,9 @@ this.scheduleLapseEmail(this.scheduleObj)
     }
     else if (scheduleStatus === 7){
       return 'sports_score';
+    }
+     else if (scheduleStatus === 8){
+      return 'assignment';
     }
 
   }

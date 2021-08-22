@@ -5,34 +5,27 @@
         <span class="heading-txt"><span style="color: #1e8bc3;">A</span>DD LOAD TRIAL</span>
     </div>
     <mat-divider></mat-divider>
-
     <div class="example-container">
         <form [formGroup]=" LoadTrial" (ngSubmit)="onSubmit()">
             <mat-tab-group mat-align-tabs="Start" [selectedIndex]="selectedIndex" animationDuration="0ms">
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_one</span>&nbsp;First Tab
+                            <span class="material-icons">looks_one</span>&nbsp;Basic Details
                         </ng-template>
-                        <h3 class="sub-headers">Basic Details</h3>
+                        <h3 class="sub-header">Trial Details</h3>
                         <div class="row no-gutters">
                             <div class="col-4 justify-content-start">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Load Trial Number</mat-label>
-                                    <input readonly formControlName="loadNo" matInput placeholder="L-001" required maxlength="5" minlength="5" (input)="checkIDs($event)">
+                                    <input class="label-txt" readonly formControlName="loadNo" matInput placeholder="L-001" required maxlength="30" minlength="5" (input)="checkIDs($event)">
                                     <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
-                                    <!-- <div *ngIf="LoadTrial.controls['loadNo'].invalid && (LoadTrial.controls['loadNo'].dirty || LoadTrial.controls['loadNo'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['loadNo'].errors.required">
-                                            Load Trial Number is Required.
-                                        </div>
-                                    </div>
-                                    <mat-hint style="color: red; font-size: 12px;" *ngIf="checkId"><b>*Number is already inserted</b></mat-hint> -->
                                 </mat-form-field>
                             </div>
                             <div class="col-4 justify-content-start">
                                 <mat-form-field class="example-full-width" appearance="fill">
                                     <mat-label>Choose a date</mat-label>
-                                    <input formControlName="loadDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                                    <input class="label-txt" formControlName="loadDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                     <div *ngIf="LoadTrial.controls['loadDate'].invalid && (LoadTrial.controls['loadDate'].dirty || LoadTrial.controls['loadDate'].touched)" class="error">
@@ -46,29 +39,22 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>From Place</mat-label>
-                                    <input formControlName="loadFrom" maxlength="15" minlength="3" required matInput placeholder="Eg: Colombo">
+                                    <input class="label-txt" formControlName="loadFrom" maxlength="15" minlength="3" required matInput placeholder="Eg: Colombo">
                                     <div *ngIf="LoadTrial.controls['loadFrom'].invalid && (LoadTrial.controls['loadFrom'].dirty || LoadTrial.controls['loadFrom'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['loadFrom'].errors.required">
-                                            Started place is Required.
-                                        </div>
-                                        <div *ngIf="LoadTrial.controls['loadFrom'].errors.required">
-                                            only add strings.
+                                        <div *ngIf="LoadTrial.controls['loadFrom'].errors.pattern" class="error">
+                                            Strings are allowed.
                                         </div>
                                     </div>
                                     <mat-hint>From Colombo</mat-hint>
                                 </mat-form-field>
-
                             </div>
                             <br>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>To Place</mat-label>
-                                    <input formControlName="loadTo" required maxlength="15" minlength="3" matInput placeholder="Eg: Galle">
+                                    <input class="label-txt" formControlName="loadTo" required maxlength="15" minlength="3" matInput placeholder="Eg: Galle">
                                     <div *ngIf="LoadTrial.controls['loadTo'].invalid && (LoadTrial.controls['loadTo'].dirty || LoadTrial.controls['loadTo'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['loadTo'].errors.required">
-                                            Destination is Required.
-                                        </div>
-                                        <div *ngIf="LoadTrial.controls['loadTo'].errors.required">
+                                        <div *ngIf="LoadTrial.controls['loadTo'].errors.pattern" class="error">
                                             only add strings.
                                         </div>
                                     </div>
@@ -78,158 +64,99 @@
                             <br>
                             <br>
                             <br>
-
-
                             <div class="w-100">
-                                <h3 class="sub-headers">Schedule Details</h3>
+                                <h3 class="sub-header">Schedule Details</h3>
                                 <hr class="line">
                                 <br>
                             </div>
-
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Schedule No.</mat-label>
-                                    <mat-select formControlName="scheduleNo" (selectionChange)="onChangeSelectSch($event)">
+                                    <mat-select class="label-txt" formControlName="scheduleNo" (selectionChange)="onChangeSelectSch($event)">
                                         <mat-option>Choose one..</mat-option>
                                         <mat-option *ngFor="let tempSchNo of scheduleArray" value="{{tempSchNo.scheduleNo}}">{{tempSchNo.scheduleNo}}</mat-option>
                                     </mat-select>
                                     <mat-hint style="color: red; font-size: 12px;" *ngIf="lengthCount"><b>*There are not available Completed Schedules</b></mat-hint>
-                                    <div *ngIf="LoadTrial.controls['scheduleNo'].invalid && (LoadTrial.controls['scheduleNo'].dirty || LoadTrial.controls['scheduleNo'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['scheduleNo'].errors.required">
-                                            Schedule Number is Required.
-                                        </div>
-                                    </div>
                                 </mat-form-field>
-
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Locomotive Category</mat-label>
-                                    <input readonly matInput placeholder="Eg: M9" formControlName="locoCatId">
+                                    <input class="label-txt" readonly matInput placeholder="Eg: M9" formControlName="locoCatId">
                                 </mat-form-field>
-
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Locomotive Number</mat-label>
-                                    <input readonly matInput placeholder="Eg: 872" formControlName="locoNumber">
-                                    <div *ngIf="LoadTrial.controls['locoNumber'].invalid && (LoadTrial.controls['locoNumber'].dirty || LoadTrial.controls['locoNumber'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['locoNumber'].errors.required">
-                                            Locomotive Number is Required.
-                                        </div>
-                                        <div *ngIf="LoadTrial.controls['locoNumber'].errors.required">
-                                            Numbers only
-                                        </div>
-                                    </div>
+                                    <input class="label-txt" readonly matInput placeholder="Eg: 872" formControlName="locoNumber">
                                 </mat-form-field>
                             </div>
-                            <br>
                             <br>
                             <br>
                             <br>
                             <br>
                             <div class="w-100">
-                                <h3 class="sub-headers">Persons</h3>
+                                <h3 class="sub-header">Persons</h3>
                                 <hr class="line">
                                 <br>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Supervisor Name</mat-label>
-                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="supervisorName">
-                                    <div *ngIf="LoadTrial.controls['supervisorName'].invalid && (LoadTrial.controls['supervisorName'].dirty || LoadTrial.controls['supervisorName'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['supervisorName'].errors.required">
-                                            Supervisor Name is Required.
-                                        </div>
-                                    </div>
+                                    <input class="label-txt" readonly matInput placeholder="Eg: 972363430v" formControlName="supervisorName">
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor NIC</mat-label>
-                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="supervisorNic">
-                                    <div *ngIf="LoadTrial.controls['supervisorNic'].invalid && (LoadTrial.controls['supervisorNic'].dirty || LoadTrial.controls['supervisorNic'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['supervisorNic'].errors.required">
-                                            NiC Number is Required.
-                                        </div>
-                                    </div>
+                                    <input class="label-txt" readonly matInput placeholder="Eg: 972363430v" formControlName="supervisorNic">
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor Email</mat-label>
-                                    <input readonly matInput placeholder="Eg: h@gmail.com" formControlName="supervisorEmail">
-                                    <div *ngIf="LoadTrial.controls['supervisorEmail'].invalid && (LoadTrial.controls['supervisorEmail'].dirty || LoadTrial.controls['supervisorEmail'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['supervisorEmail'].errors.required">
-                                            Email is Required.
-                                        </div>
-                                    </div>
+                                    <input class="label-txt" readonly matInput placeholder="Eg: h@gmail.com" formControlName="supervisorEmail">
                                 </mat-form-field>
                             </div>
-
                             <div class="w-100"></div>
                             <br>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>.Service Manager Name</mat-label>
-                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="managerName">
-                                    <div *ngIf="LoadTrial.controls['managerName'].invalid && (LoadTrial.controls['managerName'].dirty || LoadTrial.controls['managerName'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['managerName'].errors.required">
-                                            Name is Required.
-                                        </div>
-                                    </div>
+                                    <input class="label-txt" readonly matInput placeholder="Eg: 972363430v" formControlName="managerName">
                                 </mat-form-field>
-
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manager NIC</mat-label>
-                                    <input readonly matInput placeholder="Eg: 972363430v" formControlName="managerNic">
-                                    <div *ngIf="LoadTrial.controls['managerNic'].invalid && (LoadTrial.controls['managerNic'].dirty || LoadTrial.controls['managerNic'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['managerNic'].errors.required">
-                                            NIC is Required.
-                                        </div>
-                                    </div>
+                                    <input class="label-txt" readonly matInput placeholder="Eg: 972363430v" formControlName="managerNic">
                                 </mat-form-field>
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Service Manager Email</mat-label>
-                                    <input readonly matInput placeholder="Eg: h@gmail.com" formControlName="managerEmail">
-                                    <div *ngIf="LoadTrial.controls['managerEmail'].invalid && (LoadTrial.controls['managerEmail'].dirty || LoadTrial.controls['managerEmail'].touched)" class="error">
-                                        <div *ngIf="LoadTrial.controls['managerEmail'].errors.required">
-                                            Email is Required.
-                                        </div>
-                                    </div>
-
+                                    <input class="label-txt" readonly matInput placeholder="Eg: h@gmail.com" formControlName="managerEmail">
                                 </mat-form-field>
                             </div>
-
                         </div>
                         <br>
-
                     </mat-card>
                 </mat-tab>
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_two</span>&nbsp;Second Tab
+                            <span class="material-icons">looks_two</span>&nbsp;Test Info(at Running)
                         </ng-template>
-                        <h2 class="sub-headers">Testing Information</h2>
-                        <h3 class="sub-headers">Running Condition</h3>
+                        <h3 class="sub-header">Running Condition</h3>
                         <div formArrayName="items" *ngFor="let item of LoadTrial.get('items')['controls']; let i = index;">
-
                             <div class="container  dyanmic" [formGroupName]="i">
                                 <p>Observation {{i+1}}</p>
                                 <div class="row justify-content-start no-gutters">
                                     <div class="col">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Description</mat-label>
-                                            <textarea required matInput formControlName="description" placeholder="Observation description"></textarea>
-
-                                            <mat-hint>Traction Alternator</mat-hint>
+                                            <textarea class="label-txt" required matInput formControlName="description" placeholder="Eg:- Traction motor issue"></textarea>
                                         </mat-form-field>
-
                                     </div>
                                     <div class="col">
                                         <mat-radio-group required aria-label="Select an option" formControlName="running">
@@ -237,26 +164,24 @@
                                             <mat-radio-button value="Engine Stopped" disabled>Engine Stopped</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
-
                                 </div>
                                 <div class="row justify-content-start no-gutters">
                                     <div class="col no-gutters">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Condition</mat-label>
-                                            <input required matInput formControlName="condition" placeholder="E.g: Working well">
+                                            <input class="label-txt" required matInput formControlName="condition" placeholder="E.g: Working well">
                                         </mat-form-field>
                                     </div>
                                     <div class="col no-gutters">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Action</mat-label>
-                                            <input required matInput formControlName="action" placeholder="E.g: Replace the piston">
+                                            <input class="label-txt" required matInput formControlName="action" placeholder="E.g: Replace the piston">
                                         </mat-form-field> <br>
                                     </div>
                                     <div class="col col-lg-2">
                                         <button [disabled]="i<1" mat-button type="button" (click)="removeItem(i, 'sub')"><span class="material-icons"><span class="material-icons-outlined">
                                             remove_circle
                                             </span></span></button>
-
                                     </div>
                                 </div>
                                 <br>
@@ -271,10 +196,9 @@
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_3</span>&nbsp;Third Tab
+                            <span class="material-icons">looks_3</span>&nbsp;Test Info(at Stopped)
                         </ng-template>
-                        <h2 class="sub-headers">Testing Information</h2>
-                        <h3 class="sub-headers">Stop Condition</h3>
+                        <h3 class="sub-header">Stop Condition</h3>
                         <div formArrayName="itemsStop" *ngFor="let item of LoadTrial.get('itemsStop')['controls']; let i = index;">
 
                             <div class="container  dyanmic" [formGroupName]="i">
@@ -283,9 +207,7 @@
                                     <div class="col">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Description</mat-label>
-                                            <textarea required matInput formControlName="description" placeholder="Observation description"></textarea>
-
-                                            <mat-hint>Traction Alternator</mat-hint>
+                                            <textarea class="label-txt" required matInput formControlName="description" placeholder="Eg:- Traction motor issue"></textarea>
                                         </mat-form-field>
 
                                     </div>
@@ -301,41 +223,35 @@
                                     <div class="col no-gutters">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Condition</mat-label>
-                                            <input required matInput formControlName="condition" placeholder="E.g: Working well">
+                                            <input class="label-txt" required matInput formControlName="condition" placeholder="E.g: Working well">
                                         </mat-form-field>
                                     </div>
                                     <div class="col no-gutters">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Action</mat-label>
-                                            <input required matInput formControlName="action" placeholder="E.g: Replace the piston">
+                                            <input class="label-txt" required matInput formControlName="action" placeholder="E.g: Replace the piston">
                                         </mat-form-field> <br>
                                     </div>
                                     <div class="col col-lg-2">
                                         <button [disabled]="i<1" mat-button type="button" (click)="removeItem(i, 'sub')"><span class="material-icons"><span class="material-icons-outlined">
                                             remove_circle
                                             </span></span></button>
-
                                     </div>
                                 </div>
                                 <br>
-
-
                             </div>
-
                         </div>
                         <br>
                         <button mat-stroked-button color="primary" type="button" (click)="addStopItem()">Add Test </button>
                         <button mat-raised-button type="button" style="margin-left: 8px;" (click)="removeItem('', 'main')">Remove All</button>
-
-
                     </mat-card>
                 </mat-tab>
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_4</span>&nbsp;Fourth Tab
+                            <span class="material-icons">looks_4</span>&nbsp;Other
                         </ng-template>
-                        <h2 class="sub-headers">Dynamic Brake Test</h2>
+                        <h2 class="sub-header">Dynamic Brake Test</h2>
                         <div formArrayName="dynamicBrake" *ngFor="let item of LoadTrial.get('dynamicBrake')['controls']; let i = index;">
                             <div class="container dyanmic" [formGroupName]="i">
                                 <div class="row no-gutters">
@@ -355,20 +271,19 @@
                                     <div class="col">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Traction Motors(Amps)</mat-label>
-                                            <input required matInput formControlName="tractionMtr" placeholder="E.g: 100">
+                                            <input class="label-txt" required matInput formControlName="tractionMtr" placeholder="E.g: 100">
                                         </mat-form-field>
                                     </div>
                                     <div class="col">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Main Generator(Amps)</mat-label>
-                                            <input required matInput formControlName="mainGen" placeholder="E.g: 100">
+                                            <input class="label-txt" required matInput formControlName="mainGen" placeholder="E.g: 100">
                                         </mat-form-field>
                                     </div>
                                     <div class="col col-lg-2">
                                         <button [disabled]="i<1" mat-button type="button" (click)="removeItem(i, 'sub')"><span class="material-icons"><span class="material-icons-outlined">
                                             remove_circle
                                             </span></span></button>
-
                                     </div>
                                 </div>
                             </div>
@@ -387,33 +302,24 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="container dyanmic" *ngIf="display">
                             <div class="row justify-content-start">
                                 <div class="col-4 pr-0">
                                     <mat-form-field appearance="fill">
                                         <mat-label>Initial mileage(Km)</mat-label>
-                                        <input readonly matInput placeholder="1200Km" formControlName="startMileage">
-                                        <div *ngIf="LoadTrial.controls['startMileage'].invalid && (LoadTrial.controls['startMileage'].dirty || LoadTrial.controls['startMileage'].touched)" class="error">
-                                            <div *ngIf="LoadTrial.controls['startMileage'].errors.required">
-                                                Initial mileage is Required.
-                                            </div>
-                                            <div *ngIf="LoadTrial.controls['startMileage'].errors.required">
-                                                Numbers only
-                                            </div>
-                                        </div>
+                                        <input class="label-txt" readonly matInput placeholder="1200Km" formControlName="startMileage">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-4">
                                     <mat-form-field appearance="fill">
                                         <mat-label>End mileage(Km)</mat-label>
-                                        <input matInput placeholder="12000Km" formControlName="endMileage">
+                                        <input class="label-txt" matInput placeholder="12000Km" formControlName="endMileage">
                                         <div *ngIf="LoadTrial.controls['endMileage'].invalid && (LoadTrial.controls['endMileage'].dirty || LoadTrial.controls['endMileage'].touched)" class="error">
                                             <div *ngIf="LoadTrial.controls['endMileage'].errors.required">
                                                 Initial mileage is Required.
                                             </div>
-                                            <div *ngIf="LoadTrial.controls['endMileage'].errors.required">
-                                                Numbers only
+                                            <div *ngIf="LoadTrial.controls['endMileage'].errors.pattern" class="error">
+                                                Enter only numbers
                                             </div>
                                         </div>
                                     </mat-form-field>
@@ -426,7 +332,7 @@
                             <div class="col-sm-8">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Special Remarks</mat-label>
-                                    <textarea formControlName="loadNote" matInput></textarea>
+                                    <textarea class="label-txt" formControlName="loadNote" matInput></textarea>
                                     <div *ngIf="LoadTrial.controls['loadNote'].invalid && (LoadTrial.controls['loadNote'].dirty || LoadTrial.controls['loadNote'].touched)" class="error">
                                         <div *ngIf="LoadTrial.controls['loadNote'].errors.required">
                                             Special Remarks is Required.
@@ -437,7 +343,11 @@
 
                         </div>
                         <br>
-                        <button mat-raised-button color="primary" type="submit">Submit</button>
+                        <div class="box-head">
+                            <button mat-raised-button color="primary" type="submit" [disabled]="!LoadTrial.valid">Submit</button>
+                            <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner>
+                        </div>
+
                     </mat-card>
                 </mat-tab>
             </mat-tab-group>
