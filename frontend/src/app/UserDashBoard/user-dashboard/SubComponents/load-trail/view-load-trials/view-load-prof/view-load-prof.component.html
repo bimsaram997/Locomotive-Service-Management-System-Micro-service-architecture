@@ -9,89 +9,89 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 label">Basic Details</h6>
+                        <h6 class="mb-0 print">Basic Details</h6>
                         <br>
                         <div class="row" style="color: black;">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Load Trial No.</h6>
                             </div>
                             <div class="col-sm-6 text-secondary" style="color: black;">
-                                {{this.loadNo}}
+                                <span class="info">{{this.loadNo}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Date</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.loadDate | date}}
+                                <span class="info">{{this.loadDate | date}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Schedule No</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.scheduleNo}}
+                                <span class="info">{{this.scheduleNo}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">From</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.loadFrom}}
+                                <span class="info">{{this.loadFrom}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">To</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.loadTo}}
+                                <span class="info"> {{this.loadTo}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Loco Category</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.locoCatId}}
+                                <span class="info">{{this.locoCatId}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Loco Number</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.locoNumber}}
+                                <span class="info">{{this.locoNumber}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Start Mileage</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.startMileage + ' Km'}}
+                                <span class="info">{{this.startMileage + ' Km'}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">End Mileage</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                {{this.endMileage + ' Km'}}
+                                <span class="info">{{this.endMileage + ' Km'}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Status</h6>
@@ -108,104 +108,108 @@
                 <br>
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="mb-0 label">Persons</h6>
+                        <h6 class="mb-0 print">Persons</h6>
                         <br>
                         <div class="row" style="color: black;">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Service Manager Name</h6>
                             </div>
                             <div class="col-sm-7 text-secondary" style="color: black;">
-                                {{this.managerName}}
+                                <span class="info">{{this.managerName}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Service Manager NIC</h6>
                             </div>
                             <div class="col-sm-7 text-secondary">
-                                {{this.managerNic}}
+                                <span class="info">{{this.managerNic}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Service Manager Email</h6>
                             </div>
                             <div class="col-sm-7 text-secondary">
-                                {{this.managerEmail}}
+                                <span class="info">{{this.managerEmail}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Supervisor Name</h6>
                             </div>
                             <div class="col-sm-7 text-secondary">
-                                {{this.supervisorName}}
+                                <span class="info"> {{this.supervisorName}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Supervisor NIC</h6>
                             </div>
                             <div class="col-sm-7 text-secondary">
-                                {{this.supervisorNic}}
+                                <span class="info"> {{this.supervisorNic}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Supervisor Email</h6>
                             </div>
                             <div class="col-sm-7 text-secondary">
-                                {{this.supervisorEmail}}
+                                <span class="info">{{this.supervisorEmail}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h3>Special Remarks </h3>
-                        <p>{{this?.loadNote}}</p>
+                        <h3 class="print">Special Remarks </h3>
+                        <span class="info"> <p>{{this?.loadNote}}</p></span>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-
+                <p class="observation">
+                    Print:
+                    <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle style="background: #1f3a93; color: white; font-size: 13px;" (click)="printBasic()">Basic Details</mat-button-toggle>
+                        <mat-button-toggle style="background: #1e8bc3; color: white; font-size: 13px;" (click)="printTestInfo()">Testing Information</mat-button-toggle>
+                        <mat-button-toggle style="background: #19b5fe; color: white; font-size: 13px;" (click)="printComments()">Comments</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </p>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h3>Testing Information </h3>
-                        <h4 class="d-flex align-items-center mb-3"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Engine at Running Conditions </h4>
+                        <h3 class="print">Testing Information </h3>
+                        <h4 class="d-flex align-items-center mb-3 observation"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; At Running Conditions </h4>
                         <mat-accordion class="example-headers-align" multi>
                             <mat-expansion-panel (opened)="panelOpenState8 = true" (closed)="panelOpenState7 = false">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Item
+                                    <mat-panel-title class="radio-txt">
+                                        Observations
                                     </mat-panel-title>
-                                    <mat-panel-description>
-                                        Currently {{panelOpenState8 ? 'open' : 'closed'}}
-                                    </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
-                                        <td mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Description">
                                         <th mat-header-cell *matHeaderCellDef> Description </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.description}}"> {{element.description}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.description}}"> {{element.description}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Observation">
                                         <th mat-header-cell *matHeaderCellDef> Condition </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.condition}}"> {{element.condition}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.condition}}"> {{element.condition}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Action">
                                         <th mat-header-cell *matHeaderCellDef> Action </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.action}}"> {{element.action}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.action}}"> {{element.action}} </td>
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
                                     <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
@@ -214,38 +218,33 @@
                             </mat-expansion-panel>
                         </mat-accordion>
                     </div>
-                </div>
-                <div class="card mb-3">
-
+                    <hr class="hr">
                     <div class="card-body">
-                        <h4 class="d-flex align-items-center mb-3"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Engine at Stopped Conditions </h4>
+                        <h4 class="d-flex align-items-center mb-3 observation"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp;At Stopped Conditions </h4>
                         <mat-accordion class="example-headers-align" multi>
                             <mat-expansion-panel (opened)="panelOpenState8 = true" (closed)="panelOpenState7 = false">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Item
+                                    <mat-panel-title class="radio-txt">
+                                        observations
                                     </mat-panel-title>
-                                    <mat-panel-description>
-                                        Currently {{panelOpenState8 ? 'open' : 'closed'}}
-                                    </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
-                                        <td mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Description">
                                         <th mat-header-cell *matHeaderCellDef> Description </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.description}}"> {{element.description}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.description}}"> {{element.description}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Observation">
                                         <th mat-header-cell *matHeaderCellDef> Condition </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.condition}}"> {{element.condition}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.condition}}"> {{element.condition}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Action">
                                         <th mat-header-cell *matHeaderCellDef> Action </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.action}}"> {{element.action}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.action}}"> {{element.action}} </td>
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
                                     <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
@@ -254,35 +253,34 @@
                             </mat-expansion-panel>
                         </mat-accordion>
                     </div>
+                </div>
+                <div class="card mb-3">
                     <div class="card-body">
-                        <h4 class="d-flex align-items-center mb-3"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Dynamic Break Test </h4>
+                        <h4 class="d-flex align-items-center mb-3 observation"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Dynamic Break Test </h4>
                         <mat-accordion class="example-headers-align" multi>
                             <mat-expansion-panel (opened)="panelOpenState8 = true" (closed)="panelOpenState7 = false">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Item
+                                    <mat-panel-title class="radio-txt">
+                                        Notch Observations
                                     </mat-panel-title>
-                                    <mat-panel-description>
-                                        Currently {{panelOpenState8 ? 'open' : 'closed'}}
-                                    </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
-                                        <td mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Notch">
                                         <th mat-header-cell *matHeaderCellDef> Notch </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.notch}}"> {{element.notch}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.notch}}"> {{element.notch}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Track">
                                         <th mat-header-cell *matHeaderCellDef> traction Motors(Amps) </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.tractionMtr}}"> {{element.tractionMtr}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.tractionMtr}}"> {{element.tractionMtr}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Main">
                                         <th mat-header-cell *matHeaderCellDef> Main Generators(Amps) </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element.mainGen}}"> {{element.mainGen}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element.mainGen}}"> {{element.mainGen}} </td>
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
                                     <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
@@ -292,25 +290,21 @@
                         </mat-accordion>
                     </div>
                 </div>
-
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h3>Chief Engineer Comments </h3>
+                        <h3 class="print">Chief Engineer Comments </h3>
                         <mat-accordion class="example-headers-align" multi>
                             <mat-expansion-panel (opened)="panelOpenState9 = true" (closed)="panelOpenState9 = false">
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        Item
+                                    <mat-panel-title class="radio-txt">
+                                        Comments
                                     </mat-panel-title>
-                                    <mat-panel-description>
-                                        Currently {{panelOpenState9 ? 'open' : 'closed'}}
-                                    </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <table mat-table [dataSource]="dataSource4" class="mat-elevation-z8">
 
                                     <ng-container matColumnDef="No">
                                         <th mat-header-cell *matHeaderCellDef> No. </th>
-                                        <td mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">{{i + 1}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Status">
                                         <th mat-header-cell *matHeaderCellDef> Status </th>
@@ -322,11 +316,11 @@
                                     </ng-container>
                                     <ng-container matColumnDef="Date">
                                         <th mat-header-cell *matHeaderCellDef> Date </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element?.comDate}}"> {{element?.comDate | date}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element?.comDate}}"> {{element?.comDate | date}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="Comments">
                                         <th mat-header-cell *matHeaderCellDef> Comments </th>
-                                        <td mat-cell *matCellDef="let element" matTooltip="{{element?.comments}}"> {{element?.comments}} </td>
+                                        <td class="label-txt" mat-cell *matCellDef="let element" matTooltip="{{element?.comments}}"> {{element?.comments}} </td>
                                     </ng-container>
                                     <ng-container matColumnDef="#">
                                         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
@@ -347,7 +341,8 @@
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
                                     <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
                                 </table>
-                                <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+                                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+                                </mat-paginator>
                             </mat-expansion-panel>
                         </mat-accordion>
                     </div>

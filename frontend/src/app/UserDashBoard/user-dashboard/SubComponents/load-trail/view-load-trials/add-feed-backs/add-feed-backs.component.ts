@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AddFeedBacksComponent implements OnInit {
   feedBackGroup: FormGroup;
   id: any;
+    spinner = false
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private route: ActivatedRoute,
   private formBuilder: FormBuilder, private loadTrialService: LoadTrialService) { }
@@ -53,6 +54,7 @@ export class AddFeedBacksComponent implements OnInit {
 
   onSubmit(){
     console.log(this.feedBackGroup.value)
+    this.spinner = true;
     {
       this.loadTrialService.addFeedBack(this.feedBackGroup.value).pipe(first()).subscribe(
       res => {
@@ -61,22 +63,22 @@ export class AddFeedBacksComponent implements OnInit {
          this.changeStatusComment(this.feedBackGroup.value);
          console.log('gfg')
           swal({
-            title: 'Record Saved!',
-            text: 'Please Click OK',
+            title: 'Feedback Saved!',
             icon: 'success',
           });
           setTimeout(() => {
            // this.refresh();
+            this.spinner = false
           }, 3000);
 
         } else {
           swal({
-            title: 'Record already Exits',
-            text: 'Please Click OK',
+            title: 'Feddback already Exits',
             icon: 'error',
           });
           setTimeout(() => {
             //this.refresh();
+             this.spinner = false
           }, 3000);
         }
       },

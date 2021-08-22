@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 mat-dialog-title>Install Angular</h2>
+    <h2 mat-dialog-title>Add Feedback</h2>
     <form [formGroup]="feedBackGroup" (ngSubmit)="onSubmit()">
         <mat-dialog-content class="mat-typography">
 
@@ -7,13 +7,13 @@
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>Comment ID</mat-label>
-                        <input matInput formControlName="commentId" readonly>
+                        <input class="label-txt" matInput formControlName="commentId" readonly>
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>FeedBack ID</mat-label>
-                        <input readonly matInput formControlName="feedId">
+                        <input class="label-txt" readonly matInput formControlName="feedId">
                     </mat-form-field>
                 </div>
             </div>
@@ -21,13 +21,13 @@
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>Load Number</mat-label>
-                        <input matInput formControlName="loadNo" readonly>
+                        <input class="label-txt" matInput formControlName="loadNo" readonly>
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field appearance="fill">
                         <mat-label>Loco Number</mat-label>
-                        <input matInput formControlName="locoNumber" readonly>
+                        <input class="label-txt" matInput formControlName="locoNumber" readonly>
                     </mat-form-field>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="col">
                     <mat-form-field appearance="fill" style="width: 430px;">
                         <mat-label>Comments</mat-label>
-                        <input matInput formControlName="comments" readonly>
+                        <input class="label-txt" matInput formControlName="comments" readonly>
                     </mat-form-field>
                 </div>
 
@@ -46,7 +46,7 @@
                 <div class="col">
                     <mat-form-field appearance="fill" style="width: 430px;">
                         <mat-label>Taken Actions</mat-label>
-                        <input matInput formControlName="action">
+                        <input class="label-txt" matInput formControlName="action">
                     </mat-form-field>
                 </div>
 
@@ -55,8 +55,9 @@
 
         </mat-dialog-content>
         <mat-dialog-actions align="end">
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+            <button mat-raised-button mat-dialog-close>Cancel</button>
+            <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial [disabled]="!feedBackGroup.valid">Submit</button>
+            <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner>
         </mat-dialog-actions>
     </form>
 </div>

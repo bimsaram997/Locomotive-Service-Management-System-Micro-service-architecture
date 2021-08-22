@@ -88,3 +88,17 @@
     font-weight: 500;
     color: red;
 }
+
+.radio-txt {
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.observation {
+    color: #663399;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}

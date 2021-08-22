@@ -16,6 +16,7 @@ import { jsPDF } from "jspdf";
 import { TableUtil } from './tableUtil';
 import autoTable from 'jspdf-autotable'
 import { MOMENT } from 'angular-calendar';
+import { AddCommentLoadComponent } from '../view-ad-load-trial/add-comment-load/add-comment-load.component';
 @Component({
   selector: 'app-view-adload-pro',
   templateUrl: './view-adload-pro.component.html',
@@ -38,6 +39,7 @@ export class ViewAdloadProComponent implements OnInit {
   displayedColumns2: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns3: string[] = ['No', 'Notch', 'Track', 'Main'];
   displayedColumns4: string[] = ['No', 'Status','Date', 'Comments', '#'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   id:any;
   loadNo: any;
   loadDate: any;
@@ -73,7 +75,6 @@ export class ViewAdloadProComponent implements OnInit {
   disabled = true;
 
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
    pageYoffset = 0;
   @HostListener('window:scroll', ['$event']) onScroll(event){
@@ -85,7 +86,22 @@ export class ViewAdloadProComponent implements OnInit {
      private locoService: LocomotiveService, private scroll: ViewportScroller) { }
 
   ngOnInit(): void {
-    this.id = (this.route.snapshot.paramMap.get('id'));
+   this.loadOneTrial()
+
+      for(let id of this.dataSource1){
+
+        this.com = id.description
+      }
+      console.log(this.com)
+
+  }
+
+  scrollToTop(){
+     this.scroll.scrollToPosition([0,0]);
+  }
+
+  loadOneTrial(){
+     this.id = (this.route.snapshot.paramMap.get('id'));
     console.log(this.id);
     this.loadService.getOneLoad(this.id).pipe(
       map(res=>{
@@ -129,25 +145,14 @@ for(let id of this.dataSource1){
     ).subscribe(
       final=>{
        // console.log('Schedule');
-        console.log(final);
         this.dataSource4 = final;
         //console.log(this.dataSource4.length)
         this.countComments = this.dataSource4.length;
-        this.getResolvedComments(this.countComments);
+        this.getResolvedComment(this.countComments);
       }
     )
-
-      for(let id of this.dataSource1){
-
-        this.com = id.description
-      }
-      console.log(this.com)
-
   }
 
-      scrollToTop(){
-  this.scroll.scrollToPosition([0,0]);
-}
   statusBinder(status){
     if (status === 1){
       return 'hourglass_top';
@@ -177,7 +182,7 @@ for(let id of this.dataSource1){
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+       this.loadOneTrial();
     });
   }
 
@@ -186,20 +191,36 @@ for(let id of this.dataSource1){
     console.log(obj.status)
   }
 
-  getResolvedComments(val){
-    this.loadService.getResolvedComments().subscribe(
+  getResolvedComment(val){
+    this.loadService.getResolvedComments(this.loadNo).subscribe(
       res=>{
         this.resolvedComments = res;
+        console.log(this.resolvedComments)
         this.countResComments =  this.resolvedComments.length;
         console.log(val);
-        if(val === this.countResComments){
+        if(val === this.countResComments && (this.status ===1 ||this.status ===3 )){
          this.isAllResolved = true;
+         console.log('sd')
         }else{
          this.isAllResolved = false;
+         console.log('hh')
         }
       }
     )
   }
+
+  addComments(id: string): void {
+    const dialogRef = this.dialog.open(AddCommentLoadComponent, {
+      data: {id: id},
+      width: '520px',
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+  }
+
   acceptLoadTrial(){
     this.loadService.acceptLoadTrial(this.loadNo)
           .pipe(first())
@@ -367,669 +388,6 @@ for(let id of this.dataSource1){
 getBase64(){
     this.image = this.image as string;
 }
-
-
-
-
-  //  GRNReport( obj , firstName , supplierobj = null) {
-
-  //       return {
-  //           content: [
-  //               {
-  //                 columns: [
-  //                   {
-  //                     image:
-  //                     //imagePicture.imageReport,
-  //                     //width: 150,
-  //                   },
-  //                   [
-  //                     {
-  //                       text: 'Good recive note',
-  //                       color: '#333333',
-  //                       width: '*',
-  //                       fontSize: 28,
-  //                       bold: true,
-  //                       alignment: 'right',
-  //                       margin: [0, 0, 0, 15],
-  //                     },
-  //                     {
-  //                       stack: [
-  //                         {
-  //                           columns: [
-  //                             {
-  //                               text: 'Supplier ',
-  //                               color: '#aaaaab',
-  //                               bold: true,
-  //                               width: '*',
-  //                               fontSize: 12,
-  //                               alignment: 'right',
-  //                             },
-  //                             {
-  //                               text: (supplierobj.supplierName == "")?'All':supplierobj.supplierName,
-  //                               bold: true,
-  //                               color: '#333333',
-  //                               fontSize: 12,
-  //                               alignment: 'right',
-  //                               width: 100,
-  //                             },
-  //                           ],
-  //                         },
-  //                         {
-  //                           columns: [
-  //                             {
-  //                               text: 'Date Issued',
-  //                               color: '#aaaaab',
-  //                               bold: true,
-  //                               width: '*',
-  //                               fontSize: 12,
-  //                               alignment: 'right',
-  //                             },
-  //                             {
-  //                               //text: moment().format('MMM Do YY'),
-  //                               bold: true,
-  //                               color: '#333333',
-  //                               fontSize: 12,
-  //                               alignment: 'right',
-  //                               width: 100,
-  //                             },
-  //                           ],
-  //                         },
-  //                         {
-  //                           columns: [
-  //                             {
-  //                               text: 'Status',
-  //                               color: '#aaaaab',
-  //                               bold: true,
-  //                               fontSize: 12,
-  //                               alignment: 'right',
-  //                               width: '*',
-  //                             },
-  //                             {
-  //                               text: (obj.status == '')?'Completed & Pending':(obj.status == 'Pending')?'Pending':'Completed',
-  //                               bold: true,
-  //                               fontSize: 14,
-  //                               alignment: 'right',
-  //                               color: 'green',
-  //                               width: 100,
-  //                             },
-  //                           ],
-  //                         },
-  //                       ],
-  //                     },
-  //                   ],
-  //                 ],
-  //               },
-  //               {
-  //                 columns: [
-  //                   {
-  //                     //text: 'From '+ moment(obj.fromDate).format('YYYY-MM-DD'),
-  //                     color: '#aaaaab',
-  //                     bold: true,
-  //                     fontSize: 14,
-  //                     alignment: 'left',
-  //                     margin: [0, 20, 0, 5],
-  //                   },
-  //                   {
-  //                     //text: 'To '+moment(obj.toDate).format('YYYY-MM-DD'),
-  //                     color: '#aaaaab',
-  //                     bold: true,
-  //                     fontSize: 14,
-  //                     alignment: 'left',
-  //                     margin: [0, 20, 0, 5],
-  //                   },
-  //                 ],
-  //               },
-  //               {
-  //                 columns: [
-  //                   {
-  //                     text: firstName + ' \n Shook Fitness.',
-  //                     bold: true,
-  //                     color: '#333333',
-  //                     alignment: 'left',
-  //                   },
-
-  //                 ],
-  //               },
-  //               {
-  //                 columns: [
-  //                   {
-  //                     text: 'Address',
-  //                     color: '#aaaaab',
-  //                     bold: true,
-  //                     margin: [0, 7, 0, 3],
-  //                   }
-
-  //                 ],
-  //               },
-  //               {
-  //                 columns: [
-  //                   {
-  //                     text: 'No:6/A/4, E,Ejantha junction, \n Hirana  \n   Panadura',
-  //                     style: 'invoiceBillingAddress',
-  //                   },
-  //                 ],
-  //               },
-  //               '\n\n',
-
-  //               {
-  //                 layout: {
-  //                   defaultBorder: false,
-  //                   hLineWidth: function(i, node) {
-  //                     return 1;
-  //                   },
-  //                   vLineWidth: function(i, node) {
-  //                     return 1;
-  //                   },
-  //                   hLineColor: function(i, node) {
-  //                     if (i === 1 || i === 0) {
-  //                       return '#bfdde8';
-  //                     }
-  //                     return '#eaeaea';
-  //                   },
-  //                   vLineColor: function(i, node) {
-  //                     return '#eaeaea';
-  //                   },
-  //                   hLineStyle: function(i, node) {
-  //                     // if (i === 0 || i === node.table.body.length) {
-  //                     return null;
-  //                     //}
-  //                   },
-  //                   // vLineStyle: function (i, node) { return {dash: { length: 10, space: 4 }}; },
-  //                   paddingLeft: function(i, node) {
-  //                     return 10;
-  //                   },
-  //                   paddingRight: function(i, node) {
-  //                     return 10;
-  //                   },
-  //                   paddingTop: function(i, node) {
-  //                     return 2;
-  //                   },
-  //                   paddingBottom: function(i, node) {
-  //                     return 2;
-  //                   },
-  //                   fillColor: function(rowIndex, node, columnIndex) {
-  //                     return '#fff';
-  //                   },
-  //                 },
-  //                 table: {
-  //                   headerRows: 1,
-  //                   widths: ['*', 80,80,80, 80],
-  //                   body: [
-  //                     [
-  //                       {
-  //                         text: 'Date',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-  //                         {
-  //                         text: 'GRN ID',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-  //                       {
-  //                         text: 'PO ID',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-  //                         {
-  //                         text: 'Supp. Name',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-
-  //                       {
-  //                         text: 'GRN TOTAL',
-  //                         border: [false, true, false, true],
-  //                         alignment: 'right',
-  //                         fillColor: '#eaf2f5',
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-  //                     ],
-  //                     ...this.comments.map((itm) => {
-  //                       return [
-  //                           //moment(itm.date).format('YYYY-MM-DD'),
-  //                           itm.grnId,
-  //                           itm.purchaseOrderId,
-  //                           itm.supplierName,
-  //                           //GymAdapterClass.formatMoney(Number(itm.totalAmount)),
-  //                       ];
-  //                   })
-
-  //                   ],
-  //                 },
-  //               },
-  //               '\n',
-  //               '\n\n',
-  //               {
-  //                 layout: {
-  //                   defaultBorder: false,
-  //                   hLineWidth: function(i, node) {
-  //                     return 1;
-  //                   },
-  //                   vLineWidth: function(i, node) {
-  //                     return 1;
-  //                   },
-  //                   hLineColor: function(i, node) {
-  //                     return '#eaeaea';
-  //                   },
-  //                   vLineColor: function(i, node) {
-  //                     return '#eaeaea';
-  //                   },
-  //                   hLineStyle: function(i, node) {
-  //                     // if (i === 0 || i === node.table.body.length) {
-  //                     return null;
-  //                     //}
-  //                   },
-  //                   // vLineStyle: function (i, node) { return {dash: { length: 10, space: 4 }}; },
-  //                   paddingLeft: function(i, node) {
-  //                     return 10;
-  //                   },
-  //                   paddingRight: function(i, node) {
-  //                     return 10;
-  //                   },
-  //                   paddingTop: function(i, node) {
-  //                     return 3;
-  //                   },
-  //                   paddingBottom: function(i, node) {
-  //                     return 3;
-  //                   },
-  //                   fillColor: function(rowIndex, node, columnIndex) {
-  //                     return '#fff';
-  //                   },
-  //                 },
-  //                 table: {
-  //                   headerRows: 1,
-  //                   widths: ['*', 'auto'],
-  //                   body: [
-
-  //                     [
-  //                       {
-  //                         text: 'Total Amount',
-  //                         bold: true,
-  //                         fontSize: 20,
-  //                         alignment: 'right',
-  //                         border: [false, false, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                       },
-  //                       {
-  //                         text:12,
-  //                         bold: true,
-  //                         fontSize: 20,
-  //                         alignment: 'right',
-  //                         border: [false, false, false, true],
-  //                         fillColor: '#f5f5f5',
-  //                         margin: [0, 5, 0, 5],
-  //                       },
-  //                     ],
-  //                   ],
-  //                 },
-  //               },
-  //               '\n\n',
-  //               {
-  //                 text: 'NOTES',
-  //                 style: 'notesTitle',
-  //               },
-  //               {
-  //                 text: 'This report is system auto generated report \n ',
-  //                 style: 'notesText',
-  //               },
-  //             ],
-  //             styles: {
-  //               notesTitle: {
-  //                 fontSize: 10,
-  //                 bold: true,
-  //                 margin: [0, 50, 0, 3],
-  //               },
-  //               notesText: {
-  //                 fontSize: 10,
-  //               },
-  //             },
-  //             defaultStyle: {
-  //               columnGap: 20,
-  //               //font: 'Quicksand',
-  //             },
-
-  //       }
-  //   }
-
-//    printdetails(){
-//  return {
-//             content: [
-//                 {
-//                   columns: [
-//                     {
-//                       image:
-//                       //imagePicture.imageReport,
-//                       //width: 150,
-//                     },
-//                     [
-//                       {
-//                         text: 'Good recive note',
-//                         color: '#333333',
-//                         width: '*',
-//                         fontSize: 28,
-//                         bold: true,
-//                         alignment: 'right',
-//                         margin: [0, 0, 0, 15],
-//                       },
-//                       {
-//                         stack: [
-//                           {
-//                             columns: [
-//                               {
-//                                 text: 'Supplier ',
-//                                 color: '#aaaaab',
-//                                 bold: true,
-//                                 width: '*',
-//                                 fontSize: 12,
-//                                 alignment: 'right',
-//                               },
-//                               {
-//                                 //text: (supplierobj.supplierName == "")?'All':supplierobj.supplierName,
-//                                 bold: true,
-//                                 color: '#333333',
-//                                 fontSize: 12,
-//                                 alignment: 'right',
-//                                 width: 100,
-//                               },
-//                             ],
-//                           },
-//                           {
-//                             columns: [
-//                               {
-//                                 text: 'Date Issued',
-//                                 color: '#aaaaab',
-//                                 bold: true,
-//                                 width: '*',
-//                                 fontSize: 12,
-//                                 alignment: 'right',
-//                               },
-//                               {
-//                                 //text: moment().format('MMM Do YY'),
-//                                 bold: true,
-//                                 color: '#333333',
-//                                 fontSize: 12,
-//                                 alignment: 'right',
-//                                 width: 100,
-//                               },
-//                             ],
-//                           },
-//                           {
-//                             columns: [
-//                               {
-//                                 text: 'Status',
-//                                 color: '#aaaaab',
-//                                 bold: true,
-//                                 fontSize: 12,
-//                                 alignment: 'right',
-//                                 width: '*',
-//                               },
-//                               {
-//                                 //text: (obj.status == '')?'Completed & Pending':(obj.status == 'Pending')?'Pending':'Completed',
-//                                 bold: true,
-//                                 fontSize: 14,
-//                                 alignment: 'right',
-//                                 color: 'green',
-//                                 width: 100,
-//                               },
-//                             ],
-//                           },
-//                         ],
-//                       },
-//                     ],
-//                   ],
-//                 },
-//                 {
-//                   columns: [
-//                     {
-//                       //text: 'From '+ moment(obj.fromDate).format('YYYY-MM-DD'),
-//                       color: '#aaaaab',
-//                       bold: true,
-//                       fontSize: 14,
-//                       alignment: 'left',
-//                       margin: [0, 20, 0, 5],
-//                     },
-//                     {
-//                       //text: 'To '+moment(obj.toDate).format('YYYY-MM-DD'),
-//                       color: '#aaaaab',
-//                       bold: true,
-//                       fontSize: 14,
-//                       alignment: 'left',
-//                       margin: [0, 20, 0, 5],
-//                     },
-//                   ],
-//                 },
-//                 {
-//                   columns: [
-//                     {
-//                       //text: firstName + ' \n Shook Fitness.',
-//                       bold: true,
-//                       color: '#333333',
-//                       alignment: 'left',
-//                     },
-
-//                   ],
-//                 },
-//                 {
-//                   columns: [
-//                     {
-//                       text: 'Address',
-//                       color: '#aaaaab',
-//                       bold: true,
-//                       margin: [0, 7, 0, 3],
-//                     }
-
-//                   ],
-//                 },
-//                 {
-//                   columns: [
-//                     {
-//                       text: 'No:6/A/4, E,Ejantha junction, \n Hirana  \n   Panadura',
-//                       style: 'invoiceBillingAddress',
-//                     },
-//                   ],
-//                 },
-//                 '\n\n',
-
-//                 {
-//                   layout: {
-//                     defaultBorder: false,
-//                     hLineWidth: function(i, node) {
-//                       return 1;
-//                     },
-//                     vLineWidth: function(i, node) {
-//                       return 1;
-//                     },
-//                     hLineColor: function(i, node) {
-//                       if (i === 1 || i === 0) {
-//                         return '#bfdde8';
-//                       }
-//                       return '#eaeaea';
-//                     },
-//                     vLineColor: function(i, node) {
-//                       return '#eaeaea';
-//                     },
-//                     hLineStyle: function(i, node) {
-//                       // if (i === 0 || i === node.table.body.length) {
-//                       return null;
-//                       //}
-//                     },
-//                     // vLineStyle: function (i, node) { return {dash: { length: 10, space: 4 }}; },
-//                     paddingLeft: function(i, node) {
-//                       return 10;
-//                     },
-//                     paddingRight: function(i, node) {
-//                       return 10;
-//                     },
-//                     paddingTop: function(i, node) {
-//                       return 2;
-//                     },
-//                     paddingBottom: function(i, node) {
-//                       return 2;
-//                     },
-//                     fillColor: function(rowIndex, node, columnIndex) {
-//                       return '#fff';
-//                     },
-//                   },
-//                   table: {
-//                     headerRows: 1,
-//                     widths: ['*', 80,80,80, 80],
-//                     body: [
-//                       [
-//                         {
-//                           text: 'Date',
-//                           fillColor: '#eaf2f5',
-//                           border: [false, true, false, true],
-//                           margin: [0, 5, 0, 5],
-//                           textTransform: 'uppercase',
-//                         },
-//                           {
-//                           text: 'GRN ID',
-//                           fillColor: '#eaf2f5',
-//                           border: [false, true, false, true],
-//                           margin: [0, 5, 0, 5],
-//                           textTransform: 'uppercase',
-//                         },
-//                         {
-//                           text: 'PO ID',
-//                           fillColor: '#eaf2f5',
-//                           border: [false, true, false, true],
-//                           margin: [0, 5, 0, 5],
-//                           textTransform: 'uppercase',
-//                         },
-//                           {
-//                           text: 'Supp. Name',
-//                           fillColor: '#eaf2f5',
-//                           border: [false, true, false, true],
-//                           margin: [0, 5, 0, 5],
-//                           textTransform: 'uppercase',
-//                         },
-
-//                         {
-//                           text: 'GRN TOTAL',
-//                           border: [false, true, false, true],
-//                           alignment: 'right',
-//                           fillColor: '#eaf2f5',
-//                           margin: [0, 5, 0, 5],
-//                           textTransform: 'uppercase',
-//                         },
-//                       ],
-//                       ...this.comments.map((itm) => {
-//                         return [
-//                             //moment(itm.date).format('YYYY-MM-DD'),
-//                             itm.grnId,
-//                             itm.purchaseOrderId,
-//                             itm.supplierName,
-//                             //GymAdapterClass.formatMoney(Number(itm.totalAmount)),
-//                         ];
-//                     })
-
-//                     ],
-//                   },
-//                 },
-//                 '\n',
-//                 '\n\n',
-//                 {
-//                   layout: {
-//                     defaultBorder: false,
-//                     hLineWidth: function(i, node) {
-//                       return 1;
-//                     },
-//                     vLineWidth: function(i, node) {
-//                       return 1;
-//                     },
-//                     hLineColor: function(i, node) {
-//                       return '#eaeaea';
-//                     },
-//                     vLineColor: function(i, node) {
-//                       return '#eaeaea';
-//                     },
-//                     hLineStyle: function(i, node) {
-//                       // if (i === 0 || i === node.table.body.length) {
-//                       return null;
-//                       //}
-//                     },
-//                     // vLineStyle: function (i, node) { return {dash: { length: 10, space: 4 }}; },
-//                     paddingLeft: function(i, node) {
-//                       return 10;
-//                     },
-//                     paddingRight: function(i, node) {
-//                       return 10;
-//                     },
-//                     paddingTop: function(i, node) {
-//                       return 3;
-//                     },
-//                     paddingBottom: function(i, node) {
-//                       return 3;
-//                     },
-//                     fillColor: function(rowIndex, node, columnIndex) {
-//                       return '#fff';
-//                     },
-//                   },
-//                   table: {
-//                     headerRows: 1,
-//                     widths: ['*', 'auto'],
-//                     body: [
-
-//                       [
-//                         {
-//                           text: 'Total Amount',
-//                           bold: true,
-//                           fontSize: 20,
-//                           alignment: 'right',
-//                           border: [false, false, false, true],
-//                           margin: [0, 5, 0, 5],
-//                         },
-//                         {
-//                           text:12,
-//                           bold: true,
-//                           fontSize: 20,
-//                           alignment: 'right',
-//                           border: [false, false, false, true],
-//                           fillColor: '#f5f5f5',
-//                           margin: [0, 5, 0, 5],
-//                         },
-//                       ],
-//                     ],
-//                   },
-//                 },
-//                 '\n\n',
-//                 {
-//                   text: 'NOTES',
-//                   style: 'notesTitle',
-//                 },
-//                 {
-//                   text: 'This report is system auto generated report \n ',
-//                   style: 'notesText',
-//                 },
-//               ],
-//               styles: {
-//                 notesTitle: {
-//                   fontSize: 10,
-//                   bold: true,
-//                   margin: [0, 50, 0, 3],
-//                 },
-//                 notesText: {
-//                   fontSize: 10,
-//                 },
-//               },
-//               defaultStyle: {
-//                 columnGap: 20,
-//                 //font: 'Quicksand',
-//               },
-
-//         }
-//    }
-
 
   async printBasic(){
     const documentDefinition =  {
@@ -1978,84 +1336,3 @@ getBase64(){
 
 
 }
-  // {
-  //                 layout: {
-  //                   defaultBorder: false,
-  //                   hLineWidth: function(i, node) {
-  //                     return 1;
-  //                   },
-  //                   vLineWidth: function(i, node) {
-  //                     return 1;
-  //                   },
-  //                   hLineColor: function(i, node) {
-  //                     if (i === 1 || i === 0) {
-  //                       return '#bfdde8';
-  //                     }
-  //                     return '#eaeaea';
-  //                   },
-  //                   vLineColor: function(i, node) {
-  //                     return '#eaeaea';
-  //                   },
-  //                   hLineStyle: function(i, node) {
-  //                     // if (i === 0 || i === node.table.body.length) {
-  //                     return null;
-  //                     //}
-  //                   },
-  //                   // vLineStyle: function (i, node) { return {dash: { length: 10, space: 4 }}; },
-  //                   paddingLeft: function(i, node) {
-  //                     return 10;
-  //                   },
-  //                   paddingRight: function(i, node) {
-  //                     return 10;
-  //                   },
-  //                   paddingTop: function(i, node) {
-  //                     return 2;
-  //                   },
-  //                   paddingBottom: function(i, node) {
-  //                     return 2;
-  //                   },
-  //                   fillColor: function(rowIndex, node, columnIndex) {
-  //                     return '#fff';
-  //                   },
-  //                 },
-  //                 table: {
-  //                   headerRows: 1,
-  //                   widths: ['*', 80,80,80, 80],
-  //                   body: [
-  //                     [
-  //                       {
-  //                         text: 'Date',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-  //                         {
-  //                         text: 'GRN ID',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-  //                       {
-  //                         text: 'PO ID',
-  //                         fillColor: '#eaf2f5',
-  //                         border: [false, true, false, true],
-  //                         margin: [0, 5, 0, 5],
-  //                         textTransform: 'uppercase',
-  //                       },
-
-  //                     ],
-  //                     ...this.dataSource4.map((itm) => {
-  //                       return [
-  //                           //moment(itm.date).format('YYYY-MM-DD'),
-  //                           itm.commentId,
-  //                           itm.reason,
-  //                           itm.comments,
-  //                           //GymAdapterClass.formatMoney(Number(itm.totalAmount)),
-  //                       ];
-  //                   })
-
-  //                   ],
-  //                 },
-  //               },

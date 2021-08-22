@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { fadeInAnimation } from 'src/app/_animations';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,8 +26,10 @@ export class ViewLoadTrialsComponent implements OnInit {
   loadArray: any[] = [];
   status: any;
   ids:any[] = [];
+  statuses: string[] = ['All','M1', 'M2', 'M3', 'M4', 'M5','M6','M7', 'M8', 'M9', 'M10', 'M11'];
+  tableArray :any;
 
-  constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
+  constructor(private loadService: LoadTrialService, private toastr: ToastrService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLoadTrialAssigned();
@@ -37,16 +40,7 @@ export class ViewLoadTrialsComponent implements OnInit {
 
 
   // me
-  public onchangeSelection(type){
-    if(type != 'all'){
 
-
-
-      return
-    }
-    this.getLoadTrialAssigned();
-
-  }
 
   private getLoadTrialAssigned(type = false){
 
@@ -66,6 +60,21 @@ export class ViewLoadTrialsComponent implements OnInit {
         this.dataSource.sort = this.sort
       })
     })
+  }
+
+   onChangeSelect(value){
+    let _cloneArrat = [];
+    const _findValue  = this.loadArray.filter(x=>x.locoCatId==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    }
   }
 
   statusBinder(status){
@@ -98,6 +107,10 @@ export class ViewLoadTrialsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getLoadTrialAssigned();
     });
+  }
+
+   onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
   }
 
 

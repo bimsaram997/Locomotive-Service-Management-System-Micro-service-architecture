@@ -150,7 +150,7 @@ export class UserViewLocomotivesComponent implements OnInit {
     }
   }
 
-   onWarning(message: string){
+  onWarning(message: string){
     this.toastr.warning(message, 'Warning');
   }
 

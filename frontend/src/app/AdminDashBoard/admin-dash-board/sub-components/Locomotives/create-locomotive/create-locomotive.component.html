@@ -12,14 +12,14 @@
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_one</span>&nbsp;First Step
+                            <span class="material-icons">looks_one</span>&nbsp;Basic Details
                         </ng-template>
-                        <h3 class="sub-header"> Basic Details</h3>
+                        <h3 class="sub-header"> Loco Details</h3>
                         <div class="row no-gutters">
                             <div class="col">
                                 <mat-form-field class="example-full-width" appearance="fill">
                                     <mat-label>Locomotive Category</mat-label>
-                                    <input type="text" required placeholder="E.g: M2" aria-label="Number" matInput [formControl]="myControl" formControlName="locoCatId" [matAutocomplete]="auto">
+                                    <input type="text" class="label-txt" required placeholder="E.g: M2" aria-label="Number" matInput [formControl]="myControl" formControlName="locoCatId" [matAutocomplete]="auto">
                                     <mat-autocomplete #auto="matAutocomplete">
                                         <mat-option *ngFor="let option of options " [value]="option">
                                             {{option}}
@@ -35,7 +35,7 @@
                             <div class="col">
                                 <mat-form-field class="example-full-width" appearance="fill">
                                     <mat-label class="Locomotive Number">Locomotive Number</mat-label>
-                                    <input required maxlength="3" minlength="1" matInput placeholder="E.g: 751" #searchInput formControlName="locoNumber">
+                                    <input class="label-txt" required maxlength="3" minlength="1" matInput placeholder="E.g: 751" #searchInput formControlName="locoNumber">
                                     <div *ngIf="LocoGroup.controls['locoNumber'].invalid && (LocoGroup.controls['locoNumber'].dirty || LocoGroup.controls['locoNumber'].touched)" class="error">
                                         <div *ngIf="LocoGroup.controls['locoNumber'].errors.required" class="error">
                                             Number is Required.
@@ -48,8 +48,8 @@
                             </div>
                             <div class="col">
                                 <mat-form-field class="example-full-width" appearance="fill">
-                                    <mat-label class="label-txt">Locomotive Power(hp)</mat-label>
-                                    <input minlength="4" maxlength="4" required matInput placeholder="E.g: 3200Hp" #searchInput formControlName="locoPower">
+                                    <mat-label>Locomotive Power(hp)</mat-label>
+                                    <input class="label-txt" minlength="4" maxlength="4" required matInput placeholder="E.g: 3200Hp" #searchInput formControlName="locoPower">
                                     <div *ngIf="LocoGroup.controls['locoPower'].invalid && (LocoGroup.controls['locoPower'].dirty || LocoGroup.controls['locoPower'].touched)" class="error">
                                         <div *ngIf="LocoGroup.controls['locoPower'].errors.required" class="error">
                                             power is Required.
@@ -68,8 +68,8 @@
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
-                                    <mat-label class="label-txt">Locomotive Mileage(Km)</mat-label>
-                                    <input minLength="3" required matInput placeholder="E.g: 45000Km" #searchInput formControlName="locoMileage">
+                                    <mat-label>Locomotive Mileage(Km)</mat-label>
+                                    <input class="label-txt" minLength="3" required matInput placeholder="E.g: 45000Km" #searchInput formControlName="locoMileage">
                                     <div *ngIf="LocoGroup.controls['locoMileage'].invalid && (LocoGroup.controls['locoMileage'].dirty || LocoGroup.controls['locoMileage'].touched)">
                                         <div *ngIf="LocoGroup.controls['locoMileage'].errors.required" class="error">
                                             Mileage is Required.
@@ -83,8 +83,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Choose a date</mat-label>
-                                    <input matInput [matDatepicker]="picker" formControlName="locoDate">
-
+                                    <input class="label-txt" matInput [matDatepicker]="picker" formControlName="locoDate">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                     <div *ngIf="LocoGroup.controls['locoDate'].invalid && (LocoGroup.controls['locoDate'].dirty || LocoGroup.controls['locoDate'].touched)">
@@ -96,7 +95,7 @@
                             </div>
                             <div class="col" style="padding-top: 20px;">
                                 <mat-radio-group aria-label="Select an option" formControlName="locoAvailability">
-                                    <span class="para-txt">Availability</span>&nbsp;
+                                    <span class="radio-txt">Availability</span>&nbsp;
                                     <mat-radio-button *ngFor="let status of statuses" [value]="status">{{status}} &nbsp;</mat-radio-button>
 
                                 </mat-radio-group>
@@ -110,8 +109,8 @@
                             </div>
                             <div class="col">
                                 <mat-form-field appearance="fill">
-                                    <mat-label class="label-txt">Supervisor Name</mat-label>
-                                    <mat-select formControlName="supervisorName" required (selectionChange)="onChangeSelect($event)">
+                                    <mat-label>Supervisor Name</mat-label>
+                                    <mat-select class="label-txt" formControlName="supervisorName" required (selectionChange)="onChangeSelect($event)">
                                         <mat-option value="">Choose ..</mat-option>
                                         <mat-option *ngFor="let temIds of userList" value="{{temIds.userName}}">
                                             {{temIds.userName}}
@@ -127,7 +126,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Supervisor NIC</mat-label>
-                                    <input readonly minlength="4" required matInput placeholder="Supervisor NIC" #searchInput formControlName="userNic">
+                                    <input class="label-txt" readonly minlength="4" required matInput placeholder="Supervisor NIC" #searchInput formControlName="userNic">
                                     <div *ngIf="LocoGroup.controls['userNic'].invalid && (LocoGroup.controls['userNic'].dirty || LocoGroup.controls['userNic'].touched)" class="error">
                                         <div *ngIf="LocoGroup.controls['userNic'].errors.required" class="error">
                                             Supervisor Nic is Required.
@@ -138,7 +137,7 @@
                             <div class="col">
                                 <mat-form-field appearance="fill">
                                     <mat-label class="label-txt">Supervisor Email</mat-label>
-                                    <input readonly minlength="4" required matInput placeholder="Supervisor Email" #searchInput formControlName="supervisorEmail">
+                                    <input class="label-txt" readonly minlength="4" required matInput placeholder="Supervisor Email" #searchInput formControlName="supervisorEmail">
                                     <div *ngIf="LocoGroup.controls['supervisorEmail'].invalid && (LocoGroup.controls['supervisorEmail'].dirty || LocoGroup.controls['supervisorEmail'].touched)" class="error">
                                         <div *ngIf="LocoGroup.controls['supervisorEmail'].errors.required" class="error">
                                             Supervisor Name is Required.
@@ -158,7 +157,7 @@
                             <div class="col-sm pr-0">
                                 <mat-form-field appearance="fill" style="width: 300px;">
                                     <mat-label class="Locomotive Number">Add Motor Item</mat-label>
-                                    <input [(ngModel)]="searchKey" required maxlength="20" minlength="1" matInput placeholder="E.g: Pistons" #searchInput formControlName="mtrType" (keyup)="onkeyUp($event)">
+                                    <input class="label-txt" [(ngModel)]="searchKey" required maxlength="20" minlength="1" matInput placeholder="E.g: Pistons" #searchInput formControlName="mtrType" (keyup)="onkeyUp($event)">
                                     <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
                                 </mat-form-field>
                                 &nbsp;&nbsp;
@@ -195,14 +194,14 @@
                 <mat-tab>
                     <mat-card>
                         <ng-template mat-tab-label>
-                            <span class="material-icons">looks_two</span>&nbsp;Second Step
+                            <span class="material-icons">looks_two</span>&nbsp;Loco Parts
                         </ng-template>
                         <h3 class="sub-header">Breaks</h3>
                         <div class="row pr-0">
                             <div class="col-sm pr-0">
                                 <mat-form-field appearance="fill" style="width: 300px;">
                                     <mat-label class="Locomotive Number">Add Break Item</mat-label>
-                                    <input [(ngModel)]="searchKey1" required maxlength="20" minlength="1" matInput placeholder="E.g: Vacumm breaks" #searchInput formControlName="brkType">
+                                    <input class="label-txt" [(ngModel)]="searchKey1" required maxlength="20" minlength="1" matInput placeholder="E.g: Vacumm breaks" #searchInput formControlName="brkType">
                                     <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey1" (click)="onSearchClear1()"><mat-icon>close</mat-icon></button>
                                 </mat-form-field> &nbsp;&nbsp;
                                 <button type="button" mat-stroked-button color="primary" (click)="onClickBreaks()" matTooltip="Add Break Types">Add Item</button> &nbsp;
@@ -234,7 +233,7 @@
                             <div class="col-sm pr-0">
                                 <mat-form-field appearance="fill" style="width: 300px;">
                                     <mat-label class="Locomotive Number">Add Fluid Item</mat-label>
-                                    <input [(ngModel)]="searchKey2" required maxlength="20" minlength="3" matInput placeholder="E.g: Oil" #searchInput formControlName="fldType">
+                                    <input class="label-txt" [(ngModel)]="searchKey2" required maxlength="20" minlength="3" matInput placeholder="E.g: Oil" #searchInput formControlName="fldType">
                                     <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey2" (click)="onSearchClear2()"><mat-icon>close</mat-icon></button>
                                 </mat-form-field> &nbsp;&nbsp;
                                 <button type="button" mat-stroked-button color="primary" (click)="onClickFluids()" matTooltip="Add Liquid Levels">Add Item</button>&nbsp;

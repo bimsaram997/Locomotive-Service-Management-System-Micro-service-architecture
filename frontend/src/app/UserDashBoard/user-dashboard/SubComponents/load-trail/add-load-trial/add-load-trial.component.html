@@ -150,7 +150,7 @@
                         <h3 class="sub-header">Running Condition</h3>
                         <div formArrayName="items" *ngFor="let item of LoadTrial.get('items')['controls']; let i = index;">
                             <div class="container  dyanmic" [formGroupName]="i">
-                                <p>Observation {{i+1}}</p>
+                                <p class="observation">Observation {{i+1}}</p>
                                 <div class="row justify-content-start no-gutters">
                                     <div class="col">
                                         <mat-form-field appearance="fill">
@@ -160,8 +160,8 @@
                                     </div>
                                     <div class="col">
                                         <mat-radio-group required aria-label="Select an option" formControlName="running">
-                                            <mat-radio-button value="Engine Running" style="margin-right: 5px;">Engine Running</mat-radio-button>
-                                            <mat-radio-button value="Engine Stopped" disabled>Engine Stopped</mat-radio-button>
+                                            <mat-radio-button class="radio-txt" value="Engine Running" style="margin-right: 5px;">Engine Running</mat-radio-button>
+                                            <mat-radio-button class="radio-txt" value="Engine Stopped" disabled>Engine Stopped</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                         <div formArrayName="itemsStop" *ngFor="let item of LoadTrial.get('itemsStop')['controls']; let i = index;">
 
                             <div class="container  dyanmic" [formGroupName]="i">
-                                <p>Observation {{i+1}}</p>
+                                <p class="observation">Observation {{i+1}}</p>
                                 <div class="row justify-content-start no-gutters">
                                     <div class="col">
                                         <mat-form-field appearance="fill">
@@ -213,8 +213,8 @@
                                     </div>
                                     <div class="col">
                                         <mat-radio-group required aria-label="Select an option" formControlName="running">
-                                            <mat-radio-button value="Engine Running" disabled style="margin-right: 5px;">Engine Running</mat-radio-button>
-                                            <mat-radio-button value="Engine Stopped">Engine Stopped</mat-radio-button>
+                                            <mat-radio-button class="radio-txt" value="Engine Running" disabled style="margin-right: 5px;">Engine Running</mat-radio-button>
+                                            <mat-radio-button class="radio-txt" value="Engine Stopped">Engine Stopped</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
 
@@ -327,7 +327,7 @@
                             </div>
                         </div>
                         <br>
-                        <h3 class="sub-headers">Special Remarks on Load Test Run</h3>
+                        <h3 class="sub-header">Special Remarks on Load Test Run</h3>
                         <div class="row">
                             <div class="col-sm-8">
                                 <mat-form-field appearance="fill">

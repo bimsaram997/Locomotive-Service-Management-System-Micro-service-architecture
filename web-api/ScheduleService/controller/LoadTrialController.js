@@ -172,13 +172,18 @@ const changeStatusComment = async(req, res, next) => { //change status of the co
 }
 
 const getResolvedComments = async(req, res, next) => {
-    await CommentDTO.find({ status: 4 })
+    const obj = req.params.loadNo
+    console.log(obj)
+
+    await CommentDTO.find({ loadNo: req.params.loadNo, status: 4 })
         .then(result => {
             res.status(200).json(result);
-            //console.log(result)
+
         }).catch(er => {
             res.status(500).json(er);
         });
+
+
 }
 
 const commentEmail = async(req, res, next) => {

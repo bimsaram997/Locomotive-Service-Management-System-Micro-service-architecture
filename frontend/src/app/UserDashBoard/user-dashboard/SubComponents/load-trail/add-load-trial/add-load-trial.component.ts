@@ -51,8 +51,8 @@ export class AddLoadTrialComponent implements OnInit {
     private loadTrialService: LoadTrialService, private router: Router,
     private locomotiveService: LocomotiveService) {
     const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 0, 7, -32);
-    this.maxDate = new Date(currentYear + 1, 6, 31);
+    this.minDate = new Date(currentYear - 0, 8, -9);
+    this.maxDate = new Date(currentYear + 1, -5, 30);
   }
 
   ngOnInit(): void {

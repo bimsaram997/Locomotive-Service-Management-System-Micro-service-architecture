@@ -36,8 +36,8 @@ export class LoadTrialService {
     return this.http.put(this.myUrl + `loadTrialRoute/changeStatusComment`, data);
   }
 
-  public getResolvedComments(): Observable<any> {
-    return this.http.get( this.myUrl + 'loadTrialRoute/getResolvedComments');
+  public getResolvedComments(loadNo): Observable<any> {
+    return this.http.get( this.myUrl + `loadTrialRoute/getResolvedComments/${loadNo}`);
   }
 
   public commentEmail(data): Observable<any>{

@@ -14,7 +14,7 @@ router.post('/commentEmail', loadTrialController.commentEmail);
 
 router.get('/getOneComment/:id', loadTrialController.getOneComment);
 router.put('/changeStatusComment', loadTrialController.changeStatusComment);
-router.get('/getResolvedComments', loadTrialController.getResolvedComments);
+router.get('/getResolvedComments/:loadNo', loadTrialController.getResolvedComments);
 
 router.post('/addFeedBack', loadTrialController.addFeedBack);
 router.get('/getOneFeedBack/:commentId', loadTrialController.getOneFeedBack);

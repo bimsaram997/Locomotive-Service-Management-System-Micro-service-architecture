@@ -92,3 +92,10 @@
 .btn-color {
     color: #1f3a93;
 }
+
+.radio-txt {
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}

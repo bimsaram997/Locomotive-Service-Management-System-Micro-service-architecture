@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 mat-dialog-title>Install Angular</h2>
+    <h2 mat-dialog-title>Feedbacks</h2>
     <form [formGroup]="viewFeedback">
         <mat-dialog-content class="mat-typography">
 
@@ -7,7 +7,7 @@
                 <div class="col">
                     <mat-form-field appearance="outline" style="width: 400px; height: 100px;">
                         <mat-label>Comments</mat-label>
-                        <textarea readonly matInput placeholder="Placeholder" formControlName="comments"></textarea>
+                        <textarea class="label-txt" readonly matInput placeholder="Placeholder" formControlName="comments"></textarea>
                         <mat-hint style="color: red; font-size: 12px;" *ngIf="lengthCount"><b>*There are not available feedbacks</b></mat-hint>
                     </mat-form-field>
                 </div>
@@ -17,7 +17,7 @@
                 <div class="col ">
                     <mat-form-field appearance="outline" style="width: 400px; height: 100px;">
                         <mat-label>Actions</mat-label>
-                        <textarea readonly matInput placeholder="Placeholder" formControlName="action"></textarea>
+                        <textarea class="label-txt" readonly matInput placeholder="Placeholder" formControlName="action"></textarea>
                         <mat-hint style="color: red; font-size: 12px;" *ngIf="lengthCount"><b>*There are not available feedbacks</b></mat-hint>
                     </mat-form-field>
                 </div>
@@ -27,9 +27,8 @@
 
 
         </mat-dialog-content>
-        <mat-dialog-actions align="end ">
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button mat-button [mat-dialog-close]="true " cdkFocusInitial>Install</button>
+        <mat-dialog-actions align="end">
+            <button mat-raised-button mat-dialog-close>Cancel</button>
         </mat-dialog-actions>
     </form>
 </div>
