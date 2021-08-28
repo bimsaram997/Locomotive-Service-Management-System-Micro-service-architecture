@@ -338,7 +338,6 @@ export class RequestScheduleComponent implements OnInit {
   }
 
   patchSch(object){
-
     this.locomotiveService.patchSch(object).pipe(first())
     .subscribe((
       res=>{
@@ -351,6 +350,7 @@ patchSchMileage(object){
   .subscribe((
     res=>{
       console.log(res);
+      console.log('ss')
     }
   ))
 }

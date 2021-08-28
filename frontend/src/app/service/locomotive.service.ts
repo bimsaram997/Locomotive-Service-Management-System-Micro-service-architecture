@@ -124,7 +124,7 @@ export class LocomotiveService {
     return this.http.patch( this.myUrl + `locoRoute/patchLoadLoco/` , object);
   }
   public patchSchMileage(object):Observable<any> {
-    return this.http.patch( this.myUrl + `locoRoute/patchSchMileage/` , object);
+    return this.http.put( this.myUrl + `locoRoute/patchSchMileage/` , object);
   }
 
   public sendMileEmail(data): Observable<any>{

@@ -33,7 +33,7 @@ router.post('/sendLocoEmail', LocomotiveController.sendLocoEmail);
 router.patch('/patch-mile/:id', LocomotiveController.patchMileController);
 router.patch('/reject-mile/:id/:reason', LocomotiveController.rejectMileController);
 router.patch('/patchFinalMile', LocomotiveController.patchFinalMile);
-router.patch('/patchSchMileage', LocomotiveController.patchSchMileage);
+router.put('/patchSchMileage', LocomotiveController.patchSchMileage);
 
 //locohistr
 router.post('/saveLocoHistory', LocomotiveController.saveLocoHistory);

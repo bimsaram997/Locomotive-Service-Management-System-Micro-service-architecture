@@ -63,6 +63,9 @@ export class ViewMileagesComponent implements OnInit {
       return 'clear'
     }else if (status === 4){
       return 'assignment'
+    }else if (status === 5){
+      return 'assignment'
     }
+
   }
 }

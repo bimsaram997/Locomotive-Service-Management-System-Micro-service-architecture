@@ -53,7 +53,7 @@
                 </ng-container>
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoco" data-label="status" [ngStyle]="{'color': (tempLoco.status ==1)?'#f7ca18':(tempLoco.status == 2)?'#1f3a93':(tempLoco.status==3)?'red ':'green'}">
+                    <mat-cell *matCellDef="let tempLoco" data-label="status" [ngStyle]="{'color': (tempLoco.status ==1)?'#f7ca18':(tempLoco.status == 2)?'#1f3a93':(tempLoco.status==3)?'red ':(tempLoco.status==4)?'green':(tempLoco.status==5)?'green': 'black'}">
 
                         <span class="material-icons" matTooltip="{{tempLoco.reason}}">
 {{statusBinder(tempLoco.status)}}
