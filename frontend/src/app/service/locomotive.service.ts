@@ -97,6 +97,7 @@ export class LocomotiveService {
   getOneLocoNew(mLocoNumber): Observable<any>{
     return this.http.get<any>(this.myUrl + `locoRoute/getOneLocoNew/${mLocoNumber}`);
   }
+
   getOneMileage(mReportNumber): Observable<any>{
     return this.http.get<any>(this.myUrl + `locoRoute/getOneMileage/${mReportNumber}`);
   }
@@ -125,6 +126,10 @@ export class LocomotiveService {
   }
   public patchSchMileage(object):Observable<any> {
     return this.http.put( this.myUrl + `locoRoute/patchSchMileage/` , object);
+  }
+
+  public getOneMileageById(id): Observable<any>{
+    return this.http.get<any>(this.myUrl + `locoRoute/getOneMileageById/${id}`);
   }
 
   public sendMileEmail(data): Observable<any>{

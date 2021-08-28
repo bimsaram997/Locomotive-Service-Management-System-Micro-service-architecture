@@ -8,12 +8,12 @@ import jsPDF from 'jspdf';
   styleUrls: ['./locomotive-doh-nut.component.css']
 })
 export class LocomotiveDohNutComponent implements OnInit {
+
+  locoList: any[]=[];
+  statusTwo:number;
 public doughnutChartLabels = ['Operating', 'In Schedules', 'In Load Trials'];
   public doughnutChartData = [120, 150, 180, 90];
   public doughnutChartType = 'doughnut';
-  locoList: any[]=[];
-  statusTwo:number;
-
   constructor(
     public locomotiveService: LocomotiveService
   ) { }

@@ -81,7 +81,8 @@ const routes: Routes = [
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewAdLoadTrial', component: ViewAdLoadTrialComponent},
       {path: 'viewAdLoadProd/:id', component: ViewAdloadProComponent},
-       {path: 'adminProfile', component: AdminProfileComponent},
+      {path: 'adminProfile', component: AdminProfileComponent},
+      {path: 'viewOneMileage/:id', component: ViewOneMileageComponent},
 
     ]},
   {path: 'userDashboard', canActivate: [AuthGuard], component: UserDashboardComponent,  children: [
@@ -95,7 +96,8 @@ const routes: Routes = [
       {path: 'viewSchedule/:id', component: ViewScheduleProfileComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewLoad', component: ViewLoadTrialsComponent },
-      {path: 'viewLoadProf/:id', component: ViewLoadProfComponent}
+      {path: 'viewLoadProf/:id', component: ViewLoadProfComponent},
+
 
 
 
@@ -130,7 +132,7 @@ const routes: Routes = [
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewOneMileage/:mReportNumber', component: ViewOneMileageComponent},
        {path: 'viewManSchedule/:id', component: ViewMoreSchedulesComponent},
-        {path: 'managerProfile', component: ManagerprofileComponent},
+      {path: 'managerProfile', component: ManagerprofileComponent},
 
 
 

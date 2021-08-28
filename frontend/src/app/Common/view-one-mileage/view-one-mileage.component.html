@@ -1,1 +1,110 @@
-<p>view-one-mileage works!</p>
+<div class="container-fluid">
+    <br>
+    <div class="box-head">
+        <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
+        <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW MILEAGE REPORT</span>
+    </div>
+    <hr>
+    <br>
+
+    <div class="example-container">
+        <form [formGroup]="MileageGroup">
+            <mat-card class="card1">
+                <h3 class="sub-header">Basic Details</h3>
+                <div class="row no-gutters">
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>ReportNumber</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="mReportNumber">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Locomotive Category</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="mLocoCatId">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Locomotive Number</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="mLocoNumber">
+                        </mat-form-field>
+                        <br>
+
+                    </div>
+                    <div class="w-100">
+                    </div>
+
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Emergency Schedule?</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="emergencyCheck">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Report Date</mat-label>
+                            <input class="label-txt" readonly matInput [matDatepicker]="picker" formControlName="mileageDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                        <mat-form-field appearance="fill" *ngIf="isNextSchedule">
+                            <mat-label>Next Schedule Number</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="nxtScheduleId">
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="w-100">
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Status</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="reason">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Notes</mat-label>
+                            <textarea class="label-txt" readonly matInput formControlName="mileageNote"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+
+                    </div>
+
+                    <div class="w-100">
+                        <h3 class="sub-header">Responsible</h3>
+                        <hr class="line">
+                        <br>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Manager Name</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="managerName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Manager Email</mat-label>
+                            <input class="label-txt" matInput formControlName="managerEmail">
+                        </mat-form-field>
+                    </div>
+                    <div class="col pr-0">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Manager NIC</mat-label>
+                            <input class="label-txt" readonly matInput formControlName="managerNic">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </mat-card>
+        </form>
+    </div>
+
+
+</div>

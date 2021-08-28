@@ -9,7 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent, ConfirmDialogModel} from "./confirm-dialog/confirm-dialog.component";
 import {first} from "rxjs/operators";
 import {RejectDialogComponent, RejectDialogModel} from "./reject-dialog/reject-dialog.component";
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-mileage',
@@ -29,14 +29,18 @@ export class ViewMileageComponent implements OnInit {
   searchKey: string;
   isVisible =  false;
   loading =  false;
+  tableArray :any;
+  loadArray: any[] = [];
   mileageList: any[] = [];
+  statuses: string[] = ['All','M1', 'M2', 'M3', 'M4', 'M5','M6','M7', 'M8', 'M9', 'M10', 'M11'];
   result: any;
   reason: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['Report Number', 'Loco Category', 'Loco Number', 'Mileage', 'Date', 'mileageNote', 'status', '#'];
-  constructor(private locomotiveService: LocomotiveService, public dialog: MatDialog, private router: Router) {
+  constructor(private locomotiveService: LocomotiveService,
+    private toastr: ToastrService, public dialog: MatDialog, private router: Router) {
 
   }
 
@@ -55,6 +59,21 @@ export class ViewMileageComponent implements OnInit {
       });
     });
   }
+
+  onChangeSelect(value){
+
+    const _findValue  = this.mileageList.filter(x=>x.mLocoCatId==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<any>(this.mileageList);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<any>(this.mileageList);
+    }
+  }
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
@@ -65,7 +84,7 @@ export class ViewMileageComponent implements OnInit {
   }
 
   viewMileage(id: string){
-    this.router.navigate(['/managerDashBoard/viewOneMileage', id])
+    this.router.navigate(['/adminDashboard/viewOneMileage', id])
   }
 
   openAcceptDialog(data): void {
@@ -125,6 +144,7 @@ export class ViewMileageComponent implements OnInit {
   }
 
 
+
   statusBinder(status){
     if (status === 1){
       return 'hourglass_top';
@@ -137,5 +157,9 @@ export class ViewMileageComponent implements OnInit {
     }else if (status === 5){
       return 'assignment'
     }
+  }
+
+   onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
   }
 }

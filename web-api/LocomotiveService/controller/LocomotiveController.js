@@ -330,7 +330,7 @@ const patchSchMileage = async(req, res, next) => {
     //console.log(_obj);
     console.log(_obj.locoNumber)
     if (_obj.locoNumber) {
-        await MileageSchema.updateOne({ mLocoNumber: _obj.locoNumber }, { $set: { status: 5, reason: "Assigned to the Schedule" } }, function(err, result) {
+        await MileageSchema.updateOne({ mReportNumber: _obj.mReportNumber }, { $set: { status: 5, reason: "Assigned to the Schedule" } }, function(err, result) {
 
             if (err) {
                 res.status(500).json(err)
@@ -1018,10 +1018,10 @@ const sendLocoEmail = async(req, res, next) => {
 
 }
 
-const getOneMileageById = (req, res) => {
-    //console.log(req.params.id);
-    MileageSchema.find({
-        mReportNumber: req.params.mReportNumber
+const getOneMileageById = async(req, res) => {
+    console.log(req.params.id);
+    await MileageSchema.find({
+        _id: req.params.id
     }).then(result => {
         res.status(200).json(result);
     }).catch(er => {

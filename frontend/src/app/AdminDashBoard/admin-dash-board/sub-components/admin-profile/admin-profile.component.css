@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 body {
     color: #6c757d;
     background-color: #f5f6f8;
@@ -277,5 +278,41 @@ body {
 }
 
 .label {
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f3a93;
+    font-family: 'Roboto', sans-serif;
+}
+
+.text-muted {
+    font-size: 20px;
+    color: black;
+}
+
+.text-uppercase {
+    font-family: 'Roboto', sans-serif;
+    color: #013243;
+    font-weight: bold;
+}
+
+.info {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+}
+
+.print {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1f3a93;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn {
+    font-family: 'Roboto', sans-serif;
+}
+
+.hr {
+    opacity: 0.4;
 }

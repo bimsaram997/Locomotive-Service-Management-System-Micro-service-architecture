@@ -29,7 +29,8 @@ export class ViewLoadTrialsComponent implements OnInit {
   statuses: string[] = ['All','M1', 'M2', 'M3', 'M4', 'M5','M6','M7', 'M8', 'M9', 'M10', 'M11'];
   tableArray :any;
 
-  constructor(private loadService: LoadTrialService, private toastr: ToastrService, private router: Router, public dialog: MatDialog) { }
+  constructor(private loadService: LoadTrialService,
+    private toastr: ToastrService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getLoadTrialAssigned();

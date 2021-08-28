@@ -30,7 +30,7 @@
                                 <span class="info">{{this.scheduleNo}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Report No.</h6>
@@ -39,7 +39,7 @@
                                 <span class="info">{{this.mReportNumber}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Request Date</h6>
@@ -48,7 +48,7 @@
                                 <span class="info">{{this.scheduleDate | date:'yyyy-MM-dd'}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Complete Date</h6>
@@ -57,7 +57,7 @@
                                 <span class="info"> {{ this.completedDate |date:'yyyy-MM-dd'}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Loco Category</h6>
@@ -66,7 +66,7 @@
                                 <span class="info">{{ this.locoCatId}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Loco Number</h6>
@@ -75,7 +75,7 @@
                                 <span class="info">{{this.locoNumber}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Loco Mileage</h6>
@@ -84,7 +84,7 @@
                                 <span class="info">{{this.locoMileage}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Loco Status</h6>
@@ -93,7 +93,7 @@
                                 <span class="info">{{this.locoStatus}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Progress Completed</h6>
@@ -102,7 +102,7 @@
                                 <span class="info">{{ this.scheduleProgress + '%'}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-4">
                                 <h6 class="mb-0 label">Schedule Status</h6>
@@ -110,7 +110,7 @@
                             <div class="col-sm-6 text-secondary">
                                 <p [ngStyle]="{'color': (this.scheduleStatus == 0)?'blue':(this.scheduleStatus == 1)?'yellow':
                                (this.scheduleStatus==2)?'#e87e04':(this.scheduleStatus==3)?'#9a12b3':(this.scheduleStatus==4)?'#663399':(this.scheduleStatus==5)?'#67809f':(this.scheduleStatus==6)?'green': (this.scheduleStatus==7)?'black': 'red'}">
-                                    <span class="material-icons" matTooltip="{{this.schReason}}">
+                                    <span class="material-icons" style="font-weight: bold;" matTooltip="{{this.schReason}}">
                                     {{statusBinder(this.scheduleStatus)}}
                                     </span></p>
                             </div>
@@ -131,7 +131,7 @@
                                 <span class="info"> {{ this.managerName}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Service Manager NIC</h6>
@@ -140,7 +140,7 @@
                                 <span class="info"> {{ this.managerNic}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Service Manager Email</h6>
@@ -149,7 +149,7 @@
                                 <span class="info">{{this.managerEmail}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Supervisor Name</h6>
@@ -158,7 +158,7 @@
                                 <span class="info">{{this.supervisorName}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Supervisor NIC</h6>
@@ -167,7 +167,7 @@
                                 <span class="info">{{this.supervisorNic}}</span>
                             </div>
                         </div>
-                        <hr>
+                        <hr class="hr">
                         <div class="row">
                             <div class="col-sm-5">
                                 <h6 class="mb-0 label">Supervisor Email</h6>
@@ -176,13 +176,21 @@
                                 <span class="info">{{this.supervisorEmail}}</span>
                             </div>
                         </div>
-                        <hr>
+
                     </div>
                 </div>
 
             </div>
             <div class="col-md-8">
+                <p>
+                    <span class="observation">Print Details</span>&nbsp;
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" appearance="legacy">
+                        <mat-button-toggle style="background-color: #1f3a93; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Locomotives Details" value="bold" (click)="printBasic()">Basic Details</mat-button-toggle>
+                        <mat-button-toggle style="background-color: #1e8bc3; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Mechanical Details" value="italic" (click)="printMechanical()">Mechanical</mat-button-toggle>
+                        <mat-button-toggle style="background-color: #19b5fe; color: white; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 13px;" matTooltip="Print Electric Details" (click)="printMechanical()">Electric</mat-button-toggle>
 
+                    </mat-button-toggle-group>
+                </p>
 
                 <div class="row gutters-sm-md">
                     <div class="col-sm-6 mb-3">

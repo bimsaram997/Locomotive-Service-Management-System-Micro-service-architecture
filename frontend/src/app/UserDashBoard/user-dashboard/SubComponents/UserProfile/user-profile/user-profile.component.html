@@ -22,7 +22,7 @@
                             <span class="info">{{this?.userEmail}}</span>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <div class="row">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Gender</h6>
@@ -31,7 +31,7 @@
                             <span class="info">{{this?.userGender}}</span>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <div class="row" style="color: black;">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">NIC</h6>
@@ -40,7 +40,7 @@
                             <span class="info">{{this?.userNic}}</span>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <div class="row" style="color: black;">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Mobile No</h6>
@@ -49,7 +49,7 @@
                             <span class="info">{{this?.userMobile}}</span>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <div class="row" style="color: black;">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Address</h6>
@@ -67,7 +67,7 @@
                             <span class="info">{{this?.appointmentDate}}</span>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="hr">
                     <div class="row" style="color: black;">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Work Place</h6>
@@ -92,7 +92,7 @@
         <div class="col-lg-8 col-xl-8">
             <div class="card-box">
                 <h3 class="print">Quick Links</h3>
-                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
                     <mat-button-toggle style="background-color: #1f3a93; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
                     <mat-button-toggle style="background-color: #1e8bc3; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
                     <mat-button-toggle style="background-color: #19b5fe; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" value="italic">Progress Reports</mat-button-toggle>
@@ -100,6 +100,7 @@
                 </mat-button-toggle-group>
                 <br>
                 <hr class="hr">
+                <br>
                 <p>
                     <span class="print">Print Details</span>&nbsp;
                     <button class="btn" mat-raised-button color="primary" (click)="printTestInfo()">Basic Details</button>

@@ -84,6 +84,13 @@ table {
     color: black;
 }
 
+.observation {
+    color: #663399;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
 .label {
     font-size: 14px;
     font-weight: 500;
@@ -184,6 +191,10 @@ a.float:hover+div.label-container {
     font-weight: 500;
     color: black;
     font-family: 'Roboto', sans-serif;
+}
+
+.hr {
+    opacity: 0.6;
 }
 
 .label-txt {

@@ -49,18 +49,19 @@ export class ViewLocomotivesComponent implements OnInit {
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   loading =  false;
   userList: UserDTO[] = [];
-  statuses: string[] = ['In', 'Out'];
+  statuses: string[] = ['All','In', 'Out'];
   userNic: any;
   userRole: any;
+  tableArray :any;
 
   @HostListener("window:scroll", [])
 onWindowScroll() {
- var element = document.documentElement, 
+ var element = document.documentElement,
  body = document.body,
  scrollTop = 'scrollTop',
  scrollHeight = 'scrollHeight';
- this.progresValue = 
- (element[scrollTop]||body[scrollTop]) / 
+ this.progresValue =
+ (element[scrollTop]||body[scrollTop]) /
  ((element[scrollHeight]||body[scrollHeight]) - element.clientHeight) * 100;
 }
 
@@ -68,7 +69,7 @@ onWindowScroll() {
     this.loadAllIds();
     this.getAllLoco();
    this.getLocoReport()
-    
+
     console.log(this.userNic);
 
   }
@@ -116,6 +117,21 @@ onWindowScroll() {
     )
   }
 
+   onChangeSelect(value){
+    let _cloneArrat = [];
+    const _findValue  = this.locoArray.filter(x=>x.locoAvailability==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    }
+  }
+
   editLoco(locoNumber: string){
     this.router.navigate(['/adminDashboard/EditLocomotive', locoNumber]);
   }
@@ -143,9 +159,9 @@ onWindowScroll() {
   }
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
 }
 
@@ -158,6 +174,11 @@ statusBinder(locoStatus){
     return 'gpp_good';
   }
 }
+
+onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
+  }
+
 
 getLocoReport(){
   this.locomotiveService.getLocoReport().subscribe(resp=>{

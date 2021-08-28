@@ -237,7 +237,7 @@ export class UserProfileComponent implements OnInit {
   }
   getBase64(){
     this.image = this.image as string;
-}
+  }
 
 
 
