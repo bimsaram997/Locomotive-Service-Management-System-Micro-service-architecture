@@ -13,7 +13,7 @@ import CustomerDTO from "../../../../../dto/CustomerDTO";
 import {CustomerService} from "../../../../../service/customer.service";
 import swal from 'sweetalert';
 import { first } from 'rxjs/operators';
-
+import { Location } from '@angular/common';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -40,6 +40,7 @@ export class CreateUserComponent implements OnInit {
   userMobile: any;
   userRole: any;
   userPassword: any;
+  spinner = false
   roles = [
     {id: 1, value: 'Supervisor'},
     {id: 2, value: 'Service Manager'},
@@ -70,7 +71,7 @@ export class CreateUserComponent implements OnInit {
 
    UserGroup: FormGroup;
   userRoles: string[] = ['Supervisor', 'Service Manager', 'Clerk', 'Chief Engineer'];
-  constructor(private cd: ChangeDetectorRef,private accessService: AccessService, private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private customerService: CustomerService) {
+  constructor(private cd: ChangeDetectorRef, private _location: Location,private accessService: AccessService, private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private customerService: CustomerService) {
     this.loadAllCustomers();
   }
   filesToUpload: Array<File> = [];
@@ -86,7 +87,7 @@ export class CreateUserComponent implements OnInit {
      address: [''],
       userWorks: [''],
  userNic: [''],
-  userMobile: [''],
+  userMobile: ['',  [Validators.required, Validators.pattern("^((\\+94-?)|0)?[0-9]{10}$")]],
    userRole: [''],
     userPassword: [''],
     image: ['']
@@ -101,6 +102,10 @@ export class CreateUserComponent implements OnInit {
       this.customerList = result;
       this.loading = true;
     })
+  }
+
+     backClicked() {
+    this._location.back();
   }
   // signUp() {
   //   this.accessService.register(
@@ -176,7 +181,7 @@ export class CreateUserComponent implements OnInit {
 
   onSubmit(){
 
-
+ this.spinner = true;
     let obj = {
       userEmail: this.UserGroup.controls.userEmail.value,
       userName: this.UserGroup.controls.userName.value,
@@ -209,9 +214,9 @@ this.accessService.register(obj)
              icon: 'success',
            });
            setTimeout(() => {
-             //this.MileageGroup.reset();
-            // this.router.navigate(['/clerkDashBoard/viewMileages']);
-             //this.spinner = false
+             this.UserGroup.reset();
+              this.router.navigate(['/clerkDashBoard/viewUsers']);
+
            }, 3000);
 
        } else {

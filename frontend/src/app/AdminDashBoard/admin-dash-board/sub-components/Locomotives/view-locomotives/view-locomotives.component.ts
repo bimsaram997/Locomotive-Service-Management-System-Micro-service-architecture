@@ -20,6 +20,7 @@ import swal from 'sweetalert';
 import {log} from "util";
 import {ViewImageComponent} from "../../../../../UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-image/view-image.component";
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-locomotives',
   templateUrl: './view-locomotives.component.html',
@@ -30,7 +31,8 @@ export class ViewLocomotivesComponent implements OnInit {
   progresValue:number;
   rangeArray:number[];
 
-  constructor(private dialog: MatDialog, private imageService: ImageService, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService, private accessService: AccessService) {
+  constructor(private dialog: MatDialog, private imageService: ImageService,
+    private _location: Location, private locomotiveService: LocomotiveService,  private router: Router,  private toastr: ToastrService, private accessService: AccessService) {
    // this.loadAll();
    this.progresValue =0;
   this.rangeArray= new Array(100);
@@ -74,6 +76,9 @@ onWindowScroll() {
 
   }
 
+   backClicked() {
+    this._location.back();
+  }
   private loadAllIds() {
     this.loading = true;
     this.accessService.getAllUsers().subscribe(result => {

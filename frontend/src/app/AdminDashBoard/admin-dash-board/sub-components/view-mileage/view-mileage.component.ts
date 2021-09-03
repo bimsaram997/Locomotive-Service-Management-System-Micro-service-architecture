@@ -10,7 +10,7 @@ import {ConfirmDialogComponent, ConfirmDialogModel} from "./confirm-dialog/confi
 import {first} from "rxjs/operators";
 import {RejectDialogComponent, RejectDialogModel} from "./reject-dialog/reject-dialog.component";
 import { ToastrService } from 'ngx-toastr';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-mileage',
   templateUrl: './view-mileage.component.html',
@@ -39,7 +39,7 @@ export class ViewMileageComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['Report Number', 'Loco Category', 'Loco Number', 'Mileage', 'Date', 'mileageNote', 'status', '#'];
-  constructor(private locomotiveService: LocomotiveService,
+  constructor(private locomotiveService: LocomotiveService, private _location: Location,
     private toastr: ToastrService, public dialog: MatDialog, private router: Router) {
 
   }
@@ -48,6 +48,9 @@ export class ViewMileageComponent implements OnInit {
     this.loadAllReport();
   }
 
+   backClicked() {
+    this._location.back();
+  }
   private loadAllReport() {
     this.locomotiveService.getAllMileage().subscribe(resp => {
       this.mileageList = resp;

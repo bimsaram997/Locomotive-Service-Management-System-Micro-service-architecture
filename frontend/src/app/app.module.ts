@@ -108,6 +108,7 @@ import { ManagerprofileComponent } from './ServiceManagerDashBoard/manager-dashb
 import { MileageDohNutComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/mileage-doh-nut/mileage-doh-nut.component';
 import { SchedulePieComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/schedule-pie/schedule-pie.component';
 import { ViewHistoryLocoComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-loco/view-history-loco.component';
+import { ClerkProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-profile/clerk-profile.component';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -237,6 +238,8 @@ FullCalendarModule.registerPlugins([
     SchedulePieComponent,
 
     ViewHistoryLocoComponent,
+
+    ClerkProfileComponent,
 
 
 

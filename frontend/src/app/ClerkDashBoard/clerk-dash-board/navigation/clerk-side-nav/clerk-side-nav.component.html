@@ -1,30 +1,31 @@
 <mat-nav-list class="s">
     <img class="image" src="./assets/logo/1618837407350.png">
     <hr>
-
-    <a mat-list-item routerLink="/clerkDashBoard/createUser" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;New User</span>
+    <a class="p" mat-list-item routerLink="/clerkDashBoard/clerkProfile" (click)="onSidenavClose()">
+        <span><i class="fas fa-user-tie icon"></i></span><span class="nav-caption">User Profile</span>
     </a>
-    <a mat-list-item routerLink="/clerkDashBoard/viewProgress" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Progress Reports</span>
-    </a>
-    <a mat-list-item routerLink="/clerkDashBoard/viewUsers" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Users</span>
-    </a>
+    <mat-list-item [matMenuTriggerFor]="menu1">
+        <mat-icon>unfold_more</mat-icon>
+        <a mat-line><span class="nav-caption">Users</span></a>
+    </mat-list-item>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item routerLink="/clerkDashBoard/createUser" (click)="onSidenavClose()"><span class="nav-caption">Create User</span></button>
+        <button mat-menu-item routerLink="/clerkDashBoard/viewUsers" (click)="onSidenavClose()"><span class="nav-caption">View Users</span></button>
+    </mat-menu>
     <a mat-list-item routerLink="/clerkDashBoard/resetPassword" (click)="onSidenavClose()">
         <span><img src="https://img.icons8.com/material/24/000000/password1--v1.png"/></span><span class="nav-caption">&nbsp;&nbsp;Reset Password</span>
     </a>
     <a mat-list-item routerLink="/clerkDashBoard/mViewLocomotives" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/password1--v1.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Locomotives</span>
+        <span><img src="https://img.icons8.com/ios-glyphs/30/000000/train.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Locomotives</span>
     </a>
 
 
     <mat-list-item [matMenuTriggerFor]="menu">
         <mat-icon>unfold_more</mat-icon>
-        <a mat-line>Mileage Details</a>
+        <a mat-line><span class="nav-caption">Mileage Details</span> </a>
     </mat-list-item>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/clerkDashBoard/createMileage" (click)="onSidenavClose()">Add Mileage Report</button>
-        <button mat-menu-item routerLink="/clerkDashBoard/viewMileages" (click)="onSidenavClose()">View Mileage Reports</button>
+        <button mat-menu-item routerLink="/clerkDashBoard/createMileage" (click)="onSidenavClose()"> <span class="nav-caption">Add Mileage Report</span></button>
+        <button mat-menu-item routerLink="/clerkDashBoard/viewMileages" (click)="onSidenavClose()"><span class="nav-caption">View Mileage Reports</span> </button>
     </mat-menu>
 </mat-nav-list>

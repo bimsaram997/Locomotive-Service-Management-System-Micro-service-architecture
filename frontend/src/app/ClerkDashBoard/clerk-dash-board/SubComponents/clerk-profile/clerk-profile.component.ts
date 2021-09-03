@@ -1,16 +1,16 @@
+import { AccessService } from './../../../../service/access.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AccessService } from 'src/app/service/access.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
 @Component({
-  selector: 'app-admin-profile',
-  templateUrl: './admin-profile.component.html',
-  styleUrls: ['./admin-profile.component.css']
+  selector: 'app-clerk-profile',
+  templateUrl: './clerk-profile.component.html',
+  styleUrls: ['./clerk-profile.component.css']
 })
-export class AdminProfileComponent implements OnInit {
+export class ClerkProfileComponent implements OnInit {
 
- subject = '';
+  subject = '';
   email = '';
   text = '';
   receive = '';

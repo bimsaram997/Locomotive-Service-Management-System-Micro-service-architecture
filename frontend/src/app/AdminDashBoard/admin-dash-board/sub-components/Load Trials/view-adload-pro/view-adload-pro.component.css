@@ -177,3 +177,10 @@ a.float:hover+div.label-container {
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
 }
+
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}

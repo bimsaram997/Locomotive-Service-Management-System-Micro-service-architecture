@@ -7,7 +7,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import swal from "sweetalert";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {MatDialog} from "@angular/material/dialog";
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
@@ -15,13 +15,13 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class ViewUsersComponent implements OnInit {
 
-  constructor(private accessService: AccessService, public dialog: MatDialog) {
+  constructor(private accessService: AccessService,private _location: Location, public dialog: MatDialog) {
     this.loadAllUsers();
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
   dataSource: MatTableDataSource<UserDTO>;
-  displayedColumns: string[] = ['User Email', 'User Name', 'Works At', 'User NIC', 'User Mobile', 'Role', '#'];
+  displayedColumns: string[] = ['UserEmail', 'User Name', 'Works At', 'User NIC', 'User Mobile', 'Role','Image',  '#'];
   userArray: UserDTO[] = [];
   selectedUser: UserDTO = null;
   loading =  false;
@@ -36,6 +36,9 @@ export class ViewUsersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+     backClicked() {
+    this._location.back();
+  }
   private loadAllUsers(){
     this.loading = true;
     this.accessService.getUsers().subscribe(resp =>{
@@ -56,12 +59,16 @@ export class ViewUsersComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
-    this.applyFilter();
+
   }
 
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
-  }
+applyFilter(filterValue: string) {
+    if (filterValue.length > 1) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
+    }
+}
 
   openDialog(tempUser: any) {
 

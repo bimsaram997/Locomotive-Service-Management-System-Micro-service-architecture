@@ -12,6 +12,7 @@ import swal from 'sweetalert';
 import {first} from "rxjs/operators";
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-create-locomotive',
   templateUrl: './create-locomotive.component.html',
@@ -53,7 +54,7 @@ export class CreateLocomotiveComponent implements OnInit {
   imagePreview: string;
   constructor( private cd: ChangeDetectorRef, private router: Router,
     private formBuilder: FormBuilder, private imageService: ImageService,
-     private accessService: AccessService,
+     private accessService: AccessService, private _location: Location,
     private locomotiveService: LocomotiveService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -97,6 +98,9 @@ export class CreateLocomotiveComponent implements OnInit {
     return this.getFm.locoFluids as FormArray;
   }
 
+   backClicked() {
+    this._location.back();
+  }
   uploadFile(event) {
 
     const fileEvnet = event.target.files[0];

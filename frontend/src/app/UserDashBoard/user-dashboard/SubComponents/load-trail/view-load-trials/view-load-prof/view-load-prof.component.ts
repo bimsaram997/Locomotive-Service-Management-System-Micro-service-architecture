@@ -128,7 +128,7 @@ export class ViewLoadProfComponent implements OnInit {
 }
 
 loadComments(){
-  this.id = (this.route.snapshot.paramMap.get('id'));
+  //this.id = (this.route.snapshot.paramMap.get('id'));
   this.loadService.getRelevantComments(this.loadNo).subscribe(
     res=>{
       console.log(res);
@@ -163,7 +163,6 @@ loadComments(){
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
        this.loadComments()
     });
   }

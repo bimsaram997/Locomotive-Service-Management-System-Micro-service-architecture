@@ -40,6 +40,13 @@ body {
     font-weight: bold;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 @media screen and (max-width: 1280px) {
     .mat-table {
         border: 1px;

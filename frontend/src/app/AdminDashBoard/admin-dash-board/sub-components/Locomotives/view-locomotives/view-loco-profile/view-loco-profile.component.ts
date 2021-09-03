@@ -8,6 +8,7 @@ import {LocomotiveService} from "../../../../../../service/locomotive.service";
 import { MatDialog } from '@angular/material/dialog';
 import { ViewHistoryLocoComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-loco/view-history-loco.component';
 import pdfMake from 'pdfmake/build/pdfmake';
+import { Location } from '@angular/common';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -66,7 +67,7 @@ displayedColumns6: string[] = ['Loco Category', 'Loco Number', 'Last Updated Dat
   }
 
 
-  constructor(private scroll: ViewportScroller,public dialog: MatDialog, private formBuilder: FormBuilder,
+  constructor(private scroll: ViewportScroller,public dialog: MatDialog, private formBuilder: FormBuilder, private _location: Location,
      private route: ActivatedRoute, private locomotiveService: LocomotiveService, private router: Router, private scheduleService: ScheduleService) { }
 
   ngOnInit(): void {
@@ -119,6 +120,9 @@ displayedColumns6: string[] = ['Loco Category', 'Loco Number', 'Last Updated Dat
   this.scroll.scrollToPosition([0,0]);
 }
 
+ backClicked() {
+    this._location.back();
+  }
   viewSchedule(id: string){
     console.log(id);
     this.router.navigate(['/adminDashboard/viewSchedule', id]);

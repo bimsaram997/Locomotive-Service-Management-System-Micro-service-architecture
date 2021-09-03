@@ -3,8 +3,12 @@
     <div class="box-head">
         <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
         <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW SCHEDULES</span>
+        <div class="back">
+            <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+        </div>
     </div>
     <hr>
+
     <br>
     <div class="search-div">
         <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
@@ -15,6 +19,7 @@
   </button>
         </mat-form-field>
     </div>
+
 
     <div class="main-table">
         <div class="mat-elevation-z8">

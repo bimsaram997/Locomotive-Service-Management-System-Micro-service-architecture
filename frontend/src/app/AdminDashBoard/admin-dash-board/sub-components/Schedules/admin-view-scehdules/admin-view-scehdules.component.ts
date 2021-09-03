@@ -11,7 +11,7 @@ import LocoDTO from "../../../../../dto/LocoDTO";
 import {LocomotiveService} from "../../../../../service/locomotive.service";
 import { ViewProgressComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-admin-view-scehdules',
   templateUrl: './admin-view-scehdules.component.html',
@@ -33,7 +33,8 @@ export class AdminViewScehdulesComponent implements OnInit {
   dataArray: any[] = [];
   dataArrayLength:any;
   isShowPrTable: boolean = true;
-  constructor(private scheduleService: ScheduleService, private router: Router,public dialog: MatDialog, public ProgressReportService: ProgressReportService) {
+  constructor(private scheduleService: ScheduleService, private _location: Location,
+     private router: Router,public dialog: MatDialog, public ProgressReportService: ProgressReportService) {
     this.loadAllSchedule();
   }
 
@@ -51,6 +52,9 @@ export class AdminViewScehdulesComponent implements OnInit {
     })
   }
 
+ backClicked() {
+    this._location.back();
+  }
 
   onSearchClear() {
     this.searchKey = '';

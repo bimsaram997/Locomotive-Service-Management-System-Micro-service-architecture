@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators';
 import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import swal from "sweetalert";
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,9 +16,9 @@ import { ActivatedRoute } from '@angular/router';
 export class AddFeedBacksComponent implements OnInit {
   feedBackGroup: FormGroup;
   id: any;
-    spinner = false
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private route: ActivatedRoute,
+  spinner = false
+  loadNo:any;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private route: ActivatedRoute,   public dialogRef: MatDialogRef<AddFeedBacksComponent>,
   private formBuilder: FormBuilder, private loadTrialService: LoadTrialService) { }
 
   ngOnInit(): void {
@@ -39,6 +39,7 @@ export class AddFeedBacksComponent implements OnInit {
         if(resp!== undefined){
           console.log(resp)
           this.feedBackGroup.controls['loadNo'].setValue(resp[0].loadNo);
+          this.loadNo = resp[0].loadNo;;
           this.feedBackGroup.controls['locoNumber'].setValue(resp[0].locoNumber);
           this.feedBackGroup.controls['comments'].setValue(resp[0].comments);
           this.feedBackGroup.controls['commentId'].setValue(resp[0].commentId);
@@ -61,6 +62,7 @@ export class AddFeedBacksComponent implements OnInit {
         console.log(res);
         if (res.isSaved) {
          this.changeStatusComment(this.feedBackGroup.value);
+         this.loadComments();
          console.log('gfg')
           swal({
             title: 'Feedback Saved!',
@@ -101,6 +103,15 @@ export class AddFeedBacksComponent implements OnInit {
         }
     ))
   }
+
+loadComments(){
+  //this.id = (this.route.snapshot.paramMap.get('id'));
+  this.loadTrialService.getRelevantComments(this.loadNo).subscribe(
+    res=>{
+      console.log(res);
+    }
+  )
+}
 
   defaultMethod(){
   //Id Gen

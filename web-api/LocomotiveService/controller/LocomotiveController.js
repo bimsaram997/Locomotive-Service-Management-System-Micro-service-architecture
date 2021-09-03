@@ -1496,6 +1496,19 @@ const getOneLocoHistory = async(req, res, next) => {
 
 }
 
+const getData = async(req, resp, next) => {
+    await LocomotiveSchema.count({ locoStatus: 2 }, function(err, result) {
+
+        if (err) {
+            resp.status(500).json(err)
+
+        } else {
+            resp.status(200).json(result)
+        }
+
+    })
+}
+
 module.exports = {
     getAllLocomotives,
     getAllLocosSelect,
@@ -1530,5 +1543,6 @@ module.exports = {
     //loco Histry
     saveLocoHistory,
     getAllHistoryLoco,
-    getOneLocoHistory
+    getOneLocoHistory,
+    getData
 }

@@ -11,26 +11,33 @@ export class LocomotiveDohNutComponent implements OnInit {
 
   locoList: any[]=[];
   statusTwo:number;
-public doughnutChartLabels = ['Operating', 'In Schedules', 'In Load Trials'];
-  public doughnutChartData = [120, 150, 180, 90];
-  public doughnutChartType = 'doughnut';
+
   constructor(
     public locomotiveService: LocomotiveService
   ) { }
 
+  public doughnutChartLabels = ['Operating', 'In Schedules', 'In Load Trials'];
+  public doughnutChartData = [120, 150, 180, 90];
+  public doughnutChartType = 'doughnut';
+  // doughnutChartData:any = [
+  //       {
+  //           data: []
+  //       }
+  //   ];
+
   ngOnInit(): void {
-    this.getAllLoco();
+   // this.getAllLoco();
   }
 
-  getAllLoco(){
-    this.locomotiveService.getAllLocomotives().subscribe(
-      res=>{
-        this.locoList = res
-        const loco = this.locoList?.filter(x=>x.locoStatus===2);
-        this.statusTwo = loco.length;
-        console.log(loco.length);
-      }
-    )
-  }
+  // getAllLoco(){
+  //   this.locomotiveService.getData().subscribe(
+  //     res=>{
+
+  //       this.statusTwo = res;
+  //        this.doughnutChartData =  res as any [];
+  //       console.log(this.statusTwo);
+  //     }
+  //   )
+  // }
 
 }

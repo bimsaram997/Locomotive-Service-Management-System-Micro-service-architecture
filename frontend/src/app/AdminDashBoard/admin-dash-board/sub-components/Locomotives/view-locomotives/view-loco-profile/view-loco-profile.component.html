@@ -1,4 +1,13 @@
 <div class="container-fluid">
+    <div class="box-head">
+        <img src="./assets/images/m9.png" alt="" style="height: 40px; width: 40px;">
+        <span class="heading-txt"><span style="color: #1e8bc3;">S</span>CHEDULE PROFILE
+        </span>
+        <div class="back">
+            <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-md-5">
             <!-- / project-info-box -->
@@ -106,9 +115,9 @@
         <!-- / column -->
 
         <div class="col-md-7">
-
-
+            <br>
             <div class="project-info-box mt-0">
+
                 <p>
                     <span class="print">Print Details</span>&nbsp;
                     <mat-button-toggle-group name="fontStyle" aria-label="Font Style" appearance="legacy">

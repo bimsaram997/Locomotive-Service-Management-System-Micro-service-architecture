@@ -2,6 +2,9 @@
     <div class="box-head">
         <img src="./assets/images/m9.png" alt="" style="height: 40px; width: 40px;">
         <span class="heading-txt"><span style="color: #1e8bc3;">L</span>OAD TRIAL</span>
+        <div class="back">
+            <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+        </div>
     </div>
     <hr>
     <div class="main-body">
@@ -97,7 +100,7 @@
                                 <h6 class="mb-0 label">Status</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                <p [ngStyle]="{'color': (this.status == 1)?'#f7ca18':(this.status == 2)?'green':(this.status==3)?'#1f3a93':'red'}"> <span class="material-icons" matTooltip="{{this.reason}}">
+                                <p [ngStyle]="{'color': (this.status == 1)?'#f7ca18':(this.status == 2)?'green':(this.status==3)?'#1f3a93':'red'}"> <span class="material-icons" style="font-weight: bold;" matTooltip="{{this.reason}}">
                                     {{statusBinder(this.status)}}
                                     </span></p>
                             </div>

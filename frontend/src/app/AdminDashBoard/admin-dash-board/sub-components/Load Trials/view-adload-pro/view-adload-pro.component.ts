@@ -17,6 +17,7 @@ import { TableUtil } from './tableUtil';
 import autoTable from 'jspdf-autotable'
 import { MOMENT } from 'angular-calendar';
 import { AddCommentLoadComponent } from '../view-ad-load-trial/add-comment-load/add-comment-load.component';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-adload-pro',
   templateUrl: './view-adload-pro.component.html',
@@ -80,7 +81,7 @@ export class ViewAdloadProComponent implements OnInit {
   @HostListener('window:scroll', ['$event']) onScroll(event){
     this.pageYoffset = window.pageYOffset;
   }
-  constructor ( public dialog: MatDialog,private route: ActivatedRoute,
+  constructor ( public dialog: MatDialog,private route: ActivatedRoute, private _location: Location,
     private router: Router, private loadService: LoadTrialService,
      private scheduleService: ScheduleService,
      private locoService: LocomotiveService, private scroll: ViewportScroller) { }
@@ -151,6 +152,10 @@ for(let id of this.dataSource1){
         this.getResolvedComment(this.countComments);
       }
     )
+  }
+
+   backClicked() {
+    this._location.back();
   }
 
   statusBinder(status){

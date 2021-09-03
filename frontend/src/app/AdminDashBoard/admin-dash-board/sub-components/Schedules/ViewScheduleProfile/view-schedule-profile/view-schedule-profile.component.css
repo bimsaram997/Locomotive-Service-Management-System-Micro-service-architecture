@@ -171,6 +171,13 @@ a.float:hover+div.label-container {
     font-size: 15px;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 .print {
     font-size: 18px;
     font-weight: 500;

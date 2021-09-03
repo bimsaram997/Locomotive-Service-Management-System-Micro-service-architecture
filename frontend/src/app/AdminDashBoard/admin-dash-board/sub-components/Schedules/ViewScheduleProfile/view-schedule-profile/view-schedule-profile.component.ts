@@ -1,4 +1,4 @@
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, formatDate } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,8 @@ import { first, map, mergeMap } from 'rxjs/operators';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import * as moment from 'moment';
 import pdfMake from 'pdfmake/build/pdfmake';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-view-schedule-profile',
   templateUrl: './view-schedule-profile.component.html',
@@ -65,8 +67,12 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   schReason: any;
   isTimer: boolean = true;
   scheduleObj:any[] =[];
-  completedBanner: boolean= false;
-  lapseBanner: boolean= false;
+  completedBanner: boolean;
+  lapseBanner: boolean;
+  intervalId:any
+  date1: any;
+  date2: any;
+
 
   pageYoffset = 0;
   @HostListener('window:scroll', ['$event']) onScroll(event){
@@ -87,7 +93,7 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
     public daysToDday;
  private subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private scheduleService: ScheduleService, private scroll: ViewportScroller) { }
+  constructor(private route: ActivatedRoute, private router: Router, private _location: Location, private scheduleService: ScheduleService, private scroll: ViewportScroller) { }
 
   ngOnInit(): void {
     this.id = (this.route.snapshot.paramMap.get('id'));
@@ -138,7 +144,10 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
       }
     )
     this.loadSchedule();
+    this.hello();
+
     this.subscription = interval(1000).subscribe(x => { this.getTimeDifference(); });
+
 
   }
 
@@ -146,10 +155,12 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   this.scroll.scrollToPosition([0,0]);
   }
 
-  private getTimeDifference () {
+
+
+  public getTimeDifference () {
 
         let d = this.completedDate
-        console.log(new Date(d).getTime())
+        //console.log(new Date(d).getTime())
 
         this.timeDifference = new Date(d).getTime() - new  Date().getTime();
         if(this.scheduleStatus===7 || this.scheduleStatus===8){
@@ -160,6 +171,9 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
            if(this.timeDifference<0){
             this.isTimer = false;
             this.lapseBanner = true;
+            if(this.lapseBanner === true){
+
+            }
           return;
         }else if(this.timeDifference === 2){
           this.scheduleLapseEmail(this.scheduleObj)
@@ -167,9 +181,6 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
           this.allocateTimeUnits(this.timeDifference);
         }
         }
-
-
-
 
     }
 
@@ -181,7 +192,16 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
   }
 
 
+  hello(){
+    this.date1 = moment(new Date).format("YYYY-MM-DD")
+    this.date2 = moment(this.completedDate ).format("YYYY-MM-DD")
 
+
+  }
+
+ backClicked() {
+    this._location.back();
+  }
   statusBinder(scheduleStatus){
     if (scheduleStatus === 0){
       return 'not_started';
@@ -795,5 +815,6 @@ displayedColumns9: string[] = ['repNo',  'progressDate', 'checkArray', 'progress
 
    ngOnDestroy() {
       this.subscription.unsubscribe();
+
    }
 }

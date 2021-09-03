@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { LoadTrialService } from 'src/app/service/load-trial.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-ad-load-trial',
@@ -25,13 +26,16 @@ export class ViewAdLoadTrialComponent implements OnInit {
   reason: any
   defChecked: boolean = false
 
-  constructor(private loadService: LoadTrialService, private router: Router, public dialog: MatDialog) { }
+  constructor(private loadService: LoadTrialService, private _location: Location, private router: Router) { }
 
   ngOnInit(): void {
     this.getLoadTrial();
 
   }
 
+   backClicked() {
+    this._location.back();
+  }
   private getLoadTrial(){
     const values =  JSON.parse( localStorage.getItem('currentUser'));
       const object  = {
@@ -51,17 +55,7 @@ export class ViewAdLoadTrialComponent implements OnInit {
     })
   }
 
-  addComments(id: string): void {
-    const dialogRef = this.dialog.open(AddCommentLoadComponent, {
-      data: {id: id, defChecked: this.defChecked},
-      width: '520px',
 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
-    });
-  }
   statusBinder(status){
     if (status === 1){
       return 'hourglass_top';

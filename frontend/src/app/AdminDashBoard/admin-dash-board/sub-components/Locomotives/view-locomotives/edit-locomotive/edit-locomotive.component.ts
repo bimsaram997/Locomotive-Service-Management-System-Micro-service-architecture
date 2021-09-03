@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {LocomotiveService} from "../../../../../../service/locomotive.service";
 import {first} from "rxjs/operators";
 import swal from "sweetalert";
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-edit-locomotive',
   templateUrl: './edit-locomotive.component.html',
@@ -50,7 +50,7 @@ export class EditLocomotiveComponent implements OnInit {
   image: string;
   submitted = false;
   spinner = false
-  constructor(private formBuilder: FormBuilder, private accessService: AccessService,
+  constructor(private formBuilder: FormBuilder, private accessService: AccessService, private _location: Location,
     private cd: ChangeDetectorRef, private router: Router,
     private route: ActivatedRoute, private locomotiveService: LocomotiveService) {
 
@@ -183,6 +183,10 @@ export class EditLocomotiveComponent implements OnInit {
 
       this.cd.markForCheck();
     }
+  }
+
+   backClicked() {
+    this._location.back();
   }
 
   onEdit(){

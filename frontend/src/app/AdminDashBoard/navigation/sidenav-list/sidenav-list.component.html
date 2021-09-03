@@ -16,15 +16,12 @@
     </a>
     <mat-list-item [matMenuTriggerFor]="menu">
         <mat-icon>unfold_more</mat-icon>
-        <a mat-line>Locomotives</a>
+        <a mat-line><span class="nav-caption">Locomotives</span>  </a>
     </mat-list-item>
     <mat-menu #menu="matMenu" class="r">
-        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/createLocomotive">Add Locomotive</button>
-        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/viewLocomotives">View All Locomotives</button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/createLocomotive"><span class="nav-caption">Add Locomotive</span></button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/viewLocomotives"><span class="nav-caption">View All Locomotives</span> </button>
     </mat-menu>
-    <a mat-list-item routerLink="/userDashboard/addLoadTrial" (click)="onSidenavClose()" routerLink="/adminDashboard/viewProgress">
-        <span><i class="fas fa-tasks icon"></i></span><span class="nav-caption">View Progress Reports</span>
-    </a>
     <a mat-list-item routerLink="/adminDashboard/adminViewSchedules" (click)="onSidenavClose()">
         <span><i class="fas fa-calendar-alt icon"></i></span><span class="nav-caption">View Schedules</span>
     </a>
