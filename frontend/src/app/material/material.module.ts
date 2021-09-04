@@ -46,6 +46,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {NgImageFullscreenViewModule} from "ng-image-fullscreen-view";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 
 
@@ -100,7 +101,8 @@ const MaterialComponents = [
   CommonModule,
   NgImageFullscreenViewModule,
   MatExpansionModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatBottomSheetModule
 
 
 

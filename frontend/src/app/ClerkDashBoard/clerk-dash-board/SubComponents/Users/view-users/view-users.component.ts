@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
 export class ViewUsersComponent implements OnInit {
 
   constructor(private accessService: AccessService,private _location: Location, public dialog: MatDialog) {
-    this.loadAllUsers();
+
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
@@ -34,6 +34,7 @@ export class ViewUsersComponent implements OnInit {
   changePassword = '';
 
   ngOnInit(): void {
+     this.loadAllUsers();
   }
 
      backClicked() {
@@ -91,27 +92,13 @@ applyFilter(filterValue: string) {
     }
   }
 
-  OpenEdit(tempUser: UserDTO) {
-    this.selectedUser = tempUser;
-    this.changeUserName = tempUser.userName;
-    this.changeUserWork = tempUser.userWorks;
-    this.changeUserNic = tempUser.userNic;
-    this.changeUserMobile = tempUser.userMobile;
-    this.changeRole = tempUser.userRole;
-
-
-    this.changePassword =  tempUser.userPassword;
-    const dialogRef = this.dialog.open(EditUserComponent, {data: {
-      EditId: this.selectedUser,
-      EditName: this.changeUserName,
-      EdtWork: this.changeUserWork,
-        EditNic: this.changeUserNic,
-      EditMobile: this.changeUserMobile,
-      EditRole: this.changeRole,
-
-     }})
+  OpenEdit(_id: string) {
+   const dialogRef = this.dialog.open(EditUserComponent, {
+       data: {id: _id},
+        width: '700px',
+   })
     dialogRef.afterClosed().subscribe(result =>{
-      console.log(`Dialog: ${result}`);
+
       this.loadAllUsers();
     });
   }

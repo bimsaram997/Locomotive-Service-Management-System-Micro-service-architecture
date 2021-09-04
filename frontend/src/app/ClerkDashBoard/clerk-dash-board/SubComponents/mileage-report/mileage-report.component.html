@@ -3,19 +3,22 @@
     <div class="box-head">
         <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
         <span class="heading-txt"><span style="color: #1e8bc3;">A</span>DD MILEAGE REPORT</span>
+        <div class="back">
+            <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+        </div>
     </div>
     <hr>
     <br>
-    <br><br>
+
     <div class="example-container">
         <form [formGroup]="MileageGroup" (ngSubmit)="onSubmit()">
             <mat-card class="card1">
-                <h3 class="sub-headers">Basic Details</h3>
+                <h3 class="sub-header">Basic Details</h3>
                 <div class="row no-gutters">
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label class="Report Number">Report Number</mat-label>
-                            <input required maxlength="5" minlength="3" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber">
+                            <input class="label-txt" required maxlength="5" minlength="3" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber">
                             <div *ngIf="MileageGroup.controls['mReportNumber'].invalid && (MileageGroup.controls['mReportNumber'].dirty || MileageGroup.controls['mReportNumber'].touched)" class="error">
                                 <div *ngIf="MileageGroup.controls['mReportNumber'].errors.required">
                                     Required.
@@ -38,9 +41,10 @@
                         </mat-form-field>
                     </div>
                     <div class="col">
+                        <button mat-raised-button class="btn-nxt" *ngIf="!isEmergency" type="button" (click)="viewNextSchedules()">View Next Schedules</button>
                         <mat-form-field appearance="fill" *ngIf="isEmergency">
                             <mat-label>next Schedule Id</mat-label>
-                            <mat-select formControlName="nxtScheduleId" required (selectionChange)="sendOneNextSchedule($event)">
+                            <mat-select formControlName="nxtScheduleId" (selectionChange)="sendOneNextSchedule($event)">
                                 <mat-option *ngFor="let temIds of nxtScheduleList" value="{{temIds.nxtSchId}}">
                                     {{temIds.nxtSchId}}
                                 </mat-option>
@@ -55,16 +59,8 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill" *ngIf="isEmergency">
                             <mat-label>Locomotive Numbers</mat-label>
-                            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl1" formControlName="mLocoNumber" [matAutocomplete]="auto1" [readonly]="isEmergency">
-
-                            <mat-autocomplete #auto1="matAutocomplete">
-                                <mat-option *ngFor="let opt of locoList " [value]="opt.locoNumber" (selectionChange)="onChangeSelect($event.opt.locoNumber)">
-                                    {{opt.locoNumber}}
-                                </mat-option>
-                            </mat-autocomplete>
-
+                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl1" formControlName="mLocoNumber" [matAutocomplete]="auto1" [readonly]="isEmergency">
                         </mat-form-field>
-
                         <mat-form-field appearance="fill" *ngIf="isLoco">
                             <mat-label>Locomotive Numbers</mat-label>
                             <mat-select formControlName="mLocoNumber" required (selectionChange)="onChangeSelect($event)">
@@ -80,7 +76,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Category</mat-label>
-                            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto2" [readonly]="isEmergency">
+                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto2" [readonly]="isEmergency">
                             <div *ngIf="MileageGroup.controls['mLocoCatId'].invalid && (MileageGroup.controls['mLocoCatId'].dirty || MileageGroup.controls['mLocoCatId'].touched)" class="error">
                                 <div *ngIf="MileageGroup.controls['mLocoCatId'].errors.required">
                                     Required.
@@ -96,8 +92,8 @@
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
-                            <mat-label class="label-txt">Locomotive Mileage (Km)</mat-label>
-                            <input minlength="4" required matInput placeholder="E.g: 14000Km" #searchInput formControlName="mLocoMileage">
+                            <mat-label>Locomotive Mileage (Km)</mat-label>
+                            <input class="label-txt" minlength="4" required matInput placeholder="E.g: 14000Km" #searchInput formControlName="mLocoMileage">
                             <div *ngIf="MileageGroup.controls['mLocoMileage'].invalid && (MileageGroup.controls['mLocoMileage'].dirty || MileageGroup.controls['mLocoMileage'].touched)" class="error">
                                 <div *ngIf="MileageGroup.controls['mLocoMileage'].errors.required">
                                     Mileage is Required.
@@ -111,7 +107,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Mileage After last Load Trial (Km)</mat-label>
-                            <input matInput formControlName="finalMileage" readonly>
+                            <input class="label-txt" class="label-txt" matInput formControlName="finalMileage" readonly>
                         </mat-form-field>
                     </div>
 
@@ -183,7 +179,7 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Textarea</mat-label>
-                            <textarea matInput formControlName="mileageNote"></textarea>
+                            <textarea class="label-txt" matInput formControlName="mileageNote"></textarea>
                             <div *ngIf="MileageGroup.controls['mileageNote'].invalid && (MileageGroup.controls['mileageNote'].dirty || MileageGroup.controls['mileageNote'].touched)" class="error">
                                 <div *ngIf="MileageGroup.controls['mileageNote'].errors.required">
                                     Note is required

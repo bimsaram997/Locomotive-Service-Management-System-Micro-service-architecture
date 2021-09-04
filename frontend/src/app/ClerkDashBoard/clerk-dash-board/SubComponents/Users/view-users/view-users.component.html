@@ -72,7 +72,7 @@
                 </ng-container>
                 <ng-container matColumnDef="#">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-                    <mat-cell *matCellDef="let tempUser" data-label="#"> <button mat-icon-button (click)="OpenEdit(tempUser)"><i class="fas fa-pencil-alt" style="color: #f62459; font-size: 18px; font-weight: bold;"></i></button>
+                    <mat-cell *matCellDef="let tempUser" data-label="#"> <button mat-icon-button (click)="OpenEdit(tempUser._id)"><i class="fas fa-pencil-alt" style="color: #f62459; font-size: 18px; font-weight: bold;"></i></button>
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

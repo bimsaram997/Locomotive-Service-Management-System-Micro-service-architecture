@@ -109,6 +109,12 @@ import { MileageDohNutComponent } from './ServiceManagerDashBoard/manager-dashbo
 import { SchedulePieComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/Charts/schedule-pie/schedule-pie.component';
 import { ViewHistoryLocoComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-loco/view-history-loco.component';
 import { ClerkProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-profile/clerk-profile.component';
+import { ClerkViewLocomotivesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-view-locomotives.component';
+import { ClerkLocoProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-loco-profile/clerk-loco-profile.component';
+import { ClerkViewSchedulesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-view-schedules/clerk-view-schedules.component';
+import { ClerkScheduleProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-schedule-profile/clerk-schedule-profile.component';
+import { ViewNextSchedulesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/mileage-report/view-next-schedules/view-next-schedules.component';
+import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
 
 FullCalendarModule.registerPlugins([
   interactionPlugin,
@@ -241,6 +247,16 @@ FullCalendarModule.registerPlugins([
 
     ClerkProfileComponent,
 
+    ClerkViewLocomotivesComponent,
+
+    ClerkLocoProfileComponent,
+
+    ClerkViewSchedulesComponent,
+
+    ClerkScheduleProfileComponent,
+
+    ViewNextSchedulesComponent,
+
 
 
 
@@ -273,9 +289,9 @@ FullCalendarModule.registerPlugins([
 
 
   ],
-  providers: [EventEmitterService],
+  providers: [EventEmitterService,  ],
   bootstrap: [AppComponent],
   entryComponents: [ModelComponent, ViewHistoryLocoComponent, AddFeedBacksComponent, ViewProgressComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
-  SendProgressComponent, UpdateFinalMileageComponent, AddCommentLoadComponent]
+  SendProgressComponent, UpdateFinalMileageComponent,ViewNextSchedulesComponent, AddCommentLoadComponent]
 })
 export class AppModule { }

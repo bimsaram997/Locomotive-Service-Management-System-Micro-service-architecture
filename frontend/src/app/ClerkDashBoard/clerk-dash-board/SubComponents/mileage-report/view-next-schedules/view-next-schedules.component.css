@@ -3,29 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
-.radio-text {
-    font-size: 14px;
-    font-weight: 500;
-}
-
 .label-txt {
     font-size: 13px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     color: #000080;
-}
-
-.input-label {
-    font-weight: bold;
-    font-family: 'Roboto', sans-serif;
-    color: black;
-}
-
-.btn-color {
-    color: #1f3a93;
-    font-family: 'Roboto', sans-serif;
-}
-
-.title {
-    font-family: 'Roboto', sans-serif;
 }

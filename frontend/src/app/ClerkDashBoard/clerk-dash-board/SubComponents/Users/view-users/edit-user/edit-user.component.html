@@ -1,71 +1,104 @@
+<h1 mat-dialog-title class="heading-txt">
+    Edit User</h1>
+<div mat-dialog-content class="mat-typography">
+    <div>
+        <form [formGroup]="editUserGroup" (ngSubmit)="updateUser()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Full Name</mat-label>
+                            <input class="label-txt" required matInput formControlName="userName">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input class="label-txt" required matInput formControlName="userEmail">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>NIC</mat-label>
+                            <input maxlength="10" minlength="10" required class="label-txt" matInput formControlName="userNic">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Gender</mat-label>
+                            <mat-select required formControlName="userGender">
+                                <mat-option value="Male">Male</mat-option>
+                                <mat-option value="Female">Female</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Mobile Number</mat-label>
+                            <input maxlength="10" minlength="10" mask='(000) 000-0000' required class="label-txt" matInput formControlName="userMobile">
+                            <div *ngIf="editUserGroup.controls['userMobile'].invalid && (editUserGroup.controls['userMobile'].dirty || editUserGroup.controls['userMobile'].touched)" class="error">
+                                <div *ngIf="UserGroup.controls['userMobile'].errors.required" class="error">
+                                    Mobile Number is required.
+                                </div>
+                                <div *ngIf="editUserGroup.controls['userMobile'].errors.pattern" class="error">
+                                    Please, Enter 10 digit Mobile Number
+                                </div>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Address</mat-label>
+                            <input required class="label-txt" matInput formControlName="address">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Role</mat-label>
+                            <mat-select required formControlName="userRole">
+                                <mat-option *ngFor="let role of Roles" [value]="role">{{role}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Appointment Date</mat-label>
+                            <input required class="label-txt" matInput [matDatepicker]="picker" formControlName="appointmentDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Work Place</mat-label>
+                            <mat-select required formControlName="userWorks">
+                                <ng-container *ngFor="let place of places">
+                                    <mat-option value="{{place.value}}">{{place.value}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
 
-<h1 mat-dialog-title  class="heading-txt">EDIT</h1>
-<div mat-dialog-content>
-  <div class="controls-container" >
-    <mat-form-field class="field" >
-      <mat-label class="label-txt">User Name</mat-label>
-      <input matInput placeholder="User Name" #searchInput [(ngModel)]="data.EditName">
-    </mat-form-field>
-    <br>
-    <mat-form-field class="field">
-      <mat-select required #sName="ngModel"  placeholder="Works At" aria-label="Supervisor In Charge" [(ngModel)]="data.EdtWork">
-        <mat-option>None</mat-option>
-        <ng-container *ngFor="let place of places">
-          <mat-option  value="{{place.value}}">{{place.value}}</mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="field">
-      <mat-label class="label-txt">User Mobile</mat-label>
-      <input [value]="data.EditMobile" #mNum ="ngModel" maxlength="10" minlength="10" required  matInput placeholder="User Mobile"  [(ngModel)]="data.EditMobile" >
-      <div  *ngIf="mNum.invalid && (mNum.dirty || mNum.touched)"
-            class="error">
-        <div *ngIf="mNum.errors.required">
-          Mobile Number is required.
-        </div>
-        <div *ngIf="mNum.errors.minlength">
-          Mobile Number must be at least 10 characters long.
-        </div>
-        <div *ngIf="mNum.errors.maxLength">
-          Mobile Number must be up to 10 characters long.
-        </div>
-      </div>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="field">
-      <mat-select required #cRole="ngModel" placeholder="Role" aria-label="Role" [(ngModel)] = "data.EditRole">
-        <mat-option>None</mat-option>
-        <ng-container *ngFor="let role of roles">
-          <mat-option value="{{role.value}}">{{role.value}}</mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="field">
-      <mat-label class="label-txt">User NIC</mat-label>
-      <input #nic="ngModel" required  matInput placeholder="User NIC"[(ngModel)]="data.EditNic"   maxlength="10" minlength="10">
-      <div  *ngIf="nic.invalid && (nic.dirty || nic.touched)"
-            class="error">
-        <div *ngIf="nic.errors.required">
-          NIC Number is required.
-        </div>
-        <div *ngIf="nic.errors.minlength">
-          NIC Number must be at least 10 characters long.
-        </div>
-        <div *ngIf="nic.errors.maxLength">
-          NIC Number must be up to 10 characters long.
-        </div>
-      </div>
-    </mat-form-field>
-    <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="preview" *ngIf="imagePreview && imagePreview !== null">
+                            <img [src]="imagePreview" style="height: 100px; width: 150px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
-
-</div>
 
 </div>
 <mat-dialog-actions align="end">
-  <button  mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="updateUser()" >Update</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial (click)="updateUser()">Save</button>
 
 </mat-dialog-actions>

@@ -1,3 +1,4 @@
+import { ViewNextSchedulesComponent } from './view-next-schedules/view-next-schedules.component';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { LoadTrialService } from './../../../../service/load-trial.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +11,9 @@ import swal from "sweetalert";
 import {LocomotiveService} from "../../../../service/locomotive.service";
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+
 
 @Component({
   selector: 'app-mileage-report',
@@ -38,8 +42,10 @@ export class MileageReportComponent implements OnInit {
   isLoco: boolean = true;
   options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
   constructor(private accessService: AccessService, private formBuilder: FormBuilder,
-              private locomotiveService: LocomotiveService, private router: Router,private route: ActivatedRoute,
-              private scheduleService: ScheduleService,   private toastr: ToastrService,) {
+              private locomotiveService: LocomotiveService, private router: Router,private route: ActivatedRoute,private bottomSheet: MatBottomSheet,
+              private scheduleService: ScheduleService, private _location: Location,  private toastr: ToastrService,
+              )
+               {
 
               }
 
@@ -50,7 +56,7 @@ export class MileageReportComponent implements OnInit {
       mLocoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       mLocoMileage: ['', [Validators.required, Validators.minLength(5)]],
       finalMileage: [''],
-      nxtScheduleId: [''],
+      nxtScheduleId: [null],
       mileageDate: ['', [Validators.required]],
       locoStatus: ['', Validators.required],
       managerNic: ['', [Validators.required]],
@@ -106,6 +112,15 @@ export class MileageReportComponent implements OnInit {
      console.log(endMile, currentMile);
      this.mileageGap = endMile-currentMile;
 
+  }
+backClicked() {
+    this._location.back();
+  }
+viewNextSchedules(): void{
+    this.bottomSheet.open(ViewNextSchedulesComponent,
+      {
+        panelClass: 'full-width'
+      });
   }
 
 
@@ -253,14 +268,17 @@ export class MileageReportComponent implements OnInit {
 
         }else{
           console.log('sdsd');
-          this.isEmergency  = false
-
+            this.MileageGroup.reset();
+          this.isEmergency  = false;
+ this.isLoco = true;
           this.onError('Current Date and next schedule is not match.Please Add Emergency Schedule!');
-          this.MileageGroup.controls['emergencyCheck'].setValue('');
-          this.MileageGroup.controls['nxtScheduleId'].setValue('');
-          this.MileageGroup.controls['mLocoCatId'].setValue('');
-          this.MileageGroup.controls['mLocoNumber'].setValue('');
-          this.MileageGroup.controls['mLocoMileage'].setValue('');
+
+          // this.MileageGroup.controls['emergencyCheck'].setValue('');
+          // this.MileageGroup.controls['nxtScheduleId'].setValue('');
+          // this.MileageGroup.controls['mLocoCatId'].setValue('');
+          // this.MileageGroup.controls['mLocoNumber'].setValue('');
+          // this.MileageGroup.controls['mLocoMileage'].setValue('');
+
         }
 
       }
@@ -307,6 +325,8 @@ export class MileageReportComponent implements OnInit {
 
   }
 
+
+
   getAllNextSchedulesNotFilter(){
     this.scheduleService.getAllNextSchedulesNotFilter().subscribe(
       res=>{
@@ -327,7 +347,7 @@ export class MileageReportComponent implements OnInit {
   }
 
    onError(message: string){
-    this.toastr.info(message, 'Success');
+    this.toastr.info(message, 'Warning');
   }
 
 }

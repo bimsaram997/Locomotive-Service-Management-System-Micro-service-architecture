@@ -1,3 +1,6 @@
+import { ClerkScheduleProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-schedule-profile/clerk-schedule-profile.component';
+import { ClerkViewSchedulesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-view-schedules/clerk-view-schedules.component';
+import { ClerkViewLocomotivesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-view-locomotives.component';
 import { ClerkProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-profile/clerk-profile.component';
 import { ManagerprofileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/managerprofile/managerprofile.component';
 import { ViewOneMileageComponent } from './Common/view-one-mileage/view-one-mileage.component';
@@ -54,6 +57,7 @@ import { ViewScheduleProfileComponent } from './AdminDashBoard/admin-dash-board/
 import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-components/Load Trials/view-adload-pro/view-adload-pro.component';
 import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
 import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
+import { ClerkLocoProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-loco-profile/clerk-loco-profile.component';
 
 
 
@@ -112,9 +116,12 @@ const routes: Routes = [
       {path: 'createMileage', component: MileageReportComponent},
       {path: 'viewMileages', component: ViewMileagesComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
-      {path: 'mViewLocomotives', component: MViewLocomotiveComponent },
-      {path: 'viewLoco/:id', component: ViewLocoComponent},
-       {path: 'clerkProfile', component: ClerkProfileComponent},
+      {path: 'viewLoco/:id', component: ClerkLocoProfileComponent},
+      {path: 'clerkViewLocomotives', component: ClerkViewLocomotivesComponent},
+      {path: 'clerkProfile', component: ClerkProfileComponent},
+      {path: 'viewSchedules', component: ClerkViewSchedulesComponent},
+      {path: 'viewSchedule/:id', component: ClerkScheduleProfileComponent},
+
 
     ]},
   {path: 'managerDashBoard', component: ManagerDashboardComponent, children: [

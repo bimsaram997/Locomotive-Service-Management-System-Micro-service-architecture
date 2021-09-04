@@ -94,8 +94,8 @@ export class AccessService {
       })
     );
   }
-  findOne(id: string): Observable<any> {
-    return this.http.get('accessRoute/getUser/: id', {headers: {id}});
+  getUser(id): Observable<any> {
+    return this.http.get(this.myUrl + `accessRoute/getUser/${id}`);
   }
   getOneUser(userNic): Observable<any>{
     return this.http.get<any>(this.myUrl + `accessRoute/getOneUser/${userNic}`);
@@ -109,5 +109,9 @@ export class AccessService {
 
   public getUserInfo(object):Observable<any> {
     return this.http.get( this.myUrl + `accessRoute/getUserInfo/`, {params:object})
+  }
+
+  public editUser(data): Observable<any>{
+    return this.http.put(this.myUrl + `accessRoute/editUser`, data);
   }
 }

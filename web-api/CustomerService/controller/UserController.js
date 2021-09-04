@@ -625,14 +625,36 @@ const deleteUser = (req, resp) => {
     })
 };
 
-const getUser = (req, resp) => {
-    const { id } = req.params;
-    UserDTO.findById(id).then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(result);
-    })
+const getUser = async(req, res, next) => {
+    console.log(req.params.id);
+    await UserDTO.find({
+        _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
 };
+
+
+const editUser = async(req, resp) => {
+    // console.log(req.body);
+    if (req.body) {
+        await UserDTO.updateOne({ userNic: req.body.userNic }, { $set: req.body }, function(err, result) {
+
+            if (err) {
+                resp.status(500).json(err)
+                console.log(err)
+            } else {
+                resp.status(200).json(result)
+            }
+
+        })
+
+    }
+}
+
 const updateUser = (req, resp) => {
     UserDTO.updateOne({ userEmail: req.body.userEmail }, {
         $set: {
@@ -715,7 +737,8 @@ module.exports = {
     getOneUser,
     getOneMan,
     getOneSup,
-    getUserInfo
+    getUserInfo,
+    editUser
 
 
 }

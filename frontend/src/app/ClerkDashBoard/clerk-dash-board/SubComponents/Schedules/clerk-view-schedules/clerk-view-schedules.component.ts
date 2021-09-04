@@ -1,29 +1,22 @@
-import { ProgressReportService } from 'src/app/service/progress-report.service';
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import LocoScheduleDTO from "../../../../../dto/LocoScheduleDTO";
-import {MatSort} from "@angular/material/sort";
-import {ScheduleService} from "../../../../../service/schedule.service";
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import LocoDTO from "../../../../../dto/LocoDTO";
-import {LocomotiveService} from "../../../../../service/locomotive.service";
 import { ViewProgressComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-progress/view-progress.component';
+import { ScheduleService } from 'src/app/service/schedule.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ProgressReportService } from 'src/app/service/progress-report.service';
 import { Location } from '@angular/common';
+
 @Component({
-  selector: 'app-admin-view-scehdules',
-  templateUrl: './admin-view-scehdules.component.html',
-  styleUrls: ['./admin-view-scehdules.component.css'],
-  providers: [
-    { provide: Window, useValue: window }
-  ],
+  selector: 'app-clerk-view-schedules',
+  templateUrl: './clerk-view-schedules.component.html',
+  styleUrls: ['./clerk-view-schedules.component.css']
 })
-export class AdminViewScehdulesComponent implements OnInit {
+export class ClerkViewSchedulesComponent implements OnInit {
 
   searchKey: string;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Supervisor inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
@@ -33,6 +26,7 @@ export class AdminViewScehdulesComponent implements OnInit {
   dataArray: any[] = [];
   dataArrayLength:any;
   isShowPrTable: boolean = true;
+  paginator: MatPaginator;
   constructor(private scheduleService: ScheduleService, private _location: Location,
      private router: Router,public dialog: MatDialog, public ProgressReportService: ProgressReportService) {
     this.loadAllSchedule();
@@ -93,7 +87,7 @@ export class AdminViewScehdulesComponent implements OnInit {
   }
   viewSchedule(id: string){
     console.log(id);
-    this.router.navigate(['/adminDashboard/viewSchedule', id]);
+    this.router.navigate(['/clerkDashBoard/viewSchedule', id]);
   }
 
  viewProgressHist(id: string){
@@ -114,7 +108,5 @@ export class AdminViewScehdulesComponent implements OnInit {
         }
       })
   }
-
-
 
 }
