@@ -115,7 +115,9 @@ import { ClerkViewSchedulesComponent } from './ClerkDashBoard/clerk-dash-board/S
 import { ClerkScheduleProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-schedule-profile/clerk-schedule-profile.component';
 import { ViewNextSchedulesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/mileage-report/view-next-schedules/view-next-schedules.component';
 import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
+import { ClerkViewOneMileageComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/ViewMileage/clerk-view-one-mileage/clerk-view-one-mileage.component';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 FullCalendarModule.registerPlugins([
   interactionPlugin,
   dayGridPlugin
@@ -257,6 +259,8 @@ FullCalendarModule.registerPlugins([
 
     ViewNextSchedulesComponent,
 
+    ClerkViewOneMileageComponent,
+
 
 
 
@@ -285,7 +289,8 @@ FullCalendarModule.registerPlugins([
     MatButtonModule,
     LayoutModule,
     FullCalendarModule,
-    ChartsModule
+    ChartsModule,
+    PdfViewerModule
 
 
   ],

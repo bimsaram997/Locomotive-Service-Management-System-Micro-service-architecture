@@ -1,3 +1,4 @@
+import { ClerkViewOneMileageComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/ViewMileage/clerk-view-one-mileage/clerk-view-one-mileage.component';
 import { ClerkScheduleProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-schedule-profile/clerk-schedule-profile.component';
 import { ClerkViewSchedulesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-view-schedules/clerk-view-schedules.component';
 import { ClerkViewLocomotivesComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-view-locomotives.component';
@@ -121,7 +122,7 @@ const routes: Routes = [
       {path: 'clerkProfile', component: ClerkProfileComponent},
       {path: 'viewSchedules', component: ClerkViewSchedulesComponent},
       {path: 'viewSchedule/:id', component: ClerkScheduleProfileComponent},
-
+      {path: 'viewOneMileage/:id', component: ClerkViewOneMileageComponent},
 
     ]},
   {path: 'managerDashBoard', component: ManagerDashboardComponent, children: [

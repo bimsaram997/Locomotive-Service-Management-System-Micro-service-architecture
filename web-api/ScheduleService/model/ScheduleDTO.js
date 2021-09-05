@@ -111,10 +111,12 @@ const ScheduleSchema = new mongoose.Schema({
         required: false
     },
     scheduleProgress: {
+
+    },
+    file: {
         type: String,
         required: false
     },
-
     schProgressReport: [{
             scheduleNo: {
                 type: String,

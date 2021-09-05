@@ -23,6 +23,7 @@ export interface PeriodicElement {
   styleUrls: ['./view-loco-profile.component.css']
 })
 export class ViewLocoProfileComponent implements OnInit {
+  pdfSrc = "https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf";
   viewLocoGroup: FormGroup;
   myControl = new FormControl();
   displayedColumns: string[] = ['No', 'Motor Part Name', 'Condition'];

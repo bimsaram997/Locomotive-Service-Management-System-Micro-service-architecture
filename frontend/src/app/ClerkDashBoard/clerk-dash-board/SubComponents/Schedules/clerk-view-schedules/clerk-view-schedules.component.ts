@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ProgressReportService } from 'src/app/service/progress-report.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clerk-view-schedules',
@@ -22,13 +23,15 @@ export class ClerkViewSchedulesComponent implements OnInit {
   displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Supervisor inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
   scheduleList: any[] = [];
   scheduleStatus: any;
+  progress: any[] = ['All', 100, 90, 75, 60, 45, 30, 0, ];
   progressList: any[] = [];
   dataArray: any[] = [];
   dataArrayLength:any;
   isShowPrTable: boolean = true;
   paginator: MatPaginator;
+  tableArray: any[];
   constructor(private scheduleService: ScheduleService, private _location: Location,
-     private router: Router,public dialog: MatDialog, public ProgressReportService: ProgressReportService) {
+     private router: Router,public dialog: MatDialog,  private toastr: ToastrService,  public ProgressReportService: ProgressReportService) {
     this.loadAllSchedule();
   }
 
@@ -54,8 +57,23 @@ export class ClerkViewSchedulesComponent implements OnInit {
     this.searchKey = '';
    // this.applyFilter();
   }
+  onChangeSelect(value){
 
-
+    const _findValue  = this.scheduleList.filter(x=>x.scheduleProgress==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<any>(this.scheduleList);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<any>(this.scheduleList);
+    }
+  }
+ onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
+  }
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
         filterValue = filterValue.trim();

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 .box-head {
     display: flex;
     align-items: center;
@@ -97,7 +98,6 @@ body {
 .main-table {
     padding-right: 25px;
     padding-left: 25px;
-    overflow: hidden;
 }
 
 .center,
@@ -252,7 +252,23 @@ body {
 }
 
 .label-txt {
-    font-size: 18px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.place-holder {
+    font-size: 13px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
 }
 
 #aria-label {
@@ -392,6 +408,13 @@ mat-radio-group mat-radio-button {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
 }
 
 

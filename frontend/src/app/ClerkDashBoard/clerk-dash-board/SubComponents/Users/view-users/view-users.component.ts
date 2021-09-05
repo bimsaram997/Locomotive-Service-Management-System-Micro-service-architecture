@@ -8,6 +8,7 @@ import swal from "sweetalert";
 import {EditUserComponent} from "./edit-user/edit-user.component";
 import {MatDialog} from "@angular/material/dialog";
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
@@ -15,7 +16,7 @@ import { Location } from '@angular/common';
 })
 export class ViewUsersComponent implements OnInit {
 
-  constructor(private accessService: AccessService,private _location: Location, public dialog: MatDialog) {
+  constructor(private accessService: AccessService,private _location: Location, private toastr: ToastrService, public dialog: MatDialog) {
 
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,7 +33,9 @@ export class ViewUsersComponent implements OnInit {
   changeUserMobile = '';
   changeRole = '';
   changePassword = '';
+  tableArray :any;
 
+  places: string[] = ['All', 'Electric Locomotive Shed','Running Shed', 'Chief Engineering Ratmalana'];
   ngOnInit(): void {
      this.loadAllUsers();
   }
@@ -71,6 +74,20 @@ applyFilter(filterValue: string) {
     }
 }
 
+onChangeSelect(value){
+const _findValue  = this.userArray.filter(x=>x.userWorks==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<any>(this.userArray);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<any>(this.userArray);
+    }
+}
+
   openDialog(tempUser: any) {
 
   }
@@ -102,4 +119,9 @@ applyFilter(filterValue: string) {
       this.loadAllUsers();
     });
   }
+
+  onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
+  }
+
 }

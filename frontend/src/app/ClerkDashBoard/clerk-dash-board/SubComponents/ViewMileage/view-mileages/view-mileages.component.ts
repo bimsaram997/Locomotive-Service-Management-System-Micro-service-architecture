@@ -2,8 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import {LocomotiveService} from "../../../../../service/locomotive.service";
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-view-mileages',
   templateUrl: './view-mileages.component.html',
@@ -28,8 +30,10 @@ export class ViewMileagesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Report Number', 'Loco Category', 'Loco Number', 'Mileage', 'Date', 'mileageNote', 'status'];
-  constructor(private locomotiveService: LocomotiveService) { }
+  options: string[] = ['All', 'M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
+  displayedColumns: string[] = ['Report Number', 'Loco Category', 'Loco Number', 'Mileage', 'Date', 'mileageNote', 'status', '#'];
+  tableArray: any[];
+  constructor(private locomotiveService: LocomotiveService, private _location: Location,private router: Router, private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.loadAllReport();
@@ -50,6 +54,28 @@ export class ViewMileagesComponent implements OnInit {
     this.applyFilter();
   }
 
+  backClicked() {
+    this._location.back();
+  }
+
+  onChangeSelect(value){
+const _findValue  = this.mileageList.filter(x=>x.mLocoCatId==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<any>(this.mileageList);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<any>(this.mileageList);
+    }
+  }
+
+
+  viewMileage(id: string){
+    this.router.navigate(['/clerkDashBoard/viewOneMileage', id])
+  }
 
   applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
@@ -68,4 +94,9 @@ export class ViewMileagesComponent implements OnInit {
     }
 
   }
+
+  onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
+  }
+
 }
