@@ -1,7 +1,7 @@
 import { AccessService } from './../../../../service/access.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-managerprofile',
   templateUrl: './managerprofile.component.html',
@@ -28,7 +28,7 @@ export class ManagerprofileComponent implements OnInit {
   userPassword:any;
   image:any;
 
-  constructor(private accessService: AccessService, private toastr: ToastrService) { }
+  constructor(private accessService: AccessService, private _location: Location, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     //this.getUserDetails();
@@ -60,7 +60,9 @@ export class ManagerprofileComponent implements OnInit {
     )
 
   }
-
+ backClicked() {
+    this._location.back();
+  }
   sendMail() {
     this.accessService.sendEmail(
       this.email,

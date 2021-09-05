@@ -118,6 +118,7 @@ import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet
 import { ClerkViewOneMileageComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/ViewMileage/clerk-view-one-mileage/clerk-view-one-mileage.component';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { MAnagerLocoProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/manager-loco-profile/manager-loco-profile.component';
 FullCalendarModule.registerPlugins([
   interactionPlugin,
   dayGridPlugin
@@ -260,6 +261,8 @@ FullCalendarModule.registerPlugins([
     ViewNextSchedulesComponent,
 
     ClerkViewOneMileageComponent,
+
+    MAnagerLocoProfileComponent,
 
 
 

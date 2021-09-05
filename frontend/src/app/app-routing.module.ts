@@ -59,6 +59,7 @@ import { ViewAdloadProComponent } from './AdminDashBoard/admin-dash-board/sub-co
 import { ResetPasswordCommonComponent } from './Common/reset-password/reset-password-common/reset-password-common.component';
 import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
 import { ClerkLocoProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-loco-profile/clerk-loco-profile.component';
+import { MAnagerLocoProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/manager-loco-profile/manager-loco-profile.component';
 
 
 
@@ -138,7 +139,7 @@ const routes: Routes = [
       {path: 'viewManLoad', component: ViewManLoadComponent},
       {path: 'viewManLoadProf/:id', component: ViewManLoadProComponent},
       {path: 'mViewLocomotives', component: MViewLocomotiveComponent },
-      {path: 'viewLoco/:id', component: ViewLocoComponent},
+      {path: 'viewLoco/:id', component: MAnagerLocoProfileComponent},
       {path: 'viewProgress', component: ViewProgressReportComponent},
       {path: 'viewOneMileage/:mReportNumber', component: ViewOneMileageComponent},
        {path: 'viewManSchedule/:id', component: ViewMoreSchedulesComponent},

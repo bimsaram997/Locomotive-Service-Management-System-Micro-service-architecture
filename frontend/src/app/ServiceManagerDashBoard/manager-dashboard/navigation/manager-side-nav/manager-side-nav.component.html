@@ -3,28 +3,24 @@
     <hr>
 
     <a mat-list-item routerLink="/managerDashBoard/managerProfile" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Profile</span>
+        <span><i class="fas fa-user-tie icon"></i></span><span class="nav-caption">&nbsp;&nbsp;User Profile</span>
+    </a>
+    <a mat-list-item routerLink="/managerDashBoard/mViewLocomotives" (click)="onSidenavClose()">
+        <span><img src="https://img.icons8.com/ios-glyphs/30/000000/train.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Locomotives</span>
     </a>
     <a mat-list-item routerLink="/managerDashBoard/viewMileage" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Mileage Reports</span>
-    </a>
-
-    <a mat-list-item routerLink="/managerDashBoard/viewManLoad" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Load Trials</span>
-    </a>
-    <a mat-list-item routerLink="/managerDashBoard/viewProgress" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/subway.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Progress Reports</span>
-    </a>
-
-    <a mat-list-item routerLink="/managerDashBoard/mViewLocomotives" (click)="onSidenavClose()">
-        <span><img src="https://img.icons8.com/material/24/000000/add-user-male.png"/></span><span class="nav-caption">&nbsp;&nbsp;View Locomotives</span>
+        <span><i class="fas fa-tachometer-alt icon"></i></span><span class="nav-caption">&nbsp;&nbsp;View Mileage Reports</span>
     </a>
     <mat-list-item [matMenuTriggerFor]="menu">
         <mat-icon>unfold_more</mat-icon>
-        <a mat-line>Scehdules</a>
+        <a mat-line><span class="nav-caption">Schedules</span> </a>
     </mat-list-item>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onSidenavClose()" routerLink="/managerDashBoard/viewManagerSchedules">View All Schedules</button>
-        <button mat-menu-item routerLink="/managerDashBoard/requestSchedule" (click)="onSidenavClose()">Add Schedules</button>
+        <button mat-menu-item routerLink="/managerDashBoard/requestSchedule" (click)="onSidenavClose()"><span class="nav-caption">Add Schedules</span> </button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/managerDashBoard/viewManagerSchedules"><span class="nav-caption">View All Schedules</span></button>
+
     </mat-menu>
+    <a mat-list-item routerLink="/managerDashBoard/viewManLoad" (click)="onSidenavClose()">
+        <span><i class="fas fa-tools icon"></i></span><span class="nav-caption">&nbsp;&nbsp;View Load Trials</span>
+    </a>
 </mat-nav-list>

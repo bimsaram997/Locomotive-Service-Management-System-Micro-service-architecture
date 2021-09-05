@@ -7,7 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import LocoDTO from 'src/app/dto/LocoDTO';
 import { LocomotiveService } from 'src/app/service/locomotive.service';
-
+import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-m-view-locomotive',
   templateUrl: './m-view-locomotive.component.html',
@@ -24,13 +25,14 @@ export class MViewLocomotiveComponent implements OnInit {
   searchKey: string;
 
   isVisibleSecond = false;
-  statuses: string[] = ['In', 'Out'];
+  statuses: string[] = ['All', 'In', 'Out'];
   tMotors: string[] = ['Working', 'Not Working'];
   mainMotors: string[] = ['Working', 'Not Working'];
   vBreaks: string[] = ['Working', 'Not Working'];
   dBreaks: string[] = ['Working', 'Not Working'];
+  tableArray: LocoDTO[];
 
-  constructor(public dialog: MatDialog,private locomotiveService: LocomotiveService,  private router: Router, ) { }
+  constructor(public dialog: MatDialog,  private toastr: ToastrService, private _location: Location, private locomotiveService: LocomotiveService,  private router: Router, ) { }
 
   ngOnInit(): void {
     this.loadAll();
@@ -47,6 +49,25 @@ export class MViewLocomotiveComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }
+
+  onChangeSelect(value){
+    let _cloneArrat = [];
+    const _findValue  = this.locoArray.filter(x=>x.locoAvailability==value.value);
+    if(_findValue.length  > 0){
+         this.tableArray =_findValue;
+          this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
+    }else if(value.value=='All'){
+        this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    }
+    else{
+       this.onWarning('No records found on filter!')
+    this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    }
+  }
+
+    backClicked() {
+    this._location.back();
   }
 
   openImage(tempLoco: LocoDTO) {
@@ -67,9 +88,9 @@ export class MViewLocomotiveComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim(); 
-        filterValue = filterValue.toLowerCase(); 
-        this.dataSource.filter = filterValue; 
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
   }
   viewLoco(locoNumber: string) {
@@ -85,5 +106,8 @@ export class MViewLocomotiveComponent implements OnInit {
     }else if (locoStatus === 2){
       return 'gpp_good';
     }
+  }
+  onWarning(message: string){
+    this.toastr.warning(message, 'Warning');
   }
 }
