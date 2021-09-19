@@ -128,6 +128,14 @@ const addComment = async(req, resp) => {
     }
 }
 
+const getAllComments = async(req, resp, next) => {
+    await CommentDTO.find().then(result => {
+        resp.status(200).json(result);
+    }).catch(error => {
+        resp.status(500).json(error);
+    })
+}
+
 getLoadComments = async(req, resp, next) => {
     const _id = req.params.id;
     //console.log(_id);
@@ -597,6 +605,7 @@ module.exports = {
     addComment,
     makeComment,
     getLoadComments,
+    getAllComments,
     getOneComment,
     changeStatusComment,
     getResolvedComments,

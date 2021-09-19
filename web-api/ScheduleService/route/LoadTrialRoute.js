@@ -11,6 +11,7 @@ router.put('/addComment', loadTrialController.addComment);
 router.post('/makeComment', loadTrialController.makeComment);
 router.get('/getLoadComments/:id', loadTrialController.getLoadComments);
 router.post('/commentEmail', loadTrialController.commentEmail);
+router.get('/getAllComments', loadTrialController.getAllComments);
 
 router.get('/getOneComment/:id', loadTrialController.getOneComment);
 router.put('/changeStatusComment', loadTrialController.changeStatusComment);

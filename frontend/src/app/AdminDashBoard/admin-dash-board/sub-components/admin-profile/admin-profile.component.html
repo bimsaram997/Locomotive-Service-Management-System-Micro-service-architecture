@@ -112,10 +112,11 @@
                 <div class="tab-content">
                     <div class="row">
                         <div class="col-md-6">
-                            <app-load-trial-doh-nut></app-load-trial-doh-nut>
+
+                            <app-load-trial-doh-nut *ngIf="countDraftLoad || countPassedtLoad || countPendingLoad" [countDraftLoad]="countDraftLoad" [countPendingLoad]="countPendingLoad" [countPassedtLoad]="countPassedtLoad"></app-load-trial-doh-nut>
                         </div>
                         <div class="col-md-6">
-                            <app-commnets-doh-nut></app-commnets-doh-nut>
+                            <app-commnets-doh-nut *ngIf="countDoMoreComments || countConfirmedComments || countResolvedComments" [countConfirmedComments]="countConfirmedComments" [countResolvedComments]="countResolvedComments" [countDoMoreComments]="countDoMoreComments"></app-commnets-doh-nut>
                         </div>
 
                     </div>

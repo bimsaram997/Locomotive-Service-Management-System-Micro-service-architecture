@@ -120,7 +120,6 @@ export class ManagerprofileComponent implements OnInit {
         const _filterFullComplete = this.scheduleList.filter(
           (p) => p.scheduleStatus == 7
         );
-        //console.log(this.countSchedules);
         this.countSchedules = _filterFullComplete.length;
 
         const _filterCompleted = this.scheduleList.filter(
