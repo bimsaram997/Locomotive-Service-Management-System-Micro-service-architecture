@@ -113,10 +113,10 @@
                 <div class="tab-content">
                     <div class="row">
                         <div class="col-md-6">
-                            <app-mileage-doh-nut></app-mileage-doh-nut>
+                            <app-mileage-doh-nut *ngIf="draftMileage || acceptMileage || assignedMileage || rejectMileage" [draftMileage]="draftMileage" [acceptMileage]="acceptMileage" [assignedMileage]="assignedMileage" [rejectMileage]="rejectMileage"></app-mileage-doh-nut>
                         </div>
                         <div class="col-md-6">
-                            <app-schedule-pie></app-schedule-pie>
+                            <app-schedule-pie *ngIf="countSchedules || completedSchedules || draftSchedules || halfSchedules" [countSchedules]="countSchedules" [completedSchedules]="completedSchedules" [halfSchedules]="halfSchedules" [draftSchedules]="draftSchedules"></app-schedule-pie>
                         </div>
 
                     </div>

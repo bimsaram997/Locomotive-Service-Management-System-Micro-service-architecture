@@ -41,7 +41,7 @@ export class AdminViewScehdulesComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  private loadAllSchedule(){
+private loadAllSchedule(){
     this.scheduleService.getAllSchedules().subscribe(resp =>{
       this.scheduleList = resp;
       this.dataSource =  new MatTableDataSource<any>(this.scheduleList);

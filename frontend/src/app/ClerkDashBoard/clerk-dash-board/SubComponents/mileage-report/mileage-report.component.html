@@ -18,7 +18,7 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label class="Report Number">Report Number</mat-label>
-                            <input class="label-txt" required maxlength="5" minlength="3" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber">
+                            <input disabled class="label-txt" required maxlength="5" minlength="3" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber">
                             <div *ngIf="MileageGroup.controls['mReportNumber'].invalid && (MileageGroup.controls['mReportNumber'].dirty || MileageGroup.controls['mReportNumber'].touched)" class="error">
                                 <div *ngIf="MileageGroup.controls['mReportNumber'].errors.required">
                                     Required.

@@ -1,4 +1,4 @@
 <div style="display: block">
-    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
+    <canvas *ngIf="countSchedules" baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
     <p class="header">Progress of Schedules</p>
 </div>

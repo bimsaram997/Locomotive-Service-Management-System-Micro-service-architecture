@@ -76,7 +76,7 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <app-view-all-loco-bar-chart></app-view-all-loco-bar-chart>
+                        <app-view-all-loco-bar-chart [availableLoco]="availableLoco" *ngIf="availableLoco" [childePassData]="[childePassData]" [inCompleteSchedules]="inCompleteSchedules"></app-view-all-loco-bar-chart>
 
                     </div>
                 </div>

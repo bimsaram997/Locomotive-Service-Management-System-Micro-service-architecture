@@ -8,16 +8,16 @@
         </div>
     </div>
     <hr>
-
-    <br>
-    <div class="search-div">
-        <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
-            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
-            <mat-hint>Search by Loco Category, Loco Number, </mat-hint>
-            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+    <div class="row">
+        <div class="col-md-3">
+            <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
+                <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
+                <mat-hint>Search by Loco Category, Loco Number, </mat-hint>
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
     <mat-icon>close</mat-icon>
   </button>
-        </mat-form-field>
+            </mat-form-field>
+        </div>
     </div>
 
 

@@ -278,11 +278,27 @@ const saveMileage = async(req, res, next) => {
 
 }
 const getAllMileage = async(req, resp, next) => {
-    MileageSchema.find().then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(result);
-    })
+
+
+    // console.log(req.query)
+    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Clerk') {
+        await MileageSchema.find().then(result => {
+            resp.status(200).json(result);
+
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+
+    } else if (req.query.userRole == 'Service Manager') {
+        await MileageSchema.find({ managerNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+            //console.log(result);
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+    }
+
+
 }
 
 const patchMileController = async(req, res, next) => {

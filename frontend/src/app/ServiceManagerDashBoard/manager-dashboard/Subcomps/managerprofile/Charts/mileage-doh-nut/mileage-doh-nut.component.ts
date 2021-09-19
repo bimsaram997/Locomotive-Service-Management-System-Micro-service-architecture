@@ -1,17 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-mileage-doh-nut',
   templateUrl: './mileage-doh-nut.component.html',
-  styleUrls: ['./mileage-doh-nut.component.css']
+  styleUrls: ['./mileage-doh-nut.component.css'],
 })
 export class MileageDohNutComponent implements OnInit {
-public doughnutChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4'];
+  @Input() draftMileage: number;
+  @Input() acceptMileage: number;
+  @Input() assignedMileage: number;
+  @Input() rejectMileage: number;
+  public doughnutChartLabels = ['Draft', 'Accept', 'Assigned', 'Rejected'];
   public doughnutChartData = [120, 150, 180, 90];
   public doughnutChartType = 'doughnut';
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
+    console.log(this.draftMileage);
+    this.doughnutChartData = [
+      this?.draftMileage,
+      this?.acceptMileage,
+      this?.assignedMileage,
+      this?.rejectMileage,
+    ];
   }
-
 }

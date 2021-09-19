@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 body {
     margin-top: 20px;
     color: black;
@@ -84,8 +84,18 @@ table {
     color: black;
 }
 
-.label {
+.observation {
+    color: #663399;
     font-size: 15px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f3a93;
+    font-family: 'Roboto', sans-serif;
 }
 
 .box-head {
@@ -161,6 +171,13 @@ a.float:hover+div.label-container {
     font-size: 15px;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 .print {
     font-size: 18px;
     font-weight: 500;
@@ -181,6 +198,10 @@ a.float:hover+div.label-container {
     font-weight: 500;
     color: black;
     font-family: 'Roboto', sans-serif;
+}
+
+.hr {
+    opacity: 0.6;
 }
 
 .label-txt {
