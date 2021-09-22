@@ -14,9 +14,10 @@ router.post('/sendPassEmail', UserController.sendPassEmail);
 router.get('/getUsers', UserController.getAllUserNew);
 router.delete('/deleteUser', UserController.deleteUser);
 router.put('/updateUser', UserController.updateUser);
-router.get('/getOneUser/:userNic', UserController.getOneUser);
+
 router.get('/getOneMan/:managerName', UserController.getOneMan);
 router.get('/getOneSup/:supervisorName', UserController.getOneSup);
 router.get('/getUserInfo', UserController.getUserInfo);
 router.put('/editUser', UserController.editUser);
+router.get('/getOneUser/:id', UserController.getOneUser);
 module.exports = router;

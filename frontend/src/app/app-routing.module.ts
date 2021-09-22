@@ -61,6 +61,7 @@ import { ResetPasswordCommonComponent } from './Common/reset-password/reset-pass
 import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-profile/admin-profile.component';
 import { ClerkLocoProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-loco-profile/clerk-loco-profile.component';
 import { MAnagerLocoProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/manager-loco-profile/manager-loco-profile.component';
+import { AdminViewMoreUserComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-more-user/admin-view-more-user.component';
 
 const routes: Routes = [
   { path: '', component: LoginAndSignupComponent },
@@ -93,6 +94,7 @@ const routes: Routes = [
       { path: 'adminProfile', component: AdminProfileComponent },
       { path: 'viewOneMileage/:id', component: ViewOneMileageComponent },
       { path: 'adminViewUsers', component: AdminViewUsersComponent },
+      { path: 'adminViewMoreUser/:id', component: AdminViewMoreUserComponent },
     ],
   },
   {

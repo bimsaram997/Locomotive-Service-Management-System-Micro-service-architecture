@@ -120,6 +120,8 @@ import { ClerkViewOneMileageComponent } from './ClerkDashBoard/clerk-dash-board/
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { MAnagerLocoProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/manager-loco-profile/manager-loco-profile.component';
 import { AdminViewUsersComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-users.component';
+import { AdminViewMoreUserComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-more-user/admin-view-more-user.component';
+import { ViewAssignedLocosComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-assigned-locos/view-assigned-locos.component';
 FullCalendarModule.registerPlugins([
   interactionPlugin,
   dayGridPlugin
@@ -266,6 +268,10 @@ FullCalendarModule.registerPlugins([
     MAnagerLocoProfileComponent,
 
     AdminViewUsersComponent,
+
+    AdminViewMoreUserComponent,
+
+    ViewAssignedLocosComponent,
 
 
 

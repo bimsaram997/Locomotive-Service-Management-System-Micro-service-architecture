@@ -7,6 +7,7 @@ import UserDTO from 'src/app/dto/UserDTO';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-view-users',
   templateUrl: './admin-view-users.component.html',
@@ -49,7 +50,8 @@ export class AdminViewUsersComponent implements OnInit {
     private accessService: AccessService,
     private _location: Location,
     private toastr: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +77,10 @@ export class AdminViewUsersComponent implements OnInit {
 
   onSearchClear() {
     this.searchKey = '';
+  }
+
+  viewUser(id: string) {
+    this.router.navigate(['/adminDashboard/adminViewMoreUser', id]);
   }
 
   applyFilter(filterValue: string) {
