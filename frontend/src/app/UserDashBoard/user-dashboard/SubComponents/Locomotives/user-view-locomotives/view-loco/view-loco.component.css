@@ -8,6 +8,21 @@ body {
     margin-top: 30px;
 }
 
+.box-head {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.heading-txt {
+    color: #013243;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    margin-left: 10px;
+    ;
+}
+
 
 /*------- portfolio -------*/
 
@@ -23,10 +38,17 @@ table {
     margin-left: 8px;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 .container-fluid {
-    padding-top: 20px;
-    padding-right: 50px;
-    padding-left: 50px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .no-gutter .project {

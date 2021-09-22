@@ -14,6 +14,13 @@ body {
     border-radius: .25rem;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 .avatar-xl {
     height: 6rem;
     width: 6rem;

@@ -1,266 +1,276 @@
-const ScheduleSchema = require('../model/ScheduleDTO');
-const MileageDTO = require('../model/MileageDTO');
-const NextScheduleDTO = require('../model/NextScheduleDTO');
-const accountSid = 'AC3d297c7a3fe526424aa2fc97aaa56128'; // Your Account SID from www.twilio.com/console
-const authToken = '19a795c6575eb243f23ce9598a28db56'; // Your Auth Token from www.twilio.com/console
-const twilio = require('twilio');
+const ScheduleSchema = require("../model/ScheduleDTO");
+const MileageDTO = require("../model/MileageDTO");
+const NextScheduleDTO = require("../model/NextScheduleDTO");
+const accountSid = "AC3d297c7a3fe526424aa2fc97aaa56128"; // Your Account SID from www.twilio.com/console
+const authToken = "19a795c6575eb243f23ce9598a28db56"; // Your Auth Token from www.twilio.com/console
+const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
-const basicAuth = require('express-basic-auth');
-const ProgressDTO = require('../model/ProgressDTO');
-const nodemailer = require('nodemailer');
-const LoadTrailDTO = require('../model/LoadTrialDTO');
+const basicAuth = require("express-basic-auth");
+const ProgressDTO = require("../model/ProgressDTO");
+const nodemailer = require("nodemailer");
+const LoadTrailDTO = require("../model/LoadTrialDTO");
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
-        user: 'hirushanbim123@gmail.com',
-        pass: 'Janith@12345'
-    }
-})
-
-
+        user: "hirushanbim123@gmail.com",
+        pass: "Janith@12345",
+    },
+});
 
 const getAllSchedules = (req, resp) => {
-    ScheduleSchema.find().then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-}
+    ScheduleSchema.find()
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 
 const getAllScheduleAssigned = async(req, resp) => {
     let returnArray = [];
 
-    if (req.query.type == 'calender') {
-        if (req.query.userRole == 'Supervisor') {
-            var _findSche = await ScheduleSchema.find({ supervisorNic: req.query.userNic })
+    if (req.query.type == "calender") {
+        if (req.query.userRole == "Supervisor") {
+            var _findSche = await ScheduleSchema.find({
+                supervisorNic: req.query.userNic,
+            });
             if (_findSche.length > 0) {
                 returnArray.push(_findSche);
-
             }
-            var _findLoadTrail = await LoadTrailDTO.find({ supervisorNic: req.query.userNic })
+            var _findLoadTrail = await LoadTrailDTO.find({
+                supervisorNic: req.query.userNic,
+            });
             if (_findLoadTrail.length > 0) {
                 returnArray.push(_findLoadTrail);
-
             }
             if (returnArray.length == 2) {
                 resp.status(200).json(returnArray);
-            } else {
-
-            }
-        } else {
-
-        }
-
+            } else {}
+        } else {}
     } else {
-        if (req.query.userRole == 'Supervisor') {
-            await ScheduleSchema.find({ supervisorNic: req.query.userNic }).then(result => {
-                resp.status(200).json(result);
-                //console.log(result);
-            }).catch(error => {
-                resp.status(500).json(result)
-            });
+        if (req.query.userRole == "Supervisor") {
+            await ScheduleSchema.find({ supervisorNic: req.query.userNic })
+                .then((result) => {
+                    resp.status(200).json(result);
+                    //console.log(result);
+                })
+                .catch((error) => {
+                    resp.status(500).json(result);
+                });
         }
     }
-
-}
+};
 
 const getAllScheduleAssignedManager = async(req, resp) => {
     let returnArray = [];
 
-    if (req.query.type == 'calender') {
-        if (req.query.userRole == 'Service Manager') {
-            var _findSche = await ScheduleSchema.find({ managerNic: req.query.userNic })
+    if (req.query.type == "calender") {
+        if (req.query.userRole == "Service Manager") {
+            var _findSche = await ScheduleSchema.find({
+                managerNic: req.query.userNic,
+            });
             if (_findSche.length > 0) {
                 returnArray.push(_findSche);
-
             }
-            var _findLoadTrail = await LoadTrailDTO.find({ managerNic: req.query.userNic })
+            var _findLoadTrail = await LoadTrailDTO.find({
+                managerNic: req.query.userNic,
+            });
             if (_findLoadTrail.length > 0) {
                 returnArray.push(_findLoadTrail);
-
             }
             if (returnArray.length == 2) {
                 resp.status(200).json(returnArray);
-            } else {
-
-            }
-        } else {
-
-        }
-
+            } else {}
+        } else {}
     } else {
-        if (req.query.userRole == 'Service Manager') {
-            await ScheduleSchema.find({ managerNic: req.query.userNic }).then(result => {
-                resp.status(200).json(result);
-                //console.log(result);
-            }).catch(error => {
-                resp.status(500).json(result)
-            });
+        if (req.query.userRole == "Service Manager") {
+            await ScheduleSchema.find({ managerNic: req.query.userNic })
+                .then((result) => {
+                    resp.status(200).json(result);
+                    //console.log(result);
+                })
+                .catch((error) => {
+                    resp.status(500).json(result);
+                });
         }
     }
-
-}
-const getAllCompSchedule = (req, resp) => { //get completed schedule
-    if (req.query.userRole == 'Supervisor') {
-        ScheduleSchema.find({ scheduleProgress: 100, scheduleStatus: 6, supervisorNic: req.query.userNic }).then(result => {
-            resp.status(200).json(result);
-        }).catch(error => {
-            resp.status(500).json(error);
-        })
+};
+const getAllCompSchedule = (req, resp) => {
+    //get completed schedule
+    if (req.query.userRole == "Supervisor") {
+        ScheduleSchema.find({ scheduleStatus: 6, supervisorNic: req.query.userNic })
+            .then((result) => {
+                resp.status(200).json(result);
+            })
+            .catch((error) => {
+                resp.status(500).json(error);
+            });
     }
-}
+};
 
 const deleteSchedule = (req, resp) => {
-    ScheduleSchema.deleteOne({ scheduleNo: req.headers.id }).then(result => {
-        if (result.deletedCount > 0) {
-            resp.status(200).json({ message: 'deleted' });
-        } else {
-            resp.status(200).json({ message: 'try Again' });
-        }
-    }).catch(error => {
-        resp.status(500).json({ error });
-    })
+    ScheduleSchema.deleteOne({ scheduleNo: req.headers.id })
+        .then((result) => {
+            if (result.deletedCount > 0) {
+                resp.status(200).json({ message: "deleted" });
+            } else {
+                resp.status(200).json({ message: "try Again" });
+            }
+        })
+        .catch((error) => {
+            resp.status(500).json({ error });
+        });
 };
 
 const updateSchedule = (req, resp) => {
     ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, {
-        $set: {
-            scheduleUpdate: req.body.scheduleUpdate,
-            locoCatId: req.body.locoCatId,
-            locoNumber: req.body.locoNumber,
-            userNic: req.body.userNic,
-            userName: req.body.userrName,
-            userEmail: req.body.userEmail,
-            scheduleStatus: req.body.scheduleStatus,
-            scheduleCom: req.body.scheduleCom,
-            scheduleTrackMotors: req.body.scheduleTrackMotors,
-            scheduleLocoBody: req.body.scheduleLocoBody,
-            scheduleElCuUnit: req.body.scheduleElCuUnit,
-            scheduleEMechanical: req.body.scheduleEMechanical,
-            scheduleMach: req.body.scheduleMach,
-            scheduleRemark: req.body.scheduleRemark
-        }
-    }).then(result => {
-        if (result.nModified > 0) {
-            resp.status(200).json({ message: 'updated' })
-        } else {
-            resp.status(200).json({ message: 'Try Again' })
-        }
-    }).catch(error => {
-        resp.status(500).json(error)
-    });
-
-}
+            $set: {
+                scheduleUpdate: req.body.scheduleUpdate,
+                locoCatId: req.body.locoCatId,
+                locoNumber: req.body.locoNumber,
+                userNic: req.body.userNic,
+                userName: req.body.userrName,
+                userEmail: req.body.userEmail,
+                scheduleStatus: req.body.scheduleStatus,
+                scheduleCom: req.body.scheduleCom,
+                scheduleTrackMotors: req.body.scheduleTrackMotors,
+                scheduleLocoBody: req.body.scheduleLocoBody,
+                scheduleElCuUnit: req.body.scheduleElCuUnit,
+                scheduleEMechanical: req.body.scheduleEMechanical,
+                scheduleMach: req.body.scheduleMach,
+                scheduleRemark: req.body.scheduleRemark,
+            },
+        })
+        .then((result) => {
+            if (result.nModified > 0) {
+                resp.status(200).json({ message: "updated" });
+            } else {
+                resp.status(200).json({ message: "Try Again" });
+            }
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 const getDraftCount = (req, resp) => {
-    ScheduleSchema.count({ scheduleStatus: 'draft' }).then(result => {
-        resp.status(200).json(result)
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-}
+    ScheduleSchema.count({ scheduleStatus: "draft" })
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 const getAcceptCount = (req, resp) => {
-    ScheduleSchema.count({ scheduleStatus: 'Accept' }).then(result => {
-        resp.status(200).json(result)
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-}
+    ScheduleSchema.count({ scheduleStatus: "Accept" })
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 const getSchedule = (req, resp) => {
-    const { customerNic } = ({ customerNic: req.params.customerNic });
-    ScheduleSchema.findById(customerNic).then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(result);
-    })
-
-}
+    const { customerNic } = { customerNic: req.params.customerNic };
+    ScheduleSchema.findById(customerNic)
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(result);
+        });
+};
 const getCount = (req, resp) => {
-    ScheduleSchema.find({ customerNic: req.body.customerNic }).then(result => {
-        resp.status(200).json(result)
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-}
+    ScheduleSchema.find({ customerNic: req.body.customerNic })
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 const getMySampleData = (req, resp) => {
-
     ScheduleSchema.aggregate([{
-        $facet: {
-            Total: [
-                { "$match": { "scheduleStatus": { "$eq": 'Accept' } } },
-                { "$count": "Total" }
-            ],
-            "Total New": [
-                { "$match": { "scheduleStatus": { "$eq": 'draft' } } },
-                { "$count": "Total" }
-            ]
-        }
-    }]).then(result => {
-        console.log(result)
-        resp.status(200).json(result)
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-
-}
+            $facet: {
+                Total: [
+                    { $match: { scheduleStatus: { $eq: "Accept" } } },
+                    { $count: "Total" },
+                ],
+                "Total New": [
+                    { $match: { scheduleStatus: { $eq: "draft" } } },
+                    { $count: "Total" },
+                ],
+            },
+        }, ])
+        .then((result) => {
+            console.log(result);
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 const sendSMS = (req, resp) => {
-    client.messages.create({
-            body: 'Schedule is Accepted',
-            to: '+94768922413', // Text this number
-            from: '+13343779253' // From a valid Twilio number
+    client.messages
+        .create({
+            body: "Schedule is Accepted",
+            to: "+94768922413", // Text this number
+            from: "+13343779253", // From a valid Twilio number
         })
         .then((message) => console.log(message.sid));
-
-}
+};
 const saveSchedule = async(req, res, next) => {
+    ScheduleSchema.findOne({ scheduleNo: req.body.scheduleNo })
+        .then((result) => {
+            if (result == null) {
+                const schedule = new ScheduleSchema(req.body);
+                schedule
+                    .save()
+                    .then((result) => {
+                        res.status(200).json({ isSaved: true, data: result });
+                    })
+                    .catch((error) => {
+                        res.status(500).json(error);
+                    });
+            } else {
+                res.status(200).json({ isSaved: false, data: result });
+            }
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
 
-    ScheduleSchema.findOne({ scheduleNo: req.body.scheduleNo }).then(result => {
-        if (result == null) {
-            const schedule = new ScheduleSchema(req.body);
-            schedule.save().then(result => {
-                res.status(200).json({ isSaved: true, data: result })
-            }).catch(error => {
-                res.status(500).json(error);
-            })
-        } else {
-            res.status(200).json({ isSaved: false, data: result });
-        }
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-
-
-
-    console.log('awa')
-        //console.log(req.body)
-}
+    console.log("awa");
+    //console.log(req.body)
+};
 
 const sendOneSchedule = (req, res) => {
     console.log(req.params.id);
     ScheduleSchema.find({
-        _id: req.params.id
-    }).then(result => {
-        res.status(200).json(result);
-
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-
-}
+            _id: req.params.id,
+        })
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
+};
 const getOneSchedule = (req, res) => {
     console.log(req.params.scheduleNo);
     ScheduleSchema.find({
-        scheduleNo: req.params.scheduleNo
-    }).then(result => {
-        res.status(200).json(result);
-
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-}
-
+            scheduleNo: req.params.scheduleNo,
+        })
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
+};
 
 const scheduleEmail = async(req, res, next) => {
-
     //console.log(req.body);
     if (req.body.supervisorEmail) {
         const serManEmail = req.body.managerEmail;
@@ -271,11 +281,10 @@ const scheduleEmail = async(req, res, next) => {
         const schReason = req.body.schReason;
         const specialNote = req.body.specialNote;
 
-
         const mailOptions = {
             from: serManEmail,
             to: supEmail,
-            subject: 'New Schedule',
+            subject: "New Schedule",
             html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -600,7 +609,6 @@ const scheduleEmail = async(req, res, next) => {
 </body>
 
 </html>`,
-
         };
         transporter.sendMail(mailOptions, function(err, data) {
             if (err) {
@@ -608,162 +616,176 @@ const scheduleEmail = async(req, res, next) => {
             } else {
                 // cb(null, data);
             }
-
-        })
-
+        });
     } else {
         res.status(500).json(err);
     }
-
-}
-
+};
 
 const patchMileage = async(req, res, next) => {
-    console.log(req.params.scheduleNo, req.params.progressValue)
+    console.log(req.params.scheduleNo, req.params.progressValue);
     if (req.params.scheduleNo) {
         if (req.params.progressValue == 100) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 6, scheduleProgress: req.params.progressValue, schReason: 'Fully Completed' } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, {
+                    $set: {
+                        scheduleStatus: 6,
+                        scheduleProgress: req.params.progressValue,
+                        schReason: "Fully Completed",
+                    },
+                },
+                function(err, result) {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        res.status(200).json(result);
+                    }
                 }
-
-            })
+            );
         } else if (req.params.progressValue == 90) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 5, scheduleProgress: req.params.progressValue, schReason: 'Very Close to complete' } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, {
+                    $set: {
+                        scheduleStatus: 5,
+                        scheduleProgress: req.params.progressValue,
+                        schReason: "Very Close to complete",
+                    },
+                },
+                function(err, result) {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        res.status(200).json(result);
+                    }
                 }
-
-            })
+            );
         } else if (req.params.progressValue == 75) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 4, scheduleProgress: req.params.progressValue, schReason: 'three fourth(3/4) of Schedule is completed' } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, {
+                    $set: {
+                        scheduleStatus: 4,
+                        scheduleProgress: req.params.progressValue,
+                        schReason: "three fourth(3/4) of Schedule is completed",
+                    },
+                },
+                function(err, result) {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        res.status(200).json(result);
+                    }
                 }
-
-            })
+            );
         } else if (req.params.progressValue == 60) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 3, scheduleProgress: req.params.progressValue, schReason: 'half of Schedule is completed' } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, {
+                    $set: {
+                        scheduleStatus: 3,
+                        scheduleProgress: req.params.progressValue,
+                        schReason: "half of Schedule is completed",
+                    },
+                },
+                function(err, result) {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        res.status(200).json(result);
+                    }
                 }
-
-            })
+            );
         } else if (req.params.progressValue == 45) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 2, scheduleProgress: req.params.progressValue, schReason: 'Schedule is on the way to complete' } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, {
+                    $set: {
+                        scheduleStatus: 2,
+                        scheduleProgress: req.params.progressValue,
+                        schReason: "Schedule is on the way to complete",
+                    },
+                },
+                function(err, result) {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        res.status(200).json(result);
+                    }
                 }
-
-            })
+            );
         } else if (req.params.progressValue == 30) {
-            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, { $set: { scheduleStatus: 1, scheduleProgress: req.params.progressValue, schReason: 'Schedule is just started' } }, function(err, result) {
-
-                if (err) {
-                    res.status(500).json(err)
-                } else {
-                    res.status(200).json(result)
+            await ScheduleSchema.updateOne({ scheduleNo: req.params.scheduleNo }, {
+                    $set: {
+                        scheduleStatus: 1,
+                        scheduleProgress: req.params.progressValue,
+                        schReason: "Schedule is just started",
+                    },
+                },
+                function(err, result) {
+                    if (err) {
+                        res.status(500).json(err);
+                    } else {
+                        res.status(200).json(result);
+                    }
                 }
-
-            })
+            );
         }
-
-
-
-
     }
-
-}
+};
 const getProSchedule = async(req, resp, next) => {
     const _id = req.params.id;
-    console.log(_id)
+    console.log(_id);
     await ProgressDTO.find({ scheduleNo: _id }, function(err, result) {
         if (err) {
-            resp.status(500).json(err)
+            resp.status(500).json(err);
         } else {
-            resp.status(200).json(result)
-            console.log(result)
+            resp.status(200).json(result);
+            console.log(result);
         }
-    })
-}
+    });
+};
 
-const changeScheduleSeven = async(req, resp) => { //accepting load trial chamnge shedule status to 7
+const changeScheduleSeven = async(req, resp) => {
+    //accepting load trial chamnge shedule status to 7
     // console.log(req.body);
 
-    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 7, schReason: "Load Trial is Processed" } }, function(err, result) {
-
-        if (err) {
-            resp.status(500).json(err)
-
-        } else {
-            resp.status(200).json(result)
-
+    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 7, schReason: "Load Trial is Processed" } },
+        function(err, result) {
+            if (err) {
+                resp.status(500).json(err);
+            } else {
+                resp.status(200).json(result);
+            }
         }
-
-    })
-
-}
-
+    );
+};
 
 //update schedule Overdue
 
-
-const assignedLoadTrial = async(req, resp) => { //accepting load trial chamnge shedule status to 7
+const assignedLoadTrial = async(req, resp) => {
+    //accepting load trial chamnge shedule status to 7
     // console.log(req.body);
 
-    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 8, schReason: "Assigned to Load Trial" } }, function(err, result) {
-
-        if (err) {
-            resp.status(500).json(err)
-
-        } else {
-            resp.status(200).json(result)
-
+    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 8, schReason: "Assigned to Load Trial" } },
+        function(err, result) {
+            if (err) {
+                resp.status(500).json(err);
+            } else {
+                resp.status(200).json(result);
+            }
         }
-
-    })
-
-}
+    );
+};
 
 const getAllScheduleCalendar = async(req, resp) => {
     let returnArray = [];
-    var _findSche = await ScheduleSchema.find()
+    var _findSche = await ScheduleSchema.find();
     if (_findSche.length > 0) {
         returnArray.push(_findSche);
-
     }
-    var _findLoadTrail = await LoadTrailDTO.find()
+    var _findLoadTrail = await LoadTrailDTO.find();
     if (_findLoadTrail.length > 0) {
         returnArray.push(_findLoadTrail);
-
     }
 
     if (returnArray.length == 2) {
         resp.status(200).json(returnArray);
     }
-
-
-
-}
-
+};
 
 const scheduleLapseEmail = async(req, res, next) => {
-
     //console.log(req.body);
     if (req.body.supervisorEmail) {
         const serManEmail = req.body.managerEmail;
@@ -772,12 +794,10 @@ const scheduleLapseEmail = async(req, res, next) => {
         const locoCatId = req.body.locoCatId;
         const locoNumber = req.body.locoNumber;
 
-
-
         const mailOptions = {
             from: serManEmail,
             to: supEmail,
-            subject: 'Schedule Lapsed!',
+            subject: "Schedule Lapsed!",
             html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -1026,7 +1046,6 @@ const scheduleLapseEmail = async(req, res, next) => {
 </body>
 
 </html>`,
-
         };
         transporter.sendMail(mailOptions, function(err, data) {
             if (err) {
@@ -1034,90 +1053,92 @@ const scheduleLapseEmail = async(req, res, next) => {
             } else {
                 // cb(null, data);
             }
-
-        })
-
+        });
     } else {
         res.status(500).json(err);
     }
-
-
-}
+};
 
 //nextschedule
 
 const saveNextSchedule = async(req, res, next) => {
+    NextScheduleDTO.findOne({ nxtSchId: req.body.nxtSchId })
+        .then((result) => {
+            if (result == null) {
+                const nxtSchedule = new NextScheduleDTO(req.body);
+                nxtSchedule
+                    .save()
+                    .then((result) => {
+                        res.status(200).json({ isSaved: true, data: result });
+                    })
+                    .catch((error) => {
+                        res.status(500).json(error);
+                    });
+            } else {
+                res.status(200).json({ isSaved: false, data: result });
+            }
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
+};
 
-    NextScheduleDTO.findOne({ nxtSchId: req.body.nxtSchId }).then(result => {
-        if (result == null) {
-            const nxtSchedule = new NextScheduleDTO(req.body);
-            nxtSchedule.save().then(result => {
-                res.status(200).json({ isSaved: true, data: result })
-            }).catch(error => {
-                res.status(500).json(error);
-            })
-        } else {
-            res.status(200).json({ isSaved: false, data: result });
-        }
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-}
-
-const getAllNextSchedules = async(req, res, next) => { //get completed schedule
+const getAllNextSchedules = async(req, res, next) => {
+    //get completed schedule
     console.log(req.params.locoNumberNextSchedule);
     await NextScheduleDTO.find({
-        locoNumber: req.params.locoNumberNextSchedule
-    }).then(result => {
-        res.status(200).json(result);
+            locoNumber: req.params.locoNumberNextSchedule,
+        })
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
+};
 
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-}
-
-const getAllNextSchedulesNotFilter = async(req, resp, next) => { //get completed schedul
-    await NextScheduleDTO.find({ nxtSchStatus: 0 }).then(result => {
-        resp.status(200).json(result);
-    }).catch(error => {
-        resp.status(500).json(error);
-    })
-}
+const getAllNextSchedulesNotFilter = async(req, resp, next) => {
+    //get completed schedul
+    await NextScheduleDTO.find({ nxtSchStatus: 0 })
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
 
 const sendOneNextSchedule = async(req, res, next) => {
-
     await NextScheduleDTO.find({
-        nxtSchId: req.params.nxtSchId
-    }).then(result => {
-        res.status(200).json(result);
+            nxtSchId: req.params.nxtSchId,
+        })
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
+};
 
-    }).catch(er => {
-        res.status(500).json(er);
-    });
-
-}
-
-const changeStatusNextSchedule = async(req, res, next) => { //change status of the comment after adding feedbacks by user
+const changeStatusNextSchedule = async(req, res, next) => {
+    //change status of the comment after adding feedbacks by user
     const _obj = req.body;
     console.log(_obj);
     //console.log(_obj.status)
 
     if (_obj.nxtScheduleId) {
-        console.log(_obj.nxtSchId)
-        await NextScheduleDTO.updateOne({ nxtSchId: _obj.nxtScheduleId }, { $set: { nxtSchStatus: 1, nxtSchReason: "Assigned to Mileage Report" } }, function(err, result) {
-
-            if (err) {
-                res.status(500).json(err)
-            } else {
-                res.status(200).json(result)
-
+        console.log(_obj.nxtSchId);
+        await NextScheduleDTO.updateOne({ nxtSchId: _obj.nxtScheduleId }, { $set: { nxtSchStatus: 1, nxtSchReason: "Assigned to Mileage Report" } },
+            function(err, result) {
+                if (err) {
+                    res.status(500).json(err);
+                } else {
+                    res.status(200).json(result);
+                }
             }
-        })
+        );
     }
-
-}
-
-
+};
 
 module.exports = {
     saveSchedule,
@@ -1148,6 +1169,5 @@ module.exports = {
     getAllNextSchedules,
     getAllNextSchedulesNotFilter,
     sendOneNextSchedule,
-    changeStatusNextSchedule
-
-}
+    changeStatusNextSchedule,
+};

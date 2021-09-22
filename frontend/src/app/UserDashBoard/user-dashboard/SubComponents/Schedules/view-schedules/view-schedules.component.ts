@@ -1,109 +1,121 @@
 import { ViewProgressComponent } from './view-progress/view-progress.component';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import LocoDTO from "../../../../../dto/LocoDTO";
-import {MatSort} from "@angular/material/sort";
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {ScheduleService} from "../../../../../service/schedule.service";
-import LocoScheduleDTO from "../../../../../dto/LocoScheduleDTO";
-import {FormControl} from "@angular/forms";
-import {MatTableExporterModule} from "mat-table-exporter";
-import {MatDialog} from "@angular/material/dialog";
-import {SendProgressComponent} from "./send-progress/send-progress.component";
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import LocoDTO from '../../../../../dto/LocoDTO';
+import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ScheduleService } from '../../../../../service/schedule.service';
+import LocoScheduleDTO from '../../../../../dto/LocoScheduleDTO';
+import { FormControl } from '@angular/forms';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { MatDialog } from '@angular/material/dialog';
+import { SendProgressComponent } from './send-progress/send-progress.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-schedules',
   templateUrl: './view-schedules.component.html',
-  styleUrls: ['./view-schedules.component.css']
+  styleUrls: ['./view-schedules.component.css'],
 })
 export class ViewSchedulesComponent implements OnInit {
   searchKey: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Request Date', 'To be Complete', 'Progress', 'Status', '#'];
+  displayedColumns: string[] = [
+    'Schedule No',
+    'Report No',
+    'Loco Category',
+    'Loco Number',
+    'Request Date',
+    'To be Complete',
+    'Progress',
+    'Status',
+    '#',
+  ];
   scheduleList: any[] = [];
   scheduleStatus: any;
-   statuses: any[] = ['All',100,90,75,60,45,30,0];
-     tableArray :any;
- // @Input() public len
-  constructor(private scheduleService: ScheduleService ,private router: Router,  private toastr: ToastrService,public dialog: MatDialog) {
-
+  statuses: any[] = ['All', 100, 90, 75, 60, 45, 30, 0];
+  tableArray: any;
+  // @Input() public len
+  constructor(
+    private scheduleService: ScheduleService,
+    private router: Router,
+    private _location: Location,
+    private toastr: ToastrService,
+    public dialog: MatDialog
+  ) {
     //this.loadCount();
-
   }
 
   ngOnInit(): void {
     this.loadAllSchedule();
   }
-  private loadAllSchedule(){
-
-    const values =  JSON.parse( localStorage.getItem('currentUser'));
-    const object  = {
-      userNic:values.userNic,
-      userRole:values.userRole
-
-    }
-    console.log(object)
-    this.scheduleService.getAllScheduleAssigned(object).subscribe(resp =>{
+  private loadAllSchedule() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    console.log(object);
+    this.scheduleService.getAllScheduleAssigned(object).subscribe((resp) => {
       this.scheduleList = resp;
-      this.dataSource =  new MatTableDataSource<any>(this.scheduleList);
+      this.dataSource = new MatTableDataSource<any>(this.scheduleList);
       setTimeout(() => {
-        this.dataSource.paginator =  this.paginator;
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      })
-    })
+      });
+    });
   }
 
-  onChangeSelect(value){
+  backClicked() {
+    this._location.back();
+  }
+  onChangeSelect(value) {
     let _cloneArrat = [];
-    const _findValue  = this.scheduleList.filter(x=>x.scheduleProgress==value.value);
-    if(_findValue.length  > 0){
-         this.tableArray =_findValue;
-          this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
-    }else if(value.value=='All'){
-        this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
-    }
-    else{
-      this.onWarning('No records found on filter!')
-    this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
+    const _findValue = this.scheduleList.filter(
+      (x) => x.scheduleProgress == value.value
+    );
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
     }
   }
 
-  statusBinder(scheduleStatus){
-    if (scheduleStatus === 0){
+  statusBinder(scheduleStatus) {
+    if (scheduleStatus === 0) {
       return 'not_started';
-    }else if (scheduleStatus === 1){
+    } else if (scheduleStatus === 1) {
       return 'Flags';
-    }else if (scheduleStatus === 2){
+    } else if (scheduleStatus === 2) {
       return 'pending_actions';
-    }else if (scheduleStatus === 3){
+    } else if (scheduleStatus === 3) {
       return 'hourglass_top';
-    } else if (scheduleStatus === 4){
+    } else if (scheduleStatus === 4) {
       return 'construction';
-    } else if (scheduleStatus === 5){
+    } else if (scheduleStatus === 5) {
       return 'build_circle';
-    }
-    else if (scheduleStatus === 6){
+    } else if (scheduleStatus === 6) {
       return 'check_circle_outline';
-    }
-    else if (scheduleStatus === 7){
+    } else if (scheduleStatus === 7) {
       return 'sports_score';
-    }
-     else if (scheduleStatus === 8){
+    } else if (scheduleStatus === 8) {
       return 'assignment';
     }
   }
 
-  addLoadTrial(){
-      this.router.navigate(['/userDashboard/addLoadTrial']);
+  addLoadTrial() {
+    this.router.navigate(['/userDashboard/addLoadTrial']);
   }
 
-
-/*
+  /*
   loadCount(){
     this.schedulesService.getDraftCount().subscribe(resp => {
       if(resp >= 0){
@@ -114,55 +126,50 @@ export class ViewSchedulesComponent implements OnInit {
 
  */
 
-
-
   openProgress(id: string) {
-
-     const dialogRef =this.dialog.open(SendProgressComponent, {
-      data: {id: id}
+    const dialogRef = this.dialog.open(SendProgressComponent, {
+      data: { id: id },
     });
 
-     dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
-       this.loadAllSchedule();
+      this.loadAllSchedule();
     });
   }
 
   onSearchClear() {
     this.searchKey = '';
-
+    this.loadAllSchedule();
   }
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
+      filterValue = filterValue.trim();
+      filterValue = filterValue.toLowerCase();
+      this.dataSource.filter = filterValue;
     }
-}
+  }
 
-  onWarning(message: string){
+  onWarning(message: string) {
     this.toastr.warning(message, 'Warning');
   }
-  onSucess(message: string){
+  onSucess(message: string) {
     this.toastr.success(message, 'Success');
   }
 
-
-  viewSchedule(id: string){
+  viewSchedule(id: string) {
     console.log(id);
     this.router.navigate(['/userDashboard/viewSchedule', id]);
   }
 
-  viewProgressHist(id: string){
-
+  viewProgressHist(id: string) {
     this.dialog.open(ViewProgressComponent, {
-      data: {id: id},
-      width: '1200px'
+      data: { id: id },
+      width: '1200px',
     });
-    console.log('ho')
+    console.log('ho');
   }
 
-/*
+  /*
   view(tempSchedule: LocoScheduleDTO) {
     this.selectedSchedule = tempSchedule;
     const btn = document.getElementById('btn-pop-up') as HTMLElement;

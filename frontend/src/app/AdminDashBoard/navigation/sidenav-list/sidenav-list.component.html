@@ -1,32 +1,40 @@
 <mat-nav-list class="s">
+    <img class="image" src="./assets/logo/1618837407350.png" />
 
-    <img class="image" src="./assets/logo/1618837407350.png">
-
-
-
-    <hr>
+    <hr />
     <a class="p" mat-list-item routerLink="/adminDashboard/adminProfile" (click)="onSidenavClose()">
-        <span><i class="fas fa-user-tie icon"></i></span> <span class="nav-caption">User Profile</span>
+        <span><i class="fas fa-user-tie icon"></i></span>
+        <span class="nav-caption">User Profile</span>
     </a>
     <!-- <a class="p" mat-list-item routerLink="/adminDashboard/createCustomer" (click)="onSidenavClose()">
         <span><i class="fas fa-user-tie icon"></i></span> <span class="nav-caption">View Employee</span>
     </a> -->
+    <a class="p" mat-list-item routerLink="/adminDashboard/adminViewUsers" (click)="onSidenavClose()">
+        <span><i class="fas fa-tachometer-alt icon"></i></span>
+        <span class="nav-caption">View Users</span>
+    </a>
     <a class="p" mat-list-item routerLink="/adminDashboard/viewMileage" (click)="onSidenavClose()">
-        <span><i class="fas fa-tachometer-alt icon"></i></span> <span class="nav-caption">View Mileage Reports</span>
+        <span><i class="fas fa-tachometer-alt icon"></i></span>
+        <span class="nav-caption">View Mileage Reports</span>
     </a>
     <mat-list-item [matMenuTriggerFor]="menu">
         <mat-icon>unfold_more</mat-icon>
-        <a mat-line><span class="nav-caption">Locomotives</span>  </a>
+        <a mat-line><span class="nav-caption">Locomotives</span> </a>
     </mat-list-item>
     <mat-menu #menu="matMenu" class="r">
-        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/createLocomotive"><span class="nav-caption">Add Locomotive</span></button>
-        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/viewLocomotives"><span class="nav-caption">View All Locomotives</span> </button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/createLocomotive">
+      <span class="nav-caption">Add Locomotive</span>
+    </button>
+        <button mat-menu-item (click)="onSidenavClose()" routerLink="/adminDashboard/viewLocomotives">
+      <span class="nav-caption">View All Locomotives</span>
+    </button>
     </mat-menu>
     <a mat-list-item routerLink="/adminDashboard/adminViewSchedules" (click)="onSidenavClose()">
-        <span><i class="fas fa-calendar-alt icon"></i></span><span class="nav-caption">View Schedules</span>
+        <span><i class="fas fa-calendar-alt icon"></i></span
+    ><span class="nav-caption">View Schedules</span>
     </a>
     <a mat-list-item routerLink="/adminDashboard/viewAdLoadTrial" (click)="onSidenavClose()">
-        <span><i class="fas fa-tools icon"></i></span><span class="nav-caption">View Load Trials</span>
+        <span><i class="fas fa-tools icon"></i></span
+    ><span class="nav-caption">View Load Trials</span>
     </a>
-
 </mat-nav-list>

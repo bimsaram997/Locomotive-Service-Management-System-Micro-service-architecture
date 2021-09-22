@@ -799,7 +799,7 @@ export class ViewMoreSchedulesComponent implements OnInit {
 
             [
               {
-                text: 'Mechanical Info',
+                text: 'Electric Info',
                 color: '#333333',
                 width: '*',
                 fontSize: 20,

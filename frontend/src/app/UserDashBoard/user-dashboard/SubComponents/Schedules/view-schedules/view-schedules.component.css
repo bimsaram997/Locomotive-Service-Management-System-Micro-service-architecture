@@ -15,6 +15,13 @@
     width: auto;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 .heading-txt {
     color: #013243;
     font-weight: bold;
@@ -264,6 +271,17 @@ body {
     color: #000080;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
+.material-icons {
+    font-weight: bold;
+}
+
 .place-holder {
     font-size: 13px;
     color: black;
@@ -417,17 +435,4 @@ mat-radio-group mat-radio-button {
     .modal-content {
         width: 100%;
     }
-}
-
-.label-txt {
-    font-size: 13px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-}
-
-.label {
-    font-size: 13px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    color: #000080;
 }

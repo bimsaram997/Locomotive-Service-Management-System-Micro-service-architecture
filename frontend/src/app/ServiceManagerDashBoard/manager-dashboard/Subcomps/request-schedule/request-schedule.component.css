@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap');
 .box-head {
     display: flex;
     align-items: center;
@@ -12,6 +13,13 @@
     padding-right: 50px;
     padding-left: 50px;
     width: auto;
+}
+
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
 }
 
 .heading-txt {
@@ -55,4 +63,47 @@
 .dyanmic {
     margin-left: -40px;
     ;
+}
+
+.error {
+    font-family: 'Assistant', sans-serif;
+    color: #f03434;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.sub-header {
+    color: #1f3a93;
+    font-family: 'Assistant', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.para-txt {
+    color: #5333ed;
+    font-size: 18px;
+}
+
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.input-label {
+    font-weight: bold;
+    color: black;
+}
+
+.btn-color {
+    color: #1f3a93;
+}
+
+.radio-txt {
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
 }
