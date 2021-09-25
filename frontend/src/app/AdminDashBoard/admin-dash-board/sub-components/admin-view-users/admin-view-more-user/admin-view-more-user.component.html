@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <br />
     <div class="box-head">
-        <img src="./assets/images/locom6.png" alt="" style="height: 45px; width: 45px" />
-        <span class="heading-txt"><span style="color: #1e8bc3">E</span>DIT LOCOMOTIVES</span>
+        <img src="./assets/images/engineers.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 45px; height: 45px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">E</span>MPLOYEE PROFILE</span>
         <div class="back">
             <button mat-raised-button (click)="backClicked()">
         <i class="fas fa-arrow-left"></i>&nbsp; Back
@@ -16,7 +16,7 @@
             <mat-tab>
                 <mat-card>
                     <ng-template mat-tab-label>
-                        <span class="material-icons">looks_one</span>&nbsp;Basic Details
+                        <i class="far fa-user-circle icon"></i>&nbsp;Basic Details
                     </ng-template>
                     <form [formGroup]="UserGroup">
                         <div class="row">
@@ -30,13 +30,13 @@
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Full Name</mat-label>
-                                            <input disabled class="label-txt" required matInput formControlName="userName" />
+                                            <input readonly class="label-txt" required matInput formControlName="userName" />
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Email</mat-label>
-                                            <input disabled class="label-txt" required matInput formControlName="userEmail" />
+                                            <input readonly class="label-txt" required matInput formControlName="userEmail" />
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -44,13 +44,13 @@
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Gender</mat-label>
-                                            <input disabled class="label-txt" required matInput formControlName="userGender" />
+                                            <input readonly class="label-txt" required matInput formControlName="userGender" />
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>NIC</mat-label>
-                                            <input disabled maxlength="10" minlength="10" required class="label-txt" matInput formControlName="userNic" />
+                                            <input readonly maxlength="10" minlength="10" required class="label-txt" matInput formControlName="userNic" />
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -58,13 +58,13 @@
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Mobile Number</mat-label>
-                                            <input disabled maxlength="10" minlength="10" mask="(000) 000-0000" required class="label-txt" matInput formControlName="userMobile" />
+                                            <input readonly maxlength="10" minlength="10" mask="(000) 000-0000" required class="label-txt" matInput formControlName="userMobile" />
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Address</mat-label>
-                                            <input disabled required class="label-txt" matInput formControlName="address" />
+                                            <input readonly required class="label-txt" matInput formControlName="address" />
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Role</mat-label>
-                                            <input disabled required class="label-txt" matInput formControlName="userRole" />
+                                            <input readonly required class="label-txt" matInput formControlName="userRole" />
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6">
@@ -88,7 +88,7 @@
                                     <div class="col-md-6">
                                         <mat-form-field appearance="fill">
                                             <mat-label>Work Place</mat-label>
-                                            <input disabled required class="label-txt" matInput formControlName="userWorks" />
+                                            <input readonly required class="label-txt" matInput formControlName="userWorks" />
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6"></div>
@@ -108,9 +108,53 @@
         ">
                 <mat-card>
                     <ng-template mat-tab-label>
-                        <span class="material-icons">looks_two</span>&nbsp;Second Step
+                        <i class="fas fa-train icon"></i>&nbsp;Assigned Locomotives
                     </ng-template>
                     <app-view-assigned-locos *ngIf="userNic || userRole" [userRole]="userRole" [userNic]="userNic"></app-view-assigned-locos>
+                </mat-card>
+            </mat-tab>
+            <mat-tab *ngIf="!(userRole === 'Clerk' || userRole === 'Chief Engineer')">
+                <mat-card>
+                    <ng-template mat-tab-label>
+                        <i class="fas fa-calendar-alt icon"></i>&nbsp;<span *ngIf="userRole === 'Service Manager'">Issued Schedules</span
+            >
+            <span *ngIf="userRole != 'Service Manager'"
+              >Assigned Schedules</span
+            >
+          </ng-template>
+          <app-view-assiged-schedules
+            *ngIf="userNic || userRole"
+            [userRole]="userRole"
+            [userNic]="userNic"
+          ></app-view-assiged-schedules>
+        </mat-card>
+      </mat-tab>
+      <mat-tab
+        *ngIf="!(userRole === 'Supervisor' || userRole === 'Chief Engineer')"
+      >
+        <mat-card>
+          <ng-template mat-tab-label>
+            <i class="fas fa-tachometer-alt icon"></i>&nbsp;<span
+              *ngIf="userRole === 'Clerk'"
+              >Issued Mileage Reports</span
+            >
+            <span *ngIf="userRole != 'Clerk'">Assigned Mileage Reports</span>
+                    </ng-template>
+                    <app-view-assiged-mileages *ngIf="userNic || userRole" [userRole]="userRole" [userNic]="userNic"></app-view-assiged-mileages>
+                </mat-card>
+            </mat-tab>
+            <mat-tab *ngIf="
+          !(
+            userRole === 'Clerk' ||
+            userRole === 'Chief Engineer' ||
+            userRole === 'Service Manager'
+          )
+        ">
+                <mat-card>
+                    <ng-template mat-tab-label>
+                        <i class="fas fa-tools icon"></i>&nbsp;Issued Load Trials
+                    </ng-template>
+                    <app-view-issued-load-trials *ngIf="userNic || userRole" [userRole]="userRole" [userNic]="userNic"></app-view-issued-load-trials>
                 </mat-card>
             </mat-tab>
         </mat-tab-group>

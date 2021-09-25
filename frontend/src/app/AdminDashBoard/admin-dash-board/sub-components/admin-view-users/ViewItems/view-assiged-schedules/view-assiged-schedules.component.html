@@ -1,0 +1,124 @@
+<div class="main-table">
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="Schedule No">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Schedule No
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Schedule No">{{ tempSchedule?.scheduleNo }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Report No">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Report No
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Report No">
+                    {{ tempSchedule?.mReportNumber }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Loco Category">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Loco Category</mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Loco Category">
+                    {{ tempSchedule.locoCatId }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="Loco Number">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Loco Number
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Loco Number">
+                    {{ tempSchedule.locoNumber }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Supervisor inCharge">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Supervisor inCharge
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Supervisor inCharge">
+                    {{ tempSchedule.supervisorName }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Request Date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Request Date
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Date">
+                    {{ tempSchedule.scheduleDate | date }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="To be Complete">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    To be Complete
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="To be Complete">
+                    {{ tempSchedule.completedDate | date }}</mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->>
+
+            <ng-container matColumnDef="Progress">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Progress
+                </mat-header-cell>
+                <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Progress">{{ tempSchedule?.scheduleProgress + "%" }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    status
+                </mat-header-cell>
+                <mat-cell *matCellDef="let tempSchedule" data-label="status" [ngStyle]="{
+            color:
+              tempSchedule.scheduleStatus == 0
+                ? 'blue'
+                : tempSchedule.scheduleStatus == 1
+                ? 'yellow'
+                : tempSchedule.scheduleStatus == 2
+                ? '#e87e04'
+                : tempSchedule.scheduleStatus == 3
+                ? '#9a12b3'
+                : tempSchedule.scheduleStatus == 4
+                ? '#663399'
+                : tempSchedule.scheduleStatus == 5
+                ? '#67809f'
+                : tempSchedule.scheduleStatus == 6
+                ? 'green'
+                : tempSchedule.scheduleStatus == 7
+                ? 'black'
+                : 'red'
+          }">
+                    <span class="material-icons" style="font-weight: bold" matTooltip="{{ tempSchedule.schReason }}">
+            {{ statusBinder(tempSchedule.scheduleStatus) }}
+          </span>
+                </mat-cell>
+
+                <!--            {{tempLoco.status || '-'}}-->
+                <!--          pending - yellow , Approval  -blue, created-Green , rejectd - red-->
+            </ng-container>
+            <ng-container matColumnDef="#">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let tempSchedule" data-label="#">
+                    <button mat-icon-button (click)="viewSchedule(tempSchedule._id)" matTooltip="Click for more information">
+            <i
+              class="fas fa-eye"
+              style="color: #013243; font-size: 18px; font-weight: bold"
+            ></i>
+          </button>
+                    <button mat-icon-button (click)="viewProgressHist(tempSchedule._id)" matTooltip="Click here to View Progress History">
+            <i
+              class="fas fa-file-medical-alt"
+              style="color: #f9690e; font-size: 18px; font-weight: bold"
+            ></i>
+          </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

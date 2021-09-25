@@ -70,7 +70,7 @@ mat-toolbar {
     text-align: center;
     position: relative;
     left: 20%;
-    top: 35px;
+    top: 15px;
     transform: translate(-50%, -50%);
     /*隐藏作用：如果没有用transform方式进行居中显示，则width：100%会向右侧延申，左侧为空*/
     width: 30%;
@@ -78,15 +78,16 @@ mat-toolbar {
 
 .name {
     font-family: 'Tajawal', sans-serif;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .welcome {
-    font-size: 18px;
+    font-size: 27px;
     font-weight: 700;
     color: #fff;
     letter-spacing: 1px;
     animation: text 3s 1;
+    justify-content: center;
 }
 
 .muzile {

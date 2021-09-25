@@ -122,6 +122,9 @@ import { MAnagerLocoProfileComponent } from './ServiceManagerDashBoard/manager-d
 import { AdminViewUsersComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-users.component';
 import { AdminViewMoreUserComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-more-user/admin-view-more-user.component';
 import { ViewAssignedLocosComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-assigned-locos/view-assigned-locos.component';
+import { ViewAssigedSchedulesComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-assiged-schedules/view-assiged-schedules.component';
+import { ViewAssigedMileagesComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-assiged-mileages/view-assiged-mileages.component';
+import { ViewIssuedLoadTrialsComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-issued-load-trials/view-issued-load-trials.component';
 FullCalendarModule.registerPlugins([
   interactionPlugin,
   dayGridPlugin
@@ -272,6 +275,12 @@ FullCalendarModule.registerPlugins([
     AdminViewMoreUserComponent,
 
     ViewAssignedLocosComponent,
+
+    ViewAssigedSchedulesComponent,
+
+    ViewAssigedMileagesComponent,
+
+    ViewIssuedLoadTrialsComponent,
 
 
 

@@ -16,8 +16,8 @@
 }
 
 .container-fluid {
-    padding-right: 50px;
-    padding-left: 50px;
+    padding-right: 40px;
+    padding-left: 40px;
     width: auto;
 }
 
@@ -95,4 +95,12 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     color: #000080;
+}
+
+.icon {
+    font-weight: bold;
+    font-size: 23px;
+    color: black;
+    padding-right: 5px;
+    ;
 }

@@ -58,6 +58,15 @@ const getAllScheduleAssigned = async(req, resp) => {
                 .catch((error) => {
                     resp.status(500).json(result);
                 });
+        } else if (req.query.userRole == "Service Manager") {
+            await ScheduleSchema.find({ managerNic: req.query.userNic })
+                .then((result) => {
+                    resp.status(200).json(result);
+                    //console.log(result);
+                })
+                .catch((error) => {
+                    resp.status(500).json(result);
+                });
         }
     }
 };

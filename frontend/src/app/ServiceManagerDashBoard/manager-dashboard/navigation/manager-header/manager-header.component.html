@@ -1,21 +1,23 @@
-<mat-toolbar style="background-color: #03254c; color: white; height: 75px;">
-    <br>
-
-    <button style="margin-bottom: 10px;" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="onToogleSlidenav()">
- <mat-icon>menu</mat-icon>
+<mat-toolbar style="background-color: #03254c; color: white; height: 75px">
+    <button style="margin-bottom: 10px" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="onToogleSlidenav()">
+    <mat-icon>menu</mat-icon>
   </button>
     <div class="container">
-        <span class="welcome col-md">Welcome Back, &nbsp;<span class="name">{{this.name}}</span> </span>
-        <br>
-        <span class="muzile">{{currentDate | date:'dd MMM yyyy hh:mm a'}}</span>
+        <span class="welcome col-md">Welcome Back, &nbsp;<span class="name">{{ this.name }}</span>
+        </span>
+
+        <span class="muzile">{{ currentDate | date: "dd MMM yyyy hh:mm a" }}</span>
     </div>
     <span class="example-spacer"></span>
-    <span routerLink="/managerDashBoard/mDashContent" style="cursor: pointer;">&nbsp;LOCOMOTIVE SERVICE CENTER</span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-  <span class="material-icons">
-notification_important
-</span>
-  </button>
+    <span routerLink="/managerDashBoard/mDashContent" style="cursor: pointer">&nbsp;LOCOMOTIVE SERVICE CENTER</span
+  >
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+  >
+    <span class="material-icons"> notification_important </span>
+    </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item>
       <mat-icon>dialpad</mat-icon>
@@ -28,8 +30,6 @@ notification_important
         <button mat-menu-item (click)="logOut()">
       <mat-icon>logout</mat-icon>
       <span>Log Out</span>
-
     </button>
     </mat-menu>
-
 </mat-toolbar>
