@@ -1,37 +1,54 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {ErrorStateMatcher} from "@angular/material/core";
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
-import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
-import UserDTO from "../../../../../dto/UserDTO";
-import {MatSort} from "@angular/material/sort";
-import {AccessService} from "../../../../../service/access.service";
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import CustomerDTO from "../../../../../dto/CustomerDTO";
-import {CustomerService} from "../../../../../service/customer.service";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ErrorStateMatcher } from '@angular/material/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import UserDTO from '../../../../../dto/UserDTO';
+import { MatSort } from '@angular/material/sort';
+import { AccessService } from '../../../../../service/access.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import CustomerDTO from '../../../../../dto/CustomerDTO';
+import { CustomerService } from '../../../../../service/customer.service';
 import swal from 'sweetalert';
 import { first } from 'rxjs/operators';
 import { Location } from '@angular/common';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
-  providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {showError: true}
-  }]
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true },
+    },
+  ],
 })
 export class CreateUserComponent implements OnInit {
   options: FormGroup;
   myControl = new FormControl();
-  loading =  false;
+  loading = false;
   customerList: CustomerDTO[] = [];
   userEmail: any;
   userName: any;
@@ -40,17 +57,18 @@ export class CreateUserComponent implements OnInit {
   userMobile: any;
   userRole: any;
   userPassword: any;
-  spinner = false
+  spinner = false;
   roles = [
-    {id: 1, value: 'Supervisor'},
-    {id: 2, value: 'Service Manager'},
-    {id: 3, value: 'Clerk'},
-    {id: 4, value: 'Chief Engineer'}
+    { id: 1, value: 'Supervisor' },
+    { id: 2, value: 'Service Manager' },
+    { id: 3, value: 'Clerk' },
+    { id: 4, value: 'Chief Engineer' },
+    { id: 5, value: 'Locomotive Driver' },
   ];
   places = [
-    {id: 1, value: 'Electric Locomotive Shed'},
-    {id: 2, value: 'Running Shed'},
-    {id: 3, value: 'Chief Engineering Ratmalana'}
+    { id: 1, value: 'Electric Locomotive Shed' },
+    { id: 2, value: 'Running Shed' },
+    { id: 3, value: 'Chief Engineering Ratmalana' },
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<UserDTO>;
@@ -63,15 +81,25 @@ export class CreateUserComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  email = new FormControl('',[
-    Validators.required,
-    Validators.email
-  ]);
+  email = new FormControl('', [Validators.required, Validators.email]);
 
-
-   UserGroup: FormGroup;
-  userRoles: string[] = ['Supervisor', 'Service Manager', 'Clerk', 'Chief Engineer'];
-  constructor(private cd: ChangeDetectorRef, private _location: Location,private accessService: AccessService, private formBuilder: FormBuilder, private router: Router, private toastr: ToastrService, private customerService: CustomerService) {
+  UserGroup: FormGroup;
+  userRoles: string[] = [
+    'Supervisor',
+    'Service Manager',
+    'Clerk',
+    'Chief Engineer',
+    'Locomotive Driver',
+  ];
+  constructor(
+    private cd: ChangeDetectorRef,
+    private _location: Location,
+    private accessService: AccessService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private toastr: ToastrService,
+    private customerService: CustomerService
+  ) {
     this.loadAllCustomers();
   }
   filesToUpload: Array<File> = [];
@@ -79,31 +107,32 @@ export class CreateUserComponent implements OnInit {
   isVisble = true;
 
   ngOnInit(): void {
- this.UserGroup = this.formBuilder.group({
-    userEmail: [''],
-    userName: [''],
-    userGender: [''],
-    appointmentDate: [''],
-    address: [''],
-    userWorks: [''],
-    userNic: [''],
-    userMobile: ['',  [Validators.required, Validators.pattern("^((\\+94-?)|0)?[0-9]{10}$")]],
-    userRole: [''],
-    userPassword: [''],
-    image: ['']
- })
-
-
+    this.UserGroup = this.formBuilder.group({
+      userEmail: [''],
+      userName: [''],
+      userGender: [''],
+      appointmentDate: [''],
+      address: [''],
+      userWorks: [''],
+      userNic: [''],
+      userMobile: [
+        '',
+        [Validators.required, Validators.pattern('^((\\+94-?)|0)?[0-9]{10}$')],
+      ],
+      userRole: [''],
+      userPassword: [''],
+      image: [''],
+    });
   }
-  private loadAllCustomers(){
+  private loadAllCustomers() {
     this.loading = true;
-    this.customerService.getAllCustomers().subscribe( result => {
+    this.customerService.getAllCustomers().subscribe((result) => {
       this.customerList = result;
       this.loading = true;
-    })
+    });
   }
 
-     backClicked() {
+  backClicked() {
     this._location.back();
   }
   // signUp() {
@@ -147,9 +176,15 @@ export class CreateUserComponent implements OnInit {
       for (const file of files) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-            if (Number(e.total) > 2e+6) {
-              alert('Please make sure that you entered image size is less than 2MB');
+          if (
+            file.type === 'image/jpeg' ||
+            file.type === 'image/jpg' ||
+            file.type === 'image/png'
+          ) {
+            if (Number(e.total) > 2e6) {
+              alert(
+                'Please make sure that you entered image size is less than 2MB'
+              );
               this.filesToUpload = [];
               return;
             } else {
@@ -160,17 +195,15 @@ export class CreateUserComponent implements OnInit {
             this.filesToUpload = [];
             return;
           }
-
-
         };
         reader.readAsDataURL(file);
       }
     }
   }
-  onError(message: string){
+  onError(message: string) {
     this.toastr.error(message, 'Warning');
   }
-  onSucess(message: string){
+  onSucess(message: string) {
     this.toastr.success(message, 'Success');
   }
 
@@ -178,9 +211,8 @@ export class CreateUserComponent implements OnInit {
     window.location.reload();
   }
 
-  onSubmit(){
-
- this.spinner = true;
+  onSubmit() {
+    this.spinner = true;
     let obj = {
       userEmail: this.UserGroup.controls.userEmail.value,
       userName: this.UserGroup.controls.userName.value,
@@ -193,62 +225,54 @@ export class CreateUserComponent implements OnInit {
       userWorks: this.UserGroup.controls.userWorks.value,
       userPassword: this.UserGroup.controls.userPassword.value,
       image: this.UserGroup.controls.image.value,
+    };
 
+    console.log(obj);
 
+    if (obj == null && obj == undefined) {
+      //console.log(error)
+    } else {
+      this.accessService
+        .register(obj)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+              swal({
+                title: 'Record Saved!',
+                text: 'Please Click OK',
+                icon: 'success',
+              });
+              setTimeout(() => {
+                this.UserGroup.reset();
+                this.router.navigate(['/clerkDashBoard/viewUsers']);
+              }, 3000);
+            } else {
+              swal({
+                title: 'Record already Exits',
+                text: 'Please Click OK',
+                icon: 'error',
+              });
+              setTimeout(() => {
+                // this.refresh();
+                //this.spinner = false
+              }, 3000);
+            }
+          },
+
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            console.log('dss');
+          }
+        );
     }
-
-console.log(obj)
-
-  if(obj == null && obj == undefined){
-    //console.log(error)
-  }else{
-this.accessService.register(obj)
-       .pipe(first()).subscribe(
-       res => {
-         console.log(res)
-         if (res.isSaved) {
-           swal({
-             title: 'Record Saved!',
-             text: 'Please Click OK',
-             icon: 'success',
-           });
-           setTimeout(() => {
-             this.UserGroup.reset();
-              this.router.navigate(['/clerkDashBoard/viewUsers']);
-
-           }, 3000);
-
-       } else {
-           swal({
-             title: 'Record already Exits',
-             text: 'Please Click OK',
-             icon: 'error',
-           });
-           setTimeout(() => {
-            // this.refresh();
-            //this.spinner = false
-           }, 3000);
-         }
-       },
-
-       error => {
-         console.log(error)
-       },
-       () => {
-         console.log('dss')
-       }
-     )
-
   }
 
-
-  }
-
-   uploadFile(event) {
-
+  uploadFile(event) {
     const fileEvnet = event.target.files[0];
-
-
 
     const uploadData = new FormData();
 
@@ -265,13 +289,13 @@ this.accessService.register(obj)
       reader.onload = () => {
         //this.imageUrl = reader.result;
         //     this.showAlert = false;
-        console.log(reader.result)
+        console.log(reader.result);
         this.UserGroup.patchValue({
-          image: reader.result
+          image: reader.result,
         });
         // this.editFile = false;
         // this.removeUpload = true;
-      }
+      };
       // this.LocoGroup.controls['image'].setValue(file);
       // When file uploads set it to file formcontrol
 
@@ -279,5 +303,4 @@ this.accessService.register(obj)
       this.cd.markForCheck();
     }
   }
-
 }

@@ -125,6 +125,8 @@ import { ViewAssignedLocosComponent } from './AdminDashBoard/admin-dash-board/su
 import { ViewAssigedSchedulesComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-assiged-schedules/view-assiged-schedules.component';
 import { ViewAssigedMileagesComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-assiged-mileages/view-assiged-mileages.component';
 import { ViewIssuedLoadTrialsComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-issued-load-trials/view-issued-load-trials.component';
+import { LocoDriverDashboardComponent } from './LocoDriverDashBoard/loco-driver-dashboard/loco-driver-dashboard.component';
+import { LocoDriverHeaderComponent } from './LocoDriverDashBoard/navigation/loco-driver-header/loco-driver-header.component';
 FullCalendarModule.registerPlugins([
   interactionPlugin,
   dayGridPlugin
@@ -281,6 +283,10 @@ FullCalendarModule.registerPlugins([
     ViewAssigedMileagesComponent,
 
     ViewIssuedLoadTrialsComponent,
+
+    LocoDriverDashboardComponent,
+
+    LocoDriverHeaderComponent,
 
 
 

@@ -1,3 +1,4 @@
+import { LocoDriverDashboardComponent } from './LocoDriverDashBoard/loco-driver-dashboard/loco-driver-dashboard.component';
 import { AdminViewUsersComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-users.component';
 import { ClerkViewOneMileageComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/ViewMileage/clerk-view-one-mileage/clerk-view-one-mileage.component';
 import { ClerkScheduleProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/Schedules/clerk-schedule-profile/clerk-schedule-profile.component';
@@ -170,6 +171,12 @@ const routes: Routes = [
       { path: 'viewManSchedule/:id', component: ViewMoreSchedulesComponent },
       { path: 'managerProfile', component: ManagerprofileComponent },
     ],
+  },
+
+  {
+    path: 'locoDriverDashBoard',
+    component: LocoDriverDashboardComponent,
+    children: [],
   },
 ];
 

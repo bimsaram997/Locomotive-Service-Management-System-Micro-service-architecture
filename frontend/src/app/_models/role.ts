@@ -1,7 +1,7 @@
 export enum Role {
- ChiefEngineer = 'Chief Engineer',
- Supervisor='Supervisor',
+  ChiefEngineer = 'Chief Engineer',
+  Supervisor = 'Supervisor',
   Clerk = 'Clerk',
-  ServiceManger = 'Service Manager'
-
+  ServiceManger = 'Service Manager',
+  LocoDriver = 'Locomotive Driver',
 }
