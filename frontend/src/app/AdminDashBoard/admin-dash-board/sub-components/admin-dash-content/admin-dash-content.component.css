@@ -291,4 +291,5 @@ a.float:hover+div.label-container {
     font-size: 18px;
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }
