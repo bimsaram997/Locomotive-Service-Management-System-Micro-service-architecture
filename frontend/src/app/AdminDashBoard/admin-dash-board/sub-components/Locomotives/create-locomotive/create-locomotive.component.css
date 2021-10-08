@@ -15,6 +15,19 @@
     width: auto;
 }
 
+.select {
+    padding-left: 15px;
+    width: 65px;
+    height: 35px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 10%;
+    border-color: white;
+    background-color: #f7ca18;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
 .back {
     margin-left: auto;
     margin-right: 0;

@@ -1,30 +1,47 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {CustomerService} from '../../../../../service/customer.service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CustomerService } from '../../../../../service/customer.service';
 import CustomerDTO from '../../../../../dto/CustomerDTO';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {LocomotiveService} from '../../../../../service/locomotive.service';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { LocomotiveService } from '../../../../../service/locomotive.service';
 import LocoDTO from '../../../../../dto/LocoDTO';
-import {ToastrService} from "ngx-toastr";
-import {AccessService} from "../../../../../service/access.service";
-import UserDTO from "../../../../../dto/UserDTO";
-import {ImageService} from "../../../../../service/image.service";
+import { ToastrService } from 'ngx-toastr';
+import { AccessService } from '../../../../../service/access.service';
+import UserDTO from '../../../../../dto/UserDTO';
+import { ImageService } from '../../../../../service/image.service';
 import swal from 'sweetalert';
-import {first} from "rxjs/operators";
+import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
 import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-create-locomotive',
   templateUrl: './create-locomotive.component.html',
-  styleUrls: ['./create-locomotive.component.css']
+  styleUrls: ['./create-locomotive.component.css'],
 })
 export class CreateLocomotiveComponent implements OnInit {
-
   LocoGroup: FormGroup;
   myControl = new FormControl();
-  options: string[] = ['M2', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
-  loading =  false;
-  spinner = false
+  options: string[] = [
+    'M2',
+    'M4',
+    'M5',
+    'M6',
+    'M7',
+    'M8',
+    'M9',
+    'M10',
+    'M11',
+    'M12',
+  ];
+  loading = false;
+  spinner = false;
   public selectedIndex: number = 0;
   userList: UserDTO[] = [];
 
@@ -40,7 +57,7 @@ export class CreateLocomotiveComponent implements OnInit {
   filesToUpload: Array<File> = [];
   urls = new Array<string>();
   statuses: string[] = ['In', 'Out'];
-  condition: string[] = ['Working' , 'Not Working'];
+  condition: string[] = ['Working', 'Not Working'];
   tMotors: string[] = ['Working', 'Not Working'];
   mainMotors: string[] = ['Working', 'Not Working'];
   vBreaks: string[] = ['Working', 'Not Working'];
@@ -50,59 +67,83 @@ export class CreateLocomotiveComponent implements OnInit {
   val2: string[] = [];
   private val1: string[] = [];
   text: string = '';
-  preview = ''
+  preview = '';
   imagePreview: string;
-  constructor( private cd: ChangeDetectorRef, private router: Router,
-    private formBuilder: FormBuilder, private imageService: ImageService,
-     private accessService: AccessService, private _location: Location,
-    private locomotiveService: LocomotiveService, private toastr: ToastrService) { }
+  constructor(
+    private cd: ChangeDetectorRef,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private imageService: ImageService,
+    private accessService: AccessService,
+    private _location: Location,
+    public translate: TranslateService,
+    private locomotiveService: LocomotiveService,
+    private toastr: ToastrService
+  ) {
+    translate.addLangs(['en', 'nl']);
+    translate.setDefaultLang('en');
+  }
 
   ngOnInit(): void {
     this.LocoGroup = this.formBuilder.group({
       locoCatId: ['', [Validators.required]],
       locoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      locoPower: ['', [Validators.required, Validators.minLength(4),  Validators.pattern('^[0-9]*$')]],
-      locoMileage: ['', [Validators.required, Validators.minLength(4),  Validators.pattern('^[0-9]*$')]],
+      locoPower: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      locoMileage: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
       locoDate: ['', [Validators.required]],
       userNic: ['', [Validators.required]],
       supervisorName: ['', [Validators.required]],
       supervisorEmail: ['', [Validators.required]],
       locoAvailability: ['', [Validators.required]],
-      locoMotors: new FormArray ([]),
+      locoMotors: new FormArray([]),
       locoBreaks: new FormArray([]),
       locoFluids: new FormArray([]),
       locoNote: [''],
       image: [''],
       locoStatus: [0],
-      statusReason:['In Operating'],
+      statusReason: ['In Operating'],
       lastLoadDate: [''],
       endMileage: [''],
       endMileDate: [''],
       mtrType: ['', Validators.required],
       brkType: ['', Validators.required],
-      fldType: ['', Validators.required]
+      fldType: ['', Validators.required],
     });
     this.loadAllIds();
-
   }
-  get getFm(){
+  get getFm() {
     return this.LocoGroup.controls;
   }
-  get mtrArray(){
+  get mtrArray() {
     return this.getFm.locoMotors as FormArray;
   }
-  get brkArray(){
+  get brkArray() {
     return this.getFm.locoBreaks as FormArray;
   }
-  get fluidArray(){
+  get fluidArray() {
     return this.getFm.locoFluids as FormArray;
   }
-
-   backClicked() {
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
+  backClicked() {
     this._location.back();
   }
   uploadFile(event) {
-
     const fileEvnet = event.target.files[0];
     const uploadData = new FormData();
     // uploadData.append('file', fileItem);
@@ -112,102 +153,102 @@ export class CreateLocomotiveComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         // this.imagePreview = reader.result;
-        this.imagePreview = reader.result as string
-        console.log(file.name)
+        this.imagePreview = reader.result as string;
+        console.log(file.name);
         this.LocoGroup.patchValue({
-          image: reader.result
+          image: reader.result,
         });
-
-      }
+      };
       this.cd.markForCheck();
     }
   }
 
-
   onSubmit() {
-      console.log(this.LocoGroup.controls.image.value);
-      this.spinner = true;
-      let obj = {
-        locoCatId: this.LocoGroup.controls.locoCatId.value,
-        locoNumber : this.LocoGroup.controls.locoNumber.value,
-        locoPower : this.LocoGroup.controls.locoPower.value,
-        locoMileage : this.LocoGroup.controls.locoMileage.value,
-        locoDate : this.LocoGroup.controls.locoDate.value,
-        userNic : this.LocoGroup.controls.userNic.value,
-        supervisorName: this.LocoGroup.controls.supervisorName.value,
-        supervisorEmail : this.LocoGroup.controls.supervisorEmail.value,
-        locoAvailability : this.LocoGroup.controls.locoAvailability.value,
-        locoMotors : this.LocoGroup.controls.locoMotors.value,
-        locoBreaks : this.LocoGroup.controls.locoBreaks.value,
-        locoFluids : this.LocoGroup.controls.locoFluids.value,
-        image : this.LocoGroup.controls.image.value,
-        locoNote : this.LocoGroup.controls.locoNote.value,
-        locoStatus: this.LocoGroup.controls.locoStatus.value,
-        statusReason: this.LocoGroup.controls.statusReason.value,
-        lastLoadDate: this.LocoGroup.controls.lastLoadDate.value,
-        endMileage: this.LocoGroup.controls.endMileage.value,
-        endMileDate: this.LocoGroup.controls.endMileDate.value,
-      }
-      if(obj == null && obj == undefined){
-        console.log(error)
-      }else{
-        this.locomotiveService.saveLocomotive(obj)
-        .pipe(first()).subscribe(
-        res => {
-          console.log(res)
-          if (res.isSaved) {
-            swal({
-              title: 'Record Saved!',
-              icon: 'success',
-            });
-            setTimeout(() => {
-              this.LocoGroup.reset();
-              this.router.navigate(['/adminDashboard/viewLocomotives']);
-            this.spinner = false
-            }, 3000);
-
-          } else {
-            swal({
-              title: 'Record already Exits',
-              icon: 'error',
-            });
-            setTimeout(() => {
-              this.spinner = false
-            }, 3000);
+    console.log(this.LocoGroup.controls.image.value);
+    this.spinner = true;
+    let obj = {
+      locoCatId: this.LocoGroup.controls.locoCatId.value,
+      locoNumber: this.LocoGroup.controls.locoNumber.value,
+      locoPower: this.LocoGroup.controls.locoPower.value,
+      locoMileage: this.LocoGroup.controls.locoMileage.value,
+      locoDate: this.LocoGroup.controls.locoDate.value,
+      userNic: this.LocoGroup.controls.userNic.value,
+      supervisorName: this.LocoGroup.controls.supervisorName.value,
+      supervisorEmail: this.LocoGroup.controls.supervisorEmail.value,
+      locoAvailability: this.LocoGroup.controls.locoAvailability.value,
+      locoMotors: this.LocoGroup.controls.locoMotors.value,
+      locoBreaks: this.LocoGroup.controls.locoBreaks.value,
+      locoFluids: this.LocoGroup.controls.locoFluids.value,
+      image: this.LocoGroup.controls.image.value,
+      locoNote: this.LocoGroup.controls.locoNote.value,
+      locoStatus: this.LocoGroup.controls.locoStatus.value,
+      statusReason: this.LocoGroup.controls.statusReason.value,
+      lastLoadDate: this.LocoGroup.controls.lastLoadDate.value,
+      endMileage: this.LocoGroup.controls.endMileage.value,
+      endMileDate: this.LocoGroup.controls.endMileDate.value,
+    };
+    if (obj == null && obj == undefined) {
+      console.log(error);
+    } else {
+      this.locomotiveService
+        .saveLocomotive(obj)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+              swal({
+                title: 'Record Saved!',
+                icon: 'success',
+              });
+              setTimeout(() => {
+                this.LocoGroup.reset();
+                this.router.navigate(['/adminDashboard/viewLocomotives']);
+                this.spinner = false;
+              }, 3000);
+            } else {
+              swal({
+                title: 'Record already Exits',
+                icon: 'error',
+              });
+              setTimeout(() => {
+                this.spinner = false;
+              }, 3000);
+            }
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            console.log('dss');
           }
-        },
-        error => {
-          console.log(error)
-        },
-        () => {
-          console.log('dss')
-        }
-      )
+        );
     }
   }
   onClickMotor() {
-    if (this.getFm.mtrType.value !== ''){
-      const _findDupli = this.getFm.locoMotors.value.find(f=>f.Name==this.getFm.mtrType.value);
-        if(!_findDupli){
-            this.mtrArray.push(this.formBuilder.group({
-              Name: [this.getFm.mtrType.value, Validators.required],
-              working: [''],
-              //notWorking: [false],
-        }
-      ));
-    }else {
+    if (this.getFm.mtrType.value !== '') {
+      const _findDupli = this.getFm.locoMotors.value.find(
+        (f) => f.Name == this.getFm.mtrType.value
+      );
+      if (!_findDupli) {
+        this.mtrArray.push(
+          this.formBuilder.group({
+            Name: [this.getFm.mtrType.value, Validators.required],
+            working: [''],
+            //notWorking: [false],
+          })
+        );
+      } else {
         swal({
           title: 'Value already Exits',
           icon: 'error',
         });
       }
     }
-
   }
 
   onClickremoveField(index = null, value) {
-
-    switch(value) {
+    switch (value) {
       case 'main':
         while (this.mtrArray.length !== 0) {
           this.mtrArray.removeAt(0);
@@ -220,7 +261,6 @@ export class CreateLocomotiveComponent implements OnInit {
   }
 
   onClickremoveBreakField(index = null, value) {
-
     switch (value) {
       case 'main':
         while (this.brkArray.length !== 0) {
@@ -234,7 +274,6 @@ export class CreateLocomotiveComponent implements OnInit {
   }
 
   onClickremoveFluidField(index = null, value) {
-
     switch (value) {
       case 'main':
         while (this.fluidArray.length !== 0) {
@@ -248,16 +287,19 @@ export class CreateLocomotiveComponent implements OnInit {
   }
 
   onClickBreaks() {
-    if (this.getFm.brkType.value !== ''){
-      const _findDupli = this.getFm.locoBreaks.value.find(f=>f.bName==this.getFm.brkType.value);
+    if (this.getFm.brkType.value !== '') {
+      const _findDupli = this.getFm.locoBreaks.value.find(
+        (f) => f.bName == this.getFm.brkType.value
+      );
 
-      if(!_findDupli){
-        this.brkArray.push(this.formBuilder.group({
-          bName: [this.getFm.brkType.value],
-          working: [''],
-
-        }));
-      }else {
+      if (!_findDupli) {
+        this.brkArray.push(
+          this.formBuilder.group({
+            bName: [this.getFm.brkType.value],
+            working: [''],
+          })
+        );
+      } else {
         swal({
           title: 'Value already Exits',
           icon: 'error',
@@ -266,35 +308,35 @@ export class CreateLocomotiveComponent implements OnInit {
     }
   }
 
-  onClickFluids(){
-    if (this.getFm.fldType.value !== ''){
-      const _findDupli = this.getFm.locoFluids.value.find(f=>f.fName==this.getFm.fldType.value);
+  onClickFluids() {
+    if (this.getFm.fldType.value !== '') {
+      const _findDupli = this.getFm.locoFluids.value.find(
+        (f) => f.fName == this.getFm.fldType.value
+      );
 
-      if(!_findDupli){
-        this.fluidArray.push(this.formBuilder.group({
-          fName: [this.getFm.fldType.value],
-          fluids: [''],
-
-        }));
-      }else {
+      if (!_findDupli) {
+        this.fluidArray.push(
+          this.formBuilder.group({
+            fName: [this.getFm.fldType.value],
+            fluids: [''],
+          })
+        );
+      } else {
         swal({
           title: 'Value already Exits',
           icon: 'error',
         });
       }
     }
-
-
   }
 
   private loadAllIds() {
     this.loading = true;
-    this.accessService.getAllUsers().subscribe(result => {
+    this.accessService.getAllUsers().subscribe((result) => {
       this.userList = result;
       this.loading = true;
     });
   }
-
 
   public nextStep() {
     this.selectedIndex += 1;
@@ -316,9 +358,15 @@ export class CreateLocomotiveComponent implements OnInit {
       for (const file of files) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-            if (Number(e.total) > 2e+6) {
-              alert('Please make sure that you entered image size is less than 2MB');
+          if (
+            file.type === 'image/jpeg' ||
+            file.type === 'image/jpg' ||
+            file.type === 'image/png'
+          ) {
+            if (Number(e.total) > 2e6) {
+              alert(
+                'Please make sure that you entered image size is less than 2MB'
+              );
               this.filesToUpload = [];
               return;
             } else {
@@ -329,8 +377,6 @@ export class CreateLocomotiveComponent implements OnInit {
             this.filesToUpload = [];
             return;
           }
-
-
         };
         reader.readAsDataURL(file);
       }
@@ -342,7 +388,7 @@ export class CreateLocomotiveComponent implements OnInit {
     this.searchKey = '';
     //this.applyFilter();
   }
-   onSearchClear1() {
+  onSearchClear1() {
     this.searchKey1 = '';
     //this.applyFilter();
   }
@@ -351,22 +397,20 @@ export class CreateLocomotiveComponent implements OnInit {
     //this.applyFilter();
   }
 
-  onChangeSelect(value: string){
-   const userNic = value ;
+  onChangeSelect(value: string) {
+    const userNic = value;
     console.log(this.getFm.supervisorName.value);
-    this.accessService.getOneSup(this.getFm.supervisorName.value).pipe(first())
-      .subscribe(
-        res=>{
-          this.LocoGroup.controls['supervisorEmail'].setValue(res[0].userEmail);
-          this.LocoGroup.controls['userNic'].setValue(res[0].userNic);
-          console.log(res);
-        }
-      )
+    this.accessService
+      .getOneSup(this.getFm.supervisorName.value)
+      .pipe(first())
+      .subscribe((res) => {
+        this.LocoGroup.controls['supervisorEmail'].setValue(res[0].userEmail);
+        this.LocoGroup.controls['userNic'].setValue(res[0].userNic);
+        console.log(res);
+      });
   }
 
-
-
   onkeyUp(event: any) {
-    this.val =  event.target.value;
+    this.val = event.target.value;
   }
 }

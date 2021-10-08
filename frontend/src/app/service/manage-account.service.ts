@@ -1,34 +1,42 @@
 import { Injectable } from '@angular/core';
-import {CookieService} from "ngx-cookie";
+import { CookieService } from 'ngx-cookie';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ManageAccountService {
+  constructor(private cookieService: CookieService) {}
 
-  constructor(private cookieService: CookieService) { }
-
-  public canActive():boolean{
+  public canActive(): boolean {
     const temp = this.cookieService.get('userData');
-    if (temp !== undefined){
+    if (temp !== undefined) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
-  public canActiveAdmin(): boolean{
+  public canActiveAdmin(): boolean {
     const temp = this.cookieService.get('adminData');
-    if (temp !== undefined){
-      return true
-    }else {
-      return false
+    if (temp !== undefined) {
+      return true;
+    } else {
+      return false;
     }
   }
-  public canActiveClerk(): boolean{
+  public canActiveClerk(): boolean {
     const temp = this.cookieService.get('clerkData');
-    if (temp !== undefined){
+    if (temp !== undefined) {
       return true;
-    }else {
+    } else {
+      return false;
+    }
+  }
+
+  public canActiveDriver(): boolean {
+    const temp = this.cookieService.get('driverData');
+    if (temp !== undefined) {
+      return true;
+    } else {
       return false;
     }
   }

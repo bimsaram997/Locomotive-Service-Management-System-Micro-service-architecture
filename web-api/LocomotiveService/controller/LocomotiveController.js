@@ -96,7 +96,7 @@ const updateLocomotive = async(req, resp) => {
 
 const getAllLocoAssigned = async(req, resp) => {
     // console.log(req.query)
-    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk') {
+    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk' || req.query.userRole == 'Locomotive Driver') {
         await LocomotiveSchema.find().then(result => {
             resp.status(200).json(result);
 

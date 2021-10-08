@@ -1,3 +1,5 @@
+import { ViewDriverLocoProfileComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco-profile/view-driver-loco-profile.component';
+import { ViewDriverLocoComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco/view-driver-loco.component';
 import { LocoDriverDashboardComponent } from './LocoDriverDashBoard/loco-driver-dashboard/loco-driver-dashboard.component';
 import { AdminViewUsersComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-users.component';
 import { ClerkViewOneMileageComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/ViewMileage/clerk-view-one-mileage/clerk-view-one-mileage.component';
@@ -63,6 +65,7 @@ import { AdminProfileComponent } from './AdminDashBoard/admin-dash-board/sub-com
 import { ClerkLocoProfileComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/clerk-view-locomotives/clerk-loco-profile/clerk-loco-profile.component';
 import { MAnagerLocoProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/Locomotives/m-view-locomotive/manager-loco-profile/manager-loco-profile.component';
 import { AdminViewMoreUserComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/admin-view-more-user/admin-view-more-user.component';
+import { DriverGuard } from './driver.guard';
 
 const routes: Routes = [
   { path: '', component: LoginAndSignupComponent },
@@ -175,8 +178,15 @@ const routes: Routes = [
 
   {
     path: 'locoDriverDashBoard',
+    canActivate: [DriverGuard],
     component: LocoDriverDashboardComponent,
-    children: [],
+    children: [
+      { path: 'viewLocoDriver', component: ViewDriverLocoComponent },
+      {
+        path: 'viewLocoDriverProfile/:id',
+        component: ViewDriverLocoProfileComponent,
+      },
+    ],
   },
 ];
 

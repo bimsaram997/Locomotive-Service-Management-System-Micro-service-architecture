@@ -6,11 +6,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AdminDashBoardComponent } from './AdminDashBoard/admin-dash-board/admin-dash-board.component';
-import {MaterialModule} from './material/material.module';
+import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './AdminDashBoard/navigation/header/header.component';
 import { SidenavListComponent } from './AdminDashBoard/navigation/sidenav-list/sidenav-list.component';
 import { LoginAndSignupComponent } from './root/login-and-signup/login-and-signup.component';
-import {CreateCustomerComponent} from './AdminDashBoard/admin-dash-board/sub-components/create-customer/create-customer.component';
+import { CreateCustomerComponent } from './AdminDashBoard/admin-dash-board/sub-components/create-customer/create-customer.component';
 import { UpdateCustomerComponent } from './AdminDashBoard/admin-dash-board/sub-components/update-customer/update-customer.component';
 import { ModelComponent } from './AdminDashBoard/admin-dash-board/sub-components/create-customer/model/model.component';
 import { CreateLocomotiveComponent } from './AdminDashBoard/admin-dash-board/sub-components/Locomotives/create-locomotive/create-locomotive.component';
@@ -23,7 +23,7 @@ import { CreateScheduleComponent } from './UserDashBoard/user-dashboard/SubCompo
 import { ViewSchedulesComponent } from './UserDashBoard/user-dashboard/SubComponents/Schedules/view-schedules/view-schedules.component';
 import { AdminViewScehdulesComponent } from './AdminDashBoard/admin-dash-board/sub-components/Schedules/admin-view-scehdules/admin-view-scehdules.component';
 import { UserViewLocomotivesComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/user-view-locomotives.component';
-import {MatTableExporterModule} from "mat-table-exporter";
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 import { UserDashContentComponent } from './UserDashBoard/user-dashboard/SubComponents/user-dash-content/user-dash-content.component';
 import { AdminDashContentComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-dash-content/admin-dash-content.component';
@@ -46,10 +46,13 @@ import { CommonHeaderComponent } from './Common/common-header/common-header.comp
 import { UserProfileComponent } from './UserDashBoard/user-dashboard/SubComponents/UserProfile/user-profile/user-profile.component';
 import { ViewLocoComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-loco.component';
 import { EditLocoComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/edit-loco/edit-loco.component';
-import {EventEmitterService} from './service/event-emitter.service';
+import { EventEmitterService } from './service/event-emitter.service';
 import { ForgotPasswordComponent } from './Common/forgot-password/forgot-password.component';
-import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
-import {ReactiveFormsModule} from "@angular/forms";
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+} from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/ResetPassword/reset-password/reset-password.component';
 import { AdminEditLocomotiveComponent } from './AdminDashBoard/admin-dash-board/sub-components/Locomotives/view-locomotives/admin-edit-locomotive/admin-edit-locomotive.component';
 import { ViewImageComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-image/view-image.component';
@@ -127,11 +130,12 @@ import { ViewAssigedMileagesComponent } from './AdminDashBoard/admin-dash-board/
 import { ViewIssuedLoadTrialsComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-view-users/ViewItems/view-issued-load-trials/view-issued-load-trials.component';
 import { LocoDriverDashboardComponent } from './LocoDriverDashBoard/loco-driver-dashboard/loco-driver-dashboard.component';
 import { LocoDriverHeaderComponent } from './LocoDriverDashBoard/navigation/loco-driver-header/loco-driver-header.component';
-FullCalendarModule.registerPlugins([
-  interactionPlugin,
-  dayGridPlugin
-]);
-
+import { ViewDriverLocoComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco/view-driver-loco.component';
+import { ViewDriverLocoProfileComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco-profile/view-driver-loco-profile.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 @NgModule({
   declarations: [
@@ -288,21 +292,9 @@ FullCalendarModule.registerPlugins([
 
     LocoDriverHeaderComponent,
 
+    ViewDriverLocoComponent,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ViewDriverLocoProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -317,13 +309,35 @@ FullCalendarModule.registerPlugins([
     LayoutModule,
     FullCalendarModule,
     ChartsModule,
-    PdfViewerModule
-
-
+    PdfViewerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [EventEmitterService,  ],
+  providers: [EventEmitterService],
   bootstrap: [AppComponent],
-  entryComponents: [ModelComponent, ViewHistoryLocoComponent, AddFeedBacksComponent, ViewProgressComponent,ViewFeedBacksComponent, ViewMoreProgressComponent, EditLocoComponent, ViewImageComponent, ConfirmDialogComponent, RejectDialogComponent,
-  SendProgressComponent, UpdateFinalMileageComponent,ViewNextSchedulesComponent, AddCommentLoadComponent]
+  entryComponents: [
+    ModelComponent,
+    ViewHistoryLocoComponent,
+    AddFeedBacksComponent,
+    ViewProgressComponent,
+    ViewFeedBacksComponent,
+    ViewMoreProgressComponent,
+    EditLocoComponent,
+    ViewImageComponent,
+    ConfirmDialogComponent,
+    RejectDialogComponent,
+    SendProgressComponent,
+    UpdateFinalMileageComponent,
+    ViewNextSchedulesComponent,
+    AddCommentLoadComponent,
+  ],
 })
-export class AppModule { }
+export class AppModule {}
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

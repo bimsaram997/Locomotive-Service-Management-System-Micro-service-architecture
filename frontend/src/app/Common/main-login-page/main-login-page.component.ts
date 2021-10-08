@@ -72,7 +72,9 @@ export class MainLoginPageComponent implements OnInit {
               this.router.navigate(['managerDashBoard/mDashContent']).then();
             } else if (result.userRole === Role.LocoDriver) {
               this.cookieService.putObject('driverData', this.loginEmail);
-              this.router.navigate(['locoDriverDashBoard']).then();
+              this.router
+                .navigate(['locoDriverDashBoard/viewLocoDriver'])
+                .then();
             }
           } else {
             swal({
@@ -118,7 +120,7 @@ export class MainLoginPageComponent implements OnInit {
   private isLoggedDriver() {
     const temp = this.cookieService.get('driverData');
     if (temp !== undefined) {
-      this.router.navigate(['locoDriverDashBoard']).then();
+      this.router.navigate(['locoDriverDashBoard/viewLocoDriver']).then();
     } else {
     }
   }
