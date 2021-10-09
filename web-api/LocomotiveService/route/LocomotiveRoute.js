@@ -29,6 +29,8 @@ router.get('/getOneMileage/:mReportNumber', LocomotiveController.getOneMileage);
 router.get('/getOneMileageById/:id', LocomotiveController.getOneMileageById);
 router.post('/sendMileEmail', LocomotiveController.sendMileEmail);
 router.post('/sendLocoEmail', LocomotiveController.sendLocoEmail);
+router.post('/sendAcceptedEmail', LocomotiveController.sendAcceptedEmail);
+router.post('/sendRejectedEmail', LocomotiveController.sendRejectedEmail);
 
 router.patch('/patch-mile/:id', LocomotiveController.patchMileController);
 router.patch('/reject-mile/:id/:reason', LocomotiveController.rejectMileController);

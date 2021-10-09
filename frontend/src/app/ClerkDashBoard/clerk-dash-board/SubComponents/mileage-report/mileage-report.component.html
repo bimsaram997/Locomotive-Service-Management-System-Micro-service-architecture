@@ -1,14 +1,16 @@
 <div class="container-fluid">
-    <br>
+    <br />
     <div class="box-head">
-        <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px;">
-        <span class="heading-txt"><span style="color: #1e8bc3;">A</span>DD MILEAGE REPORT</span>
+        <img src="./assets/images/m9.png" alt="" style="height: 45px; width: 45px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">A</span>DD MILEAGE REPORT</span>
         <div class="back">
-            <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+            <button mat-raised-button (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i>&nbsp; Back
+      </button>
         </div>
     </div>
-    <hr>
-    <br>
+    <hr />
+    <br />
 
     <div class="example-container">
         <form [formGroup]="MileageGroup" (ngSubmit)="onSubmit()">
@@ -18,8 +20,12 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label class="Report Number">Report Number</mat-label>
-                            <input disabled class="label-txt" required maxlength="5" minlength="3" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber">
-                            <div *ngIf="MileageGroup.controls['mReportNumber'].invalid && (MileageGroup.controls['mReportNumber'].dirty || MileageGroup.controls['mReportNumber'].touched)" class="error">
+                            <input disabled class="label-txt" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber" />
+                            <div *ngIf="
+                  MileageGroup.controls['mReportNumber'].invalid &&
+                  (MileageGroup.controls['mReportNumber'].dirty ||
+                    MileageGroup.controls['mReportNumber'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['mReportNumber'].errors.required">
                                     Required.
                                 </div>
@@ -30,97 +36,115 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Emergency Schedule?</mat-label>
                             <mat-select formControlName="emergencyCheck" required (selectionChange)="onChangeEmergency($event)">
-                                <mat-option value="Yes">
-                                    Yes
-                                </mat-option>
-                                <mat-option value="No">
-                                    No
-                                </mat-option>
+                                <mat-option value="Yes"> Yes </mat-option>
+                                <mat-option value="No"> No </mat-option>
                             </mat-select>
-
                         </mat-form-field>
                     </div>
                     <div class="col">
-                        <button mat-raised-button class="btn-nxt" *ngIf="!isEmergency" type="button" (click)="viewNextSchedules()">View Next Schedules</button>
+                        <button mat-raised-button class="btn-nxt" *ngIf="!isEmergency" type="button" (click)="viewNextSchedules()">
+              View Next Schedules
+            </button>
                         <mat-form-field appearance="fill" *ngIf="isEmergency">
                             <mat-label>next Schedule Id</mat-label>
                             <mat-select formControlName="nxtScheduleId" (selectionChange)="sendOneNextSchedule($event)">
-                                <mat-option *ngFor="let temIds of nxtScheduleList" value="{{temIds.nxtSchId}}">
-                                    {{temIds.nxtSchId}}
+                                <mat-option *ngFor="let temIds of nxtScheduleList" value="{{ temIds.nxtSchId }}">
+                                    <!-- {{ temIds.nxtSchId + " " + temIds.locoCatId + " " + temIds.locoNumber }} -->
+                                    <span><span style="font-weight: bold"
+                      >{{ temIds.nxtSchId + " " }}
+                      <span style="font-weight: lighter; color: blue">{{
+                        temIds.locoCatId + " " + temIds.locoNumber + " "
+                      }}</span>
+                                    <span style="font-size: 10px; color: green">{{
+                        temIds.date | date
+                      }}</span></span>
+                                    </span>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <br>
-                        <mat-hint style="color: red; font-size: 12px;" *ngIf="isEmpty && isEmergency"><b>*There are not available schedules</b></mat-hint>
+                        <br />
+                        <mat-hint style="color: red; font-size: 12px" *ngIf="isEmpty && isEmergency"><b>*There are not available schedules</b></mat-hint>
                     </div>
-                    <div class="w-100">
-                    </div>
+                    <div class="w-100"></div>
 
                     <div class="col pr-0">
                         <mat-form-field appearance="fill" *ngIf="isEmergency">
                             <mat-label>Locomotive Numbers</mat-label>
-                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl1" formControlName="mLocoNumber" [matAutocomplete]="auto1" [readonly]="isEmergency">
+                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl1" formControlName="mLocoNumber" [matAutocomplete]="auto1" [readonly]="isEmergency" />
                         </mat-form-field>
                         <mat-form-field appearance="fill" *ngIf="isLoco">
                             <mat-label>Locomotive Numbers</mat-label>
                             <mat-select formControlName="mLocoNumber" required (selectionChange)="onChangeSelect($event)">
-                                <mat-option *ngFor="let temIds of locoList" value="{{temIds.locoNumber}}">
-                                    {{temIds.locoNumber}}
+                                <mat-option *ngFor="let temIds of locoList" value="{{ temIds.locoNumber }}">
+                                    {{ temIds.locoNumber }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-hint style="color: red; font-size: 12px;" *ngIf="locoCount"><b>*There are not available Locomotives</b></mat-hint>
+                        <mat-hint style="color: red; font-size: 12px" *ngIf="locoCount"><b>*There are not available Locomotives</b></mat-hint>
                     </div>
-
 
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Category</mat-label>
-                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto2" [readonly]="isEmergency">
-                            <div *ngIf="MileageGroup.controls['mLocoCatId'].invalid && (MileageGroup.controls['mLocoCatId'].dirty || MileageGroup.controls['mLocoCatId'].touched)" class="error">
+                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto2" [readonly]="isEmergency" />
+                            <div *ngIf="
+                  MileageGroup.controls['mLocoCatId'].invalid &&
+                  (MileageGroup.controls['mLocoCatId'].dirty ||
+                    MileageGroup.controls['mLocoCatId'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['mLocoCatId'].errors.required">
                                     Required.
                                 </div>
                             </div>
                             <mat-autocomplete #auto2="matAutocomplete">
-                                <mat-option *ngFor="let option of options " [value]="option">
-                                    {{option}}
+                                <mat-option *ngFor="let option of options" [value]="option">
+                                    {{ option }}
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>
-
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Mileage (Km)</mat-label>
-                            <input class="label-txt" minlength="4" required matInput placeholder="E.g: 14000Km" #searchInput formControlName="mLocoMileage">
-                            <div *ngIf="MileageGroup.controls['mLocoMileage'].invalid && (MileageGroup.controls['mLocoMileage'].dirty || MileageGroup.controls['mLocoMileage'].touched)" class="error">
+                            <input class="label-txt" minlength="4" required matInput placeholder="E.g: 14000Km" #searchInput formControlName="mLocoMileage" readonly />
+                            <div *ngIf="
+                  MileageGroup.controls['mLocoMileage'].invalid &&
+                  (MileageGroup.controls['mLocoMileage'].dirty ||
+                    MileageGroup.controls['mLocoMileage'].touched)
+                " class="error">
+                                <div *ngIf="getFM.mLocoMileage.errors?.minlength" class="error">
+                                    Mileage must be at least 5 characters long.
+                                </div>
                                 <div *ngIf="MileageGroup.controls['mLocoMileage'].errors.required">
                                     Mileage is Required.
                                 </div>
-
+                                <div *ngIf="MileageGroup.controls['mLocoMileage'].errors.pattern" class="error">
+                                    Number is required.
+                                </div>
                             </div>
                         </mat-form-field>
                     </div>
-                    <div class="w-100">
-                    </div>
+                    <div class="w-100"></div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Mileage After last Load Trial (Km)</mat-label>
-                            <input class="label-txt" class="label-txt" matInput formControlName="finalMileage" readonly>
+                            <input class="label-txt" class="label-txt" matInput formControlName="finalMileage" />
                         </mat-form-field>
                     </div>
-
 
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Status</mat-label>
                             <mat-select name="food" formControlName="locoStatus">
                                 <mat-option *ngFor="let status of locoStatus" [value]="status">
-                                    {{status}}
+                                    {{ status }}
                                 </mat-option>
                             </mat-select>
-                            <div *ngIf="MileageGroup.controls['locoStatus'].invalid && (MileageGroup.controls['locoStatus'].dirty || MileageGroup.controls['locoStatus'].touched)" class="error">
+                            <div *ngIf="
+                  MileageGroup.controls['locoStatus'].invalid &&
+                  (MileageGroup.controls['locoStatus'].dirty ||
+                    MileageGroup.controls['locoStatus'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['locoStatus'].errors.required">
                                     Locomotive Status is Required.
                                 </div>
@@ -130,10 +154,14 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input class="label-txt" matInput [matDatepicker]="picker" formControlName="mileageDate">
+                            <input class="label-txt" matInput [matDatepicker]="picker" formControlName="mileageDate" />
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
-                            <div *ngIf="MileageGroup.controls['mileageDate'].invalid && (MileageGroup.controls['mileageDate'].dirty || MileageGroup.controls['mileageDate'].touched)" class="error">
+                            <div *ngIf="
+                  MileageGroup.controls['mileageDate'].invalid &&
+                  (MileageGroup.controls['mileageDate'].dirty ||
+                    MileageGroup.controls['mileageDate'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['mileageDate'].errors.required">
                                     Date is Required.
                                 </div>
@@ -143,18 +171,22 @@
 
                     <div class="w-100">
                         <h3 class="sub-headers">Responsible</h3>
-                        <hr class="line">
-                        <br>
+                        <hr class="line" />
+                        <br />
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Service Manger Name</mat-label>
                             <mat-select formControlName="managerName" required (selectionChange)="onChangeSelectMan($event)">
-                                <mat-option *ngFor="let temIds of managerList" value="{{temIds.userName}}">
-                                    {{temIds.userName}}
+                                <mat-option *ngFor="let temIds of managerList" value="{{ temIds.userName }}">
+                                    {{ temIds.userName }}
                                 </mat-option>
                             </mat-select>
-                            <div *ngIf="MileageGroup.controls['managerName'].invalid && (MileageGroup.controls['managerName'].dirty || MileageGroup.controls['managerName'].touched)" class="error">
+                            <div *ngIf="
+                  MileageGroup.controls['managerName'].invalid &&
+                  (MileageGroup.controls['managerName'].dirty ||
+                    MileageGroup.controls['managerName'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['managerName'].errors.required">
                                     Manager Email is Required.
                                 </div>
@@ -165,11 +197,15 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Service Manger NIC</mat-label>
                             <mat-select formControlName="managerNic" required>
-                                <mat-option *ngFor="let temIds of managerList" value="{{temIds.userNic}}">
-                                    {{temIds.userNic}}
+                                <mat-option *ngFor="let temIds of managerList" value="{{ temIds.userNic }}">
+                                    {{ temIds.userNic }}
                                 </mat-option>
                             </mat-select>
-                            <div *ngIf="MileageGroup.controls['managerNic'].invalid && (MileageGroup.controls['managerNic'].dirty || MileageGroup.controls['managerNic'].touched)" class="error">
+                            <div *ngIf="
+                  MileageGroup.controls['managerNic'].invalid &&
+                  (MileageGroup.controls['managerNic'].dirty ||
+                    MileageGroup.controls['managerNic'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['managerNic'].errors.required">
                                     Manager Nic is Required.
                                 </div>
@@ -180,7 +216,11 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Note</mat-label>
                             <textarea class="label-txt" matInput formControlName="mileageNote"></textarea>
-                            <div *ngIf="MileageGroup.controls['mileageNote'].invalid && (MileageGroup.controls['mileageNote'].dirty || MileageGroup.controls['mileageNote'].touched)" class="error">
+                            <div *ngIf="
+                  MileageGroup.controls['mileageNote'].invalid &&
+                  (MileageGroup.controls['mileageNote'].dirty ||
+                    MileageGroup.controls['mileageNote'].touched)
+                " class="error">
                                 <div *ngIf="MileageGroup.controls['mileageNote'].errors.required">
                                     Note is required
                                 </div>
@@ -190,12 +230,12 @@
                 </div>
 
                 <div class="box-head">
-                    <button mat-raised-button color="primary" type="submit">Submit</button>
+                    <button mat-raised-button color="primary" type="submit">
+            Submit
+          </button>
                     <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner>
                 </div>
             </mat-card>
         </form>
     </div>
-
-
 </div>

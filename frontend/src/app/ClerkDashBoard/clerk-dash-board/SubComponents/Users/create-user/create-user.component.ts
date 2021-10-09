@@ -108,13 +108,19 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.UserGroup = this.formBuilder.group({
-      userEmail: [''],
+      userEmail: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+        ],
+      ],
       userName: [''],
       userGender: [''],
       appointmentDate: [''],
       address: [''],
       userWorks: [''],
-      userNic: [''],
+      userNic: ['', [Validators.required, Validators.minLength(5)]],
       userMobile: [
         '',
         [Validators.required, Validators.pattern('^((\\+94-?)|0)?[0-9]{10}$')],
@@ -123,6 +129,10 @@ export class CreateUserComponent implements OnInit {
       userPassword: [''],
       image: [''],
     });
+  }
+
+  get userNics() {
+    return this.UserGroup.get('userNic');
   }
   private loadAllCustomers() {
     this.loading = true;

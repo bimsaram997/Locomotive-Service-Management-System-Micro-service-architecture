@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>
-    {{title}}
+<h1 mat-dialog-title class="title">
+    {{ title }}
 </h1>
 
 <div mat-dialog-content>
-    <p>{{message}}</p>
+    <p>{{ message }}</p>
     <mat-form-field appearance="fill" style="width: 300px">
-        <mat-label>Input</mat-label>
-        <input matInput [(ngModel)]="reason" required>
+        <mat-label>Reason</mat-label>
+        <input class="label-txt" matInput [(ngModel)]="reason" required />
     </mat-form-field>
 </div>
 

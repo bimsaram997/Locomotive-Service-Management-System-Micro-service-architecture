@@ -1,14 +1,16 @@
 <div class="container-fluid">
-    <br>
+    <br />
     <div class="box-head">
-        <img src="./assets/images/sup.png" alt="" style="height: 45px; width: 45px;">
-        <span class="heading-txt"><span style="color: #1e8bc3;">A</span>DD USERS</span>
+        <img src="./assets/images/sup.png" alt="" style="height: 45px; width: 45px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">A</span>DD USERS</span>
         <div class="back">
-            <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+            <button mat-raised-button (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i>&nbsp; Back
+      </button>
         </div>
     </div>
-    <hr>
-    <br>
+    <hr />
+    <br />
     <div class="example-container">
         <form [formGroup]="UserGroup" (ngSubmit)="onSubmit()">
             <mat-card class="card1">
@@ -17,13 +19,13 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Full Name</mat-label>
-                            <input class="label-txt" required matInput formControlName="userName">
+                            <input class="label-txt" required matInput formControlName="userName" />
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Email</mat-label>
-                            <input class="label-txt" required matInput formControlName="userEmail">
+                            <input class="label-txt" required matInput formControlName="userEmail" />
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
@@ -36,19 +38,25 @@
                         </mat-form-field>
                     </div>
 
-                    <div class="w-100">
-                    </div>
+                    <div class="w-100"></div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>NIC</mat-label>
-                            <input maxlength="10" minlength="10" required class="label-txt" matInput formControlName="userNic">
+                            <input maxlength="10" minlength="10" required class="label-txt" matInput formControlName="userNic" />
+                            <div *ngIf="userNics.errors?.minlength" class="error">
+                                NIC must be at least 10 characters long.
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Mobile Number</mat-label>
-                            <input maxlength="10" minlength="10" mask='(000) 000-0000' required class="label-txt" matInput formControlName="userMobile">
-                            <div *ngIf="UserGroup.controls['userMobile'].invalid && (UserGroup.controls['userMobile'].dirty || UserGroup.controls['userMobile'].touched)" class="error">
+                            <input maxlength="10" minlength="10" mask="(000) 000-0000" required class="label-txt" matInput formControlName="userMobile" />
+                            <div *ngIf="
+                  UserGroup.controls['userMobile'].invalid &&
+                  (UserGroup.controls['userMobile'].dirty ||
+                    UserGroup.controls['userMobile'].touched)
+                " class="error">
                                 <div *ngIf="UserGroup.controls['userMobile'].errors.required" class="error">
                                     Mobile Number is required.
                                 </div>
@@ -61,25 +69,25 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Address</mat-label>
-                            <input required class="label-txt" matInput formControlName="address">
+                            <input required class="label-txt" matInput formControlName="address" />
                         </mat-form-field>
                     </div>
 
-                    <div class="w-100">
-                    </div>
+                    <div class="w-100"></div>
 
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Role</mat-label>
                             <mat-select required formControlName="userRole">
-                                <mat-option *ngFor="let role of userRoles" [value]="role">{{role}}</mat-option>
+                                <mat-option *ngFor="let role of userRoles" [value]="role">{{ role }}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Appointment Date</mat-label>
-                            <input required class="label-txt" matInput [matDatepicker]="picker" formControlName="appointmentDate">
+                            <input required class="label-txt" matInput [matDatepicker]="picker" formControlName="appointmentDate" />
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -89,39 +97,38 @@
                             <mat-label>Work Place</mat-label>
                             <mat-select required formControlName="userWorks">
                                 <ng-container *ngFor="let place of places">
-                                    <mat-option value="{{place.value}}">{{place.value}}</mat-option>
+                                    <mat-option value="{{ place.value }}">{{ place.value }}
+                                    </mat-option>
                                 </ng-container>
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="w-100">
-                    </div>
+                    <div class="w-100"></div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Password</mat-label>
-                            <input maxlength="10" minlength="4" required class="label-txt" formControlName="userPassword" matInput [type]="hide ? 'password' : 'text'">
+                            <input maxlength="10" minlength="4" required class="label-txt" formControlName="userPassword" matInput [type]="hide ? 'password' : 'text'" />
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
-                        <br>
-                        <input type="file" (change)="uploadFile($event)" accept=".png, .jpg, .jpeg" style="height: 45px; background: white; " id="selectedFile">
-
+                        <br />
+                        <input type="file" (change)="uploadFile($event)" accept=".png, .jpg, .jpeg" style="height: 45px; background: white" id="selectedFile" />
                     </div>
                     <div class="col pr-0"></div>
                 </div>
                 <div class="box-head">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="!UserGroup.valid">Submit</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!UserGroup.valid">
+            Submit
+          </button>
                     <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner>
                     <!-- <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner> -->
                 </div>
             </mat-card>
         </form>
     </div>
-
-
-
-
 </div>

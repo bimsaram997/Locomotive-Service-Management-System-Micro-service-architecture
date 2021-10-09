@@ -79,7 +79,6 @@ export class MainLoginPageComponent implements OnInit {
           } else {
             swal({
               title: 'Please check your email or password',
-              text: 'You clicked the button!',
               icon: 'warning',
             });
           }
@@ -87,7 +86,6 @@ export class MainLoginPageComponent implements OnInit {
     } else {
       swal({
         title: 'Fields cannot be empty',
-        text: 'You clicked the button!',
         icon: 'warning',
       });
     }

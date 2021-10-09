@@ -159,6 +159,12 @@ export class LocomotiveService {
     return this.http.post(this.myUrl + `locoRoute/sendLocoEmail`, data);
   }
 
+  public sendAcceptedEmail(data): Observable<any> {
+    return this.http.post(this.myUrl + `locoRoute/sendAcceptedEmail`, data);
+  }
+  public sendRejectedEmail(data): Observable<any> {
+    return this.http.post(this.myUrl + `locoRoute/sendRejectedEmail`, data);
+  }
   //locoHistry
 
   public saveLocoHistory(obj): Observable<any> {

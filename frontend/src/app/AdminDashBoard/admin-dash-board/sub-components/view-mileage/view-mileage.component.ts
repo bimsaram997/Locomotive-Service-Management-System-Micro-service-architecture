@@ -139,16 +139,36 @@ export class ViewMileageComponent implements OnInit {
     dialogRef.afterClosed().subscribe((dialogResult) => {
       this.result = dialogResult;
       if (this.result == true) {
-        console.log(data);
+        this.sendAcceptedEmail(data);
         this.locomotiveService
           .updateMileStatus(data._id)
           .pipe(first())
           .subscribe((res) => {
-            console.log(res);
             this.loadAllReport();
           });
       }
     });
+  }
+
+  public sendAcceptedEmail(data): void {
+    console.log(data);
+    this.locomotiveService
+      .sendAcceptedEmail(data)
+      .pipe(first())
+      .subscribe(
+        (res) => {},
+        (error) => {}
+      );
+  }
+  public sendRejectedEmail(data): void {
+    console.log(data);
+    this.locomotiveService
+      .sendRejectedEmail(data)
+      .pipe(first())
+      .subscribe(
+        (res) => {},
+        (error) => {}
+      );
   }
 
   openRejectDialog(data) {
@@ -162,16 +182,15 @@ export class ViewMileageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((dialogResult) => {
-      this.result = dialogResult;
+      this.result = dialogResult.val;
       const val = this.result;
       //console.log(this.result);
       if (val !== '') {
-        console.log(val);
+        this.sendRejectedEmail(data);
         this.locomotiveService
           .updateRejectStatus(data._id, val)
           .pipe(first())
           .subscribe((res) => {
-            console.log(res);
             this.loadAllReport();
           });
       }
