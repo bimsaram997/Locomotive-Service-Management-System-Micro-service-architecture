@@ -87,7 +87,15 @@ export class CreateLocomotiveComponent implements OnInit {
   ngOnInit(): void {
     this.LocoGroup = this.formBuilder.group({
       locoCatId: ['', [Validators.required]],
-      locoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      locoNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+          Validators.minLength(3),
+        ],
+      ],
       locoPower: [
         '',
         [
@@ -119,9 +127,30 @@ export class CreateLocomotiveComponent implements OnInit {
       lastLoadDate: [''],
       endMileage: [''],
       endMileDate: [''],
-      mtrType: ['', Validators.required],
-      brkType: ['', Validators.required],
-      fldType: ['', Validators.required],
+      mtrType: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      brkType: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      fldType: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
     });
     this.loadAllIds();
   }
@@ -226,7 +255,7 @@ export class CreateLocomotiveComponent implements OnInit {
     }
   }
   onClickMotor() {
-    if (this.getFm.mtrType.value !== '') {
+    if (this.getFm.mtrType.value != null) {
       const _findDupli = this.getFm.locoMotors.value.find(
         (f) => f.Name == this.getFm.mtrType.value
       );
@@ -244,6 +273,11 @@ export class CreateLocomotiveComponent implements OnInit {
           icon: 'error',
         });
       }
+    } else {
+      swal({
+        title: 'Values can not be empty',
+        icon: 'error',
+      });
     }
   }
 
@@ -287,7 +321,7 @@ export class CreateLocomotiveComponent implements OnInit {
   }
 
   onClickBreaks() {
-    if (this.getFm.brkType.value !== '') {
+    if (this.getFm.brkType.value != null) {
       const _findDupli = this.getFm.locoBreaks.value.find(
         (f) => f.bName == this.getFm.brkType.value
       );
@@ -305,11 +339,16 @@ export class CreateLocomotiveComponent implements OnInit {
           icon: 'error',
         });
       }
+    } else {
+      swal({
+        title: 'Values can not be empty',
+        icon: 'error',
+      });
     }
   }
 
   onClickFluids() {
-    if (this.getFm.fldType.value !== '') {
+    if (this.getFm.fldType.value != null) {
       const _findDupli = this.getFm.locoFluids.value.find(
         (f) => f.fName == this.getFm.fldType.value
       );
@@ -327,6 +366,11 @@ export class CreateLocomotiveComponent implements OnInit {
           icon: 'error',
         });
       }
+    } else {
+      swal({
+        title: 'Values can not be empty',
+        icon: 'error',
+      });
     }
   }
 
@@ -385,15 +429,15 @@ export class CreateLocomotiveComponent implements OnInit {
   }
 
   onSearchClear() {
-    this.searchKey = '';
+    this.searchKey = null;
     //this.applyFilter();
   }
   onSearchClear1() {
-    this.searchKey1 = '';
+    this.searchKey1 = null;
     //this.applyFilter();
   }
   onSearchClear2() {
-    this.searchKey2 = '';
+    this.searchKey2 = null;
     //this.applyFilter();
   }
 
