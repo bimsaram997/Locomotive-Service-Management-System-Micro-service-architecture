@@ -468,7 +468,7 @@
         <div class="row pr-0">
             <div class="col-sm pr-0">
                 <mat-form-field appearance="fill" style="width: 300px">
-                    <mat-label class="Locomotive Number">Add Fuel Parts</mat-label>
+                    <mat-label class="Locomotive Number">Add Fuel Parts (Litres)</mat-label>
                     <input class="label-txt" [(ngModel)]="searchKey2" required maxlength="20" minlength="3" matInput placeholder="E.g: Oil" #searchInput formControlName="fldType" />
                     <div *ngIf="LocoGroup.controls['fldType'].errors?.pattern" class="error">
                         Enter only Letters
@@ -513,7 +513,7 @@
                         </mat-form-field>
                         <br />
                         <mat-form-field appearance="fill" style="width: 250px; color: blue">
-                            <input matInput formControlName="fluids" />
+                            <input class="label-txt" matInput formControlName="fluids" />
                         </mat-form-field>
 
                         <button type="button" mat-button color="accent" (click)="onClickremoveFluidField(i, 'sub')">

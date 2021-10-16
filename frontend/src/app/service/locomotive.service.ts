@@ -60,6 +60,13 @@ export class LocomotiveService {
   public saveLocomotive(obj): Observable<any> {
     return this.http.post(this.myUrl + 'locoRoute/save-locomotive', obj);
   }
+  public sendLocomotiveAssigned(data): Observable<any> {
+    return this.http.post(
+      this.myUrl + `locoRoute/sendLocomotiveAssigned`,
+      data
+    );
+  }
+
   public saveMileage(obj): Observable<any> {
     return this.http.post(this.myUrl + 'locoRoute/saveMileage', obj);
   }

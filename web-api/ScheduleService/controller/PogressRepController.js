@@ -51,7 +51,8 @@ const sendProReport = async(req, res) => {
     // console.log(req.body);
 
     //console.log(req.body.supervisorEmail);
-    sendProEmail(req.body.managerEmail, req.body.scheduleNo, req.body.supervisorEmail,
+    sendProEmail(req.body.managerEmail, req.body.supervisorEmail,
+        req.body.scheduleNo, req.body.locoNumber, req.body.locoCatId,
         req.body.progressReportNumber, req.body.extraNote, req.body.progressValue, req.body.supervisorName);
 
 
@@ -79,410 +80,198 @@ const sendOneProgress = (req, res) => {
 }
 
 
-const sendProEmail = (managerEmail, scheduleNo, supervisorEmail, progressReportNumber, extraNote, progressValue, supervisorName) => {
+const sendProEmail = (managerEmail, supervisorEmail, scheduleNo, locoNumber, locoCatId,
+    progressReportNumber, extraNote, progressValue, supervisorName) => {
     //console.log(supervisorEmail)
 
     const mailOptions = {
         from: supervisorEmail,
         to: managerEmail,
-        subject: 'progress Report',
-        html: `<!DOCTYPE html>
-<html>
- <head>
-  <title>
-  </title>
-  <meta content="summary_large_image" name="twitter:card">
-  <meta content="website" property="og:type">
-  <meta content="" property="og:description">
-  <meta content="https://pro-bee-beepro-messages.s3.amazonaws.com/679187/661655/1296946/6324566.html" property="og:url">
-  <meta content="https://pro-bee-beepro-thumbnails.s3.amazonaws.com/messages/679187/661655/1296946/6324566_large.jpg" property="og:image">
-  <meta content="" property="og:title">
-  <meta content="" name="description">
-  <meta charset="utf-8">
-  <meta content="width=device-width" name="viewport">
-  <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&amp;display=swap" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-  <style>
-   .bee-row-1 .bee-row-content,
-\t\t.bee-row-4 {
-\t\t\tbackground-position: top center;
-\t\t\tbackground-repeat: no-repeat
-\t\t}
-
-\t\t.bee-row-1,
-\t\t.bee-row-1 .bee-row-content,
-\t\t.bee-row-2,
-\t\t.bee-row-3,
-\t\t.bee-row-3 .bee-row-content,
-\t\t.bee-row-4,
-\t\t.bee-row-5,
-\t\t.bee-row-5 .bee-row-content {
-\t\t\tbackground-repeat: no-repeat
-\t\t}
-
-\t\tbody {
-\t\t\tbackground-color: #fff;
-\t\t\tcolor: #000;
-\t\t\tfont-family: Arial, Helvetica Neue, Helvetica, sans-serif
-\t\t}
-
-\t\ta {
-\t\t\tcolor: #0068a5
-\t\t}
-
-\t\t.bee-row-1,
-\t\t.bee-row-3 {
-\t\t\tbackground-color: #000
-\t\t}
-
-\t\t.bee-row-1 .bee-row-content {
-\t\t\tbackground-image: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wallpaperflare.com%2Fgray-train-rail-railway-landscape-railroad-track-transportation-wallpaper-eli&psig=AOvVaw1rL1QtH74muscmf8NRqaeQ&ust=1624030752774000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCMCcjpWAn_ECFQAAAAAdAAAAABAJ)
-\t\t}
-
-\t\t.bee-row-1 .bee-col-1 {
-\t\t\tborder-bottom: 0 solid transparent;
-\t\t\tborder-left: 0 solid transparent;
-\t\t\tborder-right: 0 solid transparent;
-\t\t\tborder-top: 0 solid #fff;
-\t\t\tpadding-bottom: 10px;
-\t\t\tpadding-top: 20px
-\t\t}
-
-\t\t.bee-row-1 .bee-col-1 .bee-block-1,
-\t\t.bee-row-2 .bee-col-1 .bee-block-1,
-\t\t.bee-row-2 .bee-col-1 .bee-block-3,
-\t\t.bee-row-4 .bee-col-1 .bee-block-1,
-\t\t.bee-row-4 .bee-col-1 .bee-block-5,
-\t\t.bee-row-5 .bee-col-2 .bee-block-1,
-\t\t.bee-row-5 .bee-col-2 .bee-block-2,
-\t\t.bee-row-5 .bee-col-2 .bee-block-3 {
-\t\t\tpadding: 10px
-\t\t}
-
-\t\t.bee-row-1 .bee-col-1 .bee-block-2 {
-\t\t\twidth: 100%;
-\t\t\tpadding: 20px
-\t\t}
-
-\t\t.bee-row-1 .bee-col-1 .bee-block-3 {
-\t\t\tpadding: 20px
-\t\t}
-
-\t\t.bee-row-1 .bee-col-1 .bee-block-4 {
-\t\t\ttext-align: center;
-\t\t\twidth: 100%;
-\t\t\tpadding: 20px
-\t\t}
-
-\t\t.bee-row-2 {
-\t\t\tbackground-color: #040404
-\t\t}
-
-\t\t.bee-row-2 .bee-row-content,
-\t\t.bee-row-4 .bee-row-content {
-\t\t\tbackground-color: #092147;
-\t\t\tbackground-repeat: no-repeat
-\t\t}
-
-\t\t.bee-row-2 .bee-col-1,
-\t\t.bee-row-3 .bee-col-1,
-\t\t.bee-row-4 .bee-col-1,
-\t\t.bee-row-5 .bee-col-1,
-\t\t.bee-row-5 .bee-col-2 {
-\t\t\tborder-bottom: 0 solid transparent;
-\t\t\tborder-left: 0 solid transparent;
-\t\t\tborder-right: 0 solid transparent;
-\t\t\tborder-top: 0 solid transparent;
-\t\t\tpadding-bottom: 5px;
-\t\t\tpadding-top: 5px
-\t\t}
-
-\t\t.bee-row-2 .bee-col-1 .bee-block-2 {
-\t\t\ttext-align: center;
-\t\t\twidth: 100%
-\t\t}
-
-\t\t.bee-row-2 .bee-col-1 .bee-block-4,
-\t\t.bee-row-3 .bee-col-1 .bee-block-3 {
-\t\t\tpadding: 15px
-\t\t}
-
-\t\t.bee-row-3 .bee-row-content,
-\t\t.bee-row-5 .bee-row-content {
-\t\t\tbackground-color: #fff
-\t\t}
-
-\t\t.bee-row-3 .bee-col-1 .bee-block-1 {
-\t\t\tpadding-left: 20px;
-\t\t\ttext-align: center;
-\t\t\twidth: 100%
-\t\t}
-
-\t\t.bee-row-3 .bee-col-1 .bee-block-2 {
-\t\t\tpadding: 10px 10px 10px 20px
-\t\t}
-
-\t\t.bee-row-4 {
-\t\t\tbackground-color: #000
-\t\t}
-
-\t\t.bee-row-4 .bee-col-1 .bee-block-2 {
-\t\t\ttext-align: center;
-\t\t\twidth: 100%;
-\t\t\tpadding: 10px 10px 10px 5px
-\t\t}
-
-\t\t.bee-row-4 .bee-col-1 .bee-block-3 {
-\t\t\ttext-align: center;
-\t\t\twidth: 100%;
-\t\t\tpadding: 10px
-\t\t}
-
-\t\t.bee-row-4 .bee-col-1 .bee-block-4 {
-\t\t\ttext-align: center;
-\t\t\tpadding: 10px 10px 10px 20px
-\t\t}
-
-\t\t.bee-row-5 {
-\t\t\tbackground-color: #43b4f8
-\t\t}
-
-\t\t.bee-row-5 .bee-col-1 .bee-block-1 {
-\t\t\twidth: 100%
-\t\t}
-
-\t\t* {
-\t\t\tbox-sizing: border-box
-\t\t}
-
-\t\tbody,
-\t\tp {
-\t\t\tmargin: 0
-\t\t}
-
-\t\t.bee-row-content {
-\t\t\tmax-width: 680px;
-\t\t\tmargin: 0 auto;
-\t\t\tdisplay: flex
-\t\t}
-
-\t\t.bee-row-content .bee-col-w4 {
-\t\t\tflex: 4
-\t\t}
-
-\t\t.bee-row-content .bee-col-w8 {
-\t\t\tflex: 8
-\t\t}
-
-\t\t.bee-row-content .bee-col-w12 {
-\t\t\tflex: 12
-\t\t}
-
-\t\t.bee-image img {
-\t\t\tdisplay: block;
-\t\t\ttext-align: center;
-\t\t\twidth: 100%
-\t\t}
-
-\t\t.bee-divider,
-\t\t.bee-image {
-\t\t\toverflow: auto
-\t\t}
-
-\t\t.bee-divider .bee-center,
-\t\t.bee-image .bee-center {
-\t\t\tmargin: 0 auto
-\t\t}
-
-\t\t.bee-text {
-\t\t\toverflow-wrap: anywhere
-\t\t}
-
-\t\t.bee-button .content {
-\t\t\ttext-align: center
-\t\t}
-
-\t\t.bee-button a {
-\t\t\ttext-decoration: none
-\t\t}
-
-\t\t.bee-heading h1 {
-\t\t\tmargin-top: 0;
-\t\t\tmargin-bottom: 0
-\t\t}
-
-\t\t@media (max-width:700px) {
-\t\t\t.bee-row-content:not(.no_stack) {
-\t\t\t\tdisplay: block
-\t\t\t}
-\t\t}
-  </style>
- </head>
- <body>
-  <div class="bee-page-container">
-   <div class="bee-row bee-row-1">
-    <div class="bee-row-content">
-     <div class="bee-col bee-col-1 bee-col-w12">
-      <div class="bee-block bee-block-1 bee-divider">
-      </div>
-      <div class="bee-block bee-block-3 bee-text">
-       <div class="bee-text-content" style="line-height: 150%; font-size: 12px; font-family: 'Noto Sans', sans-serif; color: #ffffff;">
-        <p style="font-size: 14px; line-height: 21px; text-align: center; letter-spacing: 1px;">
-         <span style="font-size: 30px; line-height: 45px; text-align: center">
-          <strong style="text-align: center">
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Progress Report&nbsp; ${progressReportNumber}
-          </strong>
-         </span>
-        </p>
-       </div>
-      </div>
-      <div class="bee-block bee-block-4 bee-heading">
-      </div>
-     </div>
-    </div>
-   </div>
-   <div class="bee-row bee-row-2">
-    <div class="bee-row-content">
-     <div class="bee-col bee-col-1 bee-col-w12">
-      <div class="bee-block bee-block-1 bee-divider">
-       <div class="spacer" style="height:0px;">
-       </div>
-      </div>
-      <div class="bee-block bee-block-2 bee-heading">
-       <h1 style="color:#ffffff;direction:ltr;text-align: center; font-family:'Noto Sans', sans-serif;font-size:20px;font-weight:normal;letter-spacing:1px;line-height:150%;text-align:center;">
-        <strong>
-         
-          Basic Details
-        </strong>
-       </h1>
-      </div>
-      
-      <div class="bee-block bee-block-4 bee-text">
-       <div class="bee-text-content" style="line-height: 150%; font-size: 15px; font-weight: bold; font-family: 'Noto Sans', sans-serif; color: #ffffff;">
-        <p style="font-size: 14px; line-height: 21px; text-align: center; letter-spacing: 1px;  text-decoration: underline overline; ">
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        Special notice of.....&nbsp;
-        <br>
-        </p>
-       
-       </div>
-        <p style="color: white; font-size: 12;">${extraNote}</p>
-      </div>
-     </div>
-    </div>
-   </div>
-   <div class="bee-row bee-row-3">
-    <div class="bee-row-content">
-     <div class="bee-col bee-col-1 bee-col-w12">
-      <div class="bee-block bee-block-1 bee-heading">
-       <h1 style="color:#092147;direction:ltr;font-family:'Noto Sans', sans-serif;font-size:20px;font-weight:normal;letter-spacing:1px;line-height:150%;text-align:center;">
-        <strong>
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       SCHEDULE
-        </strong>
-       </h1>
-      </div>
-      <div class="bee-block bee-block-3 bee-text">
-       <div class="bee-text-content" style="line-height: 150%; font-size: 12px; font-family: 'Noto Sans', sans-serif; color: #555555;">
-        <p style="font-size: 14px; line-height: 21px; text-align: center; letter-spacing: 1px;">
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your schedule progress of Locomotive is.&nbsp; <b>${progressValue}</b>
-        </p>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-   <div class="bee-row bee-row-4">
-    <div class="bee-row-content">
-     <div class="bee-col bee-col-1 bee-col-w12">
-      <div class="bee-block bee-block-2 bee-heading">
-       <h1 style="color:#ffffff;direction:ltr;font-family:'Noto Sans', sans-serif;font-size:24px;font-weight:normal;letter-spacing:normal;line-height:120%;text-align:center;">
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See more details...
-       </h1>
-      </div>
-      <div class="bee-block bee-block-3 bee-heading">
-       <h1 style="color:#ffffff;direction:ltr;font-family:'Noto Sans', sans-serif;font-size:14px;font-weight:normal;letter-spacing:normal;line-height:150%;text-align:center;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         Get hurry up! View your schedule progress
-       </h1>
-      </div>
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="bee-block bee-block-4 bee-button"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <a class="bee-button-content" href="http://www.example.com/" style="font-size: 12px; line-height: 24px; font-family: 'Noto Sans', sans-serif; background-color: #3baefe; border-bottom: 1px solid transparent; border-left: 1px solid transparent; border-radius: 4px; border-right: 1px solid transparent; border-top: 1px solid transparent; color: #ffffff; max-width: 100%; padding-bottom: 5px; padding-left: 20px; padding-right: 20px; padding-top: 0px; width: auto; display: inline-block;">
-        <span style="font-size: 16px; line-height: 200%; word-break: break-word;">
-         <span style="font-size: 14px; line-height: 28px;">
-          <strong>
-           View
-          </strong>
-         </span>
-        </span>
-       </a>
-      </div>
-      </div>
-     </div>
-    </div>
-   </div>
-   <div class="bee-row bee-row-5">
-    <div class="bee-row-content">
-     <div class="bee-col bee-col-1 bee-col-w4">
-      <div class="bee-block bee-block-1 bee-image">
-       <img alt="I'm an image" class="bee-center bee-autowidth" src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/679187_661655/man2.png" style="max-width:226px;">
-      </div>
-     </div>
-     <div class="bee-col bee-col-2 bee-col-w8">
-      <div class="bee-block bee-block-1 bee-text">
-       <div class="bee-text-content" style="line-height: 120%; font-size: 12px; font-family: 'Nunito', Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #555555;">
-        <p style="line-height: 14px;">
-         &nbsp;
-        </p>
-        <p style="font-size: 14px; line-height: 16px; text-align: left;">
-         <strong style="">
-          <span style="font-size: 20px; line-height: 24px;">
-           Contact
-          </span>
-         </strong>
-        </p>
-       </div>
-      </div>
-      <div class="bee-block bee-block-2 bee-divider">
-       <div class="bee-center" style="border-top:1px solid #BBBBBB;width:100%;">
-       </div>
-      </div>
-      <div class="bee-block bee-block-3 bee-text">
-       <div class="bee-text-content" style="line-height: 120%; font-size: 12px; font-family: inherit; color: #555555;">
-       
-        <ul style="">
-         <li style="font-size: 16px; line-height: 19px; text-align: justify;">
-          <span style="font-size: 16px; line-height: 19px;">
-           Name:&nbsp; <b>${supervisorName}</b>
-          </span>
-         </li>
-         <li style="font-size: 16px; line-height: 19px; text-align: justify;">
-          <span style="font-size: 16px; line-height: 19px;">
-           Email:&nbsp; <b>${supervisorEmail}</b> 
-          </span>
-         </li>
-         <li style="font-size: 16px; line-height: 19px; text-align: justify;">
-          <span style="font-size: 16px; line-height: 19px;">
-           Mobile Number: 0768922413
-          </span>
-         </li>
-        </ul>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </div>
- </body>
+        subject: 'Progress Report',
+        html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta name="x-apple-disable-message-reformatting">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="telephone=no" name="format-detection">
+<title>New message</title>
+<!--[if (mso 16)]>
+<style type="text/css">
+a {text-decoration: none;}
+</style>
+<![endif]-->
+<!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
+<!--[if gte mso 9]>
+<xml>
+<o:OfficeDocumentSettings>
+<o:AllowPNG></o:AllowPNG>
+<o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings>
+</xml>
+<![endif]-->
+<!--[if !mso]><!-- -->
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,400i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+<!--<![endif]-->
+<style type="text/css">
+#outlook a {
+padding:0;
+}
+.es-button {
+mso-style-priority:100!important;
+text-decoration:none!important;
+}
+a[x-apple-data-detectors] {
+color:inherit!important;
+text-decoration:none!important;
+font-size:inherit!important;
+font-family:inherit!important;
+font-weight:inherit!important;
+line-height:inherit!important;
+}
+.es-desk-hidden {
+display:none;
+float:left;
+overflow:hidden;
+width:0;
+max-height:0;
+line-height:0;
+mso-hide:all;
+}
+[data-ogsb] .es-button {
+border-width:0!important;
+padding:15px 40px 15px 40px!important;
+}
+[data-ogsb] .es-button.es-button-1 {
+padding:10px 35px!important;
+}
+[data-ogsb] .es-button.es-button-2 {
+padding:15px 60px!important;
+}
+@media only screen and (max-width:600px) {p, ul li, ol li, a { line-height:150%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120% } h1 { font-size:72px!important; text-align:center } h2 { font-size:26px!important; text-align:center } h3 { font-size:20px!important; text-align:center } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:72px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer-body h2 a { font-size:26px!important } .es-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size:20px!important } .es-menu td a { font-size:16px!important } .es-header-body p, .es-header-body ul li, .es-header-body ol li, .es-header-body a { font-size:16px!important } .es-content-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body a { font-size:16px!important } .es-footer-body p, .es-footer-body ul li, .es-footer-body ol li, .es-footer-body a { font-size:16px!important } .es-infoblock p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-size:12px!important } *[class="gmail-fix"] { display:none!important } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center!important } .es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:right!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3 { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { display:inline!important } .es-button-border { display:block!important } a.es-button, button.es-button { font-size:20px!important; display:block!important; border-left-width:0px!important; border-right-width:0px!important } .es-adaptive table, .es-left, .es-right { width:100%!important } .es-content table, .es-header table, .es-footer table, .es-content, .es-footer, .es-header { width:100%!important; max-width:600px!important } .es-adapt-td { display:block!important; width:100%!important } .adapt-img { width:100%!important; height:auto!important } .es-m-p0 { padding:0!important } .es-m-p0r { padding-right:0!important } .es-m-p0l { padding-left:0!important } .es-m-p0t { padding-top:0!important } .es-m-p0b { padding-bottom:0!important } .es-m-p20b { padding-bottom:20px!important } .es-mobile-hidden, .es-hidden { display:none!important } tr.es-desk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto!important; overflow:visible!important; float:none!important; max-height:inherit!important; line-height:inherit!important } tr.es-desk-hidden { display:table-row!important } table.es-desk-hidden { display:table!important } td.es-desk-menu-hidden { display:table-cell!important } .es-menu td { width:1%!important } table.es-table-not-adapt, .esd-block-html table { width:auto!important } table.es-social { display:inline-block!important } table.es-social td { display:inline-block!important } .es-m-p5 { padding:5px!important } .es-m-p5t { padding-top:5px!important } .es-m-p5b { padding-bottom:5px!important } .es-m-p5r { padding-right:5px!important } .es-m-p5l { padding-left:5px!important } .es-m-p10 { padding:10px!important } .es-m-p10t { padding-top:10px!important } .es-m-p10b { padding-bottom:10px!important } .es-m-p10r { padding-right:10px!important } .es-m-p10l { padding-left:10px!important } .es-m-p15 { padding:15px!important } .es-m-p15t { padding-top:15px!important } .es-m-p15b { padding-bottom:15px!important } .es-m-p15r { padding-right:15px!important } .es-m-p15l { padding-left:15px!important } .es-m-p20 { padding:20px!important } .es-m-p20t { padding-top:20px!important } .es-m-p20r { padding-right:20px!important } .es-m-p20l { padding-left:20px!important } .es-m-p25 { padding:25px!important } .es-m-p25t { padding-top:25px!important } .es-m-p25b { padding-bottom:25px!important } .es-m-p25r { padding-right:25px!important } .es-m-p25l { padding-left:25px!important } .es-m-p30 { padding:30px!important } .es-m-p30t { padding-top:30px!important } .es-m-p30b { padding-bottom:30px!important } .es-m-p30r { padding-right:30px!important } .es-m-p30l { padding-left:30px!important } .es-m-p35 { padding:35px!important } .es-m-p35t { padding-top:35px!important } .es-m-p35b { padding-bottom:35px!important } .es-m-p35r { padding-right:35px!important } .es-m-p35l { padding-left:35px!important } .es-m-p40 { padding:40px!important } .es-m-p40t { padding-top:40px!important } .es-m-p40b { padding-bottom:40px!important } .es-m-p40r { padding-right:40px!important } .es-m-p40l { padding-left:40px!important } }
+</style>
+</head>
+<body style="width:100%;font-family:arial, 'helvetica neue', helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
+<div class="es-wrapper-color" style="background-color:#1B1B1B">
+<!--[if gte mso 9]>
+<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+<v:fill type="tile" color="#1B1B1B"></v:fill>
+</v:background>
+<![endif]-->
+<table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:no-repeat;background-position:center 100px;background-color:#1B1B1B">
+<tr>
+<td valign="top" style="padding:0;Margin:0">
+<table class="es-content" cellspacing="0" cellpadding="0" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+<tr>
+<td align="center" style="padding:0;Margin:0">
+<table class="es-content-body" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px" cellspacing="0" cellpadding="0" align="center" bgcolor="#080E0E">
+<tr>
+<td align="left" style="padding:0;Margin:0;padding-top:10px">
+<table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td class="es-m-p0r es-m-p20b" valign="top" align="center" style="padding:0;Margin:0;width:600px">
+<table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="center" style="padding:0;Margin:0;position:relative"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img class="adapt-img" src="https://tffomt.stripocdn.email/content/guids/bannerImgGuid/images/image163439791113359.png" alt="Womens equality day" title="Womens equality day" width="600" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+<tr>
+<td align="center" bgcolor="#dec699" style="padding:0;Margin:0;background-color:#dec699">
+<table bgcolor="#dec699" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#dec699;width:600px">
+<tr>
+<td align="left" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;padding-right:20px">
+<!--[if mso]><table style="width:580px" cellpadding="0" cellspacing="0"><tr><td style="width:314px" valign="top"><![endif]-->
+<table cellpadding="0" cellspacing="0" align="left" class="es-left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+<tr>
+<td class="es-m-p20b" align="center" valign="top" style="padding:0;Margin:0;width:314px">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-left:30px;padding-right:40px;font-size:0px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img class="adapt-img" src="https://tffomt.stripocdn.email/content/guids/CABINET_97a1a80a4a445875f0d0d32ae5067dcb/images/g3ede4fce74051d2cabe2551e711298722c840b6b5548e829958bc6e57f5df5ed595196ae8cfd65c8f237c8a1fe985003_640.jpg" alt="CARD" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" title="CARD" width="244"></a></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<!--[if mso]></td><td style="width:20px"></td><td style="width:246px" valign="top"><![endif]-->
+<table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+<tr>
+<td align="left" style="padding:0;Margin:0;width:246px">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="left" class="es-m-p20l" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><h3 style="Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:20px;font-style:normal;font-weight:bold;color:#1b1b1b"><span style="color:#FFFFFF">Locomotive <strong>${locoCatId}</strong></span><strong><span style="color:#FF8C00"> ${locoNumber}</span></strong></h3></td>
+</tr>
+<tr>
+<td align="left" class="es-m-p20l" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#000000;font-size:14px">Report Number: <strong>${progressReportNumber}</strong><br>Schedule Number: <strong>${scheduleNo}</strong><br>Schedule Progress:<strong> ${progressValue}%</strong><br>Supervisor Name: <strong>${supervisorName}</strong></p></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<!--[if mso]></td></tr></table><![endif]--></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
+<tr>
+<td align="center" style="padding:0;Margin:0">
+<table class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
+<tr>
+<td align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+<table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="center" valign="top" style="padding:0;Margin:0;width:560px">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:27px;color:#EFEFEF;font-size:18px"><strong>Notes</strong></p></td>
+</tr>
+<tr>
+<td align="center" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px;font-size:0">
+<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td style="padding:0;Margin:0;border-bottom:1px solid #dec699;background:none;height:1px;width:100%;margin:0px"></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+<tr>
+<td align="center" style="padding:0;Margin:0">
+<table class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
+<tr>
+<td align="left" style="padding:20px;Margin:0">
+<table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="center" valign="top" style="padding:0;Margin:0;width:560px">
+<table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#EFEFEF;font-size:14px"><i>${extraNote}</i></p></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+</div>
+</body>
 </html>`, // html body
     };
     transporter.sendMail(mailOptions, function(err, data) {

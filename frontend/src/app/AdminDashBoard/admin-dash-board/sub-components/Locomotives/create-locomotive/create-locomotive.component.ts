@@ -226,6 +226,7 @@ export class CreateLocomotiveComponent implements OnInit {
           (res) => {
             console.log(res);
             if (res.isSaved) {
+              this.sendLocomotiveAssigned(obj);
               swal({
                 title: 'Record Saved!',
                 icon: 'success',
@@ -254,6 +255,18 @@ export class CreateLocomotiveComponent implements OnInit {
         );
     }
   }
+
+  public sendLocomotiveAssigned(data): void {
+    console.log(data);
+    this.locomotiveService
+      .sendLocomotiveAssigned(data)
+      .pipe(first())
+      .subscribe(
+        (res) => {},
+        (error) => {}
+      );
+  }
+
   onClickMotor() {
     if (this.getFm.mtrType.value != null) {
       const _findDupli = this.getFm.locoMotors.value.find(

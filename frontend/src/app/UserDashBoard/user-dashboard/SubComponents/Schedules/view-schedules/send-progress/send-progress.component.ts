@@ -59,7 +59,7 @@ export class SendProgressComponent implements OnInit {
       supervisorName: [''],
       managerName: [''],
       managerEmail: [''],
-      progressDate: [''],
+      progressDate: ['', [Validators.required]],
       checkArray: new FormArray([]),
       progressValue: [],
       extraNote: ['', [Validators.required]],
@@ -174,46 +174,54 @@ export class SendProgressComponent implements OnInit {
         progressValue: this.ReportGroup.controls.progressValue.value,
         extraNote: this.ReportGroup.controls.extraNote.value,
       };
-      this.progressReport
-        .saveProgress(reportData)
-        .pipe(
-          map((res) => {
-            if (res.isSaved) {
-              this.patchMileage(
-                this.ReportGroup.controls.scheduleNo.value,
-                this.ReportGroup.controls.progressValue.value
-              );
-              this.sendNewEmail(
-                this.ReportGroup.controls.managerEmail.value,
-                this.ReportGroup.controls.scheduleNo.value
-              );
-              swal({
-                title: 'Record Saved!',
-                text: 'Please Click OK',
-                icon: 'success',
-              });
-              this.generatePDF();
-              setTimeout(() => {
-                //this.refresh();
+      if (reportData.progressDate != null && reportData.progressDate != '') {
+        this.progressReport
+          .saveProgress(reportData)
+          .pipe(
+            map((res) => {
+              if (res.isSaved) {
+                this.patchMileage(
+                  this.ReportGroup.controls.scheduleNo.value,
+                  this.ReportGroup.controls.progressValue.value
+                );
+                this.sendNewEmail(
+                  this.ReportGroup.controls.managerEmail.value,
+                  this.ReportGroup.controls.scheduleNo.value
+                );
+                swal({
+                  title: 'Progress Report Saved!',
+                  icon: 'success',
+                });
                 this.generatePDF();
-              }, 3000);
-            } else {
-              swal({
-                title: 'Record already Exits',
-                text: 'Please Click OK',
-                icon: 'error',
-              });
-              setTimeout(() => {
-                //this.refresh();
-              }, 3000);
-            }
-          }),
-          mergeMap((sch) => this.progressReport.sendProReport(reportData))
-        )
-        .subscribe((final) => {
-          console.log('Schedule');
-          console.log(final);
+                setTimeout(() => {
+                  //this.refresh();
+                  this.generatePDF();
+                }, 3000);
+              } else {
+                swal({
+                  title: 'Record already Exits',
+                  icon: 'error',
+                });
+                setTimeout(() => {
+                  //this.refresh();
+                }, 3000);
+              }
+            }),
+            mergeMap((sch) => this.progressReport.sendProReport(reportData))
+          )
+          .subscribe((final) => {
+            console.log('Schedule');
+            console.log(final);
+          });
+      } else {
+        swal({
+          title: 'Please fill required fields',
+          icon: 'error',
         });
+        setTimeout(() => {
+          //this.refresh();
+        }, 3000);
+      }
     }
   }
 
@@ -348,7 +356,6 @@ export class SendProgressComponent implements OnInit {
           table: {
             widths: [200, 200],
             body: [
-              ['Column 1', 'Column 2'],
               [
                 {
                   text: 'Schedule Number',

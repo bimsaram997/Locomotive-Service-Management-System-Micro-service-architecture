@@ -57,11 +57,11 @@ const ScheduleSchema = new mongoose.Schema({
         required: true
     },
     mechanical: {
-        type: String,
+        type: Boolean,
         required: false
     },
     electrical: {
-        type: String,
+        type: Boolean,
         required: false
     },
     mainMotorName: {

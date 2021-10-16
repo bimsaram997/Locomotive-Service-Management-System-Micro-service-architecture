@@ -93,7 +93,7 @@ export class ViewSchedulesComponent implements OnInit {
     if (scheduleStatus === 0) {
       return 'not_started';
     } else if (scheduleStatus === 1) {
-      return 'Flags';
+      return 'start';
     } else if (scheduleStatus === 2) {
       return 'pending_actions';
     } else if (scheduleStatus === 3) {

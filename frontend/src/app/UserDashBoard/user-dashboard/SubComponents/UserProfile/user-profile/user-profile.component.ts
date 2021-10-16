@@ -145,25 +145,45 @@ export class UserProfileComponent implements OnInit {
       );
       this.countSchedules = _filterFullComplete.length;
 
+      const _filterHalf8 = this.scheduleList.filter(
+        (p) => p.scheduleStatus === 8
+      );
+      const eight = _filterHalf8.length;
+
       const _filterCompleted = this.scheduleList.filter(
         (p) => p.scheduleStatus == 6
       );
-      this.completedSchedules = _filterCompleted.length;
+      this.completedSchedules = _filterCompleted.length + eight;
       //
       const _filterDraft = this.scheduleList.filter(
         (p) => p.scheduleStatus === 0
       );
       this.draftSchedules = _filterDraft.length;
+      const _filterHalf2 = this.scheduleList.filter(
+        (p) => p.scheduleStatus === 2
+      );
+      const two = _filterHalf2.length;
+
+      const _filterHalf3 = this.scheduleList.filter(
+        (p) => p.scheduleStatus === 3
+      );
+      const three = _filterHalf3.length;
+
+      const _filterHalf4 = this.scheduleList.filter(
+        (p) => p.scheduleStatus === 4
+      );
+      const four = _filterHalf4.length;
+
+      const _filterHalf5 = this.scheduleList.filter(
+        (p) => p.scheduleStatus === 5
+      );
+      const five = _filterHalf5.length;
 
       const _filterHalfCompleted = this.scheduleList.filter(
-        (p) =>
-          p.scheduleStatus === 1 ||
-          p.scheduleStatus === 2 ||
-          p.scheduleStatus === 3 ||
-          p.scheduleStatus === 4 ||
-          p.scheduleStatus === 5
+        (p) => p.scheduleStatus === 1
       );
-      this.halfSchedules = _filterHalfCompleted.length;
+      this.halfSchedules =
+        _filterHalfCompleted.length + two + three + four + five;
     });
   }
 
