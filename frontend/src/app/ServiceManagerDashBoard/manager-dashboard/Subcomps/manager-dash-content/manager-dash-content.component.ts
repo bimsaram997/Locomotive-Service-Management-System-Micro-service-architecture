@@ -129,9 +129,8 @@ export class ManagerDashContentComponent implements OnInit {
         };
         barchartArray.push(Sch);
         this.childePassData = barchartArray;
-        //console.log(this.childePassData);
-        // console.log(sch)
 
+        //icomplete scheudle
         const _filterInComplete = _scheduleArray.filter(
           (p) => p.scheduleStatus != 7
         );
@@ -152,11 +151,9 @@ export class ManagerDashContentComponent implements OnInit {
         };
         barchartArray.push(inComplete);
         this.inCompleteSchedules = barchartArray;
-        //console.log(this.inCompleteSchedules);
 
+        //available loco
         const _locomotiveArray = res[1];
-        //console.log('sdsd');
-        //console.log(_locomotiveArray);
         const _availableLoco = _locomotiveArray.filter(
           (p) => p.locoStatus == 7
         );
@@ -177,9 +174,6 @@ export class ManagerDashContentComponent implements OnInit {
         };
         availableLocoArray.push(schs);
         this.availableLoco = availableLocoArray;
-
-        // console.log('jdjd');
-        //console.log(this.availableLoco);
       });
   }
 

@@ -29,7 +29,7 @@ export class AddLoadTrialComponent implements OnInit {
   items: FormArray;
   itemsStop: FormArray;
   dynamicBrake: FormArray;
-  notches: string[] = ['Notch 1', 'Notch 2'];
+  notches: string[] = ['Notch 1', 'Notch 2', 'Notch 3', 'Notch 4'];
   testType: string[] = ['Working', 'Not Working'];
   minDate: Date;
   maxDate: Date;
@@ -61,11 +61,7 @@ export class AddLoadTrialComponent implements OnInit {
     private router: Router,
     private _location: Location,
     private locomotiveService: LocomotiveService
-  ) {
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 0, 8, -9);
-    this.maxDate = new Date(currentYear + 1, -5, 30);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.LoadTrial = this.formBuilder.group({
@@ -166,11 +162,15 @@ export class AddLoadTrialComponent implements OnInit {
   createItem(): FormGroup {
     return this.formBuilder.group({
       running: true,
-      description: ['', Validators.required],
+      description: [
+        '',
+        [Validators.required, Validators.pattern('^[a-zA-Z ]*$')],
+      ],
       condition: '',
       action: '',
     });
   }
+
   createStopItem(): FormGroup {
     return this.formBuilder.group({
       running: true,

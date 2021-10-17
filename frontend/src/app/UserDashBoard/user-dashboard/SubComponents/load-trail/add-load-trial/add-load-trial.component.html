@@ -1,102 +1,181 @@
 <div class="container-fluid">
-    <br />
-    <div class="box-head">
-        <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px" />
-        <span class="heading-txt"><span style="color: #1e8bc3">A</span>DD LOAD TRIAL</span>
-        <div class="back">
-            <button mat-raised-button (click)="backClicked()">
+  <br />
+  <div class="box-head">
+    <img
+      src="./assets/images/m11.png"
+      alt=""
+      style="width: 40px; height: 40px"
+    />
+    <span class="heading-txt"
+      ><span style="color: #1e8bc3">A</span>DD LOAD TRIAL</span
+    >
+    <div class="back">
+      <button mat-raised-button (click)="backClicked()">
         <i class="fas fa-arrow-left"></i>&nbsp; Back
       </button>
-            <br />
-        </div>
+      <br />
     </div>
-    <mat-divider></mat-divider>
-    <div class="example-container">
-        <form [formGroup]="LoadTrial" (ngSubmit)="onSubmit()">
-            <mat-tab-group mat-align-tabs="Start" [selectedIndex]="selectedIndex" animationDuration="0ms">
-                <mat-tab>
-                    <mat-card>
-                        <ng-template mat-tab-label>
-                            <span class="material-icons">looks_one</span>&nbsp;Basic Details
-                        </ng-template>
-                        <h3 class="sub-header">Trial Details</h3>
-                        <div class="row no-gutters">
-                            <div class="col-4 justify-content-start">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Load Trial Number</mat-label>
-                                    <input class="label-txt" readonly formControlName="loadNo" matInput placeholder="L-001" required maxlength="30" minlength="5" (input)="checkIDs($event)" />
-                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-4 justify-content-start">
-                                <mat-form-field class="example-full-width" appearance="fill">
-                                    <mat-label>Choose a date</mat-label>
-                                    <input class="label-txt" formControlName="loadDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" />
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                    <div *ngIf="
+  </div>
+  <mat-divider></mat-divider>
+  <div class="example-container">
+    <form [formGroup]="LoadTrial" (ngSubmit)="onSubmit()">
+      <mat-tab-group
+        mat-align-tabs="Start"
+        [selectedIndex]="selectedIndex"
+        animationDuration="0ms"
+      >
+        <mat-tab>
+          <mat-card>
+            <ng-template mat-tab-label>
+              <span class="material-icons">looks_one</span>&nbsp;Basic Details
+            </ng-template>
+            <h3 class="sub-header">Trial Details</h3>
+            <div class="row no-gutters">
+              <div class="col-4 justify-content-start">
+                <mat-form-field appearance="fill">
+                  <mat-label>Load Trial Number</mat-label>
+                  <input
+                    class="label-txt"
+                    readonly
+                    formControlName="loadNo"
+                    matInput
+                    placeholder="L-001"
+                    maxlength="30"
+                    minlength="5"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-4 justify-content-start">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Choose a Load Trial Date</mat-label>
+                  <input
+                    class="label-txt"
+                    formControlName="loadDate"
+                    matInput
+                    [matDatepicker]="picker"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <div
+                    *ngIf="
                       LoadTrial.controls['loadDate'].invalid &&
                       (LoadTrial.controls['loadDate'].dirty ||
                         LoadTrial.controls['loadDate'].touched)
-                    " class="error">
-                                        <div *ngIf="LoadTrial.controls['loadDate'].errors.required">
-                                            Load Trial Date is Required.
-                                        </div>
-                                    </div>
-                                    <mat-hint>Allows add minimum 2 days and maximum 30 days</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <div class="col">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>From Place</mat-label>
-                                    <input class="label-txt" formControlName="loadFrom" maxlength="15" minlength="3" required matInput placeholder="Eg: Colombo" />
-                                    <div *ngIf="
+                    "
+                    class="error"
+                  >
+                    <div *ngIf="LoadTrial.controls['loadDate'].errors.required">
+                      Load Trial Date is Required.
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field appearance="fill">
+                  <mat-label>From Place</mat-label>
+                  <input
+                    class="label-txt"
+                    formControlName="loadFrom"
+                    maxlength="15"
+                    minlength="3"
+                    required
+                    matInput
+                    placeholder="Eg: Colombo"
+                  />
+                  <div
+                    *ngIf="
                       LoadTrial.controls['loadFrom'].invalid &&
                       (LoadTrial.controls['loadFrom'].dirty ||
                         LoadTrial.controls['loadFrom'].touched)
-                    " class="error">
-                                        <div *ngIf="LoadTrial.controls['loadFrom'].errors.pattern" class="error">
-                                            Strings are allowed.
-                                        </div>
-                                    </div>
-                                    <mat-hint>From Colombo</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <br />
-                            <div class="col">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>To Place</mat-label>
-                                    <input class="label-txt" formControlName="loadTo" required maxlength="15" minlength="3" matInput placeholder="Eg: Galle" />
-                                    <div *ngIf="
+                    "
+                    class="error"
+                  >
+                    <div
+                      *ngIf="LoadTrial.controls['loadFrom'].errors.pattern"
+                      class="error"
+                    >
+                      Numbers are not allowed.
+                    </div>
+                  </div>
+                  <mat-hint>Eg: Colombo</mat-hint>
+                </mat-form-field>
+              </div>
+              <br />
+              <div class="col">
+                <mat-form-field appearance="fill">
+                  <mat-label>To Place</mat-label>
+                  <input
+                    class="label-txt"
+                    formControlName="loadTo"
+                    required
+                    maxlength="15"
+                    minlength="3"
+                    matInput
+                    placeholder="Eg: Galle"
+                  />
+                  <div
+                    *ngIf="
                       LoadTrial.controls['loadTo'].invalid &&
                       (LoadTrial.controls['loadTo'].dirty ||
                         LoadTrial.controls['loadTo'].touched)
-                    " class="error">
-                                        <div *ngIf="LoadTrial.controls['loadTo'].errors.pattern" class="error">
-                                            only add strings.
-                                        </div>
-                                    </div>
-                                    <mat-hint>to Galle</mat-hint>
-                                </mat-form-field>
-                            </div>
-                            <br />
-                            <br />
-                            <br />
-                            <div class="w-100">
-                                <h3 class="sub-header">Schedule Details</h3>
-                                <hr class="line" />
-                                <br />
-                            </div>
-                            <div class="col">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Schedule No.</mat-label>
-                                    <mat-select class="label-txt" formControlName="scheduleNo" (selectionChange)="onChangeSelectSch($event)">
-                                        <mat-option>Choose one..</mat-option>
-                                        <mat-option *ngFor="let tempSchNo of scheduleArray" value="{{ tempSchNo.scheduleNo }}">{{ tempSchNo.scheduleNo }}</mat-option>
-                                    </mat-select>
-                                    <mat-hint style="color: red; font-size: 12px" *ngIf="lengthCount"><b>*There are not available Completed Schedules</b
+                    "
+                    class="error"
+                  >
+                    <div
+                      *ngIf="LoadTrial.controls['loadTo'].errors.pattern"
+                      class="error"
+                    >
+                      Numbers are not allowed.
+                    </div>
+                  </div>
+                  <mat-hint>E.g:To Galle</mat-hint>
+                </mat-form-field>
+              </div>
+              <br />
+              <br />
+              <br />
+              <div class="w-100">
+                <h3 class="sub-header">Schedule Details</h3>
+                <hr class="line" />
+                <br />
+              </div>
+              <div class="col">
+                <mat-form-field appearance="fill">
+                  <mat-label>Schedule No.</mat-label>
+                  <mat-select
+                    class="label-txt"
+                    formControlName="scheduleNo"
+                    (selectionChange)="onChangeSelectSch($event)"
+                  >
+                    <mat-option>Choose one..</mat-option>
+                    <mat-option
+                      *ngFor="let tempSchNo of scheduleArray"
+                      value="{{ tempSchNo.scheduleNo }}"
+                    >
+                      <span
+                        ><span style="font-weight: bold"
+                          >{{ tempSchNo.scheduleNo + " " }}
+                          <span style="font-weight: lighter; color: blue">{{
+                            tempSchNo.locoCatId +
+                              " " +
+                              tempSchNo.locoNumber +
+                              " "
+                          }}</span>
+                          <span style="font-size: 10px; color: green">{{
+                            tempSchNo.completedDate | date
+                          }}</span></span
+                        >
+                      </span>
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint
+                    style="color: red; font-size: 12px"
+                    *ngIf="lengthCount"
+                    ><b
+                      >*There are not available Completed Schedules</b
                     ></mat-hint
                   >
                 </mat-form-field>
@@ -239,6 +318,12 @@
                         formControlName="description"
                         placeholder="Eg:- Traction motor issue"
                       ></textarea>
+                      <div
+                        *ngIf="LoadTrial.controls['items'].errors?.pattern"
+                        class="error"
+                      >
+                        Numbers are not allowed.
+                      </div>
                     </mat-form-field>
                   </div>
                   <div class="col">
@@ -457,11 +542,11 @@
                       <mat-label>Notch</mat-label>
                       <mat-select formControlName="notch">
                         <mat-option>Choose..</mat-option>
-                        <mat-option value="notch 1">Notch 1</mat-option>
-                        <mat-option value="notch 2">Notch 2</mat-option>
-                        <mat-option value="notch 3">Notch 3</mat-option>
-                        <mat-option value="notch 4">Notch 4</mat-option>
-                        <mat-option value="notch 5">Notch 5</mat-option>
+                        <mat-option
+                          *ngFor="let notch of notches"
+                          [value]="notch"
+                          >{{ notch }}</mat-option
+                        >
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -471,6 +556,7 @@
                       <input
                         class="label-txt"
                         required
+                        type="number"
                         matInput
                         formControlName="tractionMtr"
                         placeholder="E.g: 100"
@@ -484,6 +570,7 @@
                         class="label-txt"
                         required
                         matInput
+                        type="number"
                         formControlName="mainGen"
                         placeholder="E.g: 100"
                       />
