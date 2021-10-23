@@ -88,6 +88,7 @@ export class AddLoadTrialComponent implements OnInit {
       reason: ['Draft'],
       comments: [''],
     });
+
     this.getAllSchedules();
     this.loadSupervisor();
     this.loadMangers();
@@ -117,6 +118,7 @@ export class AddLoadTrialComponent implements OnInit {
           if (res.isSaved) {
             this.patchFinalMile(this.LoadTrial.value);
             this.assignedLoadTrial(this.LoadTrial.value);
+            this.loadTrialEmail(this.LoadTrial.value);
             swal({
               title: 'Record Saved!',
               icon: 'success',
@@ -217,6 +219,19 @@ export class AddLoadTrialComponent implements OnInit {
     }
     //this.items.removeAt(this.items.length - 1);
   }
+
+  loadTrialEmail(obj) {
+    this.loadTrialService
+      .loadTrialEmail(obj)
+      .pipe(first())
+      .subscribe(
+        (res) => {},
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
   openDialog(): void {
     this.display = !this.display;
   }

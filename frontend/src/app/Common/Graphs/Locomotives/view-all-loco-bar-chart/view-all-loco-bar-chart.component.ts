@@ -1,3 +1,4 @@
+import { ChartDataSets, ChartOptions } from 'chart.js';
 import { LoadTrialService } from './../../../../service/load-trial.service';
 import { LocomotiveService } from './../../../../service/locomotive.service';
 import { ScheduleService } from './../../../../service/schedule.service';
@@ -20,59 +21,96 @@ export class ViewAllLocoBarChartComponent implements OnInit {
   userRole: any;
   scheduleList: any;
   loadArray: any;
+
+  startDate = moment().startOf('month').format('YYYY-MM-DD');
+  endDate = moment().endOf('month').format('YYYY-MM-DD');
+
   constructor(
     private scheduleService: ScheduleService,
     private locomotiveService: LocomotiveService,
     private loadTrialService: LoadTrialService
   ) {}
-  public barChartLabels = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-  public barChartType = 'bar';
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{}] },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      },
+    },
+  };
+
+  public barChartLabels: any[] = [];
+  public barChartType: any = 'bar';
   public barChartLegend = true;
-  public barChartData = [
-    {
-      data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
-      label: 'Series A',
-    },
-    {
-      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-      label: 'Series B',
-    },
-    {
-      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-      label: 'Series ',
-    },
-    {
-      data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
-      label: 'Series C',
-      backgroundColor: '#7befb2',
-    },
+  public barChartPlugins = [];
+
+  public barChartData: ChartDataSets[] = [
+    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Memberships' },
+    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Items' },
   ];
+
+  // public barChartLabels = [
+  //   'Jan',
+  //   'Feb',
+  //   'Mar',
+  //   'Apr',
+  //   'May',
+  //   'Jun',
+  //   'Jul',
+  //   'Aug',
+  //   'Sep',
+  //   'Oct',
+  //   'Nov',
+  //   'Dec',
+  // ];
+  // public barChartType = 'bar';
+  // public barChartLegend = true;
+  // public barChartData = [
+  //   {
+  //     data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
+  //     label: 'Series A',
+  //   },
+  //   {
+  //     data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+  //     label: 'Series B',
+  //   },
+  //   {
+  //     data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+  //     label: 'Series ',
+  //   },
+  //   {
+  //     data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
+  //     label: 'Series C',
+  //     backgroundColor: '#7befb2',
+  //   },
+  // ];
+  isshowData = false;
   ngOnInit(): void {
-    this.loadAllSchedule();
-    this.getAllLoco();
-    this.getLoadTrial();
-    console.log(this.availableLoco);
+    this.loadAllData();
+    return;
+    // this.loadAllSchedule();
+    // this.getAllLoco();
+    // this.getLoadTrial();
+    // console.log(this.availableLoco);
     //console.log(this.inCompleteSchedules)
     // console.log(this.available);
   }
+  loadAllData() {
+    //loadAllData;
+    this.barChartData[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.barChartData[1].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  public barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-  };
+    this.barChartData = this.childePassData[0];
+    this.isshowData = true;
+  }
+  // public barChartOptions = {
+  //   scaleShowVerticalLines: false,
+  //   responsive: true,
+  // };
 
   //   {data: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0], label: 'Incomplete Schedules' },
   // {data:  [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0], label: 'Complete Schedules'},

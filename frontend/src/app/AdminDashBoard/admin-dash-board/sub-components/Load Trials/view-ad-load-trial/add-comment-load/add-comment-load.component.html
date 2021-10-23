@@ -2,76 +2,133 @@
     <h2 mat-dialog-title>Add Comment</h2>
     <form (ngSubmit)="makeComment()" [formGroup]="commentAdd">
         <mat-dialog-content class="mat-typography">
-            <h4><span>Previous Status of Load Trial </span>{{this.reason}}</h4>
+            <span class="notes">*Notes</span><br />
+            <span class="notes-txt" *ngIf="isInitialLoad">There are no comments. you are possible to accept Load Trial</span
+      >
+      <span *ngIf="isCompleted" class="notes-txt"
+        >All the comments are resolved, you are possible to accept Load
+        Trial</span
+      >
+      <span *ngIf="!isCompleted && !isInitialLoad" class="notes-txt"
+        >All the comments aren't resolved, you aren't possible to accept Load
+        Trial</span
+      >
+      <div class="row">
+        <div class="col-sm pr-0">
+          <mat-form-field appearance="fill">
+            <mat-label>Load Number</mat-label>
+            <input
+              class="label-txt"
+              required
+              readonly
+              matInput
+              formControlName="loadNo"
+            /> </mat-form-field
+          >&nbsp;
+        </div>
+        <div class="col-sm pr-0">
+          <mat-form-field appearance="fill">
+            <mat-label>Comment ID</mat-label>
+            <input
+              class="label-txt"
+              readonly
+              required
+              matInput
+              formControlName="commentId"
+            />
+          </mat-form-field>
+        </div>
+      </div>
 
-            <div class="row">
-                <div class="col-sm pr-0">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Load Number</mat-label>
-                        <input required readonly matInput formControlName="loadNo">
-                    </mat-form-field>&nbsp;
-
-                </div>
-                <div class="col-sm pr-0">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Comment ID</mat-label>
-                        <input readonly required matInput formControlName="commentId">
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm pr-0">
-                    <mat-radio-group required aria-label="Select an option" formControlName="status">
-                        <mat-radio-button value="2">Viewed</mat-radio-button>&nbsp;
-                        <mat-radio-button value="3">Pending</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="col-sm"></div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-sm">
-                    <mat-form-field appearance="fill" style="width: 200px;">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="comDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="col-sm">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Action in viewed</mat-label>
-                        <mat-select formControlName="reason">
-                            <mat-option value="Viewed and Confirmed">
-                                Viewed and Confirmed
-                            </mat-option>
-                            <mat-option value="Viewed, do actions for comments">
-                                Viewed, do actions for comments
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col pr-0">
-                    <mat-form-field appearance="fill" style="width: 430px;">
-                        <mat-label>Comments</mat-label>
-                        <textarea matInput formControlName="comments"></textarea>
-                    </mat-form-field>
-                </div>
-            </div>
-
-
-
-
-
-
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
-
-        </mat-dialog-actions>
-    </form>
+      <div class="row">
+        <div class="col-md-12 pr-0">
+          <span style="color: green; font-weight: 500; font-size: 15px">
+            Status</span
+          >
+          &nbsp; &nbsp;
+          <mat-radio-group
+            required
+            aria-label="Select an option"
+            formControlName="status"
+          >
+            <mat-radio-button
+              (change)="hideDoActions($event)"
+              value="2"
+              *ngIf="isCompleted === true || isInitialLoad === true"
+              >Viewed</mat-radio-button
+            >&nbsp;
+            <mat-radio-button value="3" (change)="showDoActions($event)"
+              >Pending</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <div class="col-sm"></div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm">
+          <mat-form-field appearance="fill" style="width: 200px">
+            <mat-label>Choose a date</mat-label>
+            <input
+              class="label-txt"
+              matInput
+              [matDatepicker]="picker"
+              formControlName="comDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-sm">
+          <mat-form-field appearance="fill">
+            <mat-label>Action in viewed</mat-label>
+            <mat-select formControlName="reason">
+              <mat-option
+                value="Viewed and Confirmed"
+                *ngIf="
+                  (isCompleted === true || isInitialLoad === true) && hideDo
+                "
+              >
+                Viewed and Confirmed
+              </mat-option>
+              <mat-option
+                value="Viewed, do actions for comments"
+                *ngIf="!hideDo"
+              >
+                Viewed, do actions for comments
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col pr-0">
+          <mat-form-field appearance="fill" style="width: 430px">
+            <mat-label>Comments</mat-label>
+            <textarea
+              class="label-txt"
+              matInput
+              formControlName="comments"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button
+        type="submit"
+        mat-raised-button
+        [disabled]="!commentAdd.valid"
+        color="primary"
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+      >
+        Add
+      </button>
+    </mat-dialog-actions>
+  </form>
 </div>

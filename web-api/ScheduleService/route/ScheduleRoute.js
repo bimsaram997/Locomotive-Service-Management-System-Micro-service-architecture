@@ -27,6 +27,7 @@ router.get('/getAllScheduleAssignedManager', ScheduleController.getAllScheduleAs
 
 //next Schedule
 router.post('/saveNextSchedule', ScheduleController.saveNextSchedule);
+router.post('/nextScheduleEmail', ScheduleController.nextScheduleEmail);
 router.get('/getAllNextSchedules/:locoNumberNextSchedule', ScheduleController.getAllNextSchedules);
 router.get('/getAllNextSchedulesNotFilter', ScheduleController.getAllNextSchedulesNotFilter);
 router.get('/sendOneNextSchedule/:nxtSchId', ScheduleController.sendOneNextSchedule);

@@ -1,3 +1,24 @@
 .example-margin {
     margin: 0 5px;
 }
+
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.notes {
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #f62459;
+}
+
+.notes-txt {
+    font-size: 11px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #1f3a93;
+}

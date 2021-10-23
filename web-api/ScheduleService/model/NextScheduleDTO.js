@@ -32,6 +32,10 @@ const NextScheduleSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
+    supervisorEmail: {
+        type: String,
+        required: true
+    },
 })
 
 module.exports = mongoose.model('NextSchedule', NextScheduleSchema);

@@ -12,6 +12,10 @@ const feedLoadTrialSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    locoCatId: {
+        type: String,
+        required: true
+    },
     commentId: {
         type: String,
         required: true
@@ -31,7 +35,15 @@ const feedLoadTrialSchema = new mongoose.Schema({
     reason: {
         type: String,
         required: true
-    }
+    },
+    supervisorEmail: {
+        type: String,
+        required: true
+    },
+    chiefEngEmail: {
+        type: String,
+        required: true
+    },
 
 
 

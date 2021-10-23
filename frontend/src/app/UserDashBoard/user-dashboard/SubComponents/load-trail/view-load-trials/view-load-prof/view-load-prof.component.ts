@@ -167,7 +167,7 @@ export class ViewLoadProfComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.loadComments();
+      this.loadTrials();
     });
   }
   viewFeedBack(commentId: string) {

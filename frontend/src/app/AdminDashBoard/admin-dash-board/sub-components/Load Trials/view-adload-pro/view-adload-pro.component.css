@@ -16,6 +16,13 @@ body {
     height: auto;
 }
 
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
 table {
     width: 100%;
     table-layout: fixed;

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import LocoScheduleDTO from '../dto/LocoScheduleDTO';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScheduleService {
   myUrl = environment.baseUrlTwo;
-  constructor(private http: HttpClient) { }
-  public saveSchedule(dto: LocoScheduleDTO): Observable<any>{
+  constructor(private http: HttpClient) {}
+  public saveSchedule(dto: LocoScheduleDTO): Observable<any> {
     return this.http.post(this.myUrl + 'scheduleRoute/saveSchedule', {
       scheduleNo: dto.scheduleNo,
       scheduleUpdate: dto.scheduleUpdate,
@@ -19,45 +19,51 @@ export class ScheduleService {
       userNic: dto.userNic,
       userName: dto.userName,
       userEmail: dto.userEmail,
-      scheduleStatus: dto. scheduleStatus,
-      scheduleCom: dto. scheduleCom,
+      scheduleStatus: dto.scheduleStatus,
+      scheduleCom: dto.scheduleCom,
       scheduleTrackMotors: dto.scheduleTrackMotors,
       scheduleLocoBody: dto.scheduleLocoBody,
       scheduleElCuUnit: dto.scheduleElCuUnit,
       scheduleEMechanical: dto.scheduleEMechanical,
       scheduleMach: dto.scheduleMach,
-      scheduleRemark: dto.scheduleRemark
+      scheduleRemark: dto.scheduleRemark,
     });
   }
 
-  public saveOfSchedule(obj): Observable<any>{
-    return this.http.post(this.myUrl + 'scheduleRoute/saveSchedule' , obj);
+  public saveOfSchedule(obj): Observable<any> {
+    return this.http.post(this.myUrl + 'scheduleRoute/saveSchedule', obj);
   }
 
   public getAllSchedules(): Observable<any> {
     return this.http.get(this.myUrl + 'scheduleRoute/getAllSchedules');
   }
 
-  public getAllScheduleAssigned(object):Observable<any> {
-    return this.http.get( this.myUrl + `scheduleRoute/getAllScheduleAssigned/`, {params:object})
+  public getAllScheduleAssigned(object): Observable<any> {
+    return this.http.get(this.myUrl + `scheduleRoute/getAllScheduleAssigned/`, {
+      params: object,
+    });
   }
 
   public getAllCompSchedule(object): Observable<any> {
-    return this.http.get( this.myUrl + 'scheduleRoute/getAllCompSchedule/', {params:object});
+    return this.http.get(this.myUrl + 'scheduleRoute/getAllCompSchedule/', {
+      params: object,
+    });
   }
 
   public deleteSchedule(id: string): Observable<any> {
-    return this.http.delete( this.myUrl + 'scheduleRoute/deleteSchedule', {headers: {id}});
-
+    return this.http.delete(this.myUrl + 'scheduleRoute/deleteSchedule', {
+      headers: { id },
+    });
   }
 
-  public getOneSchedule(scheduleNo: string): Observable<any>{
-    return this.http.get<any>(this.myUrl + `scheduleRoute/getOneSchedule/${scheduleNo}`);
-
+  public getOneSchedule(scheduleNo: string): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `scheduleRoute/getOneSchedule/${scheduleNo}`
+    );
   }
 
   public updateSchedule(dto: LocoScheduleDTO): Observable<any> {
-    return this.http.put( this.myUrl + 'scheduleRoute/updateSchedule', {
+    return this.http.put(this.myUrl + 'scheduleRoute/updateSchedule', {
       scheduleNo: dto.scheduleNo,
       scheduleUpdate: dto.scheduleUpdate,
       locoCatId: dto.locoCatId,
@@ -65,21 +71,22 @@ export class ScheduleService {
       userNic: dto.userNic,
       userName: dto.userName,
       userEmail: dto.userEmail,
-      scheduleStatus: dto. scheduleStatus,
+      scheduleStatus: dto.scheduleStatus,
       scheduleCom: dto.scheduleCom,
       scheduleTrackMotors: dto.scheduleTrackMotors,
       scheduleLocoBody: dto.scheduleLocoBody,
       scheduleElCuUnit: dto.scheduleElCuUnit,
       scheduleEMechanical: dto.scheduleEMechanical,
       scheduleMach: dto.scheduleMach,
-      scheduleRemark: dto.scheduleRemark
+      scheduleRemark: dto.scheduleRemark,
     });
-
   }
 
-  public getSchedule(customerNic: string): Observable<LocoScheduleDTO>
-  {
-    return this.http.get<LocoScheduleDTO>(this.myUrl + 'scheduleRoute/getSchedule/: id',{headers: {customerNic}})
+  public getSchedule(customerNic: string): Observable<LocoScheduleDTO> {
+    return this.http.get<LocoScheduleDTO>(
+      this.myUrl + 'scheduleRoute/getSchedule/: id',
+      { headers: { customerNic } }
+    );
   }
 
   public getMySampleData(): Observable<any> {
@@ -90,63 +97,90 @@ export class ScheduleService {
     return this.http.get(this.myUrl + 'scheduleRoute/sendSMS');
   }
 
-  public sendOneSchedule(id): Observable<any>{
-    return this.http.get<any>(this.myUrl + `scheduleRoute/sendOneSchedule/${id}`);
+  public sendOneSchedule(id): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `scheduleRoute/sendOneSchedule/${id}`
+    );
   }
 
-  public patchMileage(scheduleNo, progressValue):Observable<any> {
-    return this.http.patch( this.myUrl + `scheduleRoute/patchMileage/${scheduleNo}/${progressValue}` , scheduleNo, progressValue);
+  public patchMileage(scheduleNo, progressValue): Observable<any> {
+    return this.http.patch(
+      this.myUrl + `scheduleRoute/patchMileage/${scheduleNo}/${progressValue}`,
+      scheduleNo,
+      progressValue
+    );
   }
 
-  getRelevantProgress(id): Observable<any>{
-    return this.http.get<any>(this.myUrl + `scheduleRoute/getProSchedule/${id}`);
+  getRelevantProgress(id): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `scheduleRoute/getProSchedule/${id}`
+    );
   }
 
-   public  changeScheduleSeven(data): Observable<any>{
-    return this.http.put(this.myUrl + `scheduleRoute/changeScheduleSeven`, data);
+  public changeScheduleSeven(data): Observable<any> {
+    return this.http.put(
+      this.myUrl + `scheduleRoute/changeScheduleSeven`,
+      data
+    );
   }
 
-     public  assignedLoadTrial(data): Observable<any>{
+  public assignedLoadTrial(data): Observable<any> {
     return this.http.put(this.myUrl + `scheduleRoute/assignedLoadTrial`, data);
   }
 
-  public scheduleEmail(data): Observable<any>{
+  public scheduleEmail(data): Observable<any> {
     return this.http.post(this.myUrl + `scheduleRoute/scheduleEmail`, data);
   }
 
-  public scheduleLapseEmail(data): Observable<any>{
-    return this.http.post(this.myUrl + `scheduleRoute/scheduleLapseEmail`, data);
+  public scheduleLapseEmail(data): Observable<any> {
+    return this.http.post(
+      this.myUrl + `scheduleRoute/scheduleLapseEmail`,
+      data
+    );
   }
 
   public getAllScheduleCalendar(): Observable<any> {
     return this.http.get(this.myUrl + 'scheduleRoute/getAllScheduleCalendar');
   }
 
-  public getAllScheduleAssignedManager(object):Observable<any> {
-    return this.http.get( this.myUrl + `scheduleRoute/getAllScheduleAssignedManager/`, {params:object})
+  public getAllScheduleAssignedManager(object): Observable<any> {
+    return this.http.get(
+      this.myUrl + `scheduleRoute/getAllScheduleAssignedManager/`,
+      { params: object }
+    );
   }
-
 
   //nextSchedules
 
-  public saveNextSchedule(obj): Observable<any>{
-    return this.http.post(this.myUrl + 'scheduleRoute/saveNextSchedule' , obj);
+  public saveNextSchedule(obj): Observable<any> {
+    return this.http.post(this.myUrl + 'scheduleRoute/saveNextSchedule', obj);
+  }
+  public nextScheduleEmail(data): Observable<any> {
+    return this.http.post(this.myUrl + `scheduleRoute/nextScheduleEmail`, data);
   }
 
-  public getAllNextSchedules(locoNumber):Observable<any> {
-    return this.http.get( this.myUrl + `scheduleRoute/getAllNextSchedules/${locoNumber}`)
+  public getAllNextSchedules(locoNumber): Observable<any> {
+    return this.http.get(
+      this.myUrl + `scheduleRoute/getAllNextSchedules/${locoNumber}`
+    );
   }
 
   public getAllNextSchedulesNotFilter(): Observable<any> {
-    return this.http.get(this.myUrl + 'scheduleRoute/getAllNextSchedulesNotFilter');
+    return this.http.get(
+      this.myUrl + 'scheduleRoute/getAllNextSchedulesNotFilter'
+    );
   }
 
-  public sendOneNextSchedule(nxtSchId): Observable<any>{
-    return this.http.get<any>(this.myUrl + `scheduleRoute/sendOneNextSchedule/${nxtSchId}`);
+  public sendOneNextSchedule(nxtSchId): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `scheduleRoute/sendOneNextSchedule/${nxtSchId}`
+    );
   }
 
-  public  changeStatusNextSchedule(data): Observable<any>{
-    return this.http.put(this.myUrl + `scheduleRoute/changeStatusNextSchedule`, data);
+  public changeStatusNextSchedule(data): Observable<any> {
+    return this.http.put(
+      this.myUrl + `scheduleRoute/changeStatusNextSchedule`,
+      data
+    );
   }
-
 }

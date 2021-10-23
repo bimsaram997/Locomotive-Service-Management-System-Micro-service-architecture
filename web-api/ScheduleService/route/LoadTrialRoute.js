@@ -3,6 +3,7 @@ const loadTrialController = require('../controller/LoadTrialController');
 const router = express.Router();
 
 router.post('/saveLoadTrial', loadTrialController.saveLoadTrial);
+router.post('/loadTrialEmail', loadTrialController.loadTrialEmail);
 router.get('/getLoadTrialAssigned', loadTrialController.getLoadTrialAssigned);
 router.get('/getOneLoad/:id', loadTrialController.getOneLoad);
 router.patch('/acceptLoadTrial/:loadNo', loadTrialController.acceptLoadTrial);
@@ -19,4 +20,5 @@ router.get('/getResolvedComments/:loadNo', loadTrialController.getResolvedCommen
 
 router.post('/addFeedBack', loadTrialController.addFeedBack);
 router.get('/getOneFeedBack/:commentId', loadTrialController.getOneFeedBack);
+router.post('/feedbackEmail', loadTrialController.feedbackEmail);
 module.exports = router;

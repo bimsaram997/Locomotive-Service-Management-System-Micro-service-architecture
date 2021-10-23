@@ -13,6 +13,9 @@ export class LoadTrialService {
   public saveLoadTrial(obj): Observable<any> {
     return this.http.post(this.myUrl + 'loadTrialRoute/saveLoadTrial', obj);
   }
+  public loadTrialEmail(data): Observable<any> {
+    return this.http.post(this.myUrl + `loadTrialRoute/loadTrialEmail`, data);
+  }
   public makeComment(obj): Observable<any> {
     return this.http.post(this.myUrl + 'loadTrialRoute/makeComment', obj);
   }
@@ -76,5 +79,8 @@ export class LoadTrialService {
     return this.http.get<any>(
       this.myUrl + `loadTrialRoute/getOneFeedBack/${commentId}`
     );
+  }
+  public feedbackEmail(data): Observable<any> {
+    return this.http.post(this.myUrl + `loadTrialRoute/feedbackEmail`, data);
   }
 }
