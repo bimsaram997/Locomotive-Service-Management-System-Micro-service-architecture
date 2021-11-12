@@ -1,0 +1,4 @@
+<div style="display: block" *ngIf="isChecked">
+    <canvas baseChart [datasets]="barChartData ? barChartData : null" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+  </canvas>
+</div>

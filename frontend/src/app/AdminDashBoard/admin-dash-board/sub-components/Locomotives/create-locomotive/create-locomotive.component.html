@@ -16,13 +16,14 @@
           class="select"
           #selectedLang
           (change)="switchLang(selectedLang.value)"
+          class="select-option-trans"
         >
           <option
             *ngFor="let language of translate.getLangs()"
             [value]="language"
             [selected]="language === translate.currentLang"
           >
-            {{ language }}
+            {{getTrasnlate(language)}}
           </option>
         </select>
       </span>

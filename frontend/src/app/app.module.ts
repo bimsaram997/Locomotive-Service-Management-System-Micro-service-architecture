@@ -135,6 +135,8 @@ import { ViewDriverLocoProfileComponent } from './LocoDriverDashBoard/loco-drive
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ChartViewComponent } from './Common/Graphs/Locomotives/chart-view/chart-view.component';
+import { LocoPerformceComponent } from './Common/performance/loco-performce/loco-performce.component';
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
 @NgModule({
@@ -295,6 +297,10 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ViewDriverLocoComponent,
 
     ViewDriverLocoProfileComponent,
+
+    ChartViewComponent,
+
+    LocoPerformceComponent,
   ],
   imports: [
     BrowserModule,
@@ -335,6 +341,7 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     UpdateFinalMileageComponent,
     ViewNextSchedulesComponent,
     AddCommentLoadComponent,
+    LocoPerformceComponent,
   ],
 })
 export class AppModule {}

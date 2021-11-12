@@ -470,4 +470,10 @@ export class CreateLocomotiveComponent implements OnInit {
   onkeyUp(event: any) {
     this.val = event.target.value;
   }
+
+  getTrasnlate(data) {
+    const _element = document.getElementsByClassName('select-option-trans');
+   
+    return data == 'en' ? 'English' : 'සිංහල';
+  }
 }

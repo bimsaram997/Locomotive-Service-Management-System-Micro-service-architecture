@@ -7,7 +7,7 @@ import {
   EventEmitter,
   ChangeDetectorRef,
 } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LocomotiveService } from '../../../../../../service/locomotive.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -81,6 +81,7 @@ export class EditLocoComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private locomotiveService: LocomotiveService,
+    private dialogRef: MatDialogRef<EditLocoComponent>,
     private router: Router,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
@@ -89,6 +90,7 @@ export class EditLocoComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.loadAll();
+    dialogRef.disableClose = true;
   }
   locoArray: LocoDTO[] = [];
   ngOnInit(): void {
@@ -259,8 +261,6 @@ export class EditLocoComponent implements OnInit {
             this.saveLocoHistory(this.editLocoGroup.value);
             //this.router.navigateByUrl('/employees-list');
             console.log('Content updated successfully!');
-            console.log(this.editLocoGroup.value);
-            console.log(res);
           },
           (error) => {
             console.log(error);

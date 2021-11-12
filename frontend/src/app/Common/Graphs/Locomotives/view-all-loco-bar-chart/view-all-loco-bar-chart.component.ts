@@ -1,3 +1,5 @@
+import { first } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { LoadTrialService } from './../../../../service/load-trial.service';
 import { LocomotiveService } from './../../../../service/locomotive.service';
@@ -25,6 +27,12 @@ export class ViewAllLocoBarChartComponent implements OnInit {
   startDate = moment().startOf('month').format('YYYY-MM-DD');
   endDate = moment().endOf('month').format('YYYY-MM-DD');
 
+  //New Entered Value
+  @Input() CompletedNewSch: any;
+  @Input() inCompletedNewSch: any;
+  @Input() availbleNewLoco: any;
+  @Input() unavailbleNewLoco: any;
+
   constructor(
     private scheduleService: ScheduleService,
     private locomotiveService: LocomotiveService,
@@ -43,68 +51,65 @@ export class ViewAllLocoBarChartComponent implements OnInit {
     },
   };
 
-  public barChartLabels: any[] = [];
-  public barChartType: any = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-
-  public barChartData: ChartDataSets[] = [
-    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Memberships' },
-    { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Items' },
-  ];
-
-  // public barChartLabels = [
-  //   'Jan',
-  //   'Feb',
-  //   'Mar',
-  //   'Apr',
-  //   'May',
-  //   'Jun',
-  //   'Jul',
-  //   'Aug',
-  //   'Sep',
-  //   'Oct',
-  //   'Nov',
-  //   'Dec',
-  // ];
-  // public barChartType = 'bar';
+  // public barChartLabels: any[] = [];
+  // public barChartType: any = 'bar';
   // public barChartLegend = true;
-  // public barChartData = [
-  //   {
-  //     data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
-  //     label: 'Series A',
-  //   },
-  //   {
-  //     data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-  //     label: 'Series B',
-  //   },
-  //   {
-  //     data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-  //     label: 'Series ',
-  //   },
-  //   {
-  //     data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
-  //     label: 'Series C',
-  //     backgroundColor: '#7befb2',
-  //   },
+  // public barChartPlugins = [];
+
+  // public barChartData: ChartDataSets[] = [
+  //   { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Memberships' },
+  //   { data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], label: 'Items' },
   // ];
+
+  public barChartLabels = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  public barChartType = 'bar';
+  public barChartLegend = true;
+  public barChartData = [
+    {
+      data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
+      label: 'Series A',
+    },
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series B',
+    },
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series ',
+    },
+    {
+      data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
+      label: 'Series C',
+      backgroundColor: '#7befb2',
+    },
+  ];
   isshowData = false;
   ngOnInit(): void {
     this.loadAllData();
-    return;
-    // this.loadAllSchedule();
-    // this.getAllLoco();
-    // this.getLoadTrial();
-    // console.log(this.availableLoco);
-    //console.log(this.inCompleteSchedules)
-    // console.log(this.available);
+    this.showChartData(); // load the chart data in dashboad
   }
   loadAllData() {
     //loadAllData;
     this.barChartData[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.barChartData[1].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.barChartData[2].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.barChartData[3].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    this.barChartData = this.childePassData[0];
+    this.barChartData[0] = this.CompletedNewSch;
+    this.barChartData[1] = this.inCompletedNewSch;
     this.isshowData = true;
   }
   // public barChartOptions = {
@@ -159,5 +164,97 @@ export class ViewAllLocoBarChartComponent implements OnInit {
       this.loadArray = resp;
       //console.log(this.loadArray);
     });
+  }
+
+  showChartData() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    const _allSch = this.scheduleService.getAllSchedules();
+    const _getLoco = this.locomotiveService.getAllLocoAssigned(object);
+    const _getLoadTrail = this.loadTrialService.getLoadTrialAssigned(object);
+
+    forkJoin([_allSch, _getLoco, _getLoadTrail])
+      .pipe(first())
+      .subscribe((res) => {
+        var schs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var barchartArray = [];
+        var availableLocoArray = [];
+        //locomotive
+
+        // //All schedule
+        const _scheduleArray = res[0];
+        const _filterSch = _scheduleArray.filter((p) => p.scheduleStatus == 7);
+        if (_filterSch.length > 0) {
+          x;
+          var _yearCount = 12;
+          for (var x = 0; x <= _yearCount; x++) {
+            const GetVal = _filterSch.filter(
+              (c) => new Date(c.scheduleDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              schs[x] = GetVal.length;
+            }
+          }
+        }
+        let Sch = {
+          data: schs,
+          label: 'Completed Schedules',
+        };
+        barchartArray.push(Sch);
+        this.CompletedNewSch = Sch;
+        console.log('Complete man');
+        console.log(this.CompletedNewSch);
+        //icomplete scheudle
+        const _filterInComplete = _scheduleArray.filter(
+          (p) => p.scheduleStatus != 7
+        );
+        if (_filterInComplete.length > 0) {
+          var _yearCount = 12;
+          for (var x = 0; x <= _yearCount; x++) {
+            const GetVal = _filterInComplete.filter(
+              (c) => new Date(c.scheduleDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              schs[x] = GetVal.length;
+            }
+          }
+        }
+        let inComplete = {
+          data: schs,
+          label: 'InCompleted Schedules',
+        };
+        barchartArray.push(inComplete);
+        this.inCompletedNewSch = inComplete;
+        console.log('un Complete man');
+        console.log(this.inCompletedNewSch);
+        //  this.barChartData = barchartArray;
+        this.isshowData = true;
+        return;
+        //available loco
+        const _locomotiveArray = res[1];
+        const _availableLoco = _locomotiveArray.filter(
+          (p) => p.locoStatus === 0
+        );
+        if (_availableLoco.length > 0) {
+          var _yearCount = 12;
+          for (var x = 0; x <= _yearCount; x++) {
+            const GetVal = _availableLoco.filter(
+              (c) => new Date(c.locoDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              schs[x] = GetVal.length;
+            }
+          }
+        }
+        const _availableLocoData = {
+          data: schs,
+          label: 'Available Locomotives',
+        };
+        //  barchartArray.push(_availableLocoData);
+        this.availableLoco = barchartArray;
+      });
   }
 }

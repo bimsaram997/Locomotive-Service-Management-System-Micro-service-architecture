@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import LocoScheduleDTO from '../../../../../dto/LocoScheduleDTO';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
+import * as moment from 'moment';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -79,6 +80,7 @@ export class UserProfileComponent implements OnInit {
       this.userWorks = res[0].userWorks;
       this.image = res[0].image;
     });
+    this.newLogic();
   }
 
   backClicked() {
@@ -216,6 +218,37 @@ export class UserProfileComponent implements OnInit {
   view() {
     const btn = document.getElementById('btn-pop-up') as HTMLElement;
     btn.click();
+  }
+
+  newLogic() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    console.log(object);
+    this.scheduleService.getAllScheduleAssigned(object).subscribe((resp) => {
+      this.scheduleList = resp;
+
+      const _FilterData = this.scheduleList.filter(
+        (p) => p.scheduleStatus == 7 || p.scheduleStatus == 8
+      );
+      var ShcCount = 0;
+      if (_FilterData.length > 0) {
+        _FilterData.forEach((result, index) => {
+          if (result.actualCompletedDate != undefined) {
+            if (
+              moment(result.actualCompletedDate).format('YYYY-MM-DD') <
+              moment(result.completedDate).format('YYYY-MM-DD')
+            ) {
+              ShcCount += 1;
+            }
+          }
+        });
+        const _divideSchd = (ShcCount / _FilterData.length) * 100;
+        console.log(_divideSchd + 'ddddsd');
+      }
+    });
   }
 
   async printTestInfo() {

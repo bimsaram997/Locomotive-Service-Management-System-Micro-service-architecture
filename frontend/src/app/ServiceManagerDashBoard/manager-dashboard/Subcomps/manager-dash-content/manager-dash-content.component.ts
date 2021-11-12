@@ -23,7 +23,12 @@ export class ManagerDashContentComponent implements OnInit {
   dateList: LocoScheduleDTO[] = [];
   dateList1: LocoScheduleDTO[] = [];
   loading = false;
+  showLocoChart = false;
   childePassData = [];
+
+  CompletedNewSch: any;
+  inCompletedNewSch: any;
+
   availableLoco: any[];
   inCompleteSchedules: any[];
   cont: Array<any>[] = [];
@@ -78,7 +83,7 @@ export class ManagerDashContentComponent implements OnInit {
             }
           }
         }
-        //console.log(this.calanderArray)
+        this.showLocoChart = true;
       });
     setTimeout(() => {
       this.calendarOptions = {
@@ -105,75 +110,80 @@ export class ManagerDashContentComponent implements OnInit {
     forkJoin([_allSch, _getLoco, _getLoadTrail])
       .pipe(first())
       .subscribe((res) => {
-        var schs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        var barchartArray = [];
-        var availableLocoArray = [];
+        //var schs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // var barchartArray = [];
+        // var availableLocoArray = [];
+        // //locomotive
 
-        //All schedule
+        // //All schedule
         const _scheduleArray = res[0];
-        const _filterSch = _scheduleArray.filter((p) => p.scheduleStatus == 7);
-        if (_filterSch.length > 0) {
-          var _yearCount = 12;
-          for (var x = 0; x <= _yearCount; x++) {
-            const GetVal = _filterSch.filter(
-              (c) => new Date(c.scheduleDate).getMonth() == x
-            );
-            if (GetVal.length > 0) {
-              schs[x] = GetVal.length;
-            }
-          }
-        }
-        let Sch = {
-          data: schs,
-          label: 'Completed Schedules',
-        };
-        barchartArray.push(Sch);
-        this.childePassData = barchartArray;
-
-        //icomplete scheudle
-        const _filterInComplete = _scheduleArray.filter(
-          (p) => p.scheduleStatus != 7
-        );
-        if (_filterInComplete.length > 0) {
-          var _yearCount = 12;
-          for (var x = 0; x <= _yearCount; x++) {
-            const GetVal = _filterInComplete.filter(
-              (c) => new Date(c.scheduleDate).getMonth() == x
-            );
-            if (GetVal.length > 0) {
-              schs[x] = GetVal.length;
-            }
-          }
-        }
-        let inComplete = {
-          data: schs,
-          label: 'InCompleted Schedules',
-        };
-        barchartArray.push(inComplete);
-        this.inCompleteSchedules = barchartArray;
-
-        //available loco
-        const _locomotiveArray = res[1];
-        const _availableLoco = _locomotiveArray.filter(
-          (p) => p.locoStatus == 7
-        );
-        if (_availableLoco.length > 0) {
-          var _yearCount = 12;
-          for (var x = 0; x <= _yearCount; x++) {
-            const GetVal = _filterSch.filter(
-              (c) => new Date(c.locoDate).getMonth() == x
-            );
-            if (GetVal.length > 0) {
-              schs[x] = GetVal.length;
-            }
-          }
-        }
-        const _availableLocoData = {
-          data: schs,
-          label: 'Available Locomotives',
-        };
-        availableLocoArray.push(schs);
-        this.availableLoco = availableLocoArray;
+        // const _filterSch = _scheduleArray.filter((p) => p.scheduleStatus == 7);
+        // if (_filterSch.length > 0) {x
+        //   var _yearCount = 12;
+        //   for (var x = 0; x <= _yearCount; x++) {
+        //     const GetVal = _filterSch.filter(
+        //       (c) => new Date(c.scheduleDate).getMonth() == x
+        //     );
+        //     if (GetVal.length > 0) {
+        //       schs[x] = GetVal.length;
+        //     }
+        //   }
+        // }
+        // let Sch = {
+        //   data: schs,
+        //   label: 'Completed Schedules',
+        // };
+        // barchartArray.push(Sch);
+        // this.CompletedNewSch = Sch;
+        // console.log('Complete man');
+        // console.log(this.CompletedNewSch);
+        // //icomplete scheudle
+        // const _filterInComplete = _scheduleArray.filter(
+        //   (p) => p.scheduleStatus != 7
+        // );
+        // if (_filterInComplete.length > 0) {
+        //   var _yearCount = 12;
+        //   for (var x = 0; x <= _yearCount; x++) {
+        //     const GetVal = _filterInComplete.filter(
+        //       (c) => new Date(c.scheduleDate).getMonth() == x
+        //     );
+        //     if (GetVal.length > 0) {
+        //       schs[x] = GetVal.length;
+        //     }
+        //   }
+        // }
+        // let inComplete = {
+        //   data: schs,
+        //   label: 'InCompleted Schedules',
+        // };
+        // barchartArray.push(inComplete);
+        // this.inCompletedNewSch = inComplete;
+        // console.log('un Complete man');
+        // console.log(this.inCompletedNewSch);
+        // this.showLocoChart = true;
+        // return;
+        // //available loco
+        // const _locomotiveArray = res[1];
+        // const _availableLoco = _locomotiveArray.filter(
+        //   (p) => p.locoStatus === 0
+        // );
+        // if (_availableLoco.length > 0) {
+        //   var _yearCount = 12;
+        //   for (var x = 0; x <= _yearCount; x++) {
+        //     const GetVal = _availableLoco.filter(
+        //       (c) => new Date(c.locoDate).getMonth() == x
+        //     );
+        //     if (GetVal.length > 0) {
+        //       schs[x] = GetVal.length;
+        //     }
+        //   }
+        // }
+        // const _availableLocoData = {
+        //   data: schs,
+        //   label: 'Available Locomotives',
+        // };
+        // //  barchartArray.push(_availableLocoData);
+        // this.availableLoco = barchartArray;
       });
   }
 

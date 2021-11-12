@@ -16,6 +16,10 @@ const ScheduleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    actualCompletedDate: {
+        type: String,
+        required: false
+    },
     locoCatId: {
         type: String,
         required: true

@@ -17,6 +17,7 @@ import { isThisISOWeek } from 'date-fns';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-load-trial',
@@ -31,8 +32,8 @@ export class AddLoadTrialComponent implements OnInit {
   dynamicBrake: FormArray;
   notches: string[] = ['Notch 1', 'Notch 2', 'Notch 3', 'Notch 4'];
   testType: string[] = ['Working', 'Not Working'];
-  minDate: Date;
-  maxDate: Date;
+  minDate: any;
+  maxDate: Date = new Date(new Date().setDate(new Date().getDate()));
   buttonCount = 0;
   studentCount = 4;
   clicked = false;
@@ -49,7 +50,6 @@ export class AddLoadTrialComponent implements OnInit {
   checkId: boolean = false;
   searchKey: string;
   spinner = false;
-
   ids: any[] = [];
 
   constructor(
@@ -94,6 +94,7 @@ export class AddLoadTrialComponent implements OnInit {
     this.loadMangers();
     this.showIds();
     this.defaultMethod();
+    this.getMinDate();
   }
 
   get getFm() {
@@ -102,6 +103,12 @@ export class AddLoadTrialComponent implements OnInit {
 
   backClicked() {
     this._location.back();
+  }
+
+  getMinDate(): void {
+    const date = moment(new Date());
+    const newDate = date.subtract(2, 'months');
+    this.minDate = moment(newDate).toISOString();
   }
 
   onSubmit() {

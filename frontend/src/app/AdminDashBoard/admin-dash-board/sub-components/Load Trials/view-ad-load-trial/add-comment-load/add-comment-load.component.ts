@@ -122,7 +122,7 @@ export class AddCommentLoadComponent implements OnInit {
 
   setValuesForNextSchedule() {
     this.send_date = new Date();
-    this.send_date.setMonth(this.send_date.getMonth() + 1);
+    this.send_date.setMonth(this.send_date.getMonth() + 2);
     this.formattedDate = this.send_date.toISOString().slice(0, 10);
     this.nextSchedule.controls['date'].setValue(this.formattedDate);
   }

@@ -457,7 +457,7 @@ const patchFinalMile = async(req, res, next) => {
         // console.log(_obj);
         //console.log(_obj.locoNumber)
         if (_obj.locoNumber) {
-            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.endMileDate } }, function(err, result) {
+            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { endMileage: _obj.endMileage, endMileDate: _obj.loadDate } }, function(err, result) {
 
                 if (err) {
                     res.status(500).json(err)

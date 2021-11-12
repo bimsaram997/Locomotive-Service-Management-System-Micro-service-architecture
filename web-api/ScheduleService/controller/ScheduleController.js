@@ -647,7 +647,7 @@ const assignedLoadTrial = async(req, resp) => {
     //accepting load trial chamnge shedule status to 7
     // console.log(req.body);
 
-    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 8, schReason: "Assigned to Load Trial" } },
+    await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 8, schReason: "Assigned to Load Trial", actualCompletedDate: req.body.loadDate } },
         function(err, result) {
             if (err) {
                 resp.status(500).json(err);

@@ -97,6 +97,60 @@
                     </div>
                 </div>
                 <hr class="hr" />
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h6 class="mb-0 label">Schedule Status</h6>
+                    </div>
+                    <div class="col-sm-6 text-secondary">
+                        <p>
+                            <button mat-icon-button (click)="OpenEditDialog(this.performanceValue)">
+                <i
+                  class="fas fa-chart-bar"
+                  style="color: red; font-weight: bold; font-size: 20px"
+                  *ngIf="this.performanceValue === 0"
+                  [matTooltip]="tooltipText"
+                >
+                </i>
+              </button>
+
+                            <i class="fas fa-chart-bar" style="
+                  color: rgb(235, 155, 8);
+                  font-weight: bold;
+                  font-size: 20px;
+                " *ngIf="this.performanceValue === 1" [matTooltip]="tooltipText"></i>
+                            <i class="fas fa-chart-bar" style="
+                  color: rgb(179, 179, 33);
+                  font-weight: bold;
+                  font-size: 20px;
+                " *ngIf="this.performanceValue === 2" [matTooltip]="tooltipText"></i>
+                            <button mat-icon-button (click)="OpenEditDialog(this.performanceValue)">
+                <i
+                  class="fas fa-chart-bar"
+                  style="
+                    color: rgb(151, 204, 44);
+                    font-weight: bold;
+                    font-size: 20px;
+                  "
+                  *ngIf="this.performanceValue === 3"
+                  [matTooltip]="tooltipText"
+                ></i>
+              </button>
+
+                            <i class="fas fa-chart-bar" style="
+                  color: rgb(90, 197, 90);
+                  font-weight: bold;
+                  font-size: 20px;
+                " *ngIf="this.performanceValue === 4" [matTooltip]="tooltipText"></i>
+                            <i class="fas fa-chart-bar" style="color: green; font-weight: bold; font-size: 20px" *ngIf="this.performanceValue === 5" [matTooltip]="tooltipText"></i>
+                            <i class="fas fa-chart-bar" style="
+                  color: rgb(2, 39, 88);
+                  font-weight: bold;
+                  font-size: 20px;
+                " *ngIf="this.performanceValue === 5" [matTooltip]="tooltipText"></i>
+                        </p>
+                    </div>
+                </div>
+                <hr class="hr" />
                 <div class="row" style="color: black">
                     <div class="col-sm-4">
                         <h4 class="mb-0 label">Supervisor Name</h4>

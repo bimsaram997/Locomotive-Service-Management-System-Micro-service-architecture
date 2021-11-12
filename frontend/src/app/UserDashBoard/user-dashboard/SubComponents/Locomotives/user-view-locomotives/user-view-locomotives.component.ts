@@ -122,7 +122,7 @@ export class UserViewLocomotivesComponent implements OnInit {
   OpenEditDialog(_id: string) {
     console.log(_id);
     const dialogRef = this.dialog.open(EditLocoComponent, {
-      data: { id: _id },
+      data: { id: _id, disableClose: true },
 
       width: '700px',
     });
