@@ -11,6 +11,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
 import { LocoPerformceComponent } from 'src/app/Common/performance/loco-performce/loco-performce.component';
+import { GoogleChartComponent } from 'angular-google-charts';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -82,6 +83,8 @@ export class ViewLocoProfileComponent implements OnInit {
   dateSent: Date;
   performanceValue: any;
   tooltipText: string;
+  no: number;
+  performanceNumber: number;
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
   }
@@ -96,10 +99,11 @@ export class ViewLocoProfileComponent implements OnInit {
     private router: Router,
     private scheduleService: ScheduleService
   ) {}
-
+  data = [['Water', { v: 0, f: '78%' }]];
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.viewLocoGroup = this.formBuilder.group({});
+    this.no = 80;
 
     this.locomotiveService
       .getOneLoco(this.id)
@@ -136,6 +140,7 @@ export class ViewLocoProfileComponent implements OnInit {
         this.viewNextSchedules();
         this.SecondNewLogic();
       });
+    this.data = [['Water', { v: this.no, f: '78%' }]];
   }
 
   scrollToTop() {
@@ -221,32 +226,43 @@ export class ViewLocoProfileComponent implements OnInit {
       if (loadDate >= 0 && loadDate <= 10) {
         this.performanceValue = 0;
         this.tooltipText = 'Initial Performance';
+        this.performanceNumber = 10;
         this.statusBinderLocoPerformance(this.performanceValue);
       } else if (loadDate > 10 && loadDate <= 20) {
         this.performanceValue = 1;
         this.tooltipText = 'Very Low Performance';
+        this.performanceNumber = 25;
       } else if (loadDate > 20 && loadDate <= 30) {
         this.performanceValue = 2;
         this.tooltipText = 'Low Performance';
+        this.performanceNumber = 30;
       } else if (loadDate > 30 && loadDate <= 40) {
         this.performanceValue = 3;
         this.tooltipText = 'Medium Performance';
+        this.performanceNumber = 50;
       } else if (loadDate > 40 && loadDate <= 60) {
         this.performanceValue = 4;
+        this.performanceNumber = 75;
         this.tooltipText = 'High Performance';
       } else if (loadDate > 60 && loadDate <= 80) {
         this.performanceValue = 5;
+
         this.tooltipText = 'Very High Performance';
+        this.performanceNumber = 100;
       }
     }
   }
 
-  OpenEditDialog(performanceValue: number) {
-    console.log(performanceValue);
+  OpenEditDialog() {
     const dialogRef = this.dialog.open(LocoPerformceComponent, {
-      data: { id: performanceValue, disableClose: true },
+      data: {
+        heading: 'Locomotive Performance Meter',
+        disableClose: true,
+        performanceNumber: this.performanceNumber,
+        performanceName: 'Locomotive',
+      },
 
-      width: '700px',
+      width: '380px',
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }

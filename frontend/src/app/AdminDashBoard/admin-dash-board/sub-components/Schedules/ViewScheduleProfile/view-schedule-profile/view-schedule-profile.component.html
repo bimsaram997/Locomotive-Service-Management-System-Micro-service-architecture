@@ -1,68 +1,77 @@
 <div class="container-fluid">
-    <div class="box-head">
-        <img src="./assets/images/calendar.png" alt="" style="height: 40px; width: 40px" /> &nbsp;
-        <span class="heading-txt"><span style="color: #1e8bc3">S</span>CHEDULE PROFILE
-        </span>
-        <div class="timer" *ngIf="isTimer">
-            <span id="days"> {{ daysToDday }} </span>Day(s)
-            <span id="hours"> {{ hoursToDday }} </span>Hrs
-            <span id="minutes"> {{ minutesToDday }} </span>Min
-            <span id="seconds"> {{ secondsToDday }} </span>S
-        </div>
-        <mat-card class="chip" *ngIf="lapseBanner">Schedule is lapsed <br />
-            <span class="sub-note">Need load trial</span>
-        </mat-card>
-        <mat-card class="chip-com" *ngIf="completedBanner">Schedule is Completed</mat-card>
+  <div class="box-head">
+    <img
+      src="./assets/images/calendar.png"
+      alt=""
+      style="height: 40px; width: 40px"
+    />
+    &nbsp;
+    <span class="heading-txt"
+      ><span style="color: #1e8bc3">S</span>CHEDULE PROFILE
+    </span>
+    <div class="timer" *ngIf="isTimer">
+      <span id="days"> {{ daysToDday }} </span>Day(s)
+      <span id="hours"> {{ hoursToDday }} </span>Hrs
+      <span id="minutes"> {{ minutesToDday }} </span>Min
+      <span id="seconds"> {{ secondsToDday }} </span>S
     </div>
-    <hr />
-    <div class="back">
-        <button mat-raised-button (click)="backClicked()">
+    <mat-card class="chip" *ngIf="lapseBanner"
+      >Schedule is lapsed <br />
+      <span class="sub-note">Need load trial</span>
+    </mat-card>
+    <mat-card class="chip-com" *ngIf="completedBanner"
+      >Schedule is Completed</mat-card
+    >
+  </div>
+  <hr />
+  <div class="back">
+    <button mat-raised-button (click)="backClicked()">
       <i class="fas fa-arrow-left"></i>&nbsp; Back
     </button>
-    </div>
+  </div>
 
-    <div class="main-body">
-        <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-0 label print">Basic Details</h6>
-                        <br />
-                        <div class="row" style="color: black">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Schedule No.</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary" style="color: black">
-                                <span class="info">{{ this.scheduleNo }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Report No.</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">{{ this.mReportNumber }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Request Date</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">{{
+  <div class="main-body">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="mb-0 label print">Basic Details</h6>
+            <br />
+            <div class="row" style="color: black">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Schedule No.</h6>
+              </div>
+              <div class="col-sm-6 text-secondary" style="color: black">
+                <span class="info">{{ this.scheduleNo }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Report No.</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">{{ this.mReportNumber }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Request Date</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">{{
                   this.scheduleDate | date: "yyyy-MM-dd"
                 }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Complete Date</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Complete Date</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">
                   {{ this.completedDate | date: "yyyy-MM-dd" }}</span
                 >
               </div>
@@ -74,51 +83,52 @@
               </div>
               <div class="col-sm-6 text-secondary">
                 <span class="info">{{ this.locoCatId }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Loco Number</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">{{ this.locoNumber }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Loco Mileage</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">{{ this.locoMileage }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Loco Status</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">{{ this.locoStatus }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Progress Completed</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info">{{ this.scheduleProgress + "%" }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">Schedule Status</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <p [ngStyle]="{
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Loco Number</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">{{ this.locoNumber }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Loco Mileage</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">{{ this.locoMileage }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Loco Status</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">{{ this.locoStatus }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Progress Completed</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info">{{ this.scheduleProgress + "%" }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Schedule Status</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <p
+                  [ngStyle]="{
                     color:
                       this.scheduleStatus == 0
                         ? 'blue'
@@ -137,389 +147,625 @@
                         : this.scheduleStatus == 7
                         ? 'black'
                         : 'red'
-                  }">
-                                    <span class="material-icons" style="font-weight: bold" matTooltip="{{ this.schReason }}">
+                  }"
+                >
+                  <span
+                    class="material-icons"
+                    style="font-weight: bold"
+                    matTooltip="{{ this.schReason }}"
+                  >
                     {{ statusBinder(this.scheduleStatus) }}
                   </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-0 label print">Persons</h6>
-                        <br />
-                        <div class="row" style="color: black">
-                            <div class="col-sm-5">
-                                <h6 class="mb-0 label">Service Manager Name</h6>
-                            </div>
-                            <div class="col-sm-7 text-secondary" style="color: black">
-                                <span class="info"> {{ this.managerName }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h6 class="mb-0 label">Service Manager NIC</h6>
-                            </div>
-                            <div class="col-sm-7 text-secondary">
-                                <span class="info"> {{ this.managerNic }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h6 class="mb-0 label">Service Manager Email</h6>
-                            </div>
-                            <div class="col-sm-7 text-secondary">
-                                <span class="info">{{ this.managerEmail }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h6 class="mb-0 label">Supervisor Name</h6>
-                            </div>
-                            <div class="col-sm-7 text-secondary">
-                                <span class="info">{{ this.supervisorName }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h6 class="mb-0 label">Supervisor NIC</h6>
-                            </div>
-                            <div class="col-sm-7 text-secondary">
-                                <span class="info">{{ this.supervisorNic }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h6 class="mb-0 label">Supervisor Email</h6>
-                            </div>
-                            <div class="col-sm-7 text-secondary">
-                                <span class="info">{{ this.supervisorEmail }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </p>
+              </div>
             </div>
-            <div class="col-md-8">
-                <p>
-                    <span class="observation">Print Details</span>&nbsp;
-                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" appearance="legacy">
-                        <mat-button-toggle style="
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">Expected Schedule Efficiency</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span
+                  style="font-size: 20px; font-weight: bold; cursor: pointer ;"
+                  (click)="OpenEditDialog()"
+                  [ngStyle]="{
+                    color:
+                      this.efficiency >= 0 && this.efficiency < 20
+                        ? 'red'
+                        : this.efficiency >= 20 && this.efficiency < 40
+                        ? 'blue'
+                        : this.efficiency >= 40 && this.efficiency < 60
+                        ? 'orange'
+                        : this.efficiency >= 60 && this.efficiency < 80
+                        ? 'purple'
+                        : this.efficiency >= 80 && this.efficiency < 100
+                        ? 'green'
+                        : 'red'
+                  }"
+                  >{{ this.efficiency | number: "1.2-2" }} <span>%</span></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="card">
+          <div class="card-body">
+            <h6 class="mb-0 label print">Persons</h6>
+            <br />
+            <div class="row" style="color: black">
+              <div class="col-sm-5">
+                <h6 class="mb-0 label">Service Manager Name</h6>
+              </div>
+              <div class="col-sm-7 text-secondary" style="color: black">
+                <span class="info"> {{ this.managerName }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-5">
+                <h6 class="mb-0 label">Service Manager NIC</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                <span class="info"> {{ this.managerNic }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-5">
+                <h6 class="mb-0 label">Service Manager Email</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                <span class="info">{{ this.managerEmail }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-5">
+                <h6 class="mb-0 label">Supervisor Name</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                <span class="info">{{ this.supervisorName }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-5">
+                <h6 class="mb-0 label">Supervisor NIC</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                <span class="info">{{ this.supervisorNic }}</span>
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-5">
+                <h6 class="mb-0 label">Supervisor Email</h6>
+              </div>
+              <div class="col-sm-7 text-secondary">
+                <span class="info">{{ this.supervisorEmail }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <p>
+          <span class="observation">Print Details</span>&nbsp;
+          <mat-button-toggle-group
+            name="fontStyle"
+            aria-label="Font Style"
+            appearance="legacy"
+          >
+            <mat-button-toggle
+              style="
                 background-color: #1f3a93;
                 color: white;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 500;
                 font-size: 13px;
-              " matTooltip="Print Locomotives Details" value="bold" (click)="printBasic()">Basic Details</mat-button-toggle>
-                        <mat-button-toggle style="
+              "
+              matTooltip="Print Locomotives Details"
+              value="bold"
+              (click)="printBasic()"
+              >Basic Details</mat-button-toggle
+            >
+            <mat-button-toggle
+              style="
                 background-color: #1e8bc3;
                 color: white;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 500;
                 font-size: 13px;
-              " matTooltip="Print Mechanical Details" value="italic" (click)="printMechanical()">Mechanical</mat-button-toggle>
-                        <mat-button-toggle style="
+              "
+              matTooltip="Print Mechanical Details"
+              value="italic"
+              (click)="printMechanical()"
+              >Mechanical</mat-button-toggle
+            >
+            <mat-button-toggle
+              style="
                 background-color: #19b5fe;
                 color: white;
                 font-family: 'Roboto', sans-serif;
                 font-weight: 500;
                 font-size: 13px;
-              " matTooltip="Print Electric Details" (click)="printElectric()">Electric</mat-button-toggle>
-                    </mat-button-toggle-group>
-                </p>
+              "
+              matTooltip="Print Electric Details"
+              (click)="printElectric()"
+              >Electric</mat-button-toggle
+            >
+          </mat-button-toggle-group>
+        </p>
 
-                <div class="row gutters-sm-md">
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h4 class="d-flex align-items-center mb-3 label print">
-                                    <img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 30px; height: 30px" />Mechanical Schedule
-                                </h4>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Motor Parts
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Main Motor Items">
-                                                        <th mat-header-cell *matHeaderCellDef>
-                                                            Motor Part
-                                                        </th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState1 = true" (closed)="panelOpenState1 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Traction Motors
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Traction Motor Items">
-                                                        <th mat-header-cell *matHeaderCellDef>
-                                                            Traction Part
-                                                        </th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState2 = true" (closed)="panelOpenState2 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Loco Body
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Loco Body Items">
-                                                        <th mat-header-cell *matHeaderCellDef>Loco Part</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState3 = true" (closed)="panelOpenState3 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Other Parts
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource4" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Other Motor Items">
-                                                        <th mat-header-cell *matHeaderCellDef>
-                                                            Other Part
-                                                        </th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element.Name }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns4"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h4 class="d-flex align-items-center mb-3 label print">
-                                    <img src="https://img.icons8.com/ios-filled/50/000000/electronics.png" style="width: 30px; height: 30px" /> Electrical Schedule
-                                </h4>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState4 = true" (closed)="panelOpenState4 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Electric & CU
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource5" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Electric CU Items">
-                                                        <th mat-header-cell *matHeaderCellDef>E-CU</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns5"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState5 = true" (closed)="panelOpenState5 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Electric Mechanical
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource6" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="E-Mechanic Items">
-                                                        <th mat-header-cell *matHeaderCellDef>E-Mech</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns6"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns6"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState6 = true" (closed)="panelOpenState6 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Electric Switches
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource7" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="E-Switch Items">
-                                                        <th mat-header-cell *matHeaderCellDef>E-Switch</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns7"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns7"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <mat-accordion class="example-headers-align" multi>
-                                            <mat-expansion-panel (opened)="panelOpenState7 = true" (closed)="panelOpenState7 = false">
-                                                <mat-expansion-panel-header>
-                                                    <mat-panel-title class="accord-head">
-                                                        Other Electric Parts
-                                                    </mat-panel-title>
-                                                    <mat-panel-description> </mat-panel-description>
-                                                </mat-expansion-panel-header>
-                                                <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8">
-                                                    <ng-container matColumnDef="No">
-                                                        <th mat-header-cell *matHeaderCellDef>No.</th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element; let i = index">
-                                                            {{ i + 1 }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Loco Body Items">
-                                                        <th mat-header-cell *matHeaderCellDef>
-                                                            Motor Part
-                                                        </th>
-                                                        <td class="label-txt" mat-cell *matCellDef="let element">
-                                                            {{ element }}
-                                                        </td>
-                                                    </ng-container>
-                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
-                                                    <tr matRipple mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
-                                                </table>
-                                            </mat-expansion-panel>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br />
+        <div class="row gutters-sm-md">
+          <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="d-flex align-items-center mb-3 label print">
+                  <img
+                    src="https://img.icons8.com/ios/50/000000/piston.png"
+                    style="width: 30px; height: 30px"
+                  />Mechanical Schedule
+                </h4>
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Motor Parts
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource1"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Main Motor Items">
+                            <th mat-header-cell *matHeaderCellDef>
+                              Motor Part
+                            </th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns1"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns1"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
                 </div>
-
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h3 class="label print">Special Remarks</h3>
-                        <p class="info">{{ this.specialNote }}</p>
-                    </div>
+                <br />
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState1 = true"
+                        (closed)="panelOpenState1 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Traction Motors
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource2"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Traction Motor Items">
+                            <th mat-header-cell *matHeaderCellDef>
+                              Traction Part
+                            </th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns2"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns2"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
                 </div>
+                <br />
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState2 = true"
+                        (closed)="panelOpenState2 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Loco Body
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource3"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Loco Body Items">
+                            <th mat-header-cell *matHeaderCellDef>Loco Part</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns3"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns3"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState3 = true"
+                        (closed)="panelOpenState3 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Other Parts
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource4"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Other Motor Items">
+                            <th mat-header-cell *matHeaderCellDef>
+                              Other Part
+                            </th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element.Name }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns4"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns4"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="d-flex align-items-center mb-3 label print">
+                  <img
+                    src="https://img.icons8.com/ios-filled/50/000000/electronics.png"
+                    style="width: 30px; height: 30px"
+                  />
+                  Electrical Schedule
+                </h4>
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState4 = true"
+                        (closed)="panelOpenState4 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Electric & CU
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource5"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Electric CU Items">
+                            <th mat-header-cell *matHeaderCellDef>E-CU</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns5"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns5"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState5 = true"
+                        (closed)="panelOpenState5 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Electric Mechanical
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource6"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="E-Mechanic Items">
+                            <th mat-header-cell *matHeaderCellDef>E-Mech</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns6"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns6"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState6 = true"
+                        (closed)="panelOpenState6 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Electric Switches
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource7"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="E-Switch Items">
+                            <th mat-header-cell *matHeaderCellDef>E-Switch</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns7"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns7"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-accordion class="example-headers-align" multi>
+                      <mat-expansion-panel
+                        (opened)="panelOpenState7 = true"
+                        (closed)="panelOpenState7 = false"
+                      >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="accord-head">
+                            Other Electric Parts
+                          </mat-panel-title>
+                          <mat-panel-description> </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table
+                          mat-table
+                          [dataSource]="dataSource3"
+                          class="mat-elevation-z8"
+                        >
+                          <ng-container matColumnDef="No">
+                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element; let i = index"
+                            >
+                              {{ i + 1 }}
+                            </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Loco Body Items">
+                            <th mat-header-cell *matHeaderCellDef>
+                              Motor Part
+                            </th>
+                            <td
+                              class="label-txt"
+                              mat-cell
+                              *matCellDef="let element"
+                            >
+                              {{ element }}
+                            </td>
+                          </ng-container>
+                          <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns3"
+                          ></tr>
+                          <tr
+                            matRipple
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns3"
+                          ></tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
         </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="label print">Special Remarks</h3>
+            <p class="info">{{ this.specialNote }}</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -1,3 +1,4 @@
+import { LocoPerformceComponent } from 'src/app/Common/performance/loco-performce/loco-performce.component';
 import { ViewportScroller, formatDate } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { ScheduleService } from 'src/app/service/schedule.service';
 import * as moment from 'moment';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-schedule-profile',
@@ -81,6 +83,15 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
 
   pageYoffset = 0;
   scheduleList: any;
+  mechanical: any;
+  mechanical1: number;
+  mechanical2: number;
+  mechanical3: number;
+  electric1: any;
+  electric2: number;
+  electric3: number;
+  electric: any;
+  efficiency: any;
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
   }
@@ -104,7 +115,8 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
     private router: Router,
     private _location: Location,
     private scheduleService: ScheduleService,
-    private scroll: ViewportScroller
+    private scroll: ViewportScroller,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -154,7 +166,7 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
       )
       .subscribe((final) => {
         this.dataSource9 = final;
-        console.log(this.dataSource9);
+        this.SchedulePerformance();
       });
     this.loadSchedule();
     this.hello();
@@ -162,20 +174,34 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
     this.subscription = interval(1000).subscribe((x) => {
       this.getTimeDifference();
     });
-
   }
 
-  SecondNewLogic() {
-    var _cuurentData = this.parseDate(moment().format());
-    var _object = { date: moment().format() }; //check witha actual date
-    const loadDate = this.datediff(_cuurentData, _object.date); // how many count
+  SchedulePerformance(): void {
+    this.mechanical1 = this.dataSource1.length;
+    this.mechanical2 = this.dataSource2.length;
+    this.mechanical3 = this.dataSource3.length;
+    this.mechanical =
+      (this.mechanical1 + this.mechanical2 + this.mechanical3) / 12;
 
-    if (loadDate >= 10 || loadDate <= 20) {
-    } else if (loadDate > 20 || loadDate <= 30) {
-    } else if (loadDate > 30 || loadDate <= 40) {
-    } else if (loadDate > 40 || loadDate <= 60) {
-    } else if (loadDate > 60 || loadDate <= 80) {
-    }
+    this.electric1 = this.dataSource5.length;
+    this.electric2 = this.dataSource6.length;
+    this.electric3 = this.dataSource7.length;
+    this.electric = (this.electric1 + this.electric2 + this.electric3) / 14;
+
+    this.efficiency = ((this.mechanical + this.electric) / 2) * 100;
+  }
+  OpenEditDialog() {
+    const dialogRef = this.dialog.open(LocoPerformceComponent, {
+      data: {
+        heading: 'Schedule Efficiency Meter',
+        disableClose: true,
+        performanceNumber: this.efficiency,
+        performanceName: 'Schedule',
+      },
+
+      width: '380px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   parseDate(str) {
@@ -188,7 +214,7 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
     return Math.round((second - first) / (1000 * 60 * 60 * 24));
   }
   //Shcdule logic
- 
+
   scrollToTop() {
     this.scroll.scrollToPosition([0, 0]);
   }

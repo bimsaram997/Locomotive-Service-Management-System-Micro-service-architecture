@@ -1,19 +1,23 @@
 import { LocomotiveService } from './../../../../../service/locomotive.service';
 import { ScheduleService } from './../../../../../service/schedule.service';
 import { LoadTrialService } from './../../../../../service/load-trial.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AccessService } from '../../../../../service/access.service';
 import { ToastrService } from 'ngx-toastr';
 import LocoScheduleDTO from '../../../../../dto/LocoScheduleDTO';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
+import { ChartType } from 'angular-google-charts';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
+  @Output() valueChange = new EventEmitter();
   subject = '';
   email = '';
   text = '';
@@ -46,6 +50,50 @@ export class UserProfileComponent implements OnInit {
   countOperateLoco: number;
   countServiceLoco: number;
   countLoadLoco: number;
+  newVal: any[];
+  newVal2: any[];
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public barChartLabels: Label[] = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartDataSets[] = [
+    {
+      data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
+      label: 'Series A',
+    },
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series B',
+    },
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series C',
+    },
+    // {
+    //   data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+    //   label: 'Series B',
+    // },
+  ];
+  isChecked: boolean;
+
   constructor(
     private accessService: AccessService,
     private toastr: ToastrService,
@@ -81,6 +129,7 @@ export class UserProfileComponent implements OnInit {
       this.image = res[0].image;
     });
     this.newLogic();
+    this.myLogic();
   }
 
   backClicked() {
@@ -238,8 +287,8 @@ export class UserProfileComponent implements OnInit {
         _FilterData.forEach((result, index) => {
           if (result.actualCompletedDate != undefined) {
             if (
-              moment(result.actualCompletedDate).format('YYYY-MM-DD') <
-              moment(result.completedDate).format('YYYY-MM-DD')
+              new Date(result.actualCompletedDate).getTime() <
+              new Date(result.completedDate).getTime()
             ) {
               ShcCount += 1;
             }
@@ -251,6 +300,64 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  myLogic(): void {
+    this.barChartData[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    console.log(object);
+    this.scheduleService.getAllScheduleAssigned(object).subscribe((resp) => {
+      this.scheduleList = resp;
+      var schs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      const _FilterData = this.scheduleList.filter(
+        (p) => p.scheduleStatus == 7 || p.scheduleStatus == 8
+      );
+      var ShcCount = 0;
+      if (_FilterData.length > 0) {
+        this.newVal = _FilterData.filter((p) => p.actualCompletedDate != null);
+        console.log(this.newVal);
+      }
+      if (this.newVal.length > 0) {
+        this.newVal2 = this.newVal.filter(
+          (p) =>
+            new Date(p.actualCompletedDate).getTime() <
+            new Date(p.completedDate).getTime()
+        );
+        console.log(this.newVal2);
+        if (this.newVal2.length > 0) {
+          var _yearCount = 12;
+          for (var x = 0; x < _yearCount; x++) {
+            const GetVal = this.newVal2.filter(
+              (c) => new Date(c.scheduleDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              schs[x] = (GetVal.length / this.newVal2.length) * 100;
+            }
+          }
+        }
+        const _availableLocoData = {
+          data: schs ? schs : null,
+          label: 'Available Locomotives',
+        };
+        this.barChartData[0] = _availableLocoData;
+        if (
+          this.barChartData[0] != undefined &&
+          this.barChartData[1] != undefined &&
+          this.barChartData[1] != undefined
+        ) {
+          this.valueChanged(true);
+          this.isChecked = true;
+        }
+      }
+    });
+  }
+  valueChanged(val: boolean) {
+    // You can give any function name
+
+    this.valueChange.emit(val);
+  }
   async printTestInfo() {
     const documentDefinition = {
       content: [
