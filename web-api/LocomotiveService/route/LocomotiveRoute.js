@@ -19,6 +19,7 @@ router.get('/getlocoSche/:id', LocomotiveController.getLocoSch);
 router.get('/getAllLocoAssigned', LocomotiveController.getAllLocoAssigned);
 router.get('/getData', LocomotiveController.getData);
 router.put('/acceptLoadLoco', LocomotiveController.acceptLoadLoco);
+router.get('/getAllLocoAssignedHistory', LocomotiveController.getAllLocoAssignedHistory);
 
 router.patch('/patchSch', LocomotiveController.patchSch);
 router.patch('/patchLoadLoco', LocomotiveController.patchLoadLoco);

@@ -1,0 +1,128 @@
+<div class="container-fluid">
+    <br />
+    <div class="box-head">
+        <div class="back">
+            <button mat-raised-button (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i>&nbsp; Back
+      </button>
+            <br />
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <!-- <div class="container-fluid" style="padding-left: 150px; padding-right: 200px; padding-top: 20px">
+
+        <div class="row head">
+            <div class="col-12 col-md-7 role">
+                <p class="role-txt">
+                    <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="heading-txt">User Analysis Report</span>
+                </p>
+            </div>
+            <div class="col-6 col-md-5">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row date">
+                            <div class="col-12 date">
+                                <p>Date</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p>2021/12/4</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">8.35 PM</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+            <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+            <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+        </div>
+        <div class="row">
+            <div class="col-6">.col-6</div>
+            <div class="col-6">.col-6</div>
+        </div>
+    </div> -->
+    <div class="py-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content> </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            <app-user-perfomance-bar-chart></app-user-perfomance-bar-chart>
+                            <p class="header">User Performance Variation</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            <app-user-perfomance-overoll></app-user-perfomance-overoll>
+                            <p class="header">Availability of Locomotives</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content> </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            <app-locomotive-doh-nut *ngIf="countOperateLoco || countServiceLoco || countLoadLoco" [countOperateLoco]="countOperateLoco" [countServiceLoco]="countServiceLoco" [countLoadLoco]="countLoadLoco"></app-locomotive-doh-nut>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            <app-loco-historybar></app-loco-historybar>
+                            <p class="header">Availability of Locomotives</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content> </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            <app-schedule-doh-nut *ngIf="
+                  countSchedules ||
+                  completedSchedules ||
+                  draftSchedules ||
+                  halfSchedules
+                " [countSchedules]="countSchedules" [completedSchedules]="completedSchedules" [halfSchedules]="halfSchedules" [draftSchedules]="draftSchedules"></app-schedule-doh-nut>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            <p class="header">Availability of Locomotives</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

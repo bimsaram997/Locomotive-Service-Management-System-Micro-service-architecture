@@ -18,7 +18,7 @@ export class LocomotiveDohNutComponent implements OnInit {
 
   public doughnutChartLabels = ['Operating', 'In Schedules', 'In Load Trials'];
   public doughnutChartData = [];
-  public doughnutChartType = 'doughnut';
+  public doughnutChartType = 'pie';
 
   ngOnInit(): void {
     console.log(this.countLoadLoco + ' dd');

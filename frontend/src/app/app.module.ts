@@ -137,6 +137,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ChartViewComponent } from './Common/Graphs/Locomotives/chart-view/chart-view.component';
 import { LocoPerformceComponent } from './Common/performance/loco-performce/loco-performce.component';
+import { UserAnalysisComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/user-analysis.component';
+import { LocoHistorybarComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/loco-historybar/loco-historybar.component';
+import { USerPerfomanceBarChartComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/user-perfomance-bar-chart/user-perfomance-bar-chart.component';
+import { USerPerfomanceOverollComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/user-perfomance-overoll/user-perfomance-overoll.component';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -302,6 +306,14 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ChartViewComponent,
 
     LocoPerformceComponent,
+
+    UserAnalysisComponent,
+
+    LocoHistorybarComponent,
+
+    USerPerfomanceBarChartComponent,
+
+    USerPerfomanceOverollComponent,
   ],
   imports: [
     BrowserModule,

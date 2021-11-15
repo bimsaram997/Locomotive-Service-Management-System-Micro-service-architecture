@@ -144,6 +144,13 @@ export class LocomotiveService {
       params: object,
     });
   }
+
+  public getAllLocoAssignedHistory(object): Observable<any> {
+    return this.http.get(this.myUrl + `locoRoute/getAllLocoAssignedHistory/`, {
+      params: object,
+    });
+  }
+
   public patchSch(object): Observable<any> {
     return this.http.patch(this.myUrl + `locoRoute/patchSch/`, object);
   }

@@ -1,4 +1,5 @@
 const LocomotiveSchema = require('../model/LocomotiveDTO')
+const HistoryLocomotiveSchema = require('../model/HistoryLocoDTO')
 const Schedule = require('../model/ScheduleDTO');
 const MileageSchema = require('../model/MileageDTO');
 const nodemailer = require('nodemailer');
@@ -384,6 +385,26 @@ const getAllLocoAssigned = async(req, resp) => {
 
     } else if (req.query.userRole == 'Supervisor') {
         await LocomotiveSchema.find({ userNic: req.query.userNic }).then(result => {
+            resp.status(200).json(result);
+            //console.log(result);
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+    }
+}
+
+const getAllLocoAssignedHistory = async(req, resp) => {
+    // console.log(req.query)
+    if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk' || req.query.userRole == 'Locomotive Driver') {
+        await HistoryLocomotiveSchema.find().then(result => {
+            resp.status(200).json(result);
+
+        }).catch(error => {
+            resp.status(500).json(result)
+        });
+
+    } else if (req.query.userRole == 'Supervisor') {
+        await HistoryLocomotiveSchema.find({ userNic: req.query.userNic }).then(result => {
             resp.status(200).json(result);
             //console.log(result);
         }).catch(error => {
@@ -2284,6 +2305,7 @@ module.exports = {
     getOneLocoNew,
     getAllLocoAssigned,
     getLocoNum,
+    getAllLocoAssignedHistory,
 
     patchSch,
     patchLoadLoco,

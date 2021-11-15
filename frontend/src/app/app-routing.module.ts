@@ -1,3 +1,4 @@
+import { UserAnalysisComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/user-analysis.component';
 import { ViewDriverLocoProfileComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco-profile/view-driver-loco-profile.component';
 import { ViewDriverLocoComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco/view-driver-loco.component';
 import { LocoDriverDashboardComponent } from './LocoDriverDashBoard/loco-driver-dashboard/loco-driver-dashboard.component';
@@ -117,6 +118,7 @@ const routes: Routes = [
       { path: 'viewProgress', component: ViewProgressReportComponent },
       { path: 'viewLoad', component: ViewLoadTrialsComponent },
       { path: 'viewLoadProf/:id', component: ViewLoadProfComponent },
+      { path: 'userAnalysis', component: UserAnalysisComponent },
     ],
   },
   {
