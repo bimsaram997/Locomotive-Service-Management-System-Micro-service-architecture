@@ -55,6 +55,7 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     color: #000080;
+    padding-bottom: 6px;
 }
 
 .input-label {
@@ -102,4 +103,17 @@
 .date {
     height: 20px;
     background-color: #013243;
+}
+
+.info {
+    margin: 10px 10px 10px 10px;
+}
+
+.avatar-xl {
+    height: 6rem;
+    width: 6rem;
+}
+
+.rounded-circle {
+    border-radius: 50%!important;
 }

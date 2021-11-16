@@ -141,6 +141,8 @@ import { UserAnalysisComponent } from './UserDashBoard/user-dashboard/SubCompone
 import { LocoHistorybarComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/loco-historybar/loco-historybar.component';
 import { USerPerfomanceBarChartComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/user-perfomance-bar-chart/user-perfomance-bar-chart.component';
 import { USerPerfomanceOverollComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/user-perfomance-overoll/user-perfomance-overoll.component';
+import { ScheduleVarianceComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/schedule-variance/schedule-variance.component';
+import { LoadTrialVarianceComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/load-trial-variance/load-trial-variance.component';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -314,6 +316,10 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     USerPerfomanceBarChartComponent,
 
     USerPerfomanceOverollComponent,
+
+    ScheduleVarianceComponent,
+
+    LoadTrialVarianceComponent,
   ],
   imports: [
     BrowserModule,

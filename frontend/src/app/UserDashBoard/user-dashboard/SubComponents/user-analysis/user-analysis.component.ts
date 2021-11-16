@@ -1,3 +1,5 @@
+import { AccessService } from 'src/app/service/access.service';
+import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { LocomotiveService } from 'src/app/service/locomotive.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,15 +19,34 @@ export class UserAnalysisComponent implements OnInit {
   completedSchedules: any;
   draftSchedules: any;
   halfSchedules: any;
+  public selectedIndex: number = 0;
+  loadArray: any;
+  countDraftLoad: any;
+  countPassedtLoad: any;
+  countPendingLoad: any;
+  userName: any;
+  userRole: any;
+  userWorks: any;
+  image: any;
+  finalScore: number;
+  overallScore: number;
+  val: number;
+  averageInLoco: number;
   constructor(
     private _location: Location,
     private locomotiveService: LocomotiveService,
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
+    private loadService: LoadTrialService,
+    private accessService: AccessService
   ) {}
 
   ngOnInit(): void {
     this.getAllLoco();
     this.getAllSchedule();
+    this.getLoadTrial();
+    this.getUserDetails();
+    this.newLogic();
+    this.getLocomotiveAverage();
   }
 
   getAllLoco() {
@@ -109,6 +130,100 @@ export class UserAnalysisComponent implements OnInit {
       this.halfSchedules =
         _filterHalfCompleted.length + two + three + four + five;
     });
+  }
+
+  public getLoadTrial() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    this.loadService.getLoadTrialAssigned(object).subscribe((resp) => {
+      this.loadArray = resp;
+
+      const _filterDraftLoad = this.loadArray.filter((p) => p.status === 1);
+      this.countDraftLoad = _filterDraftLoad.length;
+
+      const _filterPasstLoad = this.loadArray.filter((p) => p.status === 2);
+      this.countPassedtLoad = _filterPasstLoad.length;
+
+      const _filterPendingtLoad = this.loadArray.filter((p) => p.status === 3);
+      this.countPendingLoad = _filterPendingtLoad.length;
+    });
+  }
+
+  getUserDetails(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    //console.log(object);
+    this.accessService.getUserInfo(object).subscribe((res) => {
+      this.userName = res[0].userName;
+      this.userRole = res[0].userRole;
+      this.userWorks = res[0].userWorks;
+      this.image = res[0].image;
+    });
+  }
+
+  newLogic() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    console.log(object);
+    this.scheduleService.getAllScheduleAssigned(object).subscribe((resp) => {
+      this.scheduleList = resp;
+
+      const _FilterData = this.scheduleList.filter(
+        (p) => p.scheduleStatus == 7 || p.scheduleStatus == 8
+      );
+      var ShcCount = 0;
+      if (_FilterData.length > 0) {
+        _FilterData.forEach((result, index) => {
+          if (result.actualCompletedDate != undefined) {
+            if (
+              new Date(result.actualCompletedDate).getTime() <
+              new Date(result.completedDate).getTime()
+            ) {
+              ShcCount += 1;
+            }
+          }
+        });
+        this.finalScore = (ShcCount / _FilterData.length) * 100;
+        this.overallScore = (Math.round(this.finalScore) / 100) * 100;
+      }
+    });
+  }
+
+  getLocomotiveAverage(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+
+    this.locomotiveService
+      .getAllLocoAssignedHistory(object)
+      .subscribe((res) => {
+        this.locoArray = res;
+
+        const _locomotiveArray = this.locoArray;
+        const _availableLoco = _locomotiveArray.filter(
+          (p) => p.locoAvailability === 'In'
+        );
+        if (_availableLoco.length > 0) {
+          this.averageInLoco = (Math.round(_availableLoco.length) / 12) * 100;
+        }
+        //unavailable lcomotives
+        const _unAvailableLoco = _locomotiveArray.filter(
+          (p) => p.locoAvailability === 'Out'
+        );
+        if (_unAvailableLoco.length > 0) {
+        }
+      });
   }
 
   backClicked() {

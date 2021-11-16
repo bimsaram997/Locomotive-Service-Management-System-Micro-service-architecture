@@ -59,6 +59,7 @@ export class LocoHistorybarComponent implements OnInit {
   locoArray: any;
   countOperateLoco: any;
   countServiceLoco: any;
+
   constructor(private locomotiveService: LocomotiveService) {}
 
   ngOnInit(): void {
