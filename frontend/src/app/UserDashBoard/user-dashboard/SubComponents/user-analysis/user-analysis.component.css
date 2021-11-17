@@ -6,7 +6,7 @@
 .box-head {
     display: flex;
     align-items: center;
-    padding-top: 5px;
+    padding-top: 4px;
 }
 
 .container {
@@ -17,11 +17,12 @@
 }
 
 .heading-txt {
-    color: white;
+    color: #013243;
+    font-weight: bold;
     font-family: 'Roboto', sans-serif;
-    font-size: 28px;
+    font-size: 23px;
     margin-left: 10px;
-    letter-spacing: 2px;
+    ;
 }
 
 .line {
@@ -54,13 +55,20 @@
     font-size: 13px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
-    color: #000080;
-    padding-bottom: 6px;
+    color: black;
+    padding-bottom: 1px;
 }
 
 .input-label {
     font-weight: bold;
     color: black;
+}
+
+.value-txt {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: green;
 }
 
 .btn-color {
@@ -116,4 +124,16 @@
 
 .rounded-circle {
     border-radius: 50%!important;
+}
+
+.hr {
+    opacity: 0.6;
+}
+
+.header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: blue;
+    font-weight: 500;
+    text-align: center;
 }

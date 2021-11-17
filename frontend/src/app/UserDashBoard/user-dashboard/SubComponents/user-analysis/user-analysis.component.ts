@@ -32,6 +32,13 @@ export class UserAnalysisComponent implements OnInit {
   overallScore: number;
   val: number;
   averageInLoco: number;
+  averageOutLoco: number;
+  inLoco: any;
+  outLoco: any;
+  inCompletedSchedules: any;
+  averageSchedule: number;
+  countTotalPendingLoad: any;
+  averageLoadTrials: number;
   constructor(
     private _location: Location,
     private locomotiveService: LocomotiveService,
@@ -72,7 +79,16 @@ export class UserAnalysisComponent implements OnInit {
 
       const _filterLoadLoco = this.locoArray.filter((p) => p.locoStatus === 2);
       this.countLoadLoco = _filterLoadLoco.length;
-      console.log(this.countLoadLoco);
+
+      const _filterInLoco = this.locoArray.filter(
+        (p) => p.locoAvailability === 'In'
+      );
+      this.inLoco = _filterInLoco.length;
+
+      const _filterOutLoco = this.locoArray.filter(
+        (p) => p.locoAvailability != 'In'
+      );
+      this.outLoco = _filterOutLoco.length;
     });
   }
 
@@ -129,6 +145,12 @@ export class UserAnalysisComponent implements OnInit {
       );
       this.halfSchedules =
         _filterHalfCompleted.length + two + three + four + five;
+
+      const _filterInCompleted = this.scheduleList.filter(
+        (p) => p.scheduleStatus != 7
+      );
+      this.inCompletedSchedules = _filterInCompleted.length;
+      this.averageSchedule = Math.round(this.scheduleList.length / 12);
     });
   }
 
@@ -149,6 +171,11 @@ export class UserAnalysisComponent implements OnInit {
 
       const _filterPendingtLoad = this.loadArray.filter((p) => p.status === 3);
       this.countPendingLoad = _filterPendingtLoad.length;
+
+      const _totalPendingtLoad = this.loadArray.filter((p) => p.status != 2);
+      this.countTotalPendingLoad = _totalPendingtLoad.length;
+
+      this.averageLoadTrials = Math.round(this.loadArray.length / 12);
     });
   }
 
@@ -215,13 +242,14 @@ export class UserAnalysisComponent implements OnInit {
           (p) => p.locoAvailability === 'In'
         );
         if (_availableLoco.length > 0) {
-          this.averageInLoco = (Math.round(_availableLoco.length) / 12) * 100;
+          this.averageInLoco = Math.round(_availableLoco.length / 12);
         }
         //unavailable lcomotives
         const _unAvailableLoco = _locomotiveArray.filter(
           (p) => p.locoAvailability === 'Out'
         );
         if (_unAvailableLoco.length > 0) {
+          this.averageOutLoco = Math.round(_unAvailableLoco.length / 12);
         }
       });
   }

@@ -101,7 +101,7 @@ export class ScheduleVarianceComponent implements OnInit {
     let Sch = {
       data: schs ? schs : null,
       label: 'Completed',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: '#7befb2',
     };
     this.barChartData[0] = Sch;
     //incomplete Schedules
@@ -125,7 +125,7 @@ export class ScheduleVarianceComponent implements OnInit {
     let inSchedules = {
       data: inSch ? inSch : null,
       label: 'InCompleted',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: '#52b3d9',
     };
     this.barChartData[1] = inSchedules;
   }

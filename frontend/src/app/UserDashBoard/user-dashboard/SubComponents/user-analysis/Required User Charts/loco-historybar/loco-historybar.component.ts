@@ -121,7 +121,7 @@ export class LocoHistorybarComponent implements OnInit {
         const _unAvailableLocoData = {
           data: unLoco ? unLoco : null,
           label: 'Unavailable',
-          backgroundColor: '#52b3d9 ',
+          backgroundColor: '#52b3d9',
         };
         this.barChartData[1] = _unAvailableLocoData;
       });
