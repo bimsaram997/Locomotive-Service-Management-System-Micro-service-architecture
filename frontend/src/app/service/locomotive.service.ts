@@ -101,6 +101,12 @@ export class LocomotiveService {
     return this.http.get<any>(this.myUrl + `locoRoute/getOneLoco/${id}`);
   }
 
+  getLocoByLocoNumber(locoNumber): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `locoRoute/getLocoByLocoNumber/${locoNumber}`
+    );
+  }
+
   getLocoNum(locoNumber): Observable<any> {
     return this.http.get<any>(
       this.myUrl + `locoRoute/getLocoNum/${locoNumber}`

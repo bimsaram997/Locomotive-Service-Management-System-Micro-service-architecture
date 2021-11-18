@@ -108,7 +108,9 @@
                   ? '#f7ca18'
                   : tempLoco.locoStatus == 2
                   ? 'green'
-                  : 'red'
+                  : tempLoco.locoStatus == 3
+                  ? '#9a12b3'
+                  : '#aea8d3'
             }">
                         <span class="material-icons" matTooltip="{{ tempLoco.statusReason }}">
               {{ statusBinder(tempLoco.locoStatus) }}
@@ -137,7 +139,11 @@
                   : 'Locomotive is in a Schedule.You cannot update!'
               ">
               <button
-                [disabled]="tempLoco.locoStatus != 1 ? false : true"
+                [disabled]="
+                  tempLoco.locoStatus === 1 || tempLoco.locoStatus === 3
+                    ? true
+                    : false
+                "
                 mat-icon-button
                 (click)="OpenEditDialog(tempLoco._id)"
               >

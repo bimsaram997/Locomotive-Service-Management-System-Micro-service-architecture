@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const CustomerRoute = require('./route/CustomerRoute');
 const UserRoute = require('./route/UserRoute');
+const UserTaskRoute = require('./route/UserTasksRoute')
 
 const app = express();
 app.use(cors());
@@ -30,3 +31,4 @@ mongoose.connect('mongodb://localhost:27017/RailwayProject', {
 
 app.use('/api/v1/customerRoute', CustomerRoute)
 app.use('/api/v1/accessRoute', UserRoute);
+app.use('/api/v1/userTaskRoute', UserTaskRoute);

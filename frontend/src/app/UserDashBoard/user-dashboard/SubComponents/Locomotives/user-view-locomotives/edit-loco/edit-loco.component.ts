@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../../../service/user-task.service';
 import {
   Component,
   OnInit,
@@ -24,6 +25,7 @@ import UserDTO from '../../../../../../dto/UserDTO';
 import { AccessService } from '../../../../../../service/access.service';
 import { first } from 'rxjs/operators';
 import { th } from 'date-fns/locale';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-edit-loco',
@@ -64,6 +66,8 @@ export class EditLocoComponent implements OnInit {
   text: string = '';
   newID: any;
   preview: { link: any };
+  taskId: string;
+  locoNumber: any;
   formatLabel(value: number) {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
@@ -77,6 +81,8 @@ export class EditLocoComponent implements OnInit {
   submitted = false;
   disableSelect = new FormControl(true);
   @Output() myEvent = new EventEmitter();
+  minDate: any;
+  maxDate: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -87,13 +93,25 @@ export class EditLocoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private accessService: AccessService,
     private cd: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userTaskService: UserTaskService
   ) {
     this.loadAll();
     dialogRef.disableClose = true;
   }
   locoArray: LocoDTO[] = [];
   ngOnInit(): void {
+    this.defaultMethod();
+    this.createEditForm();
+    this.createHistoryForm();
+    this.getLocomotiveDetails();
+    this.loadAll();
+    this.loadAllIds();
+    this.getMaxDate();
+    this.getMinDate();
+  }
+
+  createEditForm(): void {
     this.editLocoGroup = this.formBuilder.group({
       locoCatId: ['', [Validators.required]],
       locoNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
@@ -136,7 +154,9 @@ export class EditLocoComponent implements OnInit {
       brkType: ['', Validators.required],
       fldType: ['', Validators.required],
     });
+  }
 
+  createHistoryForm(): void {
     this.historyLocoGroup = this.formBuilder.group({
       locoCatId: [''],
       locoNumber: [''],
@@ -156,10 +176,9 @@ export class EditLocoComponent implements OnInit {
       brkType: [''],
       fldType: [''],
     });
+  }
 
-    this.loadAll();
-    this.loadAllIds();
-
+  getLocomotiveDetails(): void {
     this.locomotiveService
       .getOneLoco(this.data.id)
       .pipe(first())
@@ -168,6 +187,7 @@ export class EditLocoComponent implements OnInit {
           console.log(res);
           this.editLocoGroup.controls['locoCatId'].setValue(res[0].locoCatId);
           this.editLocoGroup.controls['locoNumber'].setValue(res[0].locoNumber);
+          this.locoNumber = res[0].locoNumber;
           this.editLocoGroup.controls['locoPower'].setValue(res[0].locoPower);
           this.editLocoGroup.controls['locoMileage'].setValue(
             res[0].locoMileage
@@ -259,6 +279,7 @@ export class EditLocoComponent implements OnInit {
           (res) => {
             this.sendLocoEmail(this.editLocoGroup.value);
             this.saveLocoHistory(this.editLocoGroup.value);
+            this.addTask();
             //this.router.navigateByUrl('/employees-list');
             console.log('Content updated successfully!');
           },
@@ -271,6 +292,7 @@ export class EditLocoComponent implements OnInit {
           (res) => {
             this.sendLocoEmail(this.editLocoGroup.value);
             this.saveLocoHistory(this.editLocoGroup.value);
+            this.addTask();
             //this.router.navigateByUrl('/employees-list');
             console.log('Content updated successfully!');
             console.log(this.editLocoGroup.value);
@@ -500,6 +522,17 @@ export class EditLocoComponent implements OnInit {
       }
     }
   }
+  getMinDate(): void {
+    const date = moment(new Date());
+    const newDate = date.subtract(1, 'months');
+    this.minDate = moment(newDate).toISOString();
+  }
+
+  getMaxDate(): void {
+    const date = moment(new Date());
+    const newDate = date.add(2, 'days');
+    this.maxDate = moment(newDate).toISOString();
+  }
 
   onKeyUp(value: string) {}
   changeFiles(event) {
@@ -535,5 +568,53 @@ export class EditLocoComponent implements OnInit {
       }
     }
     console.log(this.filesToUpload);
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.locoNumber,
+      taskType: 'Edit Locomotive',
+      taskPriority: 'High',
+      taskDate: new Date(),
+      taskStatus: 0,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  defaultMethod() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
   }
 }

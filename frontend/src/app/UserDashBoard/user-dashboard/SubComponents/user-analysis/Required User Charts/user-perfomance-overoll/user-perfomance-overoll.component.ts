@@ -41,7 +41,7 @@ export class USerPerfomanceOverollComponent implements OnInit {
         this.performanceName,
         {
           v: this.finalScore,
-          f: (Math.round(this.finalScore) / 100) * 100 + '%',
+          f: Math.round((this.finalScore / 100) * 100) + '%',
         },
       ],
     ];
@@ -79,7 +79,7 @@ export class USerPerfomanceOverollComponent implements OnInit {
             this.performanceName,
             {
               v: this.finalScore,
-              f: (Math.round(this.finalScore) / 100) * 100 + '%',
+              f: Math.round((this.finalScore / 100) * 100) + '%',
             },
           ],
         ];

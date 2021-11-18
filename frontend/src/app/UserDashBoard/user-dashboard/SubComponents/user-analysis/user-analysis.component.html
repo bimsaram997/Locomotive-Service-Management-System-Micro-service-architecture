@@ -43,7 +43,11 @@
 
                                         <div class="row">
                                             <div class="col-md-12 label-txt">
-                                                <span>User Overall performance is </span>&nbsp;<span class="value-txt">{{ overallScore ? overallScore + "%" : null }}
+                                                <span>User Overall performance is </span>&nbsp;<span class="value-txt">{{
+                            overallScore
+                              ? (overallScore | number: "1.0-0") + "%"
+                              : null
+                          }}
                         </span>
                                             </div>
                                         </div>
@@ -64,7 +68,7 @@
                                 <mat-card-content style="height: 210px">
                                     <app-user-perfomance-overoll></app-user-perfomance-overoll>
                                     <br />
-                                    <p class="header">User Performance Performance</p>
+                                    <p class="header">User Overall Performance</p>
                                 </mat-card-content>
                             </mat-card>
                         </div>

@@ -235,6 +235,10 @@ export class AddCommentLoadComponent implements OnInit {
               this.commentStatus === 2 &&
               this.commentReason === 'Viewed and Confirmed'
             ) {
+              this.updateLoadStatus(this.commentAdd.value);
+              this.patchLoadLoco(this.commentAdd.value);
+              this.changeScheduleSeven(this.commentAdd.value);
+              this.commentEmail(this.commentAdd.value);
               swal({
                 title: 'Next Schedule is generated!',
                 text: 'Please Click OK',

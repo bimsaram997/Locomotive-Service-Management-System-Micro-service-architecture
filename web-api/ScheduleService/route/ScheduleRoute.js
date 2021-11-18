@@ -13,7 +13,7 @@ router.get('/getCount', ScheduleController.getCount);
 router.get('/getSample', ScheduleController.getMySampleData);
 router.get('/getSchedule/:customerNic', ScheduleController.getSchedule);
 router.get('/sendSMS', ScheduleController.sendSMS);
-router.get('/sendOneSchedule/:id', ScheduleController.sendOneSchedule);
+router.get('/sendOneSchedule/:scheduleNo', ScheduleController.sendOneSchedule);
 router.patch('/patchMileage/:scheduleNo/:progressValue', ScheduleController.patchMileage);
 router.get('/getProSchedule/:id', ScheduleController.getProSchedule);
 router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);

@@ -87,42 +87,12 @@
         <!-- end col-->
 
         <div class="col-lg-8 col-xl-8">
-            <div class="card-box">
+            <div class="card-box" style="height: 570px">
                 <div class="back">
                     <button mat-raised-button (click)="backClicked()">
             <i class="fas fa-arrow-left"></i>&nbsp; Back
           </button>
                 </div>
-                <h3 class="print">Quick Links</h3>
-                <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle style="
-              background-color: #1f3a93;
-              color: white;
-              font-family: 'Roboto', sans-serif;
-              font-weight: 500;
-            " matTooltip="View Locomotives Details" value="bold" routerLink="/userDashboard/userViewLocomotives">Locomotives</mat-button-toggle>
-                    <mat-button-toggle style="
-              background-color: #1e8bc3;
-              color: white;
-              font-family: 'Roboto', sans-serif;
-              font-weight: 500;
-            " matTooltip="View Schedule Details" value="italic" routerLink="/userDashboard/viewSchedules">Schedules</mat-button-toggle>
-                    <mat-button-toggle style="
-              background-color: #19b5fe;
-              color: white;
-              font-family: 'Roboto', sans-serif;
-              font-weight: 500;
-            " value="italic">Progress Reports</mat-button-toggle>
-                    <mat-button-toggle style="
-              background-color: #89c4f4;
-              color: white;
-              font-family: 'Roboto', sans-serif;
-              font-weight: 500;
-            " matTooltip="View Load Trial Details" value="underline" routerLink="/userDashboard/viewLoad">Load Trials</mat-button-toggle>
-                </mat-button-toggle-group>
-                <br />
-                <hr class="hr" />
-                <br />
                 <p>
                     <span class="print">Print Details</span>&nbsp;
                     <button class="btn" mat-raised-button color="primary" (click)="printTestInfo()">
@@ -130,39 +100,106 @@
           </button>
                 </p>
                 <hr class="hr" />
-
+                <p><span class="print">Tasks Created</span>&nbsp;</p>
                 <div class="tab-content">
                     <div class="row">
-                        <div class="col-md-6">
-                            <app-locomotive-doh-nut *ngIf="countOperateLoco || countServiceLoco || countLoadLoco" [countOperateLoco]="countOperateLoco" [countServiceLoco]="countServiceLoco" [countLoadLoco]="countLoadLoco"></app-locomotive-doh-nut>
+                        <div class="col-md-3 select">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Filter by Type</mat-label>
+                                <mat-select (selectionChange)="filterByType($event)">
+                                    <mat-option *ngFor="let option of type" [value]="option">
+                                        {{ option }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
-                        <div class="col-md-6">
-                            <app-schedule-doh-nut *ngIf="
-                  countSchedules ||
-                  completedSchedules ||
-                  draftSchedules ||
-                  halfSchedules
-                " [countSchedules]="countSchedules" [completedSchedules]="completedSchedules" [halfSchedules]="halfSchedules" [draftSchedules]="draftSchedules"></app-schedule-doh-nut>
+                        <div class="col-md-3 select">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Filter By Priority</mat-label>
+                                <mat-select (selectionChange)="filterByPriority($event)">
+                                    <mat-option *ngFor="let option of priority" [value]="option">
+                                        {{ option }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
-                    <br />
                     <div class="row">
-                        <div class="col-md-6">
-                            <app-user-load-trial-doh-nut *ngIf="countDraftLoad || countPassedtLoad || countPendingLoad" [countDraftLoad]="countDraftLoad" [countPendingLoad]="countPendingLoad" [countPassedtLoad]="countPassedtLoad"></app-user-load-trial-doh-nut>
-                        </div>
-                        <div class="col-md-6">
-                            <app-user-performance-line></app-user-performance-line>
-                        </div>
+                        <div class="col-12">
+                            <div class="main-table">
+                                <div class="mat-elevation-z8">
+                                    <mat-table [dataSource]="dataSource" matSort>
+                                        <ng-container matColumnDef="TaskId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Task ID
+                                            </mat-header-cell>
+                                            <mat-cell class="label-txt" *matCellDef="let tempTask" data-label="taskId">{{ tempTask.taskId }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="RecordId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Record ID
+                                            </mat-header-cell>
+                                            <mat-cell class="link" *matCellDef="let tempTask" data-label="RecordId">
+                                                <a (click)="viewMore(tempTask, tempTask.recordId)">
+                          {{ tempTask.recordId }}</a
+                        >
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="TaskType">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Type
+                      </mat-header-cell>
+                      <mat-cell
+                        class="label-txt"
+                        *matCellDef="let tempTask"
+                        data-label="TaskType"
+                      >
+                        {{ tempTask.taskType }}
+                      </mat-cell>
+                    </ng-container>
 
-                        <!-- end timeline content-->
-
-                        <!-- end settings content-->
-                    </div>
-                    <!-- end tab-content -->
+                    <ng-container matColumnDef="TaskPriority">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Priority
+                      </mat-header-cell>
+                      <mat-cell
+                        class="label-txt"
+                        *matCellDef="let tempTask"
+                        data-label="TaskPriority"
+                      >
+                        {{ tempTask.taskPriority }}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="TaskDate">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Task Date
+                      </mat-header-cell>
+                      <mat-cell
+                        class="label-txt"
+                        *matCellDef="let tempTask"
+                        data-label="TaskDate"
+                      >
+                        {{ tempTask.taskDate | date }}</mat-cell
+                      >
+                    </ng-container>
+                    <mat-header-row
+                      *matHeaderRowDef="displayedColumns"
+                    ></mat-header-row>
+                    <mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                    ></mat-row>
+                  </mat-table>
+                  <mat-paginator
+                    [pageSizeOptions]="[5, 10, 15]"
+                  ></mat-paginator>
                 </div>
-                <!-- end card-box-->
+              </div>
             </div>
-            <!-- end col -->
+          </div>
+          <!-- end tab-content -->
         </div>
+        <!-- end card-box-->
+      </div>
+      <!-- end col -->
     </div>
+  </div>
 </div>

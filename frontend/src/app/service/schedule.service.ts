@@ -97,9 +97,9 @@ export class ScheduleService {
     return this.http.get(this.myUrl + 'scheduleRoute/sendSMS');
   }
 
-  public sendOneSchedule(id): Observable<any> {
+  public sendOneSchedule(scheduleNo): Observable<any> {
     return this.http.get<any>(
-      this.myUrl + `scheduleRoute/sendOneSchedule/${id}`
+      this.myUrl + `scheduleRoute/sendOneSchedule/${scheduleNo}`
     );
   }
 

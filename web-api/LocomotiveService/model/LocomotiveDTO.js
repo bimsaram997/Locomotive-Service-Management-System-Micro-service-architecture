@@ -5,7 +5,7 @@ const LocomotiveSchema = new mongoose.Schema({
         required: true,
     },
     locoNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     locoPower: {

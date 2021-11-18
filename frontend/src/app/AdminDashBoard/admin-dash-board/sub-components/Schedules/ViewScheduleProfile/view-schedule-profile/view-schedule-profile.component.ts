@@ -120,7 +120,7 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('scheduleNo');
     console.log(this.id);
     this.scheduleService
       .sendOneSchedule(this.id)

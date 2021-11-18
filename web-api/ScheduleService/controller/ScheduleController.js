@@ -258,9 +258,9 @@ const saveSchedule = async(req, res, next) => {
 };
 
 const sendOneSchedule = (req, res) => {
-    console.log(req.params.id);
+    console.log(req.params.scheduleNo);
     ScheduleSchema.find({
-            _id: req.params.id,
+            scheduleNo: req.params.scheduleNo,
         })
         .then((result) => {
             res.status(200).json(result);

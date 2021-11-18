@@ -1,7 +1,14 @@
+import { UserTaskService } from './../../../../../service/user-task.service';
 import { LocomotiveService } from './../../../../../service/locomotive.service';
 import { ScheduleService } from './../../../../../service/schedule.service';
 import { LoadTrialService } from './../../../../../service/load-trial.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { AccessService } from '../../../../../service/access.service';
 import { ToastrService } from 'ngx-toastr';
 import LocoScheduleDTO from '../../../../../dto/LocoScheduleDTO';
@@ -11,6 +18,10 @@ import * as moment from 'moment';
 import { ChartType } from 'angular-google-charts';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -52,47 +63,26 @@ export class UserProfileComponent implements OnInit {
   countLoadLoco: number;
   newVal: any[];
   newVal2: any[];
-
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  public barChartLabels: Label[] = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-
-  public barChartLegend = true;
-  public barChartPlugins = [];
-
-  public barChartData: ChartDataSets[] = [
-    {
-      data: [65, 59, 80, 81, 56, 55, 40, 20, 60, 20, 30, 45, 56],
-      label: 'Series A',
-    },
-    {
-      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-      label: 'Series B',
-    },
-    {
-      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-      label: 'Series C',
-    },
-    // {
-    //   data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
-    //   label: 'Series B',
-    // },
-  ];
   isChecked: boolean;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'TaskId',
+    'RecordId',
+    'TaskType',
+    'TaskPriority',
+    'TaskDate',
+  ];
+  @ViewChild(MatSort) sort: MatSort;
+  type: string[] = [
+    'All',
+    'Edit Locomotive',
+    'Add Schedule',
+    'Add Progress',
+    'Add Load Trial',
+  ];
+  priority: string[] = ['All', 'High', 'Medium', 'Low'];
+  tableArray: any[];
 
   constructor(
     private accessService: AccessService,
@@ -100,14 +90,22 @@ export class UserProfileComponent implements OnInit {
     private loadService: LoadTrialService,
     private scheduleService: ScheduleService,
     private locomotiveService: LocomotiveService,
-    private _location: Location
+    private _location: Location,
+    private userTaskService: UserTaskService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    //this.getUserDetails();
-    this.getLoadTrial();
-    this.getAllSchedule();
-    this.getAllLoco();
+    this.getAllTasksAssigned();
+    this.getUserDetails();
+    this.newLogic();
+  }
+
+  backClicked() {
+    this._location.back();
+  }
+
+  getUserDetails(): void {
     const values = JSON.parse(localStorage.getItem('currentUser'));
     const object = {
       userNic: values.userNic,
@@ -128,114 +126,12 @@ export class UserProfileComponent implements OnInit {
       this.userWorks = res[0].userWorks;
       this.image = res[0].image;
     });
-    this.newLogic();
-    this.myLogic();
   }
 
-  backClicked() {
-    this._location.back();
-  }
-  getAllLoco() {
-    const values = JSON.parse(localStorage.getItem('currentUser'));
-    const object = {
-      userNic: values.userNic,
-      userRole: values.userRole,
-    };
-    console.log(object);
-    this.locomotiveService.getAllLocoAssigned(object).subscribe((res) => {
-      this.locoArray = res;
-      console.log(this.locoArray);
-
-      const _filterOperatingLoco = this.locoArray.filter(
-        (p) => p.locoStatus === 0
-      );
-      this.countOperateLoco = _filterOperatingLoco.length;
-
-      const _filterServiceLoco = this.locoArray.filter(
-        (p) => p.locoStatus === 1
-      );
-      this.countServiceLoco = _filterServiceLoco.length;
-
-      const _filterLoadLoco = this.locoArray.filter((p) => p.locoStatus === 2);
-      this.countLoadLoco = _filterLoadLoco.length;
-      console.log(this.countLoadLoco);
-    });
-  }
-
-  public getLoadTrial() {
-    const values = JSON.parse(localStorage.getItem('currentUser'));
-    const object = {
-      userNic: values.userNic,
-      userRole: values.userRole,
-    };
-    this.loadService.getLoadTrialAssigned(object).subscribe((resp) => {
-      this.loadArray = resp;
-
-      const _filterDraftLoad = this.loadArray.filter((p) => p.status === 1);
-      this.countDraftLoad = _filterDraftLoad.length;
-
-      const _filterPasstLoad = this.loadArray.filter((p) => p.status === 2);
-      this.countPassedtLoad = _filterPasstLoad.length;
-
-      const _filterPendingtLoad = this.loadArray.filter((p) => p.status === 3);
-      this.countPendingLoad = _filterPendingtLoad.length;
-    });
-  }
-
-  getAllSchedule() {
-    const values = JSON.parse(localStorage.getItem('currentUser'));
-    const object = {
-      userNic: values.userNic,
-      userRole: values.userRole,
-    };
-
-    this.scheduleService.getAllScheduleAssigned(object).subscribe((resp) => {
-      this.scheduleList = resp;
-      const _filterFullComplete = this.scheduleList.filter(
-        (p) => p.scheduleStatus == 7
-      );
-      this.countSchedules = _filterFullComplete.length;
-
-      const _filterHalf8 = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 8
-      );
-      const eight = _filterHalf8.length;
-
-      const _filterCompleted = this.scheduleList.filter(
-        (p) => p.scheduleStatus == 6
-      );
-      this.completedSchedules = _filterCompleted.length + eight;
-      //
-      const _filterDraft = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 0
-      );
-      this.draftSchedules = _filterDraft.length;
-      const _filterHalf2 = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 2
-      );
-      const two = _filterHalf2.length;
-
-      const _filterHalf3 = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 3
-      );
-      const three = _filterHalf3.length;
-
-      const _filterHalf4 = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 4
-      );
-      const four = _filterHalf4.length;
-
-      const _filterHalf5 = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 5
-      );
-      const five = _filterHalf5.length;
-
-      const _filterHalfCompleted = this.scheduleList.filter(
-        (p) => p.scheduleStatus === 1
-      );
-      this.halfSchedules =
-        _filterHalfCompleted.length + two + three + four + five;
-    });
+  viewMore(tempTask: any, locoNumber: number): void {
+    if (tempTask.taskType === 'Edit Locomotive') {
+      this.router.navigate(['/userDashboard/viewLoco', locoNumber]);
+    }
   }
 
   sendMail() {
@@ -267,6 +163,51 @@ export class UserProfileComponent implements OnInit {
   view() {
     const btn = document.getElementById('btn-pop-up') as HTMLElement;
     btn.click();
+  }
+  getAllTasksAssigned() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    this.userTaskService.getAllTasksAssigned(object).subscribe((resp) => {
+      this.loadArray = resp;
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    });
+  }
+
+  filterByType(value) {
+    let _cloneArrat = [];
+    const _findValue = this.loadArray.filter((x) => x.taskType == value.value);
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    }
+  }
+
+  filterByPriority(value) {
+    let _cloneArrat = [];
+    const _findValue = this.loadArray.filter(
+      (x) => x.taskPriority == value.value
+    );
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    }
   }
 
   newLogic() {
@@ -300,63 +241,13 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  myLogic(): void {
-    this.barChartData[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    const values = JSON.parse(localStorage.getItem('currentUser'));
-    const object = {
-      userNic: values.userNic,
-      userRole: values.userRole,
-    };
-    console.log(object);
-    this.scheduleService.getAllScheduleAssigned(object).subscribe((resp) => {
-      this.scheduleList = resp;
-      var schs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      const _FilterData = this.scheduleList.filter(
-        (p) => p.scheduleStatus == 7 || p.scheduleStatus == 8
-      );
-      var ShcCount = 0;
-      if (_FilterData.length > 0) {
-        this.newVal = _FilterData.filter((p) => p.actualCompletedDate != null);
-        console.log(this.newVal);
-      }
-      if (this.newVal.length > 0) {
-        this.newVal2 = this.newVal.filter(
-          (p) =>
-            new Date(p.actualCompletedDate).getTime() <
-            new Date(p.completedDate).getTime()
-        );
-        console.log(this.newVal2);
-        if (this.newVal2.length > 0) {
-          var _yearCount = 12;
-          for (var x = 0; x < _yearCount; x++) {
-            const GetVal = this.newVal2.filter(
-              (c) => new Date(c.scheduleDate).getMonth() == x
-            );
-            if (GetVal.length > 0) {
-              schs[x] = (GetVal.length / this.newVal2.length) * 100;
-            }
-          }
-        }
-        const _availableLocoData = {
-          data: schs ? schs : null,
-          label: 'Available Locomotives',
-        };
-        this.barChartData[0] = _availableLocoData;
-        if (
-          this.barChartData[0] != undefined &&
-          this.barChartData[1] != undefined &&
-          this.barChartData[1] != undefined
-        ) {
-          this.valueChanged(true);
-          this.isChecked = true;
-        }
-      }
-    });
-  }
   valueChanged(val: boolean) {
     // You can give any function name
 
     this.valueChange.emit(val);
+  }
+  onWarning(message: string) {
+    this.toastr.warning(message, 'Warning');
   }
   async printTestInfo() {
     const documentDefinition = {

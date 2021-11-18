@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../../../service/user-task.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormArray,
@@ -42,14 +43,28 @@ export class SendProgressComponent implements OnInit {
   percentage: number;
   checkPercentage: boolean;
   image: string = './assets/logo/1618837407350.png';
+  taskId: string;
+  progressNo: string;
   constructor(
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private scheduleService: ScheduleService,
     private router: Router,
-    private progressReport: ProgressReportService
+    private progressReport: ProgressReportService,
+    private userTaskService: UserTaskService
   ) {}
   ngOnInit(): void {
+    this.check();
+
+    this.generateTaskId();
+    this.createReportForm();
+    this.loadSchedule();
+
+    ///backend call karala me id ekata adala data tika load karaganna harithaee
+    //ita passe e ena data object eka ara formgrop eke values walta assign karaganna harithe
+  }
+
+  createReportForm(): void {
     this.ReportGroup = this.formBuilder.group({
       scheduleNo: [''],
       progressReportNumber: [''],
@@ -64,11 +79,10 @@ export class SendProgressComponent implements OnInit {
       progressValue: [],
       extraNote: ['', [Validators.required]],
     });
-    this.check();
     this.defaultMethod();
+  }
 
-    ///backend call karala me id ekata adala data tika load karaganna harithaee
-    //ita passe e ena data object eka ara formgrop eke values walta assign karaganna harithe
+  loadSchedule(): void {
     this.scheduleService.sendOneSchedule(this.data.id).subscribe((resp) => {
       //console.log(resp);
       if (resp != undefined) {
@@ -126,6 +140,7 @@ export class SendProgressComponent implements OnInit {
     for (var i = 0; i < string_length; i++) {
       var rnum = Math.floor(Math.random() * chars.length);
       progressReportNumber += chars.substring(rnum, rnum + 1);
+      //this.progressNo = progressReportNumber;
       ///sysId += chars.substring(rnum, rnum + 1);
       this.ReportGroup.controls['progressReportNumber'].setValue(
         progressReportNumber
@@ -175,6 +190,7 @@ export class SendProgressComponent implements OnInit {
         extraNote: this.ReportGroup.controls.extraNote.value,
       };
       if (reportData.progressDate != null && reportData.progressDate != '') {
+        this.addTask();
         this.progressReport
           .saveProgress(reportData)
           .pipe(
@@ -312,6 +328,55 @@ export class SendProgressComponent implements OnInit {
       });
     }
   }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.ReportGroup.controls.progressReportNumber.value,
+      taskType: 'Add Progress',
+      taskPriority: 'Medium',
+      taskDate: new Date(),
+      taskStatus: 1,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  generateTaskId() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+  }
+
   async generatePDF() {
     const documentDefinition = {
       content: [

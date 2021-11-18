@@ -75,7 +75,7 @@
                         Request Date
                     </mat-header-cell>
                     <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Date">
-                        {{ tempSchedule.scheduleDate | date }}</mat-cell>
+                        {{ tempSchedule?.scheduleDate | date }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="To be Complete">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -128,20 +128,20 @@
                 <ng-container matColumnDef="#">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let tempSchedule" data-label="#">
-                        <button mat-icon-button (click)="viewSchedule(tempSchedule._id)" matTooltip="Click for more information">
+                        <button mat-icon-button (click)="viewSchedule(tempSchedule.scheduleNo)" matTooltip="Click for more information">
               <i
                 class="fas fa-eye material-icons"
                 style="color: #013243; font-size: 18px"
               ></i>
             </button>
 
-                        <button mat-icon-button color="warn" *ngIf="tempSchedule.scheduleProgress == 100 ? false : true" (click)="openProgress(tempSchedule._id)" matTooltip="Click here to add Progress">
+                        <button mat-icon-button color="warn" *ngIf="tempSchedule.scheduleProgress == 100 ? false : true" (click)="openProgress(tempSchedule.scheduleNo)" matTooltip="Click here to add Progress">
               <i
                 class="fas fa-tasks material-icons"
                 style="color: #3498db; font-size: 18px"
               ></i>
             </button>
-                        <button mat-icon-button color="warn" (click)="viewProgressHist(tempSchedule._id)" matTooltip="Click here to View Progress History">
+                        <button mat-icon-button color="warn" (click)="viewProgressHist(tempSchedule.scheduleNo)" matTooltip="Click here to View Progress History">
               <i
                 class="fas fa-file-medical-alt material-icons"
                 style="color: #f9690e; font-size: 18px"
