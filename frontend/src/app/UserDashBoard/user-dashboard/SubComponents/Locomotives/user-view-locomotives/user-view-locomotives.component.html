@@ -85,7 +85,7 @@
                 <ng-container matColumnDef="Responsible">
                     <mat-header-cell *matHeaderCellDef> Responsible </mat-header-cell>
                     <mat-cell class="label-txt" *matCellDef="let tempLoco" data-label="Responsible">
-                        {{ tempLoco.userNic }}
+                        {{ tempLoco.supervisorName }}
                     </mat-cell>
                 </ng-container>
 
@@ -95,6 +95,14 @@
                     </mat-header-cell>
                     <mat-cell class="label-txt" *matCellDef="let tempLoco" data-label="Responsible">
                         {{ tempLoco.locoDate | date }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="lastMileDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Last Mileage Date
+                    </mat-header-cell>
+                    <mat-cell class="label-txt" *matCellDef="let tempLoco" data-label="endMileage Date">
+                        {{ tempLoco.endMileDate | date }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>

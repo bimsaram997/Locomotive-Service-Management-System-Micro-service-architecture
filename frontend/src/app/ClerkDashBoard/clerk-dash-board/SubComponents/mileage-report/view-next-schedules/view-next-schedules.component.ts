@@ -8,35 +8,34 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-view-next-schedules',
   templateUrl: './view-next-schedules.component.html',
-  styleUrls: ['./view-next-schedules.component.css']
+  styleUrls: ['./view-next-schedules.component.css'],
 })
 export class ViewNextSchedulesComponent implements OnInit {
-@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['ID','LocoCategory', 'LocoNumber', 'Date', 'Reason'];
+  displayedColumns: string[] = [
+    'ID',
+    'LocoCategory',
+    'LocoNumber',
+    'Date',
+    'Reason',
+  ];
   @ViewChild(MatSort) sort: MatSort;
   nxtScheduleList: any;
   isEmpty: boolean;
-  constructor(private _bottomSheetRef: MatBottomSheetRef<ViewNextSchedulesComponent>, private scheduleService: ScheduleService) { }
+  constructor(private scheduleService: ScheduleService) {}
 
   ngOnInit(): void {
     this.getAllNextSchedulesNotFilter();
   }
-openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
 
-getAllNextSchedulesNotFilter(){
-    this.scheduleService.getAllNextSchedulesNotFilter().subscribe(
-      res=>{
-       this.nxtScheduleList = res;
-       this.dataSource = new MatTableDataSource<any>(this.nxtScheduleList);
-       if(this.nxtScheduleList.length ===0){
-          this.isEmpty = true;
-       }
+  getAllNextSchedulesNotFilter() {
+    this.scheduleService.getAllNextSchedulesNotFilter().subscribe((res) => {
+      this.nxtScheduleList = res;
+      this.dataSource = new MatTableDataSource<any>(this.nxtScheduleList);
+      if (this.nxtScheduleList.length === 0) {
+        this.isEmpty = true;
       }
-    )
+    });
   }
-
 }

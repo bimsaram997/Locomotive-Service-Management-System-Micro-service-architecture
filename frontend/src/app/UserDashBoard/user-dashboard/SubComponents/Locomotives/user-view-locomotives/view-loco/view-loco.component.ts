@@ -1,7 +1,16 @@
+import { ViewMoreNextSchedulesComponent } from './view-more-next-schedules/view-more-next-schedules.component';
+import { ViewNextSchedulesComponent } from './../../../../../../ClerkDashBoard/clerk-dash-board/SubComponents/mileage-report/view-next-schedules/view-next-schedules.component';
+import { MatPaginator } from '@angular/material/paginator';
 import { LocoPerformceComponent } from './../../../../../../Common/performance/loco-performce/loco-performce.component';
 import { ViewHistoryLocoComponent } from './view-history-loco/view-history-loco.component';
 import { ScheduleService } from 'src/app/service/schedule.service';
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import LocoDTO from '../../../../../../dto/LocoDTO';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -11,6 +20,7 @@ import { first, map, mergeMap } from 'rxjs/operators';
 import { ViewportScroller } from '@angular/common';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
+import { ViewHistoryMainComponent } from './view-history-main/view-history-main.component';
 
 @Component({
   selector: 'app-edit-loco',
@@ -77,6 +87,7 @@ export class ViewLocoComponent implements OnInit {
   performanceValue: number;
   tooltipText: string;
   performanceNumber: number;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
@@ -135,7 +146,7 @@ export class ViewLocoComponent implements OnInit {
         .subscribe((final) => {
           this.dataSource3 = final;
 
-          this.viewNextSchedules();
+          this.fetchNextSchedules();
           this.getAllHistoryLoco();
           this.SecondNewLogic();
         });
@@ -280,7 +291,7 @@ export class ViewLocoComponent implements OnInit {
     this.router.navigate(['/userDashboard/viewSchedule', id]);
   }
 
-  viewNextSchedules() {
+  fetchNextSchedules() {
     console.log(this.locoNumberNextSchedule);
     this.scheduleService
       .getAllNextSchedules(this.locoNumberNextSchedule)
@@ -315,6 +326,20 @@ export class ViewLocoComponent implements OnInit {
     } else if (nxtSchStatus === 2) {
       return 'clear';
     }
+  }
+
+  viewHistory() {
+    const dialogRef = this.dialog.open(ViewHistoryMainComponent, {
+      data: { id: this.locoNumber },
+      width: '800px',
+    });
+  }
+
+  viewNextSchedules(): void {
+    const dialogRef = this.dialog.open(ViewMoreNextSchedulesComponent, {
+      data: { id: this.locoNumber },
+      width: '800px',
+    });
   }
 
   viewHistoryMore(_id: string) {

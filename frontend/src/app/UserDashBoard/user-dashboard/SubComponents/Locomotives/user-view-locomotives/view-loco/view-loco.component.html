@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="box-head">
-        <img src="./assets/images/m9.png" alt="" style="height: 40px; width: 40px" />
+        <img src="./assets/images/locoProfile.png" alt="" style="height: 45px; width: 45px" />
         <span class="heading-txt"><span style="color: #1e8bc3">L</span>OCOMOTIVE PROFILE
         </span>
         <div class="back">
@@ -230,6 +230,26 @@
                     </mat-button-toggle-group>
                 </p>
 
+                <p>
+                    <span class="print">View More</span>&nbsp;
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" appearance="legacy">
+                        <mat-button-toggle *ngIf="isShowHisLoco" style="
+                background-color: #26a65b;
+                color: white;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-size: 13px;
+              " matTooltip="Print Locomotive history" value="bold" (click)="viewHistory()">History</mat-button-toggle>
+                        <mat-button-toggle style="
+                background-color: #00e640;
+                color: white;
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-size: 13px;
+              " matTooltip="View Next Schedules" value="italic" *ngIf="isShowNextSchedule" (click)="viewNextSchedules()">Next Schedules</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </p>
+
                 <br />
                 <h2 class="print">Motor Parts</h2>
                 <mat-accordion>
@@ -339,58 +359,6 @@
                 </mat-accordion>
                 <br />
 
-                <ng-container *ngIf="isShowHisLoco">
-                    <h2 class="print">Locomotive History Info</h2>
-                    <mat-accordion>
-                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <button mat-raised-button color="primary" style="float: right" (click)="printHistoryLoco()">
-                Print Details
-              </button>
-                            <br />
-                            <mat-expansion-panel-header>
-                                <mat-panel-title class="accord-head"> History </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <table mat-table [dataSource]="dataSource6" class="mat-elevation-z8">
-                                <ng-container matColumnDef="Loco Category">
-                                    <th mat-header-cell *matHeaderCellDef>Loco Category</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.locoCatId }}
-                                    </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="Loco Number">
-                                    <th mat-header-cell *matHeaderCellDef>Loco Number</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.locoNumber }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Last Updated Date">
-                                    <th mat-header-cell *matHeaderCellDef>Date</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.locoDate | date }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Loco Mileage">
-                                    <th mat-header-cell *matHeaderCellDef>Loco Mileage</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.locoMileage + " Km" }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="#">
-                                    <th mat-header-cell *matHeaderCellDef></th>
-                                    <td mat-cell *matCellDef="let elemen">
-                                        <button mat-icon-button (click)="viewHistoryMore(elemen._id)">
-                      <mat-icon>visibility</mat-icon>
-                    </button>
-                                    </td>
-                                </ng-container>
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns6"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns6"></tr>
-                            </table>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </ng-container>
                 <br />
                 <h2 class="print">Schedules Assigned</h2>
                 <mat-accordion>
@@ -431,7 +399,7 @@
                             <ng-container matColumnDef="#">
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let elemen">
-                                    <button mat-icon-button (click)="viewSchedule(elemen._id)">
+                                    <button mat-icon-button (click)="viewSchedule(elemen.scheduleNo)">
                     <mat-icon class="mat-icon">visibility</mat-icon>
                   </button>
                                 </td>
@@ -442,82 +410,17 @@
                         </table>
                     </mat-expansion-panel>
                 </mat-accordion>
-                <ng-container *ngIf="isShowNextSchedule">
-                    <h2 class="print">Next Schedule Info</h2>
-                    <mat-accordion>
-                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                                <mat-panel-title class="accord-head">
-                                    View Next Schedules
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <table mat-table [dataSource]="dataSource5" class="mat-elevation-z8">
-                                <ng-container matColumnDef="Next Schedule No.">
-                                    <th mat-header-cell *matHeaderCellDef>Next Schedule No.</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen; let i = index">
-                                        {{ elemen.nxtSchId }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Loco Category">
-                                    <th mat-header-cell *matHeaderCellDef>Loco Category</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.locoCatId }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Loco Number">
-                                    <th mat-header-cell *matHeaderCellDef>Loco Number</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.locoNumber }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Date">
-                                    <th mat-header-cell *matHeaderCellDef>Date</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen">
-                                        {{ elemen.date }}
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="Status">
-                                    <th mat-header-cell *matHeaderCellDef>Status</th>
-                                    <td class="label-txt" mat-cell *matCellDef="let elemen" [ngStyle]="{
-                      color:
-                        elemen.nxtSchStatus == 0
-                          ? '#f7ca18'
-                          : elemen.nxtSchStatus == 1
-                          ? 'red'
-                          : elemen.nxtSchStatus == 2
-                          ? 'green'
-                          : 'blue'
-                    }">
-                                        <span class="material-icons" matTooltip="{{ elemen.nxtSchReason }}">{{ statusBinder(elemen.nxtSchStatus) }}</span
-                    >
-                  </td>
-                </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
-                <tr
-                  mat-row
-                  *matRowDef="let row; columns: displayedColumns5"
-                ></tr>
-              </table>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </ng-container>
-        <br />
-      </div>
+                <br />
+            </div>
 
-      <!-- / project-info-box -->
+            <!-- / project-info-box -->
 
-      <!-- / project-info-box -->
+            <!-- / project-info-box -->
+        </div>
+        <!-- / column -->
     </div>
-    <!-- / column -->
-  </div>
-  <button
-    mat-fab
-    color="primary"
-    class="float"
-    (click)="scrollToTop()"
-    *ngIf="pageYoffset > 0"
-  >
+    <button mat-fab color="primary" class="float" (click)="scrollToTop()" *ngIf="pageYoffset > 0">
     <i class="fas fa-angle-double-up my-float" style="font-size: 35px"></i>
   </button>
 </div>
