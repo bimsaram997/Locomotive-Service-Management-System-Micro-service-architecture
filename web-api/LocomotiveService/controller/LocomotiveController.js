@@ -404,7 +404,7 @@ const getAllLocoAssignedHistory = async(req, resp) => {
         });
 
     } else if (req.query.userRole == 'Supervisor') {
-        await HistoryLocomotiveSchema.find({ userNic: req.query.userNic }).then(result => {
+        await HistoryLocomotiveSchema.find({ userNic: req.query.userNic }).sort({ locoDate: -1 }).then(result => {
             resp.status(200).json(result);
             //console.log(result);
         }).catch(error => {
@@ -531,7 +531,7 @@ const patchLoadLoco = async(req, res, next) => {
         if (_obj.locoNumber) {
             console.log(_obj.locoNumber)
             await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 2, endMileDate: _obj.comDate, statusReason: "Last Load Trial is Passed." } }, function(err, result) {
-                console.log('sdsd')
+                console.log('HIII')
                 if (err) {
                     res.status(500).json(err)
                 } else {

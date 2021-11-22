@@ -131,6 +131,8 @@ export class UserProfileComponent implements OnInit {
   viewMore(tempTask: any, locoNumber: number): void {
     if (tempTask.taskType === 'Edit Locomotive') {
       this.router.navigate(['/userDashboard/viewLoco', locoNumber]);
+    } else if (tempTask.taskType === 'Add Load Trial') {
+      this.router.navigate(['/userDashboard/viewLoadProf', locoNumber]);
     }
   }
 

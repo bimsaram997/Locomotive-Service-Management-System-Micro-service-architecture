@@ -68,12 +68,32 @@ export class UserDashContentComponent implements OnInit {
       data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
       label: 'Series C',
     },
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series D',
+    },
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series E',
+    },
+
+    {
+      data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
+      label: 'Series E',
+    },
     // {
     //   data: [28, 48, 40, 19, 86, 27, 90, 65, 59, 80, 81, 56, 55],
     //   label: 'Series B',
     // },
   ];
   isChecked: boolean;
+  SchLength: any;
+  inSchLength: any;
+  comLoadlength: any;
+  inComLoadlength: any;
+  locoArray: any;
+  inLocoLength: any;
+  outLocoLength: any;
 
   constructor(
     private schedulesService: ScheduleService,
@@ -90,6 +110,7 @@ export class UserDashContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllLoco();
     this.loadDefaultChartDat();
     const values = JSON.parse(localStorage.getItem('currentUser'));
     this.name = values.userName;
@@ -167,13 +188,16 @@ export class UserDashContentComponent implements OnInit {
     this.barChartData[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.barChartData[1].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.barChartData[2].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.barChartData[3].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.barChartData[4].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.barChartData[5].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const values = JSON.parse(localStorage.getItem('currentUser'));
     const object = {
       userNic: values.userNic,
       userRole: values.userRole,
     };
     const _allSch = this.schedulesService.getAllSchedules();
-    const _getLoco = this.locomotiveService.getAllLocoAssigned(object);
+    const _getLoco = this.locomotiveService.getAllLocoAssignedHistory(object);
     const _getLoadTrail = this.loadTrialService.getLoadTrialAssigned(object);
 
     forkJoin([_allSch, _getLoco, _getLoadTrail])
@@ -202,11 +226,13 @@ export class UserDashContentComponent implements OnInit {
         let Sch = {
           data: schs ? schs : null,
           label: 'Completed Schedules',
-          borderColor: 'rgb(255, 99, 132)',
+          borderColor: '#6c7a89',
         };
         this.barChartData[0] = Sch;
+        this.SchLength = _filterSch.length;
         //   barchartArray.push(Sch);
         var inSchs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
         //icomplete scheudle
         const _filterInComplete = _scheduleArray.filter(
           (p) => p.scheduleStatus != 7
@@ -225,14 +251,17 @@ export class UserDashContentComponent implements OnInit {
         let inComplete = {
           data: inSchs ? inSchs : null,
           label: 'InCompleted Schedules',
-          backgroundColor: '#7befb2',
+          backgroundColor: '#fff68f',
         };
+        this.inSchLength = _filterInComplete.length;
         this.barChartData[1] = inComplete;
 
+        //loco history
+        //In
         const _locomotiveArray = res[1];
         var loco = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         const _availableLoco = _locomotiveArray.filter(
-          (p) => p.locoStatus === 0
+          (p) => p.locoAvailability === 'In'
         );
         if (_availableLoco.length > 0) {
           var _yearCount = 12;
@@ -247,18 +276,117 @@ export class UserDashContentComponent implements OnInit {
         }
         const _availableLocoData = {
           data: loco ? loco : null,
-          label: 'Available Locomotives',
+          label: 'Locomotives In',
+          backgroundColor: '#52b3d9',
         };
         this.barChartData[2] = _availableLocoData;
-        if (
-          this.barChartData[0] != undefined &&
-          this.barChartData[1] != undefined &&
-          this.barChartData[1] != undefined
-        ) {
-          this.valueChanged(true);
-          this.isChecked = true;
+
+        //out
+        const _locomotiveOutArray = res[1];
+        var unLoco = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const _unAvailableLoco = _locomotiveOutArray.filter(
+          (p) => p.locoAvailability === 'Out'
+        );
+        if (_unAvailableLoco.length > 0) {
+          var _yearCount = 12;
+          for (var x = 0; x <= _yearCount; x++) {
+            const GetVal = _unAvailableLoco.filter(
+              (c) => new Date(c.locoDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              unLoco[x] = GetVal.length;
+            }
+          }
         }
+        const _unAvailableLocoData = {
+          data: unLoco ? unLoco : null,
+          label: 'Locomotives Out',
+          backgroundColor: '#7befb2',
+        };
+        this.barChartData[3] = _unAvailableLocoData;
+
+        //load trials
+        //completed
+        const _LoadArray = res[2];
+        var comLoad = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const _completedLoad = _LoadArray.filter((p) => p.status === 2);
+        if (_completedLoad.length > 0) {
+          var _yearCount = 12;
+          for (var x = 0; x <= _yearCount; x++) {
+            const GetVal = _completedLoad.filter(
+              (c) => new Date(c.loadDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              comLoad[x] = GetVal.length;
+            }
+          }
+        }
+        const _completedLoadData = {
+          data: comLoad ? comLoad : null,
+          label: 'Completed LoadTrials',
+          backgroundColor: '#f1828d',
+        };
+        this.comLoadlength = _completedLoad.length;
+        this.barChartData[4] = _completedLoadData;
+
+        //inCompete
+        //completed
+        const _inCompleteLoadArray = res[2];
+        var inComLoad = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const _inCompletedLoad = _inCompleteLoadArray.filter(
+          (p) => p.status != 2
+        );
+        if (_inCompletedLoad.length > 0) {
+          var _yearCount = 12;
+          for (var x = 0; x <= _yearCount; x++) {
+            const GetVal = _inCompletedLoad.filter(
+              (c) => new Date(c.loadDate).getMonth() == x
+            );
+            if (GetVal.length > 0) {
+              inComLoad[x] = GetVal.length;
+            }
+          }
+        }
+        const _inCompletedLoadData = {
+          data: inComLoad ? inComLoad : null,
+          label: 'InCompleted LoadTrials',
+          backgroundColor: '#9f5afd',
+        };
+        this.inComLoadlength = _inCompletedLoad.length;
+        this.barChartData[5] = _inCompletedLoadData;
       });
+  }
+
+  getAllLoco() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    console.log(object);
+    this.locomotiveService.getAllLocoAssigned(object).subscribe((res) => {
+      const locoArray = res;
+      const inLoco = locoArray.filter((p) => p.locoAvailability === 'In');
+      this.inLocoLength = inLoco.length;
+
+      const outLoco = locoArray.filter((p) => p.locoAvailability === 'Out');
+      this.outLocoLength = outLoco.length;
+    });
+
+    // const outLoco = this.locoArray.filter((p) => p.locoAvailability === 'Out');
+    // this.outLocoLength = outLoco.length;
+  }
+
+  goToLoco() {
+    this.router.navigate(['/userDashboard/userViewLocomotives']);
+  }
+
+  goToSchedule() {
+    this.router.navigate(['/userDashboard/viewSchedules']);
+  }
+
+  goToLoad() {
+    this.router.navigate(['/userDashboard/viewLoad']);
   }
 
   valueChanged(val: boolean) {

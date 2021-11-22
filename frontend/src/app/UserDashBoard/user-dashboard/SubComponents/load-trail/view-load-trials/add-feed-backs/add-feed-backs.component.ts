@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../../../service/user-task.service';
 import { first } from 'rxjs/operators';
 
 import { LoadTrialService } from 'src/app/service/load-trial.service';
@@ -17,13 +18,18 @@ export class AddFeedBacksComponent implements OnInit {
   id: any;
   spinner = false;
   loadNo: any;
+  taskId: string;
+  feedbackId: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
     public dialogRef: MatDialogRef<AddFeedBacksComponent>,
     private formBuilder: FormBuilder,
-    private loadTrialService: LoadTrialService
-  ) {}
+    private loadTrialService: LoadTrialService,
+    private userTaskService: UserTaskService
+  ) {
+    dialogRef.disableClose = true;
+  }
 
   ngOnInit(): void {
     this.feedBackGroup = this.formBuilder.group({
@@ -65,6 +71,7 @@ export class AddFeedBacksComponent implements OnInit {
       });
     //console.log(this.loadNo)
     this.defaultMethod();
+    this.defaultTaskId();
   }
 
   onSubmit() {
@@ -78,10 +85,11 @@ export class AddFeedBacksComponent implements OnInit {
           (res) => {
             console.log(res);
             if (res.isSaved) {
+              this.feedbackId = this.feedBackGroup.controls['loadNo'].value;
               this.changeStatusComment(this.feedBackGroup.value);
               this.loadComments();
               this.feedbackEmail(this.feedBackGroup.value);
-              console.log('gfg');
+              this.addTask();
               swal({
                 title: 'Feedback Saved!',
                 icon: 'success',
@@ -154,6 +162,54 @@ export class AddFeedBacksComponent implements OnInit {
       feedId += chars.substring(rnum, rnum + 1);
       ///sysId += chars.substring(rnum, rnum + 1);
       this.feedBackGroup.controls['feedId'].setValue(feedId);
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.feedbackId,
+      taskType: 'Add Feedback',
+      taskPriority: 'Low',
+      taskDate: new Date(),
+      taskStatus: 3,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  defaultTaskId() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
       //this.LocoGroup.controls["id"].setValue(sysId);
     }
     //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));

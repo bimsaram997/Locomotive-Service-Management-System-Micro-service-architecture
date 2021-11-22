@@ -75,8 +75,10 @@ export class ChartViewComponent implements OnInit {
     const _allSch = this.scheduleService.getAllSchedules();
     const _getLoco = this.locomotiveService.getAllLocoAssigned(object);
     const _getLoadTrail = this.loadTrialService.getLoadTrialAssigned(object);
+    const _getLocoHistory =
+      this.locomotiveService.getAllLocoAssignedHistory(object);
 
-    forkJoin([_allSch, _getLoco, _getLoadTrail])
+    forkJoin([_allSch, _getLoco, _getLoadTrail, _getLocoHistory])
       .pipe(first())
       .subscribe((res) => {
         var schs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -129,10 +131,10 @@ export class ChartViewComponent implements OnInit {
         };
         this.barChartData[1] = inComplete;
 
-        const _locomotiveArray = res[1];
+        const _locomotiveArray = res[3];
         var loco = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         const _availableLoco = _locomotiveArray.filter(
-          (p) => p.locoStatus === 0
+          (p) => p.locoAvailability === 'In'
         );
         if (_availableLoco.length > 0) {
           var _yearCount = 12;
@@ -148,18 +150,14 @@ export class ChartViewComponent implements OnInit {
         const _availableLocoData = {
           data: loco ? loco : null,
           label: 'Available Locomotives',
+          backgroundColor: '#52b3d9',
         };
         this.barChartData[2] = _availableLocoData;
-        if (this.barChartData[0] !=undefined && this.barChartData[1] !=undefined && this.barChartData[1] !=undefined){
-          this.valueChanged(true);
-          this.isChecked = true
-        }
       });
   }
 
   valueChanged(val: boolean) {
     // You can give any function name
-
 
     this.valueChange.emit(val);
   }

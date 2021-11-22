@@ -5,7 +5,7 @@ const router = express.Router();
 router.post('/saveLoadTrial', loadTrialController.saveLoadTrial);
 router.post('/loadTrialEmail', loadTrialController.loadTrialEmail);
 router.get('/getLoadTrialAssigned', loadTrialController.getLoadTrialAssigned);
-router.get('/getOneLoad/:id', loadTrialController.getOneLoad);
+router.get('/getOneLoad/:loadNo', loadTrialController.getOneLoad);
 router.patch('/acceptLoadTrial/:loadNo', loadTrialController.acceptLoadTrial);
 
 router.put('/addComment', loadTrialController.addComment);

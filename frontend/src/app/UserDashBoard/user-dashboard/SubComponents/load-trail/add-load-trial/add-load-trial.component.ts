@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../../service/user-task.service';
 import { LocomotiveService } from './../../../../../service/locomotive.service';
 import { LoadTrialService } from './../../../../../service/load-trial.service';
 import { AccessService } from './../../../../../service/access.service';
@@ -51,6 +52,8 @@ export class AddLoadTrialComponent implements OnInit {
   searchKey: string;
   spinner = false;
   ids: any[] = [];
+  taskId: string;
+  loadTrialId: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +63,8 @@ export class AddLoadTrialComponent implements OnInit {
     private loadTrialService: LoadTrialService,
     private router: Router,
     private _location: Location,
-    private locomotiveService: LocomotiveService
+    private locomotiveService: LocomotiveService,
+    private userTaskService: UserTaskService
   ) {}
 
   ngOnInit(): void {
@@ -95,6 +99,7 @@ export class AddLoadTrialComponent implements OnInit {
     this.showIds();
     this.defaultMethod();
     this.getMinDate();
+    this.defaultTaskId();
   }
 
   get getFm() {
@@ -123,9 +128,11 @@ export class AddLoadTrialComponent implements OnInit {
         (res) => {
           console.log(res);
           if (res.isSaved) {
+            this.loadTrialId = this.LoadTrial.controls['loadNo'].value;
             this.patchFinalMile(this.LoadTrial.value);
             this.assignedLoadTrial(this.LoadTrial.value);
             this.loadTrialEmail(this.LoadTrial.value);
+            this.addTask();
             swal({
               title: 'Record Saved!',
               icon: 'success',
@@ -381,5 +388,53 @@ export class AddLoadTrialComponent implements OnInit {
       //this.LocoGroup.controls["id"].setValue(sysId);
     }
     //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+  }
+
+  defaultTaskId() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.loadTrialId,
+      taskType: 'Add Load Trial',
+      taskPriority: 'High',
+      taskDate: new Date(),
+      taskStatus: 2,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
   }
 }

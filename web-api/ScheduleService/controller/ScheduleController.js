@@ -37,7 +37,7 @@ const getAllScheduleAssigned = async(req, resp) => {
         if (req.query.userRole == "Supervisor") {
             var _findSche = await ScheduleSchema.find({
                 supervisorNic: req.query.userNic,
-            });
+            }).sort({ scheduleDate: -1 });
             if (_findSche.length > 0) {
                 returnArray.push(_findSche);
             }
@@ -53,7 +53,7 @@ const getAllScheduleAssigned = async(req, resp) => {
         } else {}
     } else {
         if (req.query.userRole == "Supervisor") {
-            await ScheduleSchema.find({ supervisorNic: req.query.userNic })
+            await ScheduleSchema.find({ supervisorNic: req.query.userNic }).sort({ scheduleDate: -1 })
                 .then((result) => {
                     resp.status(200).json(result);
                     //console.log(result);
@@ -62,7 +62,7 @@ const getAllScheduleAssigned = async(req, resp) => {
                     resp.status(500).json(result);
                 });
         } else if (req.query.userRole == "Service Manager") {
-            await ScheduleSchema.find({ managerNic: req.query.userNic })
+            await ScheduleSchema.find({ managerNic: req.query.userNic }).sort({ scheduleDate: -1 })
                 .then((result) => {
                     resp.status(200).json(result);
                     //console.log(result);
@@ -81,7 +81,7 @@ const getAllScheduleAssignedManager = async(req, resp) => {
         if (req.query.userRole == "Service Manager") {
             var _findSche = await ScheduleSchema.find({
                 managerNic: req.query.userNic,
-            });
+            }).sort({ scheduleDate: -1 });
             if (_findSche.length > 0) {
                 returnArray.push(_findSche);
             }
@@ -97,7 +97,7 @@ const getAllScheduleAssignedManager = async(req, resp) => {
         } else {}
     } else {
         if (req.query.userRole == "Service Manager") {
-            await ScheduleSchema.find({ managerNic: req.query.userNic })
+            await ScheduleSchema.find({ managerNic: req.query.userNic }).sort({ scheduleDate: -1 })
                 .then((result) => {
                     resp.status(200).json(result);
                     //console.log(result);

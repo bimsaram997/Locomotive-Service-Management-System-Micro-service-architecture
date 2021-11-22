@@ -24,7 +24,7 @@ const saveTask = async(req, res, next) => {
 const getAllTasksAssigned = async(req, resp, next) => {
 
     if (req.query.userRole == "Supervisor") {
-        await UserTasksSchema.find({ userNic: req.query.userNic }).sort({ date: -1 })
+        await UserTasksSchema.find({ userNic: req.query.userNic }).sort({ taskDate: -1 })
             .then((result) => {
                 resp.status(200).json(result);
             })
@@ -32,7 +32,7 @@ const getAllTasksAssigned = async(req, resp, next) => {
                 resp.status(500).json(error);
             });
     } else if (req.query.userRole == "Service Manager") {
-        await UserTasksSchema.find({ userNic: req.query.userNic })
+        await UserTasksSchema.find({ userNic: req.query.userNic }).sort({ taskDate: -1 })
             .then((result) => {
                 resp.status(200).json(result);
             })
@@ -40,7 +40,7 @@ const getAllTasksAssigned = async(req, resp, next) => {
                 resp.status(500).json(error);
             });
     } else if (req.query.userRole == "Chief Engineer") {
-        await UserTasksSchema.find({ userNic: req.query.userNic })
+        await UserTasksSchema.find({ userNic: req.query.userNic }).sort({ taskDate: -1 })
             .then((result) => {
                 resp.status(200).json(result);
             })
@@ -48,7 +48,7 @@ const getAllTasksAssigned = async(req, resp, next) => {
                 resp.status(500).json(error);
             });
     } else if (req.query.userRole == "Clerk") {
-        await UserTasksSchema.find({ userNic: req.query.userNic })
+        await UserTasksSchema.find({ userNic: req.query.userNic }).sort({ taskDate: -1 })
             .then((result) => {
                 resp.status(200).json(result);
             })

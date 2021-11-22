@@ -5,47 +5,66 @@
                 <div class="wrimagecard wrimagecard-topimage" style="background: #1f87f6">
                     <div class="wrimagecard-topimage_title h-140">
                         <img src="./assets/images/img1.png" alt="" style="height: 60px; width: 60px; float: left; opacity: 0.3" />
-                        <span class="label-txt" style="float: right">In:&nbsp;&nbsp;<span class="value" style="float: right"
-                >10</span
-              ></span
+                        <span class="label-txt" style="float: right">In:&nbsp;&nbsp;<span class="value" style="float: right">{{
+                inLocoLength ? inLocoLength : 0
+              }}</span></span>
+                        <br />
+                        <span class="label-txt" style="float: right">Out:&nbsp;&nbsp;<span span class="value" style="float: right">{{
+                outLocoLength ? outLocoLength : 0
+              }}</span></span>
+                        <br />
+                        <br />
+                        <span class="info-label go" style="float: right" (click)="goToLoco()">Rolling Stock</span
             >
-            <br />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 col-lg-3">
+        <div
+          class="wrimagecard wrimagecard-topimage"
+          style="background: #e55451"
+        >
+          <div class="wrimagecard-topimage_title h-140">
+            <img
+              src="./assets/images/img3.png"
+              alt=""
+              style="height: 60px; width: 60px; float: left; opacity: 0.3"
+            />
             <span class="label-txt" style="float: right"
-              >Out:&nbsp;&nbsp;<span span class="value" style="float: right"
-                >30</span
+              >Completed:&nbsp;&nbsp;<span class="value" style="float: right">{{
+                SchLength ? SchLength : 0
+              }}</span></span>
+                        <br />
+                        <span class="label-txt" style="float: right">InCompleted:&nbsp;&nbsp;<span
+                class="value"
+                style="float: right"
+                >{{ inSchLength ? inSchLength : 0 }}</span
               ></span
             >
             <br />
             <br />
-            <span class="info-label" style="float: right">Rolling Stock</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-3">
-                <div class="wrimagecard wrimagecard-topimage" style="background: #e55451">
-                    <div class="wrimagecard-topimage_title h-140">
-                        <img src="./assets/images/img3.png" alt="" style="height: 60px; width: 60px; float: left; opacity: 0.3" />
-                        <span class="label-txt" style="float: right">Completed:&nbsp;&nbsp;<span class="value" style="float: right"
-                >30</span
-              ></span
+            <span
+              class="info-label go"
+              style="float: right"
+              (click)="goToSchedule()"
+              >Schedules</span
             >
-            <br />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 col-lg-3">
+        <div
+          class="wrimagecard wrimagecard-topimage"
+          style="background: #5cb3ff"
+        >
+          <div class="wrimagecard-topimage_title h-140">
+            <img
+              src="./assets/images/img4.png"
+              alt=""
+              style="height: 60px; width: 60px; float: left; opacity: 0.3"
+            />
             <span class="label-txt" style="float: right"
-              >In Operation:&nbsp;&nbsp;<span class="value" style="float: right"
-                >30</span
-              ></span
-            >
-            <br />
-            <br />
-            <span class="info-label" style="float: right">Schedules</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-3">
-                <div class="wrimagecard wrimagecard-topimage" style="background: #5cb3ff">
-                    <div class="wrimagecard-topimage_title h-140">
-                        <img src="./assets/images/img4.png" alt="" style="height: 60px; width: 60px; float: left; opacity: 0.3" />
-                        <span class="label-txt" style="float: right">In Progress:&nbsp;&nbsp;<span class="value" style="float: right"
+              >In Progress:&nbsp;&nbsp;<span class="value" style="float: right"
                 >30</span
               ></span
             >
@@ -70,44 +89,60 @@
               style="height: 60px; width: 60px; float: left; opacity: 0.3"
             />
             <span class="label-txt" style="float: right"
-              >Completed:&nbsp;&nbsp;<span style="float: right" class="value"
-                >30</span
+              >Completed:&nbsp;&nbsp;<span style="float: right" class="value">{{
+                comLoadlength ? comLoadlength : 0
+              }}</span></span>
+                        <br />
+                        <span class="label-txt" style="float: right">InCompleted:&nbsp;&nbsp;<span
+                style="float: right"
+                class="value"
+                >{{ inComLoadlength ? inComLoadlength : 0 }}</span
               ></span
             >
             <br />
-            <span class="label-txt" style="float: right"
-              >Viewed:&nbsp;&nbsp;<span style="float: right" class="value"
-                >30</span
-              ></span
+            <br />
+            <span
+              class="info-label go"
+              style="float: right"
+              (click)="goToLoad()"
+              >Load Trials</span
             >
-            <br />
-            <br />
-            <span class="info-label" style="float: right">Load Trials</span>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="main-body">
-        <div class="row gutters-sm">
-            <div class="col-md-5 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <full-calendar [options]="calendarOptions" style="height: 150px"></full-calendar>
-                    </div>
-                </div>
-                <br />
-            </div>
-            <div class="col-md-7">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div style="display: block">
-                            <canvas baseChart [datasets]="barChartData ? barChartData : null" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+  </div>
+  <div class="main-body">
+    <div class="row gutters-sm">
+      <div class="col-md-5 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <full-calendar
+              [options]="calendarOptions"
+              style="height: 150px"
+            ></full-calendar>
+          </div>
+        </div>
+        <br />
+      </div>
+      <div class="col-md-7">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div style="display: block">
+              <canvas
+                baseChart
+                [datasets]="barChartData ? barChartData : null"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+              >
               </canvas>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="card mb-3">
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card mb-3">
 
                     <div class="card-body">
                         <h4 class="d-flex align-items-center mb-3"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Engine at Stopped Conditions </h4>
@@ -126,7 +161,7 @@
 
                     </div>
                 </div> -->
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

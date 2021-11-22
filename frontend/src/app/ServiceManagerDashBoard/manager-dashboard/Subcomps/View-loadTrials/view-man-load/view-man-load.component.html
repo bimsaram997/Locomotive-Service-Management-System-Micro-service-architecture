@@ -1,87 +1,119 @@
 <div class="container-fluid">
-    <br>
+    <br />
     <div class="box-head">
-        <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px">
-        <span class="heading-txt"><span style="color: #1e8bc3;">V</span>IEW LOAD TRIALS</span>
+        <img src="./assets/images/m11.png" alt="" style="width: 40px; height: 40px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">V</span>IEW LOAD TRIALS</span>
     </div>
     <mat-divider></mat-divider>
     <div class="search-div">
-        <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px;">
-            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value);" #filterInput>
+        <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter($event.target.value)" #filterInput />
             <mat-hint>Search by Loco Category, Loco Number, </mat-hint>
             <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-    <mat-icon>close</mat-icon>
-  </button>
+        <mat-icon>close</mat-icon>
+      </button>
         </mat-form-field>
     </div>
     <div class="main-table">
         <div class="mat-elevation-z8">
             <mat-table [dataSource]="dataSource" matSort>
-
                 <ng-container matColumnDef="Load No">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Load No</mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Load No">{{tempLoad?.loadNo}} </mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Load No</mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Load No">{{ tempLoad?.loadNo }}
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Load Date">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Load Date' </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Load Date"> {{tempLoad?.loadDate | date }}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Load Date'
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Load Date">
+                        {{ tempLoad?.loadDate | date }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Loco Category">
                     <mat-header-cell *matHeaderCellDef> Loco Category</mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Loco Category"> {{tempLoad?.locoCatId}} </mat-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Loco Category">
+                        {{ tempLoad?.locoCatId }}
+                    </mat-cell>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="Loco Number">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Loco Number </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Loco Number"> {{tempLoad?.locoNumber}} </mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Loco Number
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Loco Number">
+                        {{ tempLoad?.locoNumber }}
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Form">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Form"> {{tempLoad?.loadFrom}} </mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        From
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Form">
+                        {{ tempLoad?.loadFrom }}
+                    </mat-cell>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="To">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="To"> {{tempLoad?.loadTo}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        To
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="To">
+                        {{ tempLoad?.loadTo }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Schedule No">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Schedule No </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Schedule No"> {{tempLoad?.scheduleNo}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Schedule No
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Schedule No">
+                        {{ tempLoad?.scheduleNo }}</mat-cell>
                 </ng-container>
 
                 <!-- Symbol Column -->>
 
                 <ng-container matColumnDef="Responsible">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Responsible </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Responsible">{{tempLoad?.supervisorName}}</mat-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Responsible
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Responsible">{{ tempLoad?.supervisorName }}
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Status">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                    <mat-cell *matCellDef="let tempLoad" data-label="Status" [ngStyle]="{'color': (tempLoad.status == 1)?'#f7ca18':(tempLoad.status == 2)?'green':(tempLoad.status==3)?'#1f3a93':'red'}">
-                        <span class="material-icons" matTooltip="{{tempLoad.reason}}">
-{{statusBinder(tempLoad.status)}}
-</span>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Status
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let tempLoad" data-label="Status" [ngStyle]="{
+              color:
+                tempLoad.status == 1
+                  ? '#f7ca18'
+                  : tempLoad.status == 2
+                  ? 'green'
+                  : tempLoad.status == 3
+                  ? '#1f3a93'
+                  : 'red'
+            }">
+                        <span class="material-icons" matTooltip="{{ tempLoad.reason }}">
+              {{ statusBinder(tempLoad.status) }}
+            </span>
                     </mat-cell>
 
                     <!--            {{tempLoco.status || '-'}}-->
                     <!--          pending - yellow , Approval  -blue, created-Green , rejectd - red-->
-
-
                 </ng-container>
                 <ng-container matColumnDef="#">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoad" data-label="#">
-                        <button mat-icon-button (click)="viewLoad(tempLoad._id)" matTooltip="Click for more information"><i class="fas fa-eye" style="color: #013243; font-size: 18px;"></i></button>
-
+                        <button mat-icon-button (click)="viewLoad(tempLoad.loadNo)" matTooltip="Click for more information">
+              <i class="fas fa-eye" style="color: #013243; font-size: 18px"></i>
+            </button>
                     </mat-cell>
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
             <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>

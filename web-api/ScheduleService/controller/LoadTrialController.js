@@ -214,7 +214,7 @@ const getLoadTrialAssigned = async(req, resp, next) => {
     // })
 
     if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Clerk') {
-        await LoadTrialDTO.find().then(result => {
+        await LoadTrialDTO.find().sort({ loadDate: -1 }).then(result => {
             resp.status(200).json(result);
 
         }).catch(error => {
@@ -222,14 +222,14 @@ const getLoadTrialAssigned = async(req, resp, next) => {
         });
 
     } else if (req.query.userRole == 'Supervisor') {
-        await LoadTrialDTO.find({ supervisorNic: req.query.userNic }).then(result => {
+        await LoadTrialDTO.find({ supervisorNic: req.query.userNic }).sort({ loadDate: -1 }).then(result => {
             resp.status(200).json(result);
             //console.log(result);
         }).catch(error => {
             resp.status(500).json(result)
         });
     } else if (req.query.userRole == 'Service Manager') {
-        await LoadTrialDTO.find({ managerNic: req.query.userNic }).then(result => {
+        await LoadTrialDTO.find({ managerNic: req.query.userNic }).sort({ loadDate: -1 }).then(result => {
             resp.status(200).json(result);
             //console.log(result);
         }).catch(error => {
@@ -241,9 +241,10 @@ const getLoadTrialAssigned = async(req, resp, next) => {
 const getOneLoad = (req, res) => {
     //console.log(req.params.id);
     LoadTrialDTO.find({
-        _id: req.params.id
+        loadNo: req.params.loadNo
     }).then(result => {
         res.status(200).json(result);
+        console.log(req.params.loadNo)
     }).catch(er => {
         res.status(500).json(er);
     });

@@ -11,7 +11,7 @@ import { ViewportScroller } from '@angular/common';
 @Component({
   selector: 'app-view-man-load-pro',
   templateUrl: './view-man-load-pro.component.html',
-  styleUrls: ['./view-man-load-pro.component.css']
+  styleUrls: ['./view-man-load-pro.component.css'],
 })
 export class ViewManLoadProComponent implements OnInit {
   panelOpenState = false;
@@ -27,8 +27,8 @@ export class ViewManLoadProComponent implements OnInit {
   displayedColumns1: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns2: string[] = ['No', 'Description', 'Observation', 'Action'];
   displayedColumns3: string[] = ['No', 'Notch', 'Track', 'Main'];
-  displayedColumns4: string[] = ['No', 'Status','Date', 'Comments', '#'];
-  id:any;
+  displayedColumns4: string[] = ['No', 'Status', 'Date', 'Comments', '#'];
+  id: any;
   loadNo: any;
   loadDate: any;
   loadFrom: any;
@@ -50,26 +50,33 @@ export class ViewManLoadProComponent implements OnInit {
   comments: any;
   dataSource1: any[] = [];
   dataSource2: any[] = [];
-  dataSource3: any[]=[];
-  dataSource4: any[]=[];
+  dataSource3: any[] = [];
+  dataSource4: any[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  pageYoffset = 0;
 
-   pageYoffset = 0;
-
-  @HostListener('window:scroll', ['$event']) onScroll(event){
+  @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
   }
-  constructor(private scroll: ViewportScroller, private route: ActivatedRoute, private router: Router, private loadService: LoadTrialService,
-    public dialog: MatDialog, private scheduleService: ScheduleService) { }
+  constructor(
+    private scroll: ViewportScroller,
+    private route: ActivatedRoute,
+    private router: Router,
+    private loadService: LoadTrialService,
+    public dialog: MatDialog,
+    private scheduleService: ScheduleService
+  ) {}
 
   ngOnInit(): void {
-    this.id = (this.route.snapshot.paramMap.get('id'));
+    this.id = this.route.snapshot.paramMap.get('loadNo');
     console.log(this.id);
-    this.loadService.getOneLoad(this.id).pipe(
-      map(res=>{
-        const _load = res[0];
-        this.scheduleNo = res[0].scheduleNo;
+    this.loadService
+      .getOneLoad(this.id)
+      .pipe(
+        map((res) => {
+          const _load = res[0];
+          this.scheduleNo = res[0].scheduleNo;
           this.loadNo = res[0].loadNo;
           this.loadDate = res[0].loadDate;
           this.loadFrom = res[0].loadFrom;
@@ -80,67 +87,61 @@ export class ViewManLoadProComponent implements OnInit {
           this.managerNic = res[0].managerNic;
           this.managerName = res[0].managerName;
           this.managerEmail = res[0].managerEmail;
-          this.supervisorNic= res[0].supervisorNic;
-          this.supervisorEmail =  res[0].supervisorEmail;
-          this.supervisorName =  res[0].supervisorName;
-          this.dataSource1= res[0].items;
+          this.supervisorNic = res[0].supervisorNic;
+          this.supervisorEmail = res[0].supervisorEmail;
+          this.supervisorName = res[0].supervisorName;
+          this.dataSource1 = res[0].items;
           this.dataSource2 = res[0].itemsStop;
           this.dataSource3 = res[0].dynamicBrake;
-          this.loadNote= res[0].loadNote;
+          this.loadNote = res[0].loadNote;
           this.startMileage = res[0].startMileage;
           this.endMileage = res[0].endMileage;
           this.comments = res[0].comments;
           this.reason = res[0].reason;
 
-        return _load;
-      }),
-      mergeMap(
-        sch=> this.loadService.getRelevantComments(sch.loadNo))
-
-
-    ).subscribe(
-      final=>{
-       // console.log('Schedule');
+          return _load;
+        }),
+        mergeMap((sch) => this.loadService.getRelevantComments(sch.loadNo))
+      )
+      .subscribe((final) => {
+        // console.log('Schedule');
         console.log(final);
         this.dataSource4 = final;
         //this.dataSource9 = final;
         //console.log(this.dataSource9)
-      }
-    )
+      });
   }
-    scrollToTop(){
-  this.scroll.scrollToPosition([0,0]);
-}
-  statusBinder(status){
-    if (status === 1){
+  scrollToTop() {
+    this.scroll.scrollToPosition([0, 0]);
+  }
+  statusBinder(status) {
+    if (status === 1) {
       return 'hourglass_top';
-    }else if (status === 2){
+    } else if (status === 2) {
       return 'check_circle_outline';
-    }else if (status === 3){
+    } else if (status === 3) {
       return 'pending_actions';
     }
   }
 
-  cmtStatusBinder(val){
-    if (val === 3){
+  cmtStatusBinder(val) {
+    if (val === 3) {
       return 'pending_actions';
-    }else if (val === 2){
+    } else if (val === 2) {
       return 'done_all';
-    }else if (val === 0){
+    } else if (val === 0) {
       return 'build';
-    }else if (val === 4){
+    } else if (val === 4) {
       return 'thumb_up_off_alt';
     }
   }
 
-  viewFeedBack(commentId: string){
-    console.log(commentId)
-    const dialogRef = this.dialog.open(ViewFeedBacksComponent,{
-      data: {commentId: commentId},
+  viewFeedBack(commentId: string) {
+    console.log(commentId);
+    const dialogRef = this.dialog.open(ViewFeedBacksComponent, {
+      data: { commentId: commentId },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

@@ -24,8 +24,10 @@ export class LoadTrialService {
       params: object,
     });
   }
-  getOneLoad(id): Observable<any> {
-    return this.http.get<any>(this.myUrl + `loadTrialRoute/getOneLoad/${id}`);
+  getOneLoad(loadNo): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `loadTrialRoute/getOneLoad/${loadNo}`
+    );
   }
 
   //comments

@@ -128,7 +128,7 @@ export class ViewSchedulesComponent implements OnInit {
 
   openProgress(id: string) {
     const dialogRef = this.dialog.open(SendProgressComponent, {
-      data: { id: id },
+      data: { id: id, disableClose: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

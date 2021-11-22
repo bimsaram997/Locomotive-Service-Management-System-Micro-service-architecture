@@ -13,6 +13,7 @@ import { ViewportScroller } from '@angular/common';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { MOMENT } from 'angular-calendar';
 import { Location } from '@angular/common';
+import * as moment from 'moment';
 @Component({
   selector: 'app-view-load-prof',
   templateUrl: './view-load-prof.component.html',
@@ -83,7 +84,7 @@ export class ViewLoadProfComponent implements OnInit {
   }
 
   loadTrials() {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('loadNo');
     console.log(this.id);
     this.loadService
       .getOneLoad(this.id)
@@ -163,7 +164,7 @@ export class ViewLoadProfComponent implements OnInit {
   addFeedBack(_id: string) {
     console.log(_id);
     const dialogRef = this.dialog.open(AddFeedBacksComponent, {
-      data: { id: _id },
+      data: { id: _id, disableClose: true },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -499,7 +500,7 @@ export class ViewLoadProfComponent implements OnInit {
                         alignment: 'right',
                       },
                       {
-                        text: `${new Date(this.loadDate).toLocaleString()}`,
+                        text: moment(this.loadDate).format('MM/DD/YYYY'),
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
@@ -854,7 +855,7 @@ export class ViewLoadProfComponent implements OnInit {
                         alignment: 'right',
                       },
                       {
-                        text: `${new Date(this.loadDate).toLocaleString()}`,
+                        text: moment(this.loadDate).format('MM/DD/YYYY'),
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
@@ -959,16 +960,9 @@ export class ViewLoadProfComponent implements OnInit {
           },
           table: {
             headerRows: 1,
-            widths: ['*', 80, 80, 80, 80],
+            widths: ['*', 80, 80, 80],
             body: [
               [
-                {
-                  text: 'No',
-                  fillColor: '#eaf2f5',
-                  border: [false, true, false, true],
-                  margin: [0, 5, 0, 5],
-                  textTransform: 'uppercase',
-                },
                 {
                   text: 'Description',
                   fillColor: '#eaf2f5',
@@ -995,7 +989,7 @@ export class ViewLoadProfComponent implements OnInit {
                 let i;
                 return [
                   //moment(itm.date).format('YYYY-MM-DD'),
-                  itm.i + 1,
+
                   itm.description,
                   itm.condition,
                   itm.action,
@@ -1057,16 +1051,9 @@ export class ViewLoadProfComponent implements OnInit {
           },
           table: {
             headerRows: 1,
-            widths: ['*', 80, 80, 80, 80],
+            widths: ['*', 80, 80, 80],
             body: [
               [
-                {
-                  text: 'No',
-                  fillColor: '#eaf2f5',
-                  border: [false, true, false, true],
-                  margin: [0, 5, 0, 5],
-                  textTransform: 'uppercase',
-                },
                 {
                   text: 'Notch',
                   fillColor: '#eaf2f5',
@@ -1093,7 +1080,7 @@ export class ViewLoadProfComponent implements OnInit {
                 let i;
                 return [
                   //moment(itm.date).format('YYYY-MM-DD'),
-                  itm.i + 1,
+
                   itm.notch,
                   itm.tractionMtr,
                   itm.mainGen,
@@ -1155,16 +1142,9 @@ export class ViewLoadProfComponent implements OnInit {
           },
           table: {
             headerRows: 1,
-            widths: ['*', 80, 80, 80, 80],
+            widths: ['*', 80, 80, 80],
             body: [
               [
-                {
-                  text: 'No',
-                  fillColor: '#eaf2f5',
-                  border: [false, true, false, true],
-                  margin: [0, 5, 0, 5],
-                  textTransform: 'uppercase',
-                },
                 {
                   text: 'Description',
                   fillColor: '#eaf2f5',
@@ -1191,7 +1171,7 @@ export class ViewLoadProfComponent implements OnInit {
                 let i;
                 return [
                   //moment(itm.date).format('YYYY-MM-DD'),
-                  itm.i + 1,
+
                   itm.description,
                   itm.condition,
                   itm.action,
@@ -1299,7 +1279,7 @@ export class ViewLoadProfComponent implements OnInit {
                         alignment: 'right',
                       },
                       {
-                        text: `${new Date(this.loadDate).toLocaleString()}`,
+                        text: moment(this.loadDate).format('MM/DD/YYYY'),
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
@@ -1437,7 +1417,7 @@ export class ViewLoadProfComponent implements OnInit {
                   itm.commentId,
                   itm.comments,
                   itm.reason,
-                  `${new Date(itm.comDate).toLocaleString()}`,
+                  moment(itm.comDate).format('MM/DD/YYYY'),
                   //GymAdapterClass.formatMoney(Number(itm.totalAmount)),
                 ];
               }),

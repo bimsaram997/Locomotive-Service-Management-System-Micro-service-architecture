@@ -123,7 +123,7 @@ export class ViewAdloadProComponent implements OnInit {
   }
 
   loadOneTrial() {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('loadNo');
     console.log(this.id);
     this.loadService
       .getOneLoad(this.id)

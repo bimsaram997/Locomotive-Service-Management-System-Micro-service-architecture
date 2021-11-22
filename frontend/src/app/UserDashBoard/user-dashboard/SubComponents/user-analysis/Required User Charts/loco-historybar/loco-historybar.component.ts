@@ -96,7 +96,7 @@ export class LocoHistorybarComponent implements OnInit {
         }
         const _availableLocoData = {
           data: loco ? loco : null,
-          label: 'Available',
+          label: 'In',
           backgroundColor: '#7befb2',
         };
         this.barChartData[0] = _availableLocoData;
@@ -120,7 +120,7 @@ export class LocoHistorybarComponent implements OnInit {
         }
         const _unAvailableLocoData = {
           data: unLoco ? unLoco : null,
-          label: 'Unavailable',
+          label: 'Out',
           backgroundColor: '#52b3d9',
         };
         this.barChartData[1] = _unAvailableLocoData;

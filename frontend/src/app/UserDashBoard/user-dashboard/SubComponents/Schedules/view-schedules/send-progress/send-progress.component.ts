@@ -16,6 +16,7 @@ import { ProgressReportService } from '../../../../../../service/progress-report
 import { first, map, mergeMap } from 'rxjs/operators';
 import swal from 'sweetalert';
 import { forkJoin } from 'rxjs';
+import * as moment from 'moment';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export interface DialogData {
   id: string;
@@ -45,6 +46,8 @@ export class SendProgressComponent implements OnInit {
   image: string = './assets/logo/1618837407350.png';
   taskId: string;
   progressNo: string;
+  maxDate: Date = new Date(new Date().setDate(new Date().getDate()));
+  minDate: any;
   constructor(
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -59,6 +62,7 @@ export class SendProgressComponent implements OnInit {
     this.generateTaskId();
     this.createReportForm();
     this.loadSchedule();
+    this.getMinDate();
 
     ///backend call karala me id ekata adala data tika load karaganna harithaee
     //ita passe e ena data object eka ara formgrop eke values walta assign karaganna harithe
@@ -80,6 +84,12 @@ export class SendProgressComponent implements OnInit {
       extraNote: ['', [Validators.required]],
     });
     this.defaultMethod();
+  }
+
+  getMinDate(): void {
+    const date = moment(new Date());
+    const newDate = date.subtract(2, 'days');
+    this.minDate = moment(newDate).toISOString();
   }
 
   loadSchedule(): void {
