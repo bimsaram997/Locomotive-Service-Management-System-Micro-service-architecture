@@ -1,3 +1,4 @@
+import { SupervisorAnalysisComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-analysis.component';
 import { UserAnalysisComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/user-analysis.component';
 import { ViewDriverLocoProfileComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco-profile/view-driver-loco-profile.component';
 import { ViewDriverLocoComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco/view-driver-loco.component';
@@ -137,6 +138,7 @@ const routes: Routes = [
       { path: 'createUser', component: CreateUserComponent },
       { path: 'viewUsers', component: ViewUsersComponent },
       { path: 'createCustomer', component: CreateCustomerComponent },
+      { path: 'supervisorAnalysis', component: SupervisorAnalysisComponent },
       {
         path: 'response-reset-password/:token',
         component: ResetPasswordComponent,

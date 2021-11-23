@@ -183,4 +183,8 @@ export class ScheduleService {
       data
     );
   }
+
+  public getNextAllSchedules(): Observable<any> {
+    return this.http.get(this.myUrl + 'scheduleRoute/getNextAllSchedules');
+  }
 }

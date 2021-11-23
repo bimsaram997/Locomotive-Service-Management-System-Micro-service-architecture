@@ -1232,6 +1232,17 @@ const sendOneNextSchedule = async(req, res, next) => {
         });
 };
 
+const getNextAllSchedules = async(req, resp, next) => {
+    await NextScheduleDTO.find()
+        .then((result) => {
+            resp.status(200).json(result);
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
+
+
 const changeStatusNextSchedule = async(req, res, next) => {
     //change status of the comment after adding feedbacks by user
     const _obj = req.body;
@@ -1283,4 +1294,5 @@ module.exports = {
     getAllNextSchedulesNotFilter,
     sendOneNextSchedule,
     changeStatusNextSchedule,
+    getNextAllSchedules
 };

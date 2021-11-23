@@ -145,6 +145,11 @@ import { ScheduleVarianceComponent } from './UserDashBoard/user-dashboard/SubCom
 import { LoadTrialVarianceComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/Required User Charts/load-trial-variance/load-trial-variance.component';
 import { ViewHistoryMainComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-main/view-history-main.component';
 import { ViewMoreNextSchedulesComponent } from './UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-more-next-schedules/view-more-next-schedules.component';
+import { SupervisorAnalysisComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-analysis.component';
+import { MileageAnalysisComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-charts/mileage-analysis/mileage-analysis.component';
+import { MileageVarianceComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-charts/mileage-variance/mileage-variance.component';
+import { NextSchedulePieComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-charts/next-schedule-pie/next-schedule-pie.component';
+import { NextScheduleVarianceComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-charts/next-schedule-variance/next-schedule-variance.component';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -326,6 +331,16 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ViewHistoryMainComponent,
 
     ViewMoreNextSchedulesComponent,
+
+    SupervisorAnalysisComponent,
+
+    MileageAnalysisComponent,
+
+    MileageVarianceComponent,
+
+    NextSchedulePieComponent,
+
+    NextScheduleVarianceComponent,
   ],
   imports: [
     BrowserModule,

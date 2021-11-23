@@ -1,0 +1,187 @@
+<div class="container-fluid">
+    <br />
+    <div class="box-head">
+        <img src="./assets/images/rising.png" alt="" style="width: 40px; height: 40px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">A</span>NALYSIS REPORT</span>
+        <div class="back">
+            <button mat-raised-button (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i>&nbsp; Back
+      </button>
+            <br />
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" animationDuration="0ms">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class="material-icons">looks_one</span>&nbsp;Mileages & Next Schedules
+            </ng-template>
+            <div class="py">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4" style="height: 200px">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 210px">
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="col-md-12 label-txt">
+                                                <img src="./assets/images/speedo.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 50px; height: 50px" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Mileage Reports
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">{{
+                          this.totalMileage ? this.totalMileage : 0
+                        }}</span>
+                                            </div>
+                                        </div>
+                                        <hr class="hr" />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Draft Mileage Reports
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">{{
+                          countDraftMileage ? countDraftMileage : 0
+                        }}</span>
+                                            </div>
+                                        </div>
+                                        <hr class="hr" />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Accepted Mileage Reports
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">
+                          {{ countAcceptMileage ? countAcceptMileage : 0 }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr class="hr" />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Rejected Mileage Reports
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">
+                          {{ countRejectMileage ? countRejectMileage : 0 }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr class="hr" />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Assigned Mileage Reports
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">
+                          {{ countAssignedMileage ? countAssignedMileage : 0 }}
+                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 210px">
+                                    <app-mileage-analysis *ngIf="
+                      countDraftMileage ||
+                      countAcceptMileage ||
+                      countRejectMileage ||
+                      countAssignedMileage
+                    " [countDraftMileage]="countDraftMileage" [countAcceptMileage]="countAcceptMileage" [countRejectMileage]="countRejectMileage" [countAssignedMileage]="countAssignedMileage"></app-mileage-analysis>
+                                    <p class="header">Mileage Reports</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 210px">
+                                    <app-mileage-variance></app-mileage-variance>
+                                    <br />
+                                    <p class="header">Mileage Report Variance</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 228px">
+                                    <div class="info">
+                                        <div class="row">
+                                            <div class="col-md-12 label-txt">
+                                                <img src="./assets/images/schedule.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 50px; height: 50px" />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Next Schedules
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">{{
+                          totalNext ? totalNext : 0
+                        }}</span>
+                                            </div>
+                                        </div>
+                                        <hr class="hr" />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Drafted Next Schedules
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">{{
+                          countDraftNext ? countDraftNext : 0
+                        }}</span>
+                                            </div>
+                                        </div>
+                                        <hr class="hr" />
+                                        <div class="row">
+                                            <div class="col-md-10 label-txt">
+                                                No.of Assigned Next Schedules
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span class="value-txt">
+                          {{ countAssignedNext ? countAssignedNext : 0 }}
+                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 228px">
+                                    <app-next-schedule-pie *ngIf="countDraftNext || countAssignedNext" [countDraftNext]="countDraftNext" [countAssignedNext]="countAssignedNext"></app-next-schedule-pie>
+                                    <br />
+                                    <p class="header">Next Schedules</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 228px">
+                                    <app-next-schedule-variance></app-next-schedule-variance>
+                                    <br />
+                                    <p class="header">Next Schedules Variance</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'" style="bottom: 30px">
+                <mat-grid-tile> </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+    </mat-tab-group>
+</div>

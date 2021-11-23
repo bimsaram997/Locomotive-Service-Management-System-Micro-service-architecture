@@ -32,4 +32,5 @@ router.get('/getAllNextSchedules/:locoNumberNextSchedule', ScheduleController.ge
 router.get('/getAllNextSchedulesNotFilter', ScheduleController.getAllNextSchedulesNotFilter);
 router.get('/sendOneNextSchedule/:nxtSchId', ScheduleController.sendOneNextSchedule);
 router.put('/changeStatusNextSchedule', ScheduleController.changeStatusNextSchedule);
+router.get('/getNextAllSchedules', ScheduleController.getNextAllSchedules);
 module.exports = router
