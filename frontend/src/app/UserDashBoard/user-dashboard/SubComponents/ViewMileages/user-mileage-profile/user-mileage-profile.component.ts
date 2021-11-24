@@ -1,15 +1,15 @@
-import { LocomotiveService } from './../../../../../service/locomotive.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { LocomotiveService } from 'src/app/service/locomotive.service';
 @Component({
-  selector: 'app-clerk-view-one-mileage',
-  templateUrl: './clerk-view-one-mileage.component.html',
-  styleUrls: ['./clerk-view-one-mileage.component.css'],
+  selector: 'app-user-mileage-profile',
+  templateUrl: './user-mileage-profile.component.html',
+  styleUrls: ['./user-mileage-profile.component.css'],
 })
-export class ClerkViewOneMileageComponent implements OnInit {
+export class UserMileageProfileComponent implements OnInit {
   MileageGroup: FormGroup;
   id: any;
   nxtScheduleId: any;

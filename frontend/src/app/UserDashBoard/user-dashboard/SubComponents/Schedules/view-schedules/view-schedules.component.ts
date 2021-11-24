@@ -89,6 +89,9 @@ export class ViewSchedulesComponent implements OnInit {
     }
   }
 
+  navigateReport(mReportNumber) {
+    this.router.navigate(['/userDashboard/viewOneMileage', mReportNumber]);
+  }
   statusBinder(scheduleStatus) {
     if (scheduleStatus === 0) {
       return 'not_started';
@@ -129,6 +132,7 @@ export class ViewSchedulesComponent implements OnInit {
   openProgress(id: string) {
     const dialogRef = this.dialog.open(SendProgressComponent, {
       data: { id: id, disableClose: true },
+      width: '400px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

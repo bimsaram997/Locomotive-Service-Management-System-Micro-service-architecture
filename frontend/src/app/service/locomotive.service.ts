@@ -167,8 +167,10 @@ export class LocomotiveService {
     return this.http.put(this.myUrl + `locoRoute/patchSchMileage/`, object);
   }
 
-  public getOneMileageById(id): Observable<any> {
-    return this.http.get<any>(this.myUrl + `locoRoute/getOneMileageById/${id}`);
+  public getOneMileageById(mReportNumber): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `locoRoute/getOneMileageById/${mReportNumber}`
+    );
   }
 
   public sendMileEmail(data): Observable<any> {

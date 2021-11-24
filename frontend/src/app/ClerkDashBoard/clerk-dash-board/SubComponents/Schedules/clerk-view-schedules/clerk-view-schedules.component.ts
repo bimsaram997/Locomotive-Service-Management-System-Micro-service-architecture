@@ -13,118 +13,130 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-clerk-view-schedules',
   templateUrl: './clerk-view-schedules.component.html',
-  styleUrls: ['./clerk-view-schedules.component.css']
+  styleUrls: ['./clerk-view-schedules.component.css'],
 })
 export class ClerkViewSchedulesComponent implements OnInit {
-
   searchKey: string;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Schedule No', 'Report No', 'Loco Category', 'Loco Number', 'Supervisor inCharge', 'Request Date', 'To be Complete', 'Progress', 'status', '#'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = [
+    'Schedule No',
+    'Report No',
+    'Loco Category',
+    'Loco Number',
+    'Request Date',
+    'To be Complete',
+    'Progress',
+    'Status',
+    '#',
+  ];
   scheduleList: any[] = [];
   scheduleStatus: any;
-  progress: any[] = ['All', 100, 90, 75, 60, 45, 30, 0, ];
+  statuses: any[] = ['All', 100, 90, 75, 60, 45, 30, 0];
   progressList: any[] = [];
   dataArray: any[] = [];
-  dataArrayLength:any;
+  dataArrayLength: any;
   isShowPrTable: boolean = true;
-  paginator: MatPaginator;
+
   tableArray: any[];
-  constructor(private scheduleService: ScheduleService, private _location: Location,
-     private router: Router,public dialog: MatDialog,  private toastr: ToastrService,  public ProgressReportService: ProgressReportService) {
+  constructor(
+    private scheduleService: ScheduleService,
+    private _location: Location,
+    private router: Router,
+    public dialog: MatDialog,
+    private toastr: ToastrService,
+    public ProgressReportService: ProgressReportService
+  ) {
     this.loadAllSchedule();
   }
 
-  ngOnInit(): void {
-
-  }
-  private loadAllSchedule(){
-    this.scheduleService.getAllSchedules().subscribe(resp =>{
+  ngOnInit(): void {}
+  private loadAllSchedule() {
+    this.scheduleService.getAllSchedules().subscribe((resp) => {
       this.scheduleList = resp;
-      this.dataSource =  new MatTableDataSource<any>(this.scheduleList);
+      this.dataSource = new MatTableDataSource<any>(this.scheduleList);
       setTimeout(() => {
-        this.dataSource.paginator =  this.paginator;
+        this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      })
-    })
+      });
+    });
   }
 
- backClicked() {
+  navigateReport(mReportNumber) {
+    this.router.navigate(['/clerkDashBoard/viewOneMileage', mReportNumber]);
+  }
+
+  backClicked() {
     this._location.back();
   }
 
   onSearchClear() {
     this.searchKey = '';
-   // this.applyFilter();
+    // this.applyFilter();
   }
-  onChangeSelect(value){
-
-    const _findValue  = this.scheduleList.filter(x=>x.scheduleProgress==value.value);
-    if(_findValue.length  > 0){
-         this.tableArray =_findValue;
-          this.dataSource = new MatTableDataSource<any>(this.tableArray);
-    }else if(value.value=='All'){
-        this.dataSource = new MatTableDataSource<any>(this.scheduleList);
-    }
-    else{
-       this.onWarning('No records found on filter!')
-    this.dataSource = new MatTableDataSource<any>(this.scheduleList);
+  onChangeSelect(value) {
+    const _findValue = this.scheduleList.filter(
+      (x) => x.scheduleProgress == value.value
+    );
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<any>(this.scheduleList);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<any>(this.scheduleList);
     }
   }
- onWarning(message: string){
+  onWarning(message: string) {
     this.toastr.warning(message, 'Warning');
   }
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
+      filterValue = filterValue.trim();
+      filterValue = filterValue.toLowerCase();
+      this.dataSource.filter = filterValue;
     }
-}
+  }
 
-  statusBinder(scheduleStatus){
-    if (scheduleStatus === 0){
+  statusBinder(scheduleStatus) {
+    if (scheduleStatus === 0) {
       return 'not_started';
-    }else if (scheduleStatus === 1){
+    } else if (scheduleStatus === 1) {
       return 'Flags';
-    }else if (scheduleStatus === 2){
+    } else if (scheduleStatus === 2) {
       return 'pending_actions';
-    }else if (scheduleStatus === 3){
+    } else if (scheduleStatus === 3) {
       return 'hourglass_top';
-    } else if (scheduleStatus === 4){
+    } else if (scheduleStatus === 4) {
       return 'construction';
-    } else if (scheduleStatus === 5){
+    } else if (scheduleStatus === 5) {
       return 'build_circle';
-    }
-    else if (scheduleStatus === 6){
+    } else if (scheduleStatus === 6) {
       return 'check_circle_outline';
-    }
-    else if (scheduleStatus === 7){
+    } else if (scheduleStatus === 7) {
       return 'sports_score';
     }
   }
-  viewSchedule(id: string){
+  viewSchedule(id: string) {
     console.log(id);
     this.router.navigate(['/clerkDashBoard/viewSchedule', id]);
   }
 
- viewProgressHist(id: string){
-
+  viewProgressHist(id: string) {
     this.dialog.open(ViewProgressComponent, {
-      data: {id: id},
-      width: '1200px'
+      data: { id: id },
+      width: '1200px',
     });
-    console.log('ho')
+    console.log('ho');
 
-     this.scheduleService.sendOneSchedule(id).subscribe(resp =>{
-     //console.log(resp);
-        if(resp != undefined){
-          this.dataArray = resp[0].schProgressReport
-          this.dataArrayLength =  this.dataArray.length;
-
-
-        }
-      })
+    this.scheduleService.sendOneSchedule(id).subscribe((resp) => {
+      //console.log(resp);
+      if (resp != undefined) {
+        this.dataArray = resp[0].schProgressReport;
+        this.dataArrayLength = this.dataArray.length;
+      }
+    });
   }
-
 }

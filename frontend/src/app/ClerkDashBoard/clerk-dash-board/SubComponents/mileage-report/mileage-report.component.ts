@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../service/user-task.service';
 import { ViewNextSchedulesComponent } from './view-next-schedules/view-next-schedules.component';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { LoadTrialService } from './../../../../service/load-trial.service';
@@ -56,6 +57,11 @@ export class MileageReportComponent implements OnInit {
     'M11',
     'M12',
   ];
+  taskId: string;
+
+  minDate: any;
+  maxDate: any;
+  mileageId: any;
   constructor(
     private accessService: AccessService,
     private formBuilder: FormBuilder,
@@ -65,10 +71,37 @@ export class MileageReportComponent implements OnInit {
     private bottomSheet: MatBottomSheet,
     private scheduleService: ScheduleService,
     private _location: Location,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userTaskService: UserTaskService
   ) {}
 
   ngOnInit(): void {
+    this.createForm();
+    this.loadMangerEmail();
+    this.loadLocoNum();
+    this.defaultMethod();
+    this.getAllNextSchedulesNotFilter();
+    this.getUserDetails();
+    this.TaskIdGenerate();
+    this.getMinDate();
+    this.getMaxDate();
+
+    console.log(this.mileageGap);
+  }
+
+  getMinDate(): void {
+    const date = moment(new Date());
+    const newDate = date.subtract(1, 'days');
+    this.minDate = moment(newDate).toISOString();
+  }
+
+  getMaxDate(): void {
+    const date = moment(new Date());
+    const newDate = date.add(2, 'days');
+    this.maxDate = moment(newDate).toISOString();
+  }
+
+  createForm() {
     this.MileageGroup = this.formBuilder.group({
       mReportNumber: [''],
       mLocoCatId: ['', [Validators.required]],
@@ -95,11 +128,9 @@ export class MileageReportComponent implements OnInit {
       clerkEmail: [''],
       managerEmail: [''],
     });
-    this.loadMangerEmail();
-    this.loadLocoNum();
-    this.defaultMethod();
-    this.getAllNextSchedulesNotFilter();
-    console.log(this.mileageGap);
+  }
+
+  getUserDetails() {
     const values = JSON.parse(localStorage.getItem('currentUser'));
     this.name = values.userEmail;
 
@@ -146,91 +177,138 @@ export class MileageReportComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.MileageGroup.value);
+    let obj = {
+      mReportNumber: this.MileageGroup.controls.mReportNumber.value,
+      mLocoCatId: this.MileageGroup.controls.mLocoCatId.value,
+      mLocoNumber: this.MileageGroup.controls.mLocoNumber.value,
+      mLocoMileage: this.MileageGroup.controls.mLocoMileage.value,
+      finalMileage: this.MileageGroup.controls.finalMileage.value,
+      mileageDate: this.MileageGroup.controls.mileageDate.value,
+      locoStatus: this.MileageGroup.controls.locoStatus.value,
+      managerNic: this.MileageGroup.controls.managerNic.value,
+      emergencyCheck: this.MileageGroup.controls.emergencyCheck.value,
+      managerName: this.MileageGroup.controls.managerName.value,
+      mileageNote: this.MileageGroup.controls.mileageNote.value,
+      status: this.MileageGroup.controls.status.value,
+      reason: this.MileageGroup.controls.reason.value,
+      clerkEmail: this.MileageGroup.controls.clerkEmail.value,
+      managerEmail: this.MileageGroup.controls.managerEmail.value,
+    };
 
-    const checkEmergency = this.MileageGroup.controls['emergencyCheck'].value;
-    if (checkEmergency === 'No') {
-      this.spinner = true;
-      this.locomotiveService
-        .saveMileage(this.MileageGroup.value)
-        .pipe(first())
-        .subscribe(
-          (res) => {
-            if (res.isSaved) {
-              this.sendMileEmail(this.MileageGroup.value);
+    if (
+      obj.mLocoNumber != '' &&
+      obj.mLocoCatId != '' &&
+      obj.mReportNumber != '' &&
+      obj.mLocoMileage != '' &&
+      obj.finalMileage != '' &&
+      obj.mileageDate != '' &&
+      obj.locoStatus != '' &&
+      obj.managerNic != '' &&
+      obj.emergencyCheck != '' &&
+      obj.managerName != '' &&
+      obj.mileageNote != '' &&
+      obj.status != '' &&
+      obj.reason != '' &&
+      obj.clerkEmail != '' &&
+      obj.managerEmail != ''
+    ) {
+      const checkEmergency = this.MileageGroup.controls['emergencyCheck'].value;
+      if (checkEmergency === 'No') {
+        this.spinner = true;
+        this.locomotiveService
+          .saveMileage(this.MileageGroup.value)
+          .pipe(first())
+          .subscribe(
+            (res) => {
+              if (res.isSaved) {
+                this.sendMileEmail(this.MileageGroup.value);
+                this.mileageId =
+                  this.MileageGroup.controls['mReportNumber'].value;
+                this.changeStatusNextSchedule(this.MileageGroup.value);
+                this.addTask();
+                swal({
+                  title: 'New Mileage Report Added!',
+                  icon: 'success',
+                });
+                setTimeout(() => {
+                  //this.MileageGroup.reset();
+                  this.router.navigate(['/clerkDashBoard/viewMileages']);
+                  this.spinner = false;
+                }, 3000);
+              } else {
+                swal({
+                  title: 'Record already Exits',
+                  text: 'Please Click OK',
+                  icon: 'error',
+                });
+                setTimeout(() => {
+                  // this.refresh();
+                  this.spinner = false;
+                }, 3000);
+              }
+            },
 
-              this.changeStatusNextSchedule(this.MileageGroup.value);
-              swal({
-                title: 'Record Saved!',
-                text: 'Please Click OK',
-                icon: 'success',
-              });
-              setTimeout(() => {
-                this.MileageGroup.reset();
-                this.router.navigate(['/clerkDashBoard/viewMileages']);
-                this.spinner = false;
-              }, 3000);
-            } else {
-              swal({
-                title: 'Record already Exits',
-                text: 'Please Click OK',
-                icon: 'error',
-              });
-              setTimeout(() => {
-                // this.refresh();
-                this.spinner = false;
-              }, 3000);
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              console.log('dss');
             }
-          },
+          );
+      } else {
+        this.spinner = true;
+        this.locomotiveService
+          .saveMileage(this.MileageGroup.value)
+          .pipe(first())
+          .subscribe(
+            (res) => {
+              if (res.isSaved) {
+                this.mileageId =
+                  this.MileageGroup.controls['mReportNumber'].value;
+                this.sendMileEmail(this.MileageGroup.value);
+                this.addTask();
 
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            console.log('dss');
-          }
-        );
+                swal({
+                  title: 'Record Saved!',
+                  text: 'Please Click OK',
+                  icon: 'success',
+                });
+                setTimeout(() => {
+                  //this.MileageGroup.reset();
+                  this.router.navigate(['/clerkDashBoard/viewMileages']);
+                  this.spinner = false;
+                }, 3000);
+              } else {
+                swal({
+                  title: 'Record already Exits',
+                  text: 'Please Click OK',
+                  icon: 'error',
+                });
+                setTimeout(() => {
+                  // this.refresh();
+                  this.spinner = false;
+                }, 3000);
+              }
+            },
+
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              console.log('dss');
+            }
+          );
+        console.log('dsdsdsdsd');
+      }
     } else {
-      this.spinner = true;
-      this.locomotiveService
-        .saveMileage(this.MileageGroup.value)
-        .pipe(first())
-        .subscribe(
-          (res) => {
-            if (res.isSaved) {
-              this.sendMileEmail(this.MileageGroup.value);
-
-              swal({
-                title: 'Record Saved!',
-                text: 'Please Click OK',
-                icon: 'success',
-              });
-              setTimeout(() => {
-                this.MileageGroup.reset();
-                //this.router.navigate(['/clerkDashBoard/viewMileages']);
-                this.spinner = false;
-              }, 3000);
-            } else {
-              swal({
-                title: 'Record already Exits',
-                text: 'Please Click OK',
-                icon: 'error',
-              });
-              setTimeout(() => {
-                // this.refresh();
-                this.spinner = false;
-              }, 3000);
-            }
-          },
-
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            console.log('dss');
-          }
-        );
-      console.log('dsdsdsdsd');
+      this.spinner = false;
+      swal({
+        title: 'Please fill required fields',
+        icon: 'error',
+      });
+      setTimeout(() => {
+        //this.refresh();
+      }, 3000);
     }
   }
   refresh(): void {
@@ -360,5 +438,53 @@ export class MileageReportComponent implements OnInit {
 
   onError(message: string) {
     this.toastr.info(message, 'Warning');
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.mileageId,
+      taskType: 'Add Mileage',
+      taskPriority: 'High',
+      taskDate: new Date(),
+      taskStatus: 4,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  TaskIdGenerate() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
   }
 }

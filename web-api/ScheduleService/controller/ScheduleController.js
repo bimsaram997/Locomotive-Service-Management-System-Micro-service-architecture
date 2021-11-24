@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const getAllSchedules = (req, resp) => {
-    ScheduleSchema.find()
+    ScheduleSchema.find().sort({ scheduleDate: -1 })
         .then((result) => {
             resp.status(200).json(result);
         })

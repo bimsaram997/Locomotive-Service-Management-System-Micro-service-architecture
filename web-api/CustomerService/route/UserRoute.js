@@ -5,7 +5,8 @@ router.post('/signUp', UserController.register);
 router.get('/getAllUsers', UserController.getAllUsers);
 router.get('/getMangers', UserController.getManagers);
 router.get('/loginUser', UserController.loginUser);
-router.get('/getUser/:id', UserController.getUser)
+router.get('/getUser/:id', UserController.getUser);
+router.get('/getUserByNic/:userNic', UserController.getUserByNic);
 router.post('/sendMails', UserController.sendMails);
 router.post('/req-reset-password', UserController.requestPassword);
 router.post('/newPass', UserController.newPassword);

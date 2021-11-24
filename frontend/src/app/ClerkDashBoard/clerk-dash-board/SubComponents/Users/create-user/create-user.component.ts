@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../../service/user-task.service';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {
@@ -91,6 +92,8 @@ export class CreateUserComponent implements OnInit {
     'Chief Engineer',
     'Locomotive Driver',
   ];
+  taskId: string;
+  maxDate: any = new Date();
   constructor(
     private cd: ChangeDetectorRef,
     private _location: Location,
@@ -98,15 +101,20 @@ export class CreateUserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
-    private customerService: CustomerService
-  ) {
-    this.loadAllCustomers();
-  }
+    private customerService: CustomerService,
+    private userTaskService: UserTaskService
+  ) {}
   filesToUpload: Array<File> = [];
   urls = new Array<string>();
   isVisble = true;
 
   ngOnInit(): void {
+    this.createForm();
+    this.loadAllCustomers();
+    this.TaskIdGenerate();
+  }
+
+  createForm(): void {
     this.UserGroup = this.formBuilder.group({
       userEmail: [
         '',
@@ -120,19 +128,27 @@ export class CreateUserComponent implements OnInit {
       appointmentDate: [''],
       address: [''],
       userWorks: [''],
-      userNic: ['', [Validators.required, Validators.minLength(5)]],
+      userNic: ['', [Validators.required, Validators.minLength(10)]],
       userMobile: [
         '',
-        [Validators.required, Validators.pattern('^((\\+94-?)|0)?[0-9]{10}$')],
+        [
+          Validators.required,
+          Validators.pattern('^((\\+94-?)|0)?[0-9]{10}$'),
+          Validators.minLength(10),
+        ],
       ],
       userRole: [''],
-      userPassword: [''],
+      userPassword: ['', [Validators.required, Validators.minLength(5)]],
       image: [''],
     });
   }
 
   get userNics() {
     return this.UserGroup.get('userNic');
+  }
+
+  get UserPassword() {
+    return this.UserGroup.get('userPassword');
   }
   private loadAllCustomers() {
     this.loading = true;
@@ -145,38 +161,7 @@ export class CreateUserComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-  // signUp() {
-  //   this.accessService.register(
-  //     this.userEmail,
-  //     this.userName,
-  //     this.userWorks,
-  //     this.userNic,
-  //     this.userMobile,
-  //     this.userRole,
-  //     this.userPassword
-  //   ).subscribe( result => {
-  //     if (result.message === true){
-  //       swal({
-  //         title: 'Record Saved!',
-  //         text: 'Please Click OK',
-  //         icon: 'success',
-  //       });
-  //       setTimeout(() => {
-  //         this.refresh();
-  //       }, 3000);
 
-  //     }else{
-  //       swal({
-  //         title: 'Record already exits!',
-  //         text: 'Please Click OK',
-  //         icon: 'error',
-  //       });
-  //       setTimeout(() => {
-  //         this.refresh();
-  //       }, 3000);
-  //     }
-  //   });
-  // }
   changeFiles(event) {
     this.isVisble = !this.isVisble;
     this.filesToUpload = event.target.files as Array<File>;
@@ -247,11 +232,12 @@ export class CreateUserComponent implements OnInit {
         .pipe(first())
         .subscribe(
           (res) => {
-            console.log(res);
+            this.userNic = this.UserGroup.controls['userNic'].value;
+
             if (res.isSaved) {
+              this.addTask();
               swal({
-                title: 'Record Saved!',
-                text: 'Please Click OK',
+                title: 'New User Added!',
                 icon: 'success',
               });
               setTimeout(() => {
@@ -261,7 +247,7 @@ export class CreateUserComponent implements OnInit {
             } else {
               swal({
                 title: 'Record already Exits',
-                text: 'Please Click OK',
+
                 icon: 'error',
               });
               setTimeout(() => {
@@ -293,24 +279,63 @@ export class CreateUserComponent implements OnInit {
 
     if (event.target.files && event.target.files[0]) {
       reader.readAsDataURL(file);
-      // this.LocoGroup.patchValue({
-      //   image: reader.result
-      // });
+
       reader.onload = () => {
-        //this.imageUrl = reader.result;
-        //     this.showAlert = false;
         console.log(reader.result);
         this.UserGroup.patchValue({
           image: reader.result,
         });
-        // this.editFile = false;
-        // this.removeUpload = true;
       };
-      // this.LocoGroup.controls['image'].setValue(file);
-      // When file uploads set it to file formcontrol
 
-      // ChangeDetectorRef since file is loading outside the zone
       this.cd.markForCheck();
     }
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.userNic,
+      taskType: 'Add User',
+      taskPriority: 'Low',
+      taskDate: new Date(),
+      taskStatus: 5,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  TaskIdGenerate() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
   }
 }

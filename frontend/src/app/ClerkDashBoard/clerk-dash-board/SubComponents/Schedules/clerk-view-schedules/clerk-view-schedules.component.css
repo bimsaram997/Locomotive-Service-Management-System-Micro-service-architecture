@@ -15,6 +15,14 @@
     width: auto;
 }
 
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #1f3a93;
+    cursor: pointer;
+}
+
 .heading-txt {
     color: #013243;
     font-weight: bold;

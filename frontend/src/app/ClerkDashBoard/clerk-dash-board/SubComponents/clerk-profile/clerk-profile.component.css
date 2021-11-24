@@ -14,6 +14,14 @@ body {
     border-radius: .25rem;
 }
 
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #1f3a93;
+    cursor: pointer;
+}
+
 .avatar-xl {
     height: 6rem;
     width: 6rem;

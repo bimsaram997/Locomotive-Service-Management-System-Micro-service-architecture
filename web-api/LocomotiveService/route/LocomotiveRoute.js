@@ -29,7 +29,7 @@ router.post('/saveMileage', LocomotiveController.saveMileage);
 router.get('/getAllMileage', LocomotiveController.getAllMileage);
 router.get('/getAcceptedMileage', LocomotiveController.getAcceptedMileage);
 router.get('/getOneMileage/:mReportNumber', LocomotiveController.getOneMileage);
-router.get('/getOneMileageById/:id', LocomotiveController.getOneMileageById);
+router.get('/getOneMileageById/:mReportNumber', LocomotiveController.getOneMileageById);
 router.post('/sendMileEmail', LocomotiveController.sendMileEmail);
 router.post('/sendLocoEmail', LocomotiveController.sendLocoEmail);
 router.post('/sendAcceptedEmail', LocomotiveController.sendAcceptedEmail);

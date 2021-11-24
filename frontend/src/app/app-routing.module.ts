@@ -1,3 +1,4 @@
+import { UserMileageProfileComponent } from './UserDashBoard/user-dashboard/SubComponents/ViewMileages/user-mileage-profile/user-mileage-profile.component';
 import { SupervisorAnalysisComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-analysis.component';
 import { UserAnalysisComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/user-analysis.component';
 import { ViewDriverLocoProfileComponent } from './LocoDriverDashBoard/loco-driver-dashboard/Sub Components/view-driver-loco-profile/view-driver-loco-profile.component';
@@ -127,6 +128,10 @@ const routes: Routes = [
       { path: 'viewLoad', component: ViewLoadTrialsComponent },
       { path: 'viewLoadProf/:loadNo', component: ViewLoadProfComponent },
       { path: 'userAnalysis', component: UserAnalysisComponent },
+      {
+        path: 'viewOneMileage/:mReportNumber',
+        component: UserMileageProfileComponent,
+      },
     ],
   },
   {
@@ -155,9 +160,12 @@ const routes: Routes = [
       { path: 'viewSchedules', component: ClerkViewSchedulesComponent },
       {
         path: 'viewSchedule/:scheduleNo',
-        component: ClerkScheduleProfileComponent,
+        component: ViewScheduleProfileComponent,
       },
-      { path: 'viewOneMileage/:id', component: ClerkViewOneMileageComponent },
+      {
+        path: 'viewOneMileage/:mReportNumber',
+        component: ClerkViewOneMileageComponent,
+      },
     ],
   },
   {

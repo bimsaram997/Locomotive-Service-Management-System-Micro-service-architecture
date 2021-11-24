@@ -396,7 +396,7 @@ const getAllLocoAssigned = async(req, resp) => {
 const getAllLocoAssignedHistory = async(req, resp) => {
     // console.log(req.query)
     if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Service Manager' || req.query.userRole == 'Clerk' || req.query.userRole == 'Locomotive Driver') {
-        await HistoryLocomotiveSchema.find().then(result => {
+        await HistoryLocomotiveSchema.find().sort({ locoDate: -1 }).then(result => {
             resp.status(200).json(result);
 
         }).catch(error => {
@@ -592,7 +592,7 @@ const getAllMileage = async(req, resp, next) => {
 
     // console.log(req.query)
     if (req.query.userRole == 'Chief Engineer' || req.query.userRole == 'Clerk') {
-        await MileageSchema.find().then(result => {
+        await MileageSchema.find().sort({ mileageDate: -1 }).then(result => {
             resp.status(200).json(result);
 
         }).catch(error => {
@@ -600,7 +600,7 @@ const getAllMileage = async(req, resp, next) => {
         });
 
     } else if (req.query.userRole == 'Service Manager') {
-        await MileageSchema.find({ managerNic: req.query.userNic }).then(result => {
+        await MileageSchema.find({ managerNic: req.query.userNic }).sort({ mileageDate: -1 }).then(result => {
             resp.status(200).json(result);
             //console.log(result);
         }).catch(error => {
@@ -1087,9 +1087,9 @@ cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
 }
 
 const getOneMileageById = async(req, res) => {
-    console.log(req.params.id);
+    console.log(req.params.mReportNumber);
     await MileageSchema.find({
-        _id: req.params.id
+        mReportNumber: req.params.mReportNumber
     }).then(result => {
         res.status(200).json(result);
     }).catch(er => {
@@ -2260,7 +2260,7 @@ const getAllHistoryLoco = async(req, res, next) => { //get completed schedule
     // console.log(req.params.locoNumber);
     await HistoryLocoDTO.find({
         locoNumber: req.params.locoNumber
-    }).then(result => {
+    }).sort({ locoDate: -1 }).then(result => {
         res.status(200).json(result);
 
     }).catch(er => {

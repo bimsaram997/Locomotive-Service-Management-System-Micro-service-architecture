@@ -87,7 +87,7 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Appointment Date</mat-label>
-                            <input required class="label-txt" matInput [matDatepicker]="picker" formControlName="appointmentDate" />
+                            <input [max]="maxDate" required class="label-txt" matInput [matDatepicker]="picker" formControlName="appointmentDate" />
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -107,7 +107,10 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Password</mat-label>
-                            <input maxlength="10" minlength="4" required class="label-txt" formControlName="userPassword" matInput [type]="hide ? 'password' : 'text'" />
+                            <input maxlength="10" minlength="5" required class="label-txt" formControlName="userPassword" matInput [type]="hide ? 'password' : 'text'" />
+                            <div *ngIf="UserPassword.errors?.minlength" class="error">
+                                Password must be at least 5 characters long.
+                            </div>
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                 <mat-icon>{{
                   hide ? "visibility_off" : "visibility"

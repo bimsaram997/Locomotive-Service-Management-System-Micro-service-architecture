@@ -109,6 +109,10 @@ export class AccessService {
     return this.http.get(this.myUrl + `accessRoute/getUser/${id}`);
   }
 
+  getUserByNic(userNic): Observable<any> {
+    return this.http.get(this.myUrl + `accessRoute/getUserByNic/${userNic}`);
+  }
+
   getOneSup(supervisorName): Observable<any> {
     return this.http.get<any>(
       this.myUrl + `accessRoute/getOneSup/${supervisorName}`

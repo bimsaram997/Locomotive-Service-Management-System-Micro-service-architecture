@@ -619,7 +619,7 @@ const getManagers = (req, resp) => {
 };
 
 const getAllUserNew = (req, resp) => {
-    UserDTO.find().then(result => {
+    UserDTO.find().sort({ appointmentDate: -1 }).then(result => {
         resp.status(200).json(result);
 
     }).catch(error => {
@@ -643,6 +643,18 @@ const getUser = async(req, res, next) => {
     console.log(req.params.id);
     await UserDTO.find({
         _id: req.params.id
+    }).then(result => {
+        res.status(200).json(result);
+
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+};
+
+const getUserByNic = async(req, res, next) => {
+    console.log(req.params.userNic);
+    await UserDTO.find({
+        userNic: req.params.userNic
     }).then(result => {
         res.status(200).json(result);
 
@@ -739,6 +751,7 @@ module.exports = {
     deleteUser,
     updateUser,
     getManagers,
+    getUserByNic,
 
     getOneMan,
     getOneSup,
