@@ -34,6 +34,10 @@
     text-transform: uppercase;
 }
 
+.go {
+    cursor: pointer;
+}
+
 .container {
     text-align: center;
     position: fixed;
