@@ -12,13 +12,24 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-m-view-locomotive',
   templateUrl: './m-view-locomotive.component.html',
-  styleUrls: ['./m-view-locomotive.component.css']
+  styleUrls: ['./m-view-locomotive.component.css'],
 })
 export class MViewLocomotiveComponent implements OnInit {
-  isVisible =  false;
+  isVisible = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['Category', 'Number', 'Power', 'Mileage', 'Availability', 'Responsible', 'Update Date','Status', 'Image', '#'];
+  displayedColumns: string[] = [
+    'Category',
+    'Number',
+    'Power',
+    'Mileage',
+    'Availability',
+    'Responsible',
+    'Update Date',
+    'Status',
+    'Image',
+    '#',
+  ];
   @ViewChild(MatSort) sort: MatSort;
   locoArray: LocoDTO[] = [];
   selectedLoco: LocoDTO = null;
@@ -32,15 +43,20 @@ export class MViewLocomotiveComponent implements OnInit {
   dBreaks: string[] = ['Working', 'Not Working'];
   tableArray: LocoDTO[];
 
-  constructor(public dialog: MatDialog,  private toastr: ToastrService, private _location: Location, private locomotiveService: LocomotiveService,  private router: Router, ) { }
+  constructor(
+    public dialog: MatDialog,
+    private toastr: ToastrService,
+    private _location: Location,
+    private locomotiveService: LocomotiveService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadAll();
   }
 
-
-  loadAll(){
-    this.locomotiveService.getAllLocomotives().subscribe(resp => {
+  loadAll() {
+    this.locomotiveService.getAllLocomotives().subscribe((resp) => {
       this.locoArray = resp;
       this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
 
@@ -51,31 +67,36 @@ export class MViewLocomotiveComponent implements OnInit {
     });
   }
 
-  onChangeSelect(value){
+  onChangeSelect(value) {
     let _cloneArrat = [];
-    const _findValue  = this.locoArray.filter(x=>x.locoAvailability==value.value);
-    if(_findValue.length  > 0){
-         this.tableArray =_findValue;
-          this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
-    }else if(value.value=='All'){
-        this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
-    }
-    else{
-       this.onWarning('No records found on filter!')
-    this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    const _findValue = this.locoArray.filter(
+      (x) => x.locoAvailability == value.value
+    );
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
     }
   }
 
-    backClicked() {
+  backClicked() {
     this._location.back();
   }
 
   openImage(tempLoco: LocoDTO) {
-    this.selectedLoco  = tempLoco;
-    const dialogRef = this.dialog.open(ViewImageComponent,{data: {ViewImage: this.selectedLoco.image,
+    this.selectedLoco = tempLoco;
+    const dialogRef = this.dialog.open(ViewImageComponent, {
+      data: {
+        ViewImage: this.selectedLoco.image,
         ViewID: this.selectedLoco.locoCatId,
-        ViewNum: this.selectedLoco.locoNumber}});
-    dialogRef.afterClosed().subscribe(result =>{
+        ViewNum: this.selectedLoco.locoNumber,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog: ${result}`);
     });
   }
@@ -85,29 +106,31 @@ export class MViewLocomotiveComponent implements OnInit {
     //this.applyFilter();
   }
 
-
   applyFilter(filterValue: string) {
     if (filterValue.length > 1) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
+      filterValue = filterValue.trim();
+      filterValue = filterValue.toLowerCase();
+      this.dataSource.filter = filterValue;
     }
   }
   viewLoco(locoNumber: string) {
     this.router.navigate(['/managerDashBoard/viewLoco', locoNumber]);
-
   }
 
-  statusBinder(locoStatus){
-    if (locoStatus === 0){
+  statusBinder(locoStatus) {
+    if (locoStatus === 0) {
       return 'train';
-    }else if (locoStatus === 1){
+    } else if (locoStatus === 1) {
       return 'garage';
-    }else if (locoStatus === 2){
+    } else if (locoStatus === 2) {
       return 'gpp_good';
+    } else if (locoStatus === 3) {
+      return 'directions_run';
+    } else if (locoStatus === 4) {
+      return 'speed';
     }
   }
-  onWarning(message: string){
+  onWarning(message: string) {
     this.toastr.warning(message, 'Warning');
   }
 }

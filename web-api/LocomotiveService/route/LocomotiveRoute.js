@@ -23,6 +23,7 @@ router.put('/acceptLoadLoco', LocomotiveController.acceptLoadLoco);
 router.get('/getAllLocoAssignedHistory', LocomotiveController.getAllLocoAssignedHistory);
 
 router.patch('/patchSch', LocomotiveController.patchSch);
+router.patch('/assignedToMileage', LocomotiveController.assignedToMileage);
 router.patch('/patchLoadLoco', LocomotiveController.patchLoadLoco);
 
 router.post('/saveMileage', LocomotiveController.saveMileage);

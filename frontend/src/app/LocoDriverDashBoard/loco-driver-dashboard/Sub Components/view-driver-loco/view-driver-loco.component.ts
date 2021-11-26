@@ -193,6 +193,10 @@ export class ViewDriverLocoComponent implements OnInit {
       return 'garage';
     } else if (locoStatus === 2) {
       return 'gpp_good';
+    } else if (locoStatus === 3) {
+      return 'directions_run';
+    } else if (locoStatus === 4) {
+      return 'speed';
     }
   }
 

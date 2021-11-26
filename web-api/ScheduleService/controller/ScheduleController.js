@@ -282,6 +282,19 @@ const getOneSchedule = (req, res) => {
         });
 };
 
+
+const getCurrentScheduleByLocoNumber = (req, res) => {
+    console.log(req.params.locoNumber);
+    ScheduleSchema.findOne().or([{ locoNumber: req.params.locoNumber }, { scheduleStatus: 0 }])
+        .then((result) => {
+            console.log(result)
+            res.status(200).json(result);
+        })
+        .catch((er) => {
+            res.status(500).json(er);
+        });
+};
+
 const scheduleEmail = async(req, res, next) => {
     //console.log(req.body);
     if (req.body.supervisorEmail) {
@@ -1286,6 +1299,7 @@ module.exports = {
     scheduleLapseEmail,
     getAllScheduleCalendar,
     getAllScheduleAssignedManager,
+    getCurrentScheduleByLocoNumber,
 
     //next Schedule
     saveNextSchedule,

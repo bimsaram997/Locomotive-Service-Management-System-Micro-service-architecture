@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -34,10 +35,12 @@ export class ViewManagerSchedulesComponent implements OnInit {
     'status',
     '#',
   ];
+  statuses: any[] = ['All', 100, 90, 75, 60, 45, 30, 0];
   scheduleList: any[] = [];
   scheduleStatus: any;
 
   pageYoffset = 0;
+  tableArray: any[];
 
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
@@ -47,7 +50,8 @@ export class ViewManagerSchedulesComponent implements OnInit {
     private scheduleService: ScheduleService,
     private router: Router,
     public dialog: MatDialog,
-    private _location: Location
+    private _location: Location,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +114,22 @@ export class ViewManagerSchedulesComponent implements OnInit {
     }
   }
 
+  onChangeSelect(value) {
+    let _cloneArrat = [];
+    const _findValue = this.scheduleList.filter(
+      (x) => x.scheduleProgress == value.value
+    );
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<any>(this.scheduleList);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<any>(this.scheduleList);
+    }
+  }
+
   deleteSchedule(scheduleNo: string) {
     if (confirm('Are You Sure, whether You want to delete this Locomotive ?')) {
       this.scheduleService.deleteSchedule(scheduleNo).subscribe((result) => {
@@ -143,5 +163,9 @@ export class ViewManagerSchedulesComponent implements OnInit {
       width: '1200px',
     });
     console.log('ho');
+  }
+
+  onWarning(message: string) {
+    this.toastr.warning(message, 'Warning');
   }
 }

@@ -668,6 +668,18 @@ const getOneFeedBack = async(req, res, next) => {
 
 }
 
+const getFeedBackBySupervisorEmails = async(req, res, next) => {
+
+    await feedLoadTrialDTO.find({
+        supervisorEmail: req.params.commntId
+    }).then(result => {
+        res.status(200).json(result);
+    }).catch(er => {
+        res.status(500).json(er);
+    });
+
+}
+
 const feedbackEmail = async(req, res, next) => {
 
     // console.log(req.body.commentId);

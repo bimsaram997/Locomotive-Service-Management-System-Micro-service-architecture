@@ -151,6 +151,9 @@ import { MileageVarianceComponent } from './ClerkDashBoard/clerk-dash-board/SubC
 import { NextSchedulePieComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-charts/next-schedule-pie/next-schedule-pie.component';
 import { NextScheduleVarianceComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-charts/next-schedule-variance/next-schedule-variance.component';
 import { UserMileageProfileComponent } from './UserDashBoard/user-dashboard/SubComponents/ViewMileages/user-mileage-profile/user-mileage-profile.component';
+import { ManagerAnalysisComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/manager-analysis/manager-analysis.component';
+import { ManagerMileageProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileage-profile/manager-mileage-profile.component';
+import { ManagerMileagesComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileages/manager-mileages.component';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -344,6 +347,12 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     NextScheduleVarianceComponent,
 
     UserMileageProfileComponent,
+
+    ManagerAnalysisComponent,
+
+    ManagerMileageProfileComponent,
+
+    ManagerMileagesComponent,
   ],
   imports: [
     BrowserModule,

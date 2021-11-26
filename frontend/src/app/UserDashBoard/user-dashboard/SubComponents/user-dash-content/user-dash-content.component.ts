@@ -94,6 +94,7 @@ export class UserDashContentComponent implements OnInit {
   locoArray: any;
   inLocoLength: any;
   outLocoLength: any;
+  scheduleList: any;
 
   constructor(
     private schedulesService: ScheduleService,
@@ -111,6 +112,7 @@ export class UserDashContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLoco();
+    this.loadAllSchedule();
     this.loadDefaultChartDat();
     const values = JSON.parse(localStorage.getItem('currentUser'));
     this.name = values.userName;
@@ -135,7 +137,7 @@ export class UserDashContentComponent implements OnInit {
                 sub.completedDate ? sub.completedDate : sub.loadDate
               ).format('YYYY-MM-DD')}`,
               //end:moment(sub.scheduleDate).format("YYYY-MM-DD"),
-              color: sub.items == undefined ? 'blue' : 'gold',
+              color: sub.items == undefined ? 'blue' : '#81cfe0 ',
             };
             this.calanderArray.push(eventObject);
           }
@@ -161,6 +163,28 @@ export class UserDashContentComponent implements OnInit {
   //   dateClick: this.handleDateClick.bind(this), // bind is important!
   //   events: this.calanderArray
   // };
+
+  public loadAllSchedule() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    console.log(object);
+    this.schedulesService.getAllScheduleAssigned(object).subscribe((resp) => {
+      this.scheduleList = resp;
+
+      const completSchedule = this.scheduleList.filter(
+        (p) => p.scheduleStatus == 7
+      );
+      this.SchLength = completSchedule.length;
+
+      const incompleteSchedule = this.scheduleList.filter(
+        (p) => p.scheduleStatus != 7
+      );
+      this.inSchLength = incompleteSchedule.length;
+    });
+  }
 
   loadSchedules() {
     const dialogRef = this.dialog.open(AddFeedBacksComponent, {
@@ -229,7 +253,7 @@ export class UserDashContentComponent implements OnInit {
           borderColor: '#6c7a89',
         };
         this.barChartData[0] = Sch;
-        this.SchLength = _filterSch.length;
+
         //   barchartArray.push(Sch);
         var inSchs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -253,7 +277,7 @@ export class UserDashContentComponent implements OnInit {
           label: 'InCompleted Schedules',
           backgroundColor: '#fff68f',
         };
-        this.inSchLength = _filterInComplete.length;
+
         this.barChartData[1] = inComplete;
 
         //loco history

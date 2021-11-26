@@ -98,7 +98,7 @@ export class MileageVarianceComponent implements OnInit {
     let Draft = {
       data: draft ? draft : null,
       label: 'Draft',
-      backgroundColor: '#89c4f4',
+      backgroundColor: '#f1828d',
     };
     this.barChartData[0] = Draft;
 
@@ -121,7 +121,7 @@ export class MileageVarianceComponent implements OnInit {
     let Accept = {
       data: accept ? accept : null,
       label: 'Accept',
-      backgroundColor: '#f1828d',
+      backgroundColor: '#89c4f4',
     };
     this.barChartData[1] = Accept;
 
@@ -144,7 +144,7 @@ export class MileageVarianceComponent implements OnInit {
     let Reject = {
       data: reject ? reject : null,
       label: 'Reject',
-      backgroundColor: '#ffec8b',
+      backgroundColor: '#7befb2',
     };
     this.barChartData[2] = Reject;
 
@@ -167,8 +167,8 @@ export class MileageVarianceComponent implements OnInit {
     }
     let Assigned = {
       data: assigned ? assigned : null,
-      label: 'Reject',
-      backgroundColor: '#7befb2',
+      label: 'Assigned',
+      backgroundColor: '#ffec8b',
     };
     this.barChartData[3] = Assigned;
   }

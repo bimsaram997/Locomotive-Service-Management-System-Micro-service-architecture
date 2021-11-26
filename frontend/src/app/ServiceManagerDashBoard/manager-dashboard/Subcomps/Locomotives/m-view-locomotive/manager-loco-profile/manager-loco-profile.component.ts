@@ -1,6 +1,9 @@
+import { ViewMoreNextSchedulesComponent } from './../../../../../../UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-more-next-schedules/view-more-next-schedules.component';
+import { LocoPerformceComponent } from './../../../../../../Common/performance/loco-performce/loco-performce.component';
+import { MatPaginator } from '@angular/material/paginator';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { ViewportScroller } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map, mergeMap } from 'rxjs/operators';
@@ -9,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ViewHistoryLocoComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-loco/view-history-loco.component';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Location } from '@angular/common';
+import { ViewHistoryMainComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-main/view-history-main.component';
 
 @Component({
   selector: 'app-manager-loco-profile',
@@ -16,7 +20,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./manager-loco-profile.component.css'],
 })
 export class MAnagerLocoProfileComponent implements OnInit {
-  pdfSrc = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
   viewLocoGroup: FormGroup;
   myControl = new FormControl();
   displayedColumns: string[] = ['No', 'Motor Part Name', 'Condition'];
@@ -47,7 +50,6 @@ export class MAnagerLocoProfileComponent implements OnInit {
   dataSource1: any[] = [];
   dataSource2: any[] = [];
   dataSource3: any[] = [];
-  dataSource4: any[] = [];
   dataSource5: any[] = [];
   dataSource6: any[] = [];
   id: any;
@@ -61,17 +63,24 @@ export class MAnagerLocoProfileComponent implements OnInit {
   supervisorNic: any;
   supervisorEmail: any;
   supervisorName: any;
+  note: any;
+  endMileage: any;
+  imageSt: any;
   finalMileage: any;
   endMileDate: any;
-  endMileage: any;
-  note: any;
-  imageSt: any;
   locoNumberNextSchedule: any;
   isShowNextSchedule: boolean = false;
+  isShowHisLoco: boolean = true;
   locoAvailability: any;
 
   pageYoffset = 0;
-  isShowHisLoco: boolean;
+  locoNumberRecieved: string;
+  dateSent: Date;
+  performanceValue: number;
+  tooltipText: string;
+  performanceNumber: number;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
   }
@@ -79,52 +88,196 @@ export class MAnagerLocoProfileComponent implements OnInit {
   constructor(
     private scroll: ViewportScroller,
     public dialog: MatDialog,
+    private router: Router,
     private formBuilder: FormBuilder,
     private _location: Location,
     private route: ActivatedRoute,
     private locomotiveService: LocomotiveService,
-    private router: Router,
     private scheduleService: ScheduleService
   ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.viewLocoGroup = this.formBuilder.group({});
+    console.log(this.id);
+    this.getLocoById(this.id);
+    this.getLocoByLocoNumber(this.locoNumberRecieved);
+  }
+  getLocoById(id): void {
+    if (id != null) {
+      this.locomotiveService
+        .getOneLoco(this.id)
+        .pipe(
+          map((res) => {
+            const _loco = res[0];
+            this.locoNumber = res[0].locoNumber;
+            this.locoNumberNextSchedule = res[0].locoNumber;
+            this.locoCategory = res[0].locoCatId;
+            this.locoPower = res[0].locoPower;
+            this.locoAvailability = res[0].locoAvailability;
+            this.locoMileage = res[0].locoMileage;
+            this.endMileage = res[0].endMileage;
+            this.endMileDate = res[0].endMileDate;
+            this.date = res[0].locoDate;
+            this.supervisorNic = res[0].userNic;
+            this.supervisorEmail = res[0].supervisorEmail;
+            this.supervisorName = res[0].supervisorName;
+            this.motorArray = res[0].locoMotors;
+            this.dataSource1 = res[0].locoBreaks;
+            this.dataSource2 = res[0].locoFluids;
+            this.note = res[0].locoNote;
+            this.imageSt = res[0].image;
+            console.log(this.locoNumber);
+            this.dataSource = this.motorArray;
+            return _loco;
+          }),
+          mergeMap((sch) =>
+            this.locomotiveService.getRelevantSch(sch.locoNumber)
+          )
+        )
+        .subscribe((final) => {
+          this.dataSource3 = final;
 
-    this.locomotiveService
-      .getOneLoco(this.id)
-      .pipe(
-        map((res) => {
-          const _loco = res[0];
-          this.locoNumber = res[0].locoNumber;
-          this.locoNumberNextSchedule = res[0].locoNumber;
-          this.locoCategory = res[0].locoCatId;
-          this.locoPower = res[0].locoPower;
-          this.locoMileage = res[0].locoMileage;
-          this.locoAvailability = res[0].locoAvailability;
-          this.finalMileage = res[0].endMileage;
-          this.endMileage = res[0].endMileage;
-          this.endMileDate = res[0].endMileDate;
-          this.date = res[0].locoDate;
-          this.supervisorNic = res[0].userNic;
-          this.supervisorEmail = res[0].supervisorEmail;
-          this.supervisorName = res[0].supervisorName;
-          this.motorArray = res[0].locoMotors;
-          this.dataSource1 = res[0].locoBreaks;
-          this.dataSource2 = res[0].locoFluids;
-          this.note = res[0].locoNote;
-          this.imageSt = res[0].image;
+          this.fetchNextSchedules();
+          this.getAllHistoryLoco();
+          this.SecondNewLogic();
+          this.getCurrentScheduleByLocoNumber();
+        });
+    }
+  }
 
-          this.dataSource = this.motorArray;
-          return _loco;
-        }),
-        mergeMap((sch) => this.locomotiveService.getRelevantSch(sch.locoNumber))
-      )
-      .subscribe((final) => {
-        this.dataSource3 = final;
-        this.getAllHistoryLoco();
-        this.viewNextSchedules();
+  getCurrentScheduleByLocoNumber() {
+    this.scheduleService
+      .getCurrentScheduleByLocoNumber(this.locoNumberNextSchedule)
+      .subscribe((res) => {
+        console.log(res);
       });
+  }
+
+  getLocoByLocoNumber(locoNumber): void {
+    if ((locoNumber! = null)) {
+      this.locomotiveService
+        .getLocoByLocoNumber(locoNumber)
+        .pipe(
+          map((res) => {
+            const _loco = res[0];
+            this.locoNumber = res[0].locoNumber;
+            this.locoNumberNextSchedule = res[0].locoNumber;
+            this.locoCategory = res[0].locoCatId;
+            this.locoPower = res[0].locoPower;
+            this.locoAvailability = res[0].locoAvailability;
+            this.locoMileage = res[0].locoMileage;
+            this.endMileage = res[0].endMileage;
+            this.endMileDate = res[0].endMileDate;
+            this.date = res[0].locoDate;
+            this.supervisorNic = res[0].userNic;
+            this.supervisorEmail = res[0].supervisorEmail;
+            this.supervisorName = res[0].supervisorName;
+            this.motorArray = res[0].locoMotors;
+            this.dataSource1 = res[0].locoBreaks;
+            this.dataSource2 = res[0].locoFluids;
+            this.note = res[0].locoNote;
+            this.imageSt = res[0].image;
+            console.log(this.locoNumber);
+            this.dataSource = this.motorArray;
+            return _loco;
+          }),
+          mergeMap((sch) =>
+            this.locomotiveService.getRelevantSch(sch.locoNumber)
+          )
+        )
+        .subscribe((final) => {
+          this.dataSource3 = final;
+
+          this.viewNextSchedules();
+          this.getAllHistoryLoco();
+        });
+    }
+  }
+
+  SecondNewLogic() {
+    const today = new Date();
+    const lastLoadDate = this.endMileDate;
+    let currentDate = new Date();
+    this.dateSent = new Date(this.endMileDate);
+
+    const loadDate = Math.floor(
+      (Date.UTC(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+      ) -
+        Date.UTC(
+          this.dateSent.getFullYear(),
+          this.dateSent.getMonth(),
+          this.dateSent.getDate()
+        )) /
+        (1000 * 60 * 60 * 24)
+    );
+    console.log(loadDate + 'kaa');
+    if (loadDate >= 0) {
+      if (loadDate >= 0 && loadDate <= 10) {
+        this.performanceValue = 0;
+        this.tooltipText = 'Initial Performance';
+        this.performanceNumber = 10;
+        this.statusBinderLocoPerformance(this.performanceValue);
+      } else if (loadDate > 10 && loadDate <= 20) {
+        this.performanceValue = 1;
+        this.tooltipText = 'Very Low Performance';
+        this.performanceNumber = 25;
+      } else if (loadDate > 20 && loadDate <= 30) {
+        this.performanceValue = 2;
+        this.tooltipText = 'Low Performance';
+        this.performanceNumber = 30;
+      } else if (loadDate > 30 && loadDate <= 40) {
+        this.performanceValue = 3;
+        this.tooltipText = 'Medium Performance';
+        this.performanceNumber = 50;
+      } else if (loadDate > 40 && loadDate <= 60) {
+        this.performanceValue = 4;
+        this.performanceNumber = 75;
+        this.tooltipText = 'High Performance';
+      } else if (loadDate > 60 && loadDate <= 80) {
+        this.performanceValue = 5;
+
+        this.tooltipText = 'Very High Performance';
+        this.performanceNumber = 100;
+      }
+    }
+  }
+  OpenEditDialog() {
+    const dialogRef = this.dialog.open(LocoPerformceComponent, {
+      data: {
+        heading: 'Locomotive Performance Meter',
+        disableClose: true,
+        performanceNumber: this.performanceNumber,
+        performanceName: 'Locomotive',
+      },
+
+      width: '380px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
+  }
+  statusBinderLocoPerformance(scheduleStatus?) {
+    if (scheduleStatus === 0) {
+      return 'not_started';
+    } else if (scheduleStatus === 1) {
+      return 'Flags';
+    } else if (scheduleStatus === 2) {
+      return 'pending_actions';
+    } else if (scheduleStatus === 3) {
+      return 'hourglass_top';
+    } else if (scheduleStatus === 4) {
+      return 'construction';
+    } else if (scheduleStatus === 5) {
+      return 'build_circle';
+    } else if (scheduleStatus === 6) {
+      return 'check_circle_outline';
+    } else if (scheduleStatus === 7) {
+      return 'sports_score';
+    } else if (scheduleStatus === 8) {
+      return 'assignment';
+    }
   }
 
   scrollToTop() {
@@ -135,19 +288,33 @@ export class MAnagerLocoProfileComponent implements OnInit {
     this._location.back();
   }
   viewSchedule(id: string) {
-    //console.log(id);
-    this.router.navigate(['/managerDashBoard/viewManSchedule', id]);
+    console.log(id);
+    this.router.navigate(['/userDashboard/viewSchedule', id]);
   }
 
-  viewNextSchedules() {
+  fetchNextSchedules() {
     console.log(this.locoNumberNextSchedule);
     this.scheduleService
       .getAllNextSchedules(this.locoNumberNextSchedule)
       .subscribe((res) => {
-        //console.log(res);
+        // console.log(res);
         this.dataSource5 = res;
+        console.log(this.dataSource5);
         if (this.dataSource5.length > 0) {
           this.isShowNextSchedule = true;
+        }
+      });
+  }
+
+  getAllHistoryLoco() {
+    console.log(this.locoNumber);
+    this.locomotiveService
+      .getAllHistoryLoco(this.locoNumber)
+      .subscribe((res) => {
+        console.log(res);
+        this.dataSource6 = res;
+        if (this.dataSource6.length > 0) {
+          this.isShowHisLoco = true;
         }
       });
   }
@@ -161,17 +328,19 @@ export class MAnagerLocoProfileComponent implements OnInit {
       return 'clear';
     }
   }
-  getAllHistoryLoco() {
-    console.log(this.locoNumber);
-    this.locomotiveService
-      .getAllHistoryLoco(this.locoNumber)
-      .subscribe((res) => {
-        //console.log(res);
-        this.dataSource6 = res;
-        if (this.dataSource6.length > 0) {
-          this.isShowHisLoco = true;
-        }
-      });
+
+  viewHistory() {
+    const dialogRef = this.dialog.open(ViewHistoryMainComponent, {
+      data: { id: this.locoNumber },
+      width: '800px',
+    });
+  }
+
+  viewNextSchedules(): void {
+    const dialogRef = this.dialog.open(ViewMoreNextSchedulesComponent, {
+      data: { id: this.locoNumber },
+      width: '800px',
+    });
   }
 
   viewHistoryMore(_id: string) {
@@ -185,7 +354,6 @@ export class MAnagerLocoProfileComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
   getBase64() {
     this.imageSt = this.imageSt as string;
   }

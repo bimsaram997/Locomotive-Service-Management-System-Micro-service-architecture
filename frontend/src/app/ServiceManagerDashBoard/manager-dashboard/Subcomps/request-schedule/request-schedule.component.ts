@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../service/user-task.service';
 import { Component, OnInit } from '@angular/core';
 import {
   FormArray,
@@ -77,13 +78,23 @@ export class RequestScheduleComponent implements OnInit {
   spinner = false;
   name: any;
   tabId: number;
+  taskId: string;
+  scheduleId: any;
+  disableDate: boolean = false;
+  minDate: any;
+  maxDate: any;
+  mileageDate: any;
+  minComDate: string;
+  disableComDate: boolean = false;
+  maxComDate: string;
   constructor(
     private formBuilder: FormBuilder,
     private accessService: AccessService,
     private scheduleService: ScheduleService,
     private locomotiveService: LocomotiveService,
     private _location: Location,
-    private router: Router
+    private router: Router,
+    private userTaskService: UserTaskService
   ) {}
   locoStatus: string[] = ['In', 'Out'];
   managerList: UserDTO[] = [];
@@ -135,6 +146,7 @@ export class RequestScheduleComponent implements OnInit {
     this.loadSupervisor();
     this.loadMileageRep();
     this.defaultMethod();
+    this.TaskIdGenerate();
   }
 
   get getFm() {
@@ -256,7 +268,7 @@ export class RequestScheduleComponent implements OnInit {
       supervisorEmail: this.ScheduleGroup.controls.supervisorEmail.value,
       supervisorName: this.ScheduleGroup.controls.supervisorName.value,
     };
-    console.log(this.ScheduleGroup.value);
+
     if (
       obj.locoCatId != '' &&
       obj.locoNumber != '' &&
@@ -275,6 +287,8 @@ export class RequestScheduleComponent implements OnInit {
       this.scheduleEmail(this.ScheduleGroup.value);
       // if(this.filesToUpload.)
       this.spinner = true;
+      this.scheduleId = this.ScheduleGroup.controls['scheduleNo'].value;
+      this.addTask();
       this.scheduleService
         .saveOfSchedule(this.ScheduleGroup.value)
         .pipe(first())
@@ -307,7 +321,6 @@ export class RequestScheduleComponent implements OnInit {
               }, 3000);
             }
           },
-
           (error) => {
             console.log(error);
           },
@@ -389,6 +402,7 @@ export class RequestScheduleComponent implements OnInit {
       });
   }
   onChangeSelectMil(value: string) {
+    this.disableDate = true;
     const userNic = value;
     console.log(this.getFm.mReportNumber.value);
     this.locomotiveService
@@ -402,11 +416,47 @@ export class RequestScheduleComponent implements OnInit {
         );
         this.ScheduleGroup.controls['locoStatus'].setValue(res[0].userEmail);
         this.locoNumber = res[0].mLocoNumber;
+        this.mileageDate = res[0].mileageDate;
+        this.getMinDate(this.mileageDate);
+        this.getMaxDate(this.mileageDate);
         this.getLoco(this.locoNumber);
         this.setManagerDetails();
+        this.ScheduleGroup.get('scheduleDate').valueChanges.subscribe((x) => {
+          this.getMinComDate(x);
+          this.getMaxComDate(x);
+          this.disableComDate = true;
+        });
 
         //console.log(res);
       });
+  }
+
+  getMinDate(mileageDate): void {
+    const date = moment(mileageDate);
+    const newDate = date.subtract(3, 'days');
+    this.minDate = moment(newDate).toISOString();
+  }
+
+  getMaxDate(mileageDate): void {
+    const date = moment(mileageDate);
+    const newDate = date.add(10, 'days');
+    this.maxDate = moment(newDate).toISOString();
+  }
+  getMinComDate(scheduleDate): void {
+    const date = moment(scheduleDate);
+    //const newDate = date.subtract(3, 'days');
+    this.minComDate = moment(date).toISOString();
+  }
+
+  getMaxComDate(scheduleDate): void {
+    const date = moment(scheduleDate);
+    const newDate = date.add(35, 'days');
+    this.maxComDate = moment(newDate).toISOString();
+    1;
+    2;
+    3;
+
+    this.ScheduleGroup.get('completedDate').setValue('', { emitEvent: false });
   }
 
   setManagerDetails() {
@@ -489,5 +539,53 @@ export class RequestScheduleComponent implements OnInit {
 
   backClicked() {
     this._location.back();
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.scheduleId,
+      taskType: 'Add Schedule',
+      taskPriority: 'High',
+      taskDate: new Date(),
+      taskStatus: 6,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  TaskIdGenerate() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
   }
 }

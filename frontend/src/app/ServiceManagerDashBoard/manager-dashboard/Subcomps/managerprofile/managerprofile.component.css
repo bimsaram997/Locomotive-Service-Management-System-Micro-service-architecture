@@ -14,16 +14,16 @@ body {
     border-radius: .25rem;
 }
 
-.avatar-xl {
-    height: 6rem;
-    width: 6rem;
-}
-
 .back {
     margin-left: auto;
     margin-right: 0;
     text-align: end;
     font-size: 15px;
+}
+
+.avatar-xl {
+    height: 6rem;
+    width: 6rem;
 }
 
 .rounded-circle {
@@ -321,5 +321,27 @@ body {
 }
 
 .hr {
-    opacity: 0.4;
+    opacity: 0.6;
+}
+
+.select {
+    width: 100px;
+}
+
+.mat-row {
+    min-height: 35px;
+}
+
+.label-txt {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #1f3a93;
+    cursor: pointer;
 }

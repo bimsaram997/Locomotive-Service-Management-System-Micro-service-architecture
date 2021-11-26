@@ -160,6 +160,11 @@ export class LocomotiveService {
   public patchSch(object): Observable<any> {
     return this.http.patch(this.myUrl + `locoRoute/patchSch/`, object);
   }
+
+  public assignedToMileage(object): Observable<any> {
+    return this.http.patch(this.myUrl + `locoRoute/assignedToMileage/`, object);
+  }
+
   public patchLoadLoco(object): Observable<any> {
     return this.http.patch(this.myUrl + `locoRoute/patchLoadLoco/`, object);
   }

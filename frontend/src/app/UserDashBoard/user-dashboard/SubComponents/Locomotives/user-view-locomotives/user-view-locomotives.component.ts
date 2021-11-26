@@ -140,6 +140,8 @@ export class UserViewLocomotivesComponent implements OnInit {
       return 'gpp_good';
     } else if (locoStatus === 3) {
       return 'directions_run';
+    } else if (locoStatus === 4) {
+      return 'speed';
     }
   }
 

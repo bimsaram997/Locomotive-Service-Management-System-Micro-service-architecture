@@ -62,6 +62,12 @@ export class ScheduleService {
     );
   }
 
+  public getCurrentScheduleByLocoNumber(locoNumber): Observable<any> {
+    return this.http.get<any>(
+      this.myUrl + `scheduleRoute/getCurrentScheduleByLocoNumber/${locoNumber}`
+    );
+  }
+
   public updateSchedule(dto: LocoScheduleDTO): Observable<any> {
     return this.http.put(this.myUrl + 'scheduleRoute/updateSchedule', {
       scheduleNo: dto.scheduleNo,

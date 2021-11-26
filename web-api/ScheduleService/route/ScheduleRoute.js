@@ -17,6 +17,7 @@ router.get('/sendOneSchedule/:scheduleNo', ScheduleController.sendOneSchedule);
 router.patch('/patchMileage/:scheduleNo/:progressValue', ScheduleController.patchMileage);
 router.get('/getProSchedule/:id', ScheduleController.getProSchedule);
 router.get('/getOneSchedule/:scheduleNo', ScheduleController.getOneSchedule);
+router.get('/getCurrentScheduleByLocoNumber/:locoNumber', ScheduleController.getCurrentScheduleByLocoNumber);
 
 router.put('/changeScheduleSeven', ScheduleController.changeScheduleSeven);
 router.put('/assignedLoadTrial', ScheduleController.assignedLoadTrial);

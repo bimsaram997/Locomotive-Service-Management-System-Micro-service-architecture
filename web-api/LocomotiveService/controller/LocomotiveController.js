@@ -330,7 +330,7 @@ const sendLocomotiveAssigned = async(req, res, next) => {
 
 const getAllLocomotives = async(req, resp, next) => {
     //console.log(resp)
-    await LocomotiveSchema.find().then(result => {
+    await LocomotiveSchema.find().sort({ locoDate: -1 }).then(result => {
         resp.status(200).json(result);
     }).catch(error => {
         resp.status(500).json(result)
@@ -423,6 +423,8 @@ const getLocoReport = async(req, resp, next) => {
 
 
 }
+
+
 
 const getOneLoco = (req, res) => {
     //console.log(req.params.id);
@@ -522,6 +524,26 @@ const patchSch = async(req, res, next) => {
 
     }
 }
+
+const assignedToMileage = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj);
+    //console.log(_obj.locoNumber)
+    if (_obj.mLocoNumber != null) {
+        await LocomotiveSchema.updateOne({ locoNumber: _obj.mLocoNumber }, { $set: { locoStatus: 4, statusReason: "Assigned To Mileage Report" } }, function(err, result) {
+            console.log('ggfg')
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(result)
+
+            }
+
+        })
+
+    }
+}
+
 
 const patchLoadLoco = async(req, res, next) => {
     const _obj = req.body;
@@ -2319,6 +2341,7 @@ module.exports = {
     getLocoNum,
     getAllLocoAssignedHistory,
     getLocoByLocoNumber,
+    assignedToMileage,
 
     patchSch,
     patchLoadLoco,

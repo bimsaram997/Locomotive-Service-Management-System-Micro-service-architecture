@@ -222,6 +222,7 @@ export class MileageReportComponent implements OnInit {
             (res) => {
               if (res.isSaved) {
                 this.sendMileEmail(this.MileageGroup.value);
+                this.assignedToMileage(this.MileageGroup.value);
                 this.mileageId =
                   this.MileageGroup.controls['mReportNumber'].value;
                 this.changeStatusNextSchedule(this.MileageGroup.value);
@@ -266,6 +267,7 @@ export class MileageReportComponent implements OnInit {
                 this.mileageId =
                   this.MileageGroup.controls['mReportNumber'].value;
                 this.sendMileEmail(this.MileageGroup.value);
+                this.assignedToMileage(this.MileageGroup.value);
                 this.addTask();
 
                 swal({
@@ -401,6 +403,13 @@ export class MileageReportComponent implements OnInit {
       } else {
         console.log('failed');
       }
+    });
+  }
+
+  assignedToMileage(object): void {
+    this.locomotiveService.assignedToMileage(object).subscribe((result) => {
+      //this.onSucess('Sent');
+      console.log(result);
     });
   }
 

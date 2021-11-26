@@ -123,7 +123,7 @@ export class ClerkDashContentComponent implements OnInit {
                 sub.completedDate ? sub.completedDate : sub.loadDate
               ).format('YYYY-MM-DD')}`,
               //end:moment(sub.scheduleDate).format("YYYY-MM-DD"),
-              color: sub.items == undefined ? 'blue' : 'gold',
+              color: sub.items == undefined ? 'blue' : '#81cfe0 ',
             };
             this.calanderArray.push(eventObject);
           }

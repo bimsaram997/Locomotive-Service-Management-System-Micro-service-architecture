@@ -1,3 +1,6 @@
+import { ManagerMileagesComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileages/manager-mileages.component';
+import { ManagerMileageProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileage-profile/manager-mileage-profile.component';
+import { ManagerAnalysisComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/manager-analysis/manager-analysis.component';
 import { UserMileageProfileComponent } from './UserDashBoard/user-dashboard/SubComponents/ViewMileages/user-mileage-profile/user-mileage-profile.component';
 import { SupervisorAnalysisComponent } from './ClerkDashBoard/clerk-dash-board/SubComponents/supervisor-analysis/supervisor-analysis.component';
 import { UserAnalysisComponent } from './UserDashBoard/user-dashboard/SubComponents/user-analysis/user-analysis.component';
@@ -174,6 +177,7 @@ const routes: Routes = [
     children: [
       { path: 'mDashContent', component: ManagerDashContentComponent },
       { path: 'viewMileage', component: ViewMileageComponent },
+      { path: 'viewManagerMileage', component: ManagerMileagesComponent },
       { path: 'requestSchedule', component: RequestScheduleComponent },
       { path: 'createSchedule', component: CreateScheduleComponent },
       {
@@ -188,16 +192,17 @@ const routes: Routes = [
       },
       { path: 'viewProgress', component: ViewProgressReportComponent },
       { path: 'viewManLoad', component: ViewManLoadComponent },
-      { path: 'viewManLoadProf/:id', component: ViewManLoadProComponent },
+      { path: 'viewManLoadProf/:loadNo', component: ViewManLoadProComponent },
       { path: 'mViewLocomotives', component: MViewLocomotiveComponent },
       { path: 'viewLoco/:id', component: MAnagerLocoProfileComponent },
       { path: 'viewProgress', component: ViewProgressReportComponent },
       {
         path: 'viewOneMileage/:mReportNumber',
-        component: ViewOneMileageComponent,
+        component: ManagerMileageProfileComponent,
       },
       { path: 'viewManSchedule/:id', component: ViewMoreSchedulesComponent },
       { path: 'managerProfile', component: ManagerprofileComponent },
+      { path: 'managerAnalysis', component: ManagerAnalysisComponent },
     ],
   },
 
