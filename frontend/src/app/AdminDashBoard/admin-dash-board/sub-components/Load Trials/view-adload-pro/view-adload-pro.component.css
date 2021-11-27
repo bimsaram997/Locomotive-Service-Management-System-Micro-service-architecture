@@ -11,6 +11,13 @@ body {
     height: auto;
 }
 
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #1f3a93;
+    cursor: pointer;
+}
+
 .main-body {
     padding: 15px;
     height: auto;

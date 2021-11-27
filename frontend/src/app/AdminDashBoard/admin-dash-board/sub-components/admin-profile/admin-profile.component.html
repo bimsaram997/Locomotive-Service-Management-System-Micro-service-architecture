@@ -1,131 +1,208 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-<br>
+<br />
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
             <div class="card-box text-center">
-                <img src="{{this.image}}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 150px; height:150px;">
+                <img src="{{ this.image }}" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 150px; height: 150px" />
 
-                <h2 class="mb-0" style="color: #1f3a93; font-size: 25px;">{{this?.userName}}</h2>
-                <p class="text-muted">{{this?.userRole}}</p>
-
-
+                <h2 class="mb-0" style="color: #1f3a93; font-size: 25px">
+                    {{ this?.userName }}
+                </h2>
+                <p class="text-muted">{{ this?.userRole }}</p>
 
                 <div class="text-left mt-3">
                     <h4 class="font-13 text-uppercase">About Me :</h4>
-                    <div class="row" style="color: black;">
+                    <div class="row" style="color: black">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Email</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.userEmail}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.userEmail }}</span>
                         </div>
                     </div>
-                    <hr class="hr">
+                    <hr class="hr" />
                     <div class="row">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Gender</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.userGender}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.userGender }}</span>
                         </div>
                     </div>
-                    <hr class="hr">
-                    <div class="row" style="color: black;">
+                    <hr class="hr" />
+                    <div class="row" style="color: black">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">NIC</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.userNic}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.userNic }}</span>
                         </div>
                     </div>
-                    <hr class="hr">
-                    <div class="row" style="color: black;">
+                    <hr class="hr" />
+                    <div class="row" style="color: black">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Mobile No</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.userMobile}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.userMobile }}</span>
                         </div>
                     </div>
-                    <hr class="hr">
-                    <div class="row" style="color: black;">
+                    <hr class="hr" />
+                    <div class="row" style="color: black">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Address</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.address}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.address }}</span>
                         </div>
                     </div>
-                    <hr class="hr">
-                    <div class="row" style="color: black;">
+                    <hr />
+                    <div class="row" style="color: black">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Appointment Date</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.appointmentDate}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.appointmentDate | date }}</span>
                         </div>
                     </div>
-                    <hr class="hr">
-                    <div class="row" style="color: black;">
+                    <hr class="hr" />
+                    <div class="row" style="color: black">
                         <div class="col-sm-4">
                             <h6 class="mb-0 label">Work Place</h6>
                         </div>
-                        <div class="col-sm-6 text-secondary" style="color: black;">
-                            <span class="info">{{this?.userWorks}}</span>
+                        <div class="col-sm-6 text-secondary" style="color: black">
+                            <span class="info">{{ this?.userWorks }}</span>
                         </div>
                     </div>
 
-                    <hr>
+                    <hr />
                 </div>
             </div>
             <!-- end card-box -->
 
-
             <!-- end card-box-->
-
         </div>
         <!-- end col-->
 
-
         <div class="col-lg-8 col-xl-8">
-            <div class="card-box">
+            <div class="card-box" style="height: 570px">
                 <div class="back">
-                    <button mat-raised-button (click)=" backClicked()"><i class="fas fa-arrow-left"></i>&nbsp; Back</button>
+                    <button mat-raised-button (click)="backClicked()">
+            <i class="fas fa-arrow-left"></i>&nbsp; Back
+          </button>
                 </div>
-                <h3 class="print">Quick Links</h3>
-                <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle style="background-color: #1f3a93; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Locomotives Details" value="bold" routerLink="/adminDashboard/viewLocomotives">Locomotives</mat-button-toggle>
-                    <mat-button-toggle style="background-color: #1e8bc3; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Schedule Details" value="italic" routerLink="/adminDashboard/adminViewSchedules">Schedules</mat-button-toggle>
-                    <mat-button-toggle style="background-color: #89c4f4; color: white; font-family: 'Roboto', sans-serif; font-weight: 500;" matTooltip="View Load Trial Details" value="underline" routerLink="/adminDashboard/viewAdLoadTrial">Load Trials</mat-button-toggle>
-                </mat-button-toggle-group>
-                <br>
-                <hr class="hr">
-                <br>
                 <p>
                     <span class="print">Print Details</span>&nbsp;
-                    <button class="btn" mat-raised-button color="primary" (click)="printTestInfo()">Basic Details</button>
+                    <button class="btn" mat-raised-button color="primary" (click)="printTestInfo()">
+            Basic Details
+          </button>
                 </p>
-                <hr class="hr">
-
+                <hr class="hr" />
+                <p><span class="print">Tasks Created</span>&nbsp;</p>
                 <div class="tab-content">
                     <div class="row">
-                        <div class="col-md-6">
-
-                            <app-load-trial-doh-nut *ngIf="countDraftLoad || countPassedtLoad || countPendingLoad" [countDraftLoad]="countDraftLoad" [countPendingLoad]="countPendingLoad" [countPassedtLoad]="countPassedtLoad"></app-load-trial-doh-nut>
+                        <div class="col-md-3 select">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Filter by Type</mat-label>
+                                <mat-select [(ngModel)]="searchKey" (selectionChange)="filterByType($event)">
+                                    <mat-option *ngFor="let option of type" [value]="option">
+                                        {{ option }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
-                        <div class="col-md-6">
-                            <app-commnets-doh-nut *ngIf="countDoMoreComments || countConfirmedComments || countResolvedComments" [countConfirmedComments]="countConfirmedComments" [countResolvedComments]="countResolvedComments" [countDoMoreComments]="countDoMoreComments"></app-commnets-doh-nut>
+                        <div class="col-md-3 select">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Filter By Priority</mat-label>
+                                <mat-select [(ngModel)]="searchKey1" (selectionChange)="filterByPriority($event)">
+                                    <mat-option *ngFor="let option of priority" [value]="option">
+                                        {{ option }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
-
+                        <div class="col-md-3 clear">
+                            <button (click)="clear()" mat-raised-button>Clear</button>
+                        </div>
                     </div>
-                    <br>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="main-table">
+                                <div class="mat-elevation-z8">
+                                    <mat-table [dataSource]="dataSource" matSort>
+                                        <ng-container matColumnDef="TaskId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Task ID
+                                            </mat-header-cell>
+                                            <mat-cell class="label-txt" *matCellDef="let tempTask" data-label="taskId">{{ tempTask.taskId }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="RecordId">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Record ID
+                                            </mat-header-cell>
+                                            <mat-cell class="link" *matCellDef="let tempTask" data-label="RecordId">
+                                                <a (click)="viewMore(tempTask, tempTask.recordId)">
+                          {{ tempTask.recordId }}</a
+                        >
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="TaskType">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Type
+                      </mat-header-cell>
+                      <mat-cell
+                        class="label-txt"
+                        *matCellDef="let tempTask"
+                        data-label="TaskType"
+                      >
+                        {{ tempTask.taskType }}
+                      </mat-cell>
+                    </ng-container>
 
+                    <ng-container matColumnDef="TaskPriority">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Priority
+                      </mat-header-cell>
+                      <mat-cell
+                        class="label-txt"
+                        *matCellDef="let tempTask"
+                        data-label="TaskPriority"
+                      >
+                        {{ tempTask.taskPriority }}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="TaskDate">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Task Date
+                      </mat-header-cell>
+                      <mat-cell
+                        class="label-txt"
+                        *matCellDef="let tempTask"
+                        data-label="TaskDate"
+                      >
+                        {{ tempTask.taskDate | date }}</mat-cell
+                      >
+                    </ng-container>
+                    <mat-header-row
+                      *matHeaderRowDef="displayedColumns"
+                    ></mat-header-row>
+                    <mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                    ></mat-row>
+                  </mat-table>
+                  <mat-paginator
+                    [pageSizeOptions]="[5, 10, 15]"
+                  ></mat-paginator>
                 </div>
-                <!-- end card-box-->
-
+              </div>
             </div>
-            <!-- end col -->
+          </div>
+          <!-- end tab-content -->
         </div>
+        <!-- end card-box-->
+      </div>
+      <!-- end col -->
     </div>
+  </div>
+</div>

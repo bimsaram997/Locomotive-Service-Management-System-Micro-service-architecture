@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="box-head">
-        <img src="./assets/images/m9.png" alt="" style="height: 40px; width: 40px" />
+        <img src="./assets/images/loadTrial1.png" alt="" style="height: 40px; width: 40px" />
         <span class="heading-txt"><span style="color: #1e8bc3">L</span>OAD TRIAL</span>
         <div class="back">
             <button mat-raised-button (click)="backClicked()">
@@ -39,16 +39,18 @@
                                 <h6 class="mb-0 label">Schedule No</h6>
                             </div>
                             <div class="col-sm-6 text-secondary">
-                                <span class="info"> {{ this.scheduleNo }}</span>
-                            </div>
-                        </div>
-                        <hr class="hr" />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h6 class="mb-0 label">From</h6>
-                            </div>
-                            <div class="col-sm-6 text-secondary">
-                                <span class="info"> {{ this.loadFrom }}</span>
+                                <span class="info link" (click)="navigateSchedule(this.scheduleNo)">
+                  {{ this.scheduleNo }}</span
+                >
+              </div>
+            </div>
+            <hr class="hr" />
+            <div class="row">
+              <div class="col-sm-4">
+                <h6 class="mb-0 label">From</h6>
+              </div>
+              <div class="col-sm-6 text-secondary">
+                <span class="info"> {{ this.loadFrom }}</span>
                             </div>
                         </div>
                         <hr class="hr" />

@@ -8,11 +8,26 @@
     align-items: center;
 }
 
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #1f3a93;
+    cursor: pointer;
+}
+
 .container {
     padding-top: 30px;
     padding-right: 50px;
     padding-left: 50px;
     width: auto;
+}
+
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
 }
 
 .heading-txt {
@@ -38,13 +53,6 @@ body {
 .mat-header-cell {
     font-size: 12px;
     font-weight: bold;
-}
-
-.back {
-    margin-left: auto;
-    margin-right: 0;
-    text-align: end;
-    font-size: 15px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -269,6 +277,17 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     color: #000080;
+}
+
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
+.material-icons {
+    font-weight: bold;
 }
 
 .place-holder {

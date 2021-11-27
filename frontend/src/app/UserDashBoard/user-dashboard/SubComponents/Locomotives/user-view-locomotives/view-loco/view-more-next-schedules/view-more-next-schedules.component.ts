@@ -47,7 +47,7 @@ export class ViewMoreNextSchedulesComponent implements OnInit {
     } else if (nxtSchStatus === 1) {
       return 'assignment';
     } else if (nxtSchStatus === 2) {
-      return 'clear';
+      return 'watch_later';
     }
   }
 }

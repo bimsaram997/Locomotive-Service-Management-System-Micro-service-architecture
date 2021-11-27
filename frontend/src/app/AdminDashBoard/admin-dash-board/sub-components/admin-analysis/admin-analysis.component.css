@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&display=swap');
+.box-head {
+    display: flex;
+    align-items: center;
+    padding-top: 4px;
+}
+
+.container {
+    padding-top: 30px;
+    padding-right: 50px;
+    padding-left: 50px;
+    width: auto;
+}
+
+.heading-txt {
+    color: #013243;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    margin-left: 10px;
+    ;
+}
+
+.line {
+    opacity: 0.5;
+    width: 800;
+    padding-left: 10px;
+}
+
+.sub-header {
+    color: #1f3a93;
+    font-family: 'Assistant', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.dyanmic {
+    margin-left: -40px;
+    ;
+}
+
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
+.label-txt {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: black;
+    padding-bottom: 1px;
+}
+
+.input-label {
+    font-weight: bold;
+    color: black;
+}
+
+.value-txt {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: green;
+}
+
+.btn-color {
+    color: #1f3a93;
+}
+
+.error {
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: red;
+}
+
+.radio-txt {
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.observation {
+    color: #663399;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.head {
+    height: 80px;
+}
+
+.role {
+    background-color: #013243;
+}
+
+.role-txt {
+    justify-content: center;
+    padding: 10px 5px 5px 25px;
+}
+
+.date {
+    height: 20px;
+    background-color: #013243;
+}
+
+.info {
+    margin: 10px 10px 10px 10px;
+}
+
+.avatar-xl {
+    height: 6rem;
+    width: 6rem;
+}
+
+.rounded-circle {
+    border-radius: 50%!important;
+}
+
+.hr {
+    opacity: 0.6;
+}
+
+.header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: blue;
+    font-weight: 500;
+    text-align: center;
+}

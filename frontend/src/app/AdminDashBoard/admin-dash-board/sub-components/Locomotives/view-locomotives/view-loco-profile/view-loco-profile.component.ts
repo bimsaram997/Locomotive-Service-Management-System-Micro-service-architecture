@@ -1,3 +1,4 @@
+import { ViewMoreNextSchedulesComponent } from './../../../../../../UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-more-next-schedules/view-more-next-schedules.component';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { ViewportScroller } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ import { Location } from '@angular/common';
 import * as moment from 'moment';
 import { LocoPerformceComponent } from 'src/app/Common/performance/loco-performce/loco-performce.component';
 import { GoogleChartComponent } from 'angular-google-charts';
+import { ViewHistoryMainComponent } from 'src/app/UserDashBoard/user-dashboard/SubComponents/Locomotives/user-view-locomotives/view-loco/view-history-main/view-history-main.component';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -137,7 +139,7 @@ export class ViewLocoProfileComponent implements OnInit {
       .subscribe((final) => {
         this.dataSource3 = final;
         this.getAllHistoryLoco();
-        this.viewNextSchedules();
+        this.fetchNextSchedules();
         this.SecondNewLogic();
       });
     this.data = [['Water', { v: this.no, f: '78%' }]];
@@ -153,19 +155,6 @@ export class ViewLocoProfileComponent implements OnInit {
   viewSchedule(id: string) {
     console.log(id);
     this.router.navigate(['/adminDashboard/viewSchedule', id]);
-  }
-
-  viewNextSchedules() {
-    console.log(this.locoNumberNextSchedule);
-    this.scheduleService
-      .getAllNextSchedules(this.locoNumberNextSchedule)
-      .subscribe((res) => {
-        console.log(res);
-        this.dataSource5 = res;
-        if (this.dataSource5.length > 0) {
-          this.isShowNextSchedule = true;
-        }
-      });
   }
 
   statusBinder(nxtSchStatus) {
@@ -186,6 +175,20 @@ export class ViewLocoProfileComponent implements OnInit {
         this.dataSource6 = res;
         if (this.dataSource6.length > 0) {
           this.isShowHisLoco = true;
+        }
+      });
+  }
+
+  fetchNextSchedules() {
+    console.log(this.locoNumberNextSchedule);
+    this.scheduleService
+      .getAllNextSchedules(this.locoNumberNextSchedule)
+      .subscribe((res) => {
+        // console.log(res);
+        this.dataSource5 = res;
+        console.log(this.dataSource5);
+        if (this.dataSource5.length > 0) {
+          this.isShowNextSchedule = true;
         }
       });
   }
@@ -300,6 +303,20 @@ export class ViewLocoProfileComponent implements OnInit {
 
   getBase64() {
     this.imageSt = this.imageSt as string;
+  }
+
+  viewHistory() {
+    const dialogRef = this.dialog.open(ViewHistoryMainComponent, {
+      data: { id: this.locoNumber },
+      width: '800px',
+    });
+  }
+
+  viewNextSchedules(): void {
+    const dialogRef = this.dialog.open(ViewMoreNextSchedulesComponent, {
+      data: { id: this.locoNumber },
+      width: '800px',
+    });
   }
 
   async printBasic() {

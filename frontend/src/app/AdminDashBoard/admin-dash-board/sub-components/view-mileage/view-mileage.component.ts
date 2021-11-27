@@ -62,6 +62,7 @@ export class ViewMileageComponent implements OnInit {
     'Loco Category',
     'Loco Number',
     'Mileage',
+    'Responsible',
     'Date',
     'mileageNote',
     'status',

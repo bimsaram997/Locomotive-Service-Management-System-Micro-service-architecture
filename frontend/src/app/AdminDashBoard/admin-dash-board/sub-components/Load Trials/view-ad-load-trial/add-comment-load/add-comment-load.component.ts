@@ -1,3 +1,4 @@
+import { UserTaskService } from './../../../../../../service/user-task.service';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { LocomotiveService } from 'src/app/service/locomotive.service';
 
@@ -40,6 +41,8 @@ export class AddCommentLoadComponent implements OnInit {
   isCompleted: any;
   isInitialLoad: any;
   hideDo: boolean = false;
+  taskId: string;
+  commentId: any;
   constructor(
     private router: Router,
     private scheduleService: ScheduleService,
@@ -47,10 +50,12 @@ export class AddCommentLoadComponent implements OnInit {
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private loadService: LoadTrialService
+    private loadService: LoadTrialService,
+    private userTaskService: UserTaskService
   ) {}
 
   ngOnInit(): void {
+    this.defaultTaskId();
     this.commentAdd = this.formBuilder.group({
       loadNo: ['', [Validators.required]],
       commentId: [''],
@@ -137,42 +142,81 @@ export class AddCommentLoadComponent implements OnInit {
       !(this.commentReason === 'Viewed and Confirmed')
     ) {
     } else {
-      console.log(this.nextSchedule.value);
+      const nxtSchStatus = 0;
+      const locoNumber = this.nextSchedule.controls['locoNumber'].value;
       this.scheduleService
-        .saveNextSchedule(this.nextSchedule.value)
-        .pipe(first())
-        .subscribe(
-          (res) => {
-            console.log(res);
-            if (res.isSaved) {
-              this.nextScheduleEmail(this.nextSchedule.value);
-              swal({
-                title: 'Next Schedule is generated!',
-                text: 'Please Click OK',
-                icon: 'success',
-              });
-              setTimeout(() => {
-                // this.refresh();
-              }, 3000);
-            } else {
-              swal({
-                title: 'Record already Exits',
-                text: 'Please Click OK',
-                icon: 'error',
-              });
-              setTimeout(() => {
-                //this.refresh();
-              }, 3000);
-            }
-          },
+        .getNxtScheduleByLocoNoAndStatus(locoNumber, nxtSchStatus)
+        .subscribe((resp) => {
+          if (resp.length > 0) {
+            this.scheduleService
+              .updateDraftNextSchedules(locoNumber)
+              .subscribe((resp) => {
+                this.scheduleService
+                  .saveNextSchedule(this.nextSchedule.value)
+                  .pipe(first())
+                  .subscribe(
+                    (res) => {
+                      console.log(res);
+                      if (res.isSaved) {
+                        this.nextScheduleEmail(this.nextSchedule.value);
+                        swal({
+                          title: 'Next Schedule is generated!',
+                          icon: 'success',
+                        });
+                        setTimeout(() => {
+                          // this.refresh();
+                        }, 3000);
+                      } else {
+                        swal({
+                          title: 'Record already Exits',
+                          icon: 'error',
+                        });
+                        setTimeout(() => {}, 3000);
+                      }
+                    },
 
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            console.log('dss');
+                    (error) => {
+                      console.log(error);
+                    },
+                    () => {
+                      console.log('dss');
+                    }
+                  );
+              });
+          } else {
+            this.scheduleService
+              .saveNextSchedule(this.nextSchedule.value)
+              .pipe(first())
+              .subscribe(
+                (res) => {
+                  console.log(res);
+                  if (res.isSaved) {
+                    this.nextScheduleEmail(this.nextSchedule.value);
+                    swal({
+                      title: 'Next Schedule is generated!',
+                      icon: 'success',
+                    });
+                    setTimeout(() => {
+                      // this.refresh();
+                    }, 3000);
+                  } else {
+                    swal({
+                      title: 'Record already Exits',
+                      icon: 'error',
+                    });
+                    setTimeout(() => {}, 3000);
+                  }
+                },
+
+                (error) => {
+                  console.log(error);
+                },
+                () => {
+                  console.log('dss');
+                }
+              );
           }
-        );
+        });
     }
     //   if (window.confirm('Are you sure?')) {
     //     let id = this.route.snapshot.paramMap.get('id');
@@ -181,6 +225,19 @@ export class AddCommentLoadComponent implements OnInit {
 
     // }
   }
+
+  checkDraftSchedules() {
+    // const locoNumber = 627;
+    const nxtSchStatus = 0;
+    const locoNumber = this.nextSchedule.controls['locoNumber'].value;
+    this.scheduleService
+      .getNxtScheduleByLocoNoAndStatus(locoNumber, nxtSchStatus)
+      .subscribe((resp) => {
+        if (resp.length > 0) {
+        }
+      });
+  }
+
   get getFm() {
     return this.commentAdd.controls;
   }
@@ -235,6 +292,8 @@ export class AddCommentLoadComponent implements OnInit {
               this.commentStatus === 2 &&
               this.commentReason === 'Viewed and Confirmed'
             ) {
+              this.commentId = this.commentAdd.controls['commentId'].value;
+              this.addTask();
               this.updateLoadStatus(this.commentAdd.value);
               this.patchLoadLoco(this.commentAdd.value);
               this.changeScheduleSeven(this.commentAdd.value);
@@ -251,7 +310,8 @@ export class AddCommentLoadComponent implements OnInit {
                 icon: 'success',
               });
             }
-
+            this.commentId = this.commentAdd.controls['commentId'].value;
+            this.addTask();
             this.updateLoadStatus(this.commentAdd.value);
             this.patchLoadLoco(this.commentAdd.value);
             this.changeScheduleSeven(this.commentAdd.value);
@@ -331,5 +391,53 @@ export class AddCommentLoadComponent implements OnInit {
       //this.LocoGroup.controls["id"].setValue(sysId);
     }
     //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+  }
+
+  defaultTaskId() {
+    //Id Gen
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUFWXYZ1234567890';
+
+    var string_length = 8;
+    var taskId = 'T_' + '';
+    //var sysId = "ST_"+"";
+    for (var i = 0; i < string_length; i++) {
+      var rnum = Math.floor(Math.random() * chars.length);
+      taskId += chars.substring(rnum, rnum + 1);
+      ///sysId += chars.substring(rnum, rnum + 1);
+      this.taskId = taskId;
+      //this.LocoGroup.controls["id"].setValue(sysId);
+    }
+    //this.staffGroup.controls['jDate'].setValue(moment().format('YYYY-MM-DD'));
+  }
+
+  addTask(): void {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+      taskId: this.taskId,
+      recordId: this.commentId,
+      taskType: 'Add Comment',
+      taskPriority: 'High',
+      taskDate: new Date(),
+      taskStatus: 7,
+    };
+
+    if (object != null) {
+      this.userTaskService
+        .saveTask(object)
+        .pipe(first())
+        .subscribe(
+          (res) => {
+            console.log(res);
+            if (res.isSaved) {
+            } else {
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
   }
 }

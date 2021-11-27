@@ -1233,6 +1233,47 @@ const getAllNextSchedulesNotFilter = async(req, resp, next) => {
         });
 };
 
+const getNxtScheduleByLocoNoAndStatus = async(req, resp, next) => {
+    //get completed schedul
+    console.log(req.params.nxtSchStatus)
+    await NextScheduleDTO.find({ $and: [{ nxtSchStatus: req.params.nxtSchStatus }, { locoNumber: req.params.locoNumber }] })
+        .then((result) => {
+            resp.status(200).json(result);
+            console.log(result)
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
+
+const updateDraftNextSchedules = async(req, resp, next) => {
+    //get completed schedul
+    console.log(req.params.nxtSchStatus)
+    await NextScheduleDTO.find({ $and: [{ locoNumber: req.params.locoNumber }] }).updateMany({}, { $set: { nxtSchStatus: 2, nxtSchReason: 'Next Schedule is lapsed' } })
+        .then((result) => {
+            resp.status(200).json(result);
+            console.log(result)
+        })
+        .catch((error) => {
+            resp.status(500).json(error);
+        });
+};
+
+// const assignedLoadTrial = async (req, resp) => {
+//     //accepting load trial chamnge shedule status to 7
+//     // console.log(req.body);
+
+//     await ScheduleSchema.updateOne({ scheduleNo: req.body.scheduleNo }, { $set: { scheduleStatus: 8, schReason: "Assigned to Load Trial", actualCompletedDate: req.body.loadDate } },
+//         function (err, result) {
+//             if (err) {
+//                 resp.status(500).json(err);
+//             } else {
+//                 resp.status(200).json(result);
+//             }
+//         }
+//     );
+// };
+
 const sendOneNextSchedule = async(req, res, next) => {
     await NextScheduleDTO.find({
             nxtSchId: req.params.nxtSchId,
@@ -1308,5 +1349,7 @@ module.exports = {
     getAllNextSchedulesNotFilter,
     sendOneNextSchedule,
     changeStatusNextSchedule,
-    getNextAllSchedules
+    getNextAllSchedules,
+    getNxtScheduleByLocoNoAndStatus,
+    updateDraftNextSchedules
 };

@@ -14,6 +14,10 @@ body {
     border-radius: .25rem;
 }
 
+.clear {
+    padding-top: 10px;
+}
+
 .avatar-xl {
     height: 6rem;
     width: 6rem;

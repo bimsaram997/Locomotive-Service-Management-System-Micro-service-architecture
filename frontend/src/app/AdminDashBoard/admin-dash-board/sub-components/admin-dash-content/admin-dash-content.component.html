@@ -152,10 +152,20 @@
       <div class="col-md-7">
         <div class="card mb-3">
           <div class="card-body">
-            <app-view-all-loco-bar-chart></app-view-all-loco-bar-chart>
+            <div style="display: block">
+              <canvas
+                baseChart
+                [datasets]="barChartData ? barChartData : null"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+              >
+              </canvas>
+            </div>
           </div>
-        </div>
-        <!-- <div class="card mb-3">
+          <!-- <div class="card mb-3">
 
                     <div class="card-body">
                         <h4 class="d-flex align-items-center mb-3"><img src="https://img.icons8.com/ios/50/000000/piston.png" style="width: 25px; height: 25px;" />&nbsp; Engine at Stopped Conditions </h4>
@@ -174,6 +184,7 @@
 
                     </div>
                 </div> -->
+        </div>
       </div>
     </div>
   </div>

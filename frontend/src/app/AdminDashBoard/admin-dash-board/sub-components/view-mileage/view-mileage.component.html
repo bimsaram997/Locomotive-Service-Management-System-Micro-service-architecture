@@ -71,6 +71,15 @@
                     </mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="Responsible">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Responsible
+                    </mat-header-cell>
+                    <mat-cell class="label-txt" *matCellDef="let tempLoco" data-label="Mileage">
+                        {{ tempLoco.managerName }}
+                    </mat-cell>
+                </ng-container>
+
                 <!-- Weight Column -->
                 <ng-container matColumnDef="Date">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -116,41 +125,11 @@
                 <ng-container matColumnDef="#">
                     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                     <mat-cell *matCellDef="let tempLoco" data-label="#">
-                        <button mat-icon-button (click)="viewMileage(tempLoco._id)" matTooltip="Click for more information">
+                        <button mat-icon-button (click)="viewMileage(tempLoco.mReportNumber)" matTooltip="Click for more information">
               <i
                 class="fas fa-eye"
                 style="color: #013243; font-size: 18px; font-weight: bold"
               ></i>
-            </button>
-                        <button mat-icon-button [disabled]="
-                tempLoco.status != 2 &&
-                tempLoco.status != 4 &&
-                tempLoco.status != 5
-                  ? false
-                  : true
-              " (click)="openAcceptDialog(tempLoco)">
-              <mat-icon
-                aria-hidden="false"
-                aria-label="Example home icon"
-                style="font-weight: bold"
-                matTooltip="Accept Mileage Report"
-                >thumb_up</mat-icon
-              >
-            </button>
-                        <button mat-icon-button [disabled]="
-                tempLoco.status != 3 &&
-                tempLoco.status != 4 &&
-                tempLoco.status != 5
-                  ? false
-                  : true
-              " (click)="openRejectDialog(tempLoco)">
-              <mat-icon
-                aria-hidden="false"
-                aria-label="Example home icon"
-                style="font-weight: bold"
-                matTooltip="Reject Mileage Report"
-                >thumb_down</mat-icon
-              >
             </button>
                     </mat-cell>
                 </ng-container>

@@ -134,6 +134,22 @@ export class ScheduleService {
     return this.http.put(this.myUrl + `scheduleRoute/assignedLoadTrial`, data);
   }
 
+  public getNxtScheduleByLocoNoAndStatus(
+    locoNumber,
+    nxtSchStatus
+  ): Observable<any> {
+    return this.http.get(
+      this.myUrl +
+        `scheduleRoute/getNxtScheduleByLocoNoAndStatus/${locoNumber}/${nxtSchStatus}`
+    );
+  }
+
+  public updateDraftNextSchedules(locoNumber): Observable<any> {
+    return this.http.get(
+      this.myUrl + `scheduleRoute/updateDraftNextSchedules/${locoNumber}`
+    );
+  }
+
   public scheduleEmail(data): Observable<any> {
     return this.http.post(this.myUrl + `scheduleRoute/scheduleEmail`, data);
   }

@@ -122,6 +122,10 @@ export class ViewAdloadProComponent implements OnInit {
     this.scroll.scrollToPosition([0, 0]);
   }
 
+  navigateSchedule(mReportNumber) {
+    this.router.navigate(['/adminDashboard/viewSchedule', mReportNumber]);
+  }
+
   loadOneTrial() {
     this.id = this.route.snapshot.paramMap.get('loadNo');
     console.log(this.id);
@@ -232,6 +236,15 @@ export class ViewAdloadProComponent implements OnInit {
     console.log(obj.status);
   }
 
+  getAllLoadTrials() {
+    const values = JSON.parse(localStorage.getItem('currentUser'));
+    const object = {
+      userNic: values.userNic,
+      userRole: values.userRole,
+    };
+    this.loadService.getLoadTrialAssigned(object).subscribe((res) => {});
+  }
+
   getResolvedComment(val) {
     this.loadService.getResolvedComments(this.loadNo).subscribe((res) => {
       this.resolvedComments = res;
@@ -263,6 +276,7 @@ export class ViewAdloadProComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.loadOneTrial();
+      this.getAllLoadTrials();
     });
   }
 

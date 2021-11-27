@@ -32,6 +32,8 @@ router.post('/nextScheduleEmail', ScheduleController.nextScheduleEmail);
 router.get('/getAllNextSchedules/:locoNumberNextSchedule', ScheduleController.getAllNextSchedules);
 router.get('/getAllNextSchedulesNotFilter', ScheduleController.getAllNextSchedulesNotFilter);
 router.get('/sendOneNextSchedule/:nxtSchId', ScheduleController.sendOneNextSchedule);
+router.get('/getNxtScheduleByLocoNoAndStatus/:locoNumber/:nxtSchStatus', ScheduleController.getNxtScheduleByLocoNoAndStatus);
+router.get('/updateDraftNextSchedules/:locoNumber', ScheduleController.updateDraftNextSchedules);
 router.put('/changeStatusNextSchedule', ScheduleController.changeStatusNextSchedule);
 router.get('/getNextAllSchedules', ScheduleController.getNextAllSchedules);
 module.exports = router

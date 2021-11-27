@@ -1,5 +1,9 @@
+import { UserTaskService } from './../../../../service/user-task.service';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { LoadTrialService } from './../../../../service/load-trial.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AccessService } from 'src/app/service/access.service';
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -37,17 +41,40 @@ export class AdminProfileComponent implements OnInit {
   countDoMoreComments: number;
   countConfirmedComments: number;
   countResolvedComments: number;
+  searchKey: string;
+  searchKey1: string;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = [
+    'TaskId',
+    'RecordId',
+    'TaskType',
+    'TaskPriority',
+    'TaskDate',
+  ];
+  @ViewChild(MatSort) sort: MatSort;
+  type: string[] = [
+    'All',
+    'Edit Locomotive',
+    'Add Schedule',
+    'Add Progress',
+    'Add Load Trial',
+    'Add Comment',
+  ];
+  priority: string[] = ['All', 'High', 'Medium', 'Low'];
+  tableArray: any[];
   constructor(
     private accessService: AccessService,
     private _location: Location,
     private toastr: ToastrService,
-    private loadService: LoadTrialService
+    private loadService: LoadTrialService,
+    private userTaskService: UserTaskService
   ) {}
 
   ngOnInit(): void {
     //this.getUserDetails();
-    this.getLoadTrial();
-    this.getAllComments();
+    this.getAllTasksAssigned();
+
     const values = JSON.parse(localStorage.getItem('currentUser'));
     const object = {
       userNic: values.userNic,
@@ -69,47 +96,61 @@ export class AdminProfileComponent implements OnInit {
       this.image = res[0].image;
     });
   }
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getAllTasksAssigned();
+  }
 
-  public getLoadTrial() {
+  getAllTasksAssigned() {
     const values = JSON.parse(localStorage.getItem('currentUser'));
     const object = {
       userNic: values.userNic,
       userRole: values.userRole,
     };
-    this.loadService.getLoadTrialAssigned(object).subscribe((resp) => {
+    this.userTaskService.getAllTasksAssigned(object).subscribe((resp) => {
       this.loadArray = resp;
-
-      const _filterDraftLoad = this.loadArray.filter((p) => p.status === 1);
-      this.countDraftLoad = _filterDraftLoad.length;
-
-      const _filterPasstLoad = this.loadArray.filter((p) => p.status === 2);
-      this.countPassedtLoad = _filterPasstLoad.length;
-
-      const _filterPendingtLoad = this.loadArray.filter((p) => p.status === 3);
-      this.countPendingLoad = _filterPendingtLoad.length;
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     });
   }
 
-  public getAllComments() {
-    this.loadService.getAllComments().subscribe((resp) => {
-      this.commentsArray = resp;
-      console.log(this.commentsArray);
+  filterByType(value) {
+    let _cloneArrat = [];
+    const _findValue = this.loadArray.filter((x) => x.taskType == value.value);
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    }
+  }
 
-      const _filterDoMoreComments = this.commentsArray.filter(
-        (p) => p.status === 3
-      );
-      this.countDoMoreComments = _filterDoMoreComments.length;
+  filterByPriority(value) {
+    let _cloneArrat = [];
+    const _findValue = this.loadArray.filter(
+      (x) => x.taskPriority == value.value
+    );
+    if (_findValue.length > 0) {
+      this.tableArray = _findValue;
+      this.dataSource = new MatTableDataSource<any>(this.tableArray);
+    } else if (value.value == 'All') {
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    } else {
+      this.onWarning('No records found on filter!');
+      this.dataSource = new MatTableDataSource<any>(this.loadArray);
+    }
+  }
 
-      const _filterConfirmedComments = this.commentsArray.filter(
-        (p) => p.status === 2
-      );
-      this.countConfirmedComments = _filterConfirmedComments.length;
-
-      const _filterResolvedComments = this.commentsArray.filter(
-        (p) => p.status === 4
-      );
-      this.countResolvedComments = _filterResolvedComments.length;
-    });
+  onWarning(message: string) {
+    this.toastr.warning(message, 'Warning');
   }
 
   backClicked() {

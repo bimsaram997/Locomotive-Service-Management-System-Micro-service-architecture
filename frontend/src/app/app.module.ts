@@ -154,6 +154,10 @@ import { UserMileageProfileComponent } from './UserDashBoard/user-dashboard/SubC
 import { ManagerAnalysisComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/manager-analysis/manager-analysis.component';
 import { ManagerMileageProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileage-profile/manager-mileage-profile.component';
 import { ManagerMileagesComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileages/manager-mileages.component';
+import { AdminAnalysisComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-analysis/admin-analysis.component';
+import { CommentPieChartComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-analysis/admin-Charts/comment-pie-chart/comment-pie-chart.component';
+import { CommentVarinaceComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-analysis/admin-Charts/comment-varinace/comment-varinace.component';
+import { AdminViewMielageProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/view-mileage/admin-view-mielage-profile/admin-view-mielage-profile.component';
 
 FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
 
@@ -353,6 +357,14 @@ FullCalendarModule.registerPlugins([interactionPlugin, dayGridPlugin]);
     ManagerMileageProfileComponent,
 
     ManagerMileagesComponent,
+
+    AdminAnalysisComponent,
+
+    CommentPieChartComponent,
+
+    CommentVarinaceComponent,
+
+    AdminViewMielageProfileComponent,
   ],
   imports: [
     BrowserModule,

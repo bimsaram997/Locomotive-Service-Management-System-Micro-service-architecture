@@ -1,3 +1,5 @@
+import { AdminViewMielageProfileComponent } from './AdminDashBoard/admin-dash-board/sub-components/view-mileage/admin-view-mielage-profile/admin-view-mielage-profile.component';
+import { AdminAnalysisComponent } from './AdminDashBoard/admin-dash-board/sub-components/admin-analysis/admin-analysis.component';
 import { ManagerMileagesComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileages/manager-mileages.component';
 import { ManagerMileageProfileComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/ViewMileages/manager-mileage-profile/manager-mileage-profile.component';
 import { ManagerAnalysisComponent } from './ServiceManagerDashBoard/manager-dashboard/Subcomps/manager-analysis/manager-analysis.component';
@@ -83,6 +85,7 @@ const routes: Routes = [
     canActivate: [AdminAuthGuardGuard],
     component: AdminDashBoardComponent,
     children: [
+      { path: 'adminAnalysis', component: AdminAnalysisComponent },
       { path: 'adminDashContent', component: AdminDashContentComponent },
       { path: 'createCustomer', component: CreateCustomerComponent },
       { path: 'createCustomer', component: CreateCustomerComponent },
@@ -105,7 +108,10 @@ const routes: Routes = [
       { path: 'viewAdLoadTrial', component: ViewAdLoadTrialComponent },
       { path: 'viewAdLoadProd/:loadNo', component: ViewAdloadProComponent },
       { path: 'adminProfile', component: AdminProfileComponent },
-      { path: 'viewOneMileage/:id', component: ViewOneMileageComponent },
+      {
+        path: 'viewOneMileage/:mReportNumber',
+        component: AdminViewMielageProfileComponent,
+      },
       { path: 'adminViewUsers', component: AdminViewUsersComponent },
       { path: 'adminViewMoreUser/:id', component: AdminViewMoreUserComponent },
     ],

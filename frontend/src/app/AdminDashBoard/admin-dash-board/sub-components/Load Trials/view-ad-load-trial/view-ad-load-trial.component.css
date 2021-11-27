@@ -2,21 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:wght@300&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 .box-head {
     display: flex;
     align-items: center;
-}
-
-.mat-tooltip.tooltip {
-    font-size: 13px;
-    color: yellow;
-}
-
-.back {
-    margin-left: auto;
-    margin-right: 0;
-    text-align: end;
-    font-size: 15px;
 }
 
 .container {
@@ -26,6 +15,13 @@
     width: auto;
 }
 
+.back {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: end;
+    font-size: 15px;
+}
+
 .heading-txt {
     color: #013243;
     font-weight: bold;
@@ -33,6 +29,13 @@
     font-size: 23px;
     margin-left: 10px;
     ;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
 }
 
 body {
@@ -262,10 +265,6 @@ body {
     color: #34495e;
 }
 
-.label-txt {
-    font-size: 18px;
-}
-
 #aria-label {
     font-size: 18px;
 }
@@ -412,4 +411,31 @@ mat-radio-group mat-radio-button {
     .modal-content {
         width: 100%;
     }
+}
+
+.label-txt {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #1f3a93;
+    cursor: pointer;
+}
+
+.label {
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #000080;
+}
+
+.place-holder {
+    font-size: 13px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
 }

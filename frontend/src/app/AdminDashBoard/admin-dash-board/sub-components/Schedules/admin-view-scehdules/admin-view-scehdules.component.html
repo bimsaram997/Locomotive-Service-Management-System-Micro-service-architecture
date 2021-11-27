@@ -20,8 +20,18 @@
         </button>
             </mat-form-field>
         </div>
+        <div class="col-md-3">
+            <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080">
+                <mat-label class="label">Progress</mat-label>
+                <mat-select (selectionChange)="onChangeSelect($event)">
+                    <mat-option *ngFor="let option of statuses" [value]="option">
+                        {{ option }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
-
+    <br />
     <div class="main-table">
         <div class="mat-elevation-z8">
             <mat-table [dataSource]="dataSource" matSort>
@@ -36,7 +46,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                         Report No
                     </mat-header-cell>
-                    <mat-cell class="label-txt" *matCellDef="let tempSchedule" data-label="Report No">
+                    <mat-cell class="label-txt link" *matCellDef="let tempSchedule" data-label="Report No" (click)="navigateReport(tempSchedule?.mReportNumber)">
                         {{ tempSchedule?.mReportNumber }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Loco Category">
@@ -143,7 +153,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[7, 10, 15]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
 </div>

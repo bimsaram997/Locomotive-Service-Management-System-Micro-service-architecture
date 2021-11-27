@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <br />
+    <div class="box-head">
+        <img src="./assets/images/rising.png" alt="" style="width: 40px; height: 40px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">A</span>NALYSIS REPORT</span>
+        <div class="back">
+            <button mat-raised-button (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i>&nbsp; Back
+      </button>
+            <br />
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndex" animationDuration="0ms">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span class="material-icons">looks_two</span>&nbsp;Comments & Load Trials
+            </ng-template>
+            <div class="py-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content>
+                                    <mat-card-content style="height: 200px">
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="col-md-12 label-txt">
+                                                    <img src="./assets/images/coomnets.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 50px; height: 50px" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Comments Issued
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            commentLength ? commentLength : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                            <hr class="hr" />
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Do more actions
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            doMoreActionsComments ? doMoreActionsComments : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                            <hr class="hr" />
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Resolved Comments
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            resolvedActionsComments
+                              ? resolvedActionsComments
+                              : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                            <hr class="hr" />
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Confirmed Comments
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            acceptedComments ? acceptedComments : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 200px">
+                                    <app-comment-pie-chart *ngIf="
+                      resolvedActionsComments ||
+                      doMoreActionsComments ||
+                      acceptedComments
+                    " [acceptedComments]="acceptedComments" [doMoreActionsComments]="doMoreActionsComments" [resolvedActionsComments]="resolvedActionsComments"></app-comment-pie-chart>
+                                    <p class="header">Issued Comments</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content style="height: 200px">
+                                    <app-comment-varinace></app-comment-varinace>
+
+                                    <p class="header">Comments per Year</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content>
+                                    <mat-card-content style="height: 200px">
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="col-md-12 label-txt">
+                                                    <img src="./assets/images/locom6.png" class="rounded-circle avatar-xl img-thumbnail" alt="profile-image" style="width: 50px; height: 50px" />
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Load Trials Processed
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            loadLength ? loadLength : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                            <hr class="hr" />
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Accepted Load Trials
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            countPassedtLoad ? countPassedtLoad : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                            <hr class="hr" />
+                                            <div class="row">
+                                                <div class="col-md-10 label-txt">
+                                                    No.of Pending Load Trials
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span class="value-txt">{{
+                            countTotalPendingLoad ? countTotalPendingLoad : 0
+                          }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content>
+                                    <app-user-load-trial-doh-nut *ngIf="
+                      countDraftLoad || countPassedtLoad || countPendingLoad
+                    " [countDraftLoad]="countDraftLoad" [countPendingLoad]="countPendingLoad" [countPassedtLoad]="countPassedtLoad"></app-user-load-trial-doh-nut>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-card class="example-card">
+                                <mat-card-content>
+                                    <app-load-trial-variance></app-load-trial-variance>
+                                    <p class="header">Load Trials per Year</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <mat-grid-list cols="2" rowHeight="300px" [gutterSize]="'-55px'" style="bottom: 30px">
+                <mat-grid-tile> </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+    </mat-tab-group>
+</div>
