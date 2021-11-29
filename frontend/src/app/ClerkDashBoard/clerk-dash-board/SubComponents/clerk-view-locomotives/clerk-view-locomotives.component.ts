@@ -22,6 +22,7 @@ import { ViewImageComponent } from 'src/app/UserDashBoard/user-dashboard/SubComp
 export class ClerkViewLocomotivesComponent implements OnInit {
   progresValue: number;
   rangeArray: number[];
+  searchKey1: string;
 
   constructor(
     private dialog: MatDialog,
@@ -176,6 +177,15 @@ export class ClerkViewLocomotivesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog: ${result}`);
     });
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllIds();
+    this.getAllLoco();
+    this.getLocoReport();
   }
 
   onSearchClear() {

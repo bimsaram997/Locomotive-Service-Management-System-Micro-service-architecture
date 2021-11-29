@@ -51,6 +51,7 @@ export class ViewLoadTrialsComponent implements OnInit {
     'M11',
   ];
   tableArray: any;
+  searchKey1: string;
 
   constructor(
     private loadService: LoadTrialService,
@@ -137,5 +138,12 @@ export class ViewLoadTrialsComponent implements OnInit {
 
   onWarning(message: string) {
     this.toastr.warning(message, 'Warning');
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getLoadTrialAssigned();
   }
 }

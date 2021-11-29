@@ -1,333 +1,436 @@
-<div class="container-fluid" >
-  <br>
-  <div class="box-head">
-    <img src="./assets/images/m11.png" alt="" style="width: 70px; height: 70px">
-    <span class="heading-txt">EDIT SCHEDULE</span>
-  </div>
-  <hr>
+<div class="container-fluid">
+    <br />
+    <div class="box-head">
+        <img src="./assets/images/signature.png" alt="" style="height: 45px; width: 45px" />
+        <span class="heading-txt"><span style="color: #1e8bc3">R</span>EQUEST SCHEDULE</span>
+        <div class="back">
+            <button mat-raised-button (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i>&nbsp; Back
+      </button>
+        </div>
+    </div>
+    <hr />
 
-  <div class="example-container">
-    <form  [formGroup]="editScheduleGroup"  (ngSubmit)="onSubmit()">
-      <mat-tab-group mat-align-tabs="Start" [selectedIndex] ="selectedIndex" animationDuration="0ms">
-        <mat-tab>
-          <mat-card>
-            <ng-template mat-tab-label>
-              <img class="material-icons" src="https://img.icons8.com/emoji/48/000000/train-emoji.png" style="width: 40px; height: 40px;"/>
+    <div class="example-container">
+        <form [formGroup]="ScheduleGroup" (ngSubmit)="onSubmit()">
+            <mat-tab-group [selectedIndex]="this.tabId" mat-align-tabs="Start" [selectedIndex]="selectedIndex" animationDuration="0ms">
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_one</span>&nbsp;Basic Details
+                        </ng-template>
+                        <h3 class="sub-header">Basic Details</h3>
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label class="Schedule Number">Schedule Number</mat-label>
+                                    <input class="label-txt" readonly maxlength="5" minlength="3" matInput placeholder="Schedule Number" #searchInput formControlName="scheduleNo" />
+                                    <!-- <div *ngIf="ScheduleGroup.controls['scheduleNo'].invalid && (ScheduleGroup.controls['scheduleNo'].dirty || ScheduleGroup.controls['scheduleNo'].touched)" class="error">
+                                        <div *ngIf="ScheduleGroup.controls['scheduleNo'].errors.required">
+                                            Number is Required.
+                                        </div>
+                                    </div> -->
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Report no</mat-label>
+                                    <mat-select formControlName="mReportNumber" required (selectionChange)="onChangeSelectMil($event)">
+                                        <mat-option *ngFor="let temIds of mileageReport" value="{{ temIds.mReportNumber }}">
+                                            <span><span style="font-weight: bold"
+                          >{{ temIds.mReportNumber + " " }}
+                          <span style="font-weight: lighter; color: blue">{{
+                            temIds.mLocoCatId + " " + temIds.mLocoNumber + " "
+                          }}</span>
+                                            <span style="font-size: 10px; color: green">{{
+                            temIds.mileageDate | date
+                          }}</span></span>
+                                            </span>
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-hint style="color: red; font-size: 12px" *ngIf="lengthCount"><b>*There are not available accepted reports</b></mat-hint>
+                                </mat-form-field>
 
-              First
-            </ng-template>
-            <h3 class="sub-headers">Basic Details</h3>
-            <mat-form-field appearance="fill">
-              <mat-label class="Schedule Number">Schedule Number</mat-label>
-              <input required  maxlength="4" minlength="3" matInput placeholder="Schedule Number" #searchInput formControlName="scheduleNo" >
-              <div *ngIf="editScheduleGroup.controls['scheduleNo'].invalid && (editScheduleGroup.controls['scheduleNo'].dirty || editScheduleGroup.controls['scheduleNo'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['scheduleNo'].errors.required">
-                  Number is Required.
-                </div>
-                <div *ngIf="editScheduleGroup.controls['scheduleNo'].errors.pattern">
-                  Enter only numbers
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label class="Report Number">Report Number</mat-label>
-              <input required  maxlength="3" minlength="1" matInput placeholder="Report Number" #searchInput formControlName="mReportNumber" >
-              <div *ngIf="editScheduleGroup.controls['mReportNumber'].invalid && (editScheduleGroup.controls['mReportNumber'].dirty || editScheduleGroup.controls['mReportNumber'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['mReportNumber'].errors.required">
-                  Required.
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Request Date</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="scheduleDate">
+                                <div *ngIf="
+                    ScheduleGroup.controls['mReportNumber'].invalid &&
+                    (ScheduleGroup.controls['mReportNumber'].dirty ||
+                      ScheduleGroup.controls['mReportNumber'].touched)
+                  " class="error">
+                                    <div *ngIf="
+                      ScheduleGroup.controls['mReportNumber'].errors.required
+                    ">
+                                        Required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Request Date</mat-label>
+                                    <input [max]="maxDate" [min]="minDate" [disabled]="!disableDate" matInput [matDatepicker]="picker" formControlName="scheduleDate" required class="label-txt" />
 
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-              <div *ngIf="editScheduleGroup.controls['scheduleDate'].invalid && (editScheduleGroup.controls['scheduleDate'].dirty || editScheduleGroup.controls['scheduleDate'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['scheduleDate'].errors.required">
-                  Date is Required.
-                </div>
-              </div>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-              <mat-label>To be Completed Date</mat-label>
-              <input matInput [matDatepicker]="picker1" formControlName="completedDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <div *ngIf="
+                      ScheduleGroup.controls['scheduleDate'].invalid &&
+                      (ScheduleGroup.controls['scheduleDate'].dirty ||
+                        ScheduleGroup.controls['scheduleDate'].touched)
+                    " class="error">
+                                        <div *ngIf="
+                        ScheduleGroup.controls['scheduleDate'].errors.required
+                      ">
+                                            Date is Required.
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>To be Completed Date</mat-label>
+                                    <input [disabled]="!disableComDate" [min]="minComDate" [max]="maxComDate" matInput [matDatepicker]="picker1" formControlName="completedDate" required class="label-txt" />
 
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-              <div *ngIf="editScheduleGroup.controls['completedDate'].invalid && (editScheduleGroup.controls['completedDate'].dirty || editScheduleGroup.controls['completedDate'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['completedDate'].errors.required">
-                  Date is Required.
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Locomotive Category</mat-label>
-              <input type="text" required
-                     placeholder="Pick one"
-                     aria-label="Number"
-                     matInput
-                     [formControl]="myControl"
-                     formControlName="locoCatId"
-                     [matAutocomplete]="auto">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <div *ngIf="
+                      ScheduleGroup.controls['completedDate'].invalid &&
+                      (ScheduleGroup.controls['completedDate'].dirty ||
+                        ScheduleGroup.controls['completedDate'].touched)
+                    " class="error">
+                                        <div *ngIf="
+                        ScheduleGroup.controls['completedDate'].errors.required
+                      ">
+                                            Date is Required.
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Locomotive Category</mat-label>
+                                    <input type="text" class="label-txt" required placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="locoCatId" [matAutocomplete]="auto" />
 
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of options " [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of options" [value]="option">
+                                            {{ option }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label class="Locomotive Number">Locomotive Number</mat-label>
+                                    <input required maxlength="3" minlength="1" class="label-txt" matInput placeholder="Locomotive Number" #searchInput formControlName="locoNumber" readonly />
+                                    <div *ngIf="
+                      ScheduleGroup.controls['locoNumber'].invalid &&
+                      (ScheduleGroup.controls['locoNumber'].dirty ||
+                        ScheduleGroup.controls['locoNumber'].touched)
+                    " class="error">
+                                        <div *ngIf="
+                        ScheduleGroup.controls['locoNumber'].errors.required
+                      ">
+                                            Number is Required.
+                                        </div>
+                                        <div *ngIf="
+                        ScheduleGroup.controls['locoNumber'].errors.pattern
+                      ">
+                                            Enter only numbers
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
 
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label class="Locomotive Number">Locomotive Number</mat-label>
-              <input required  maxlength="3" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="locoNumber" >
-              <div *ngIf="editScheduleGroup.controls['locoNumber'].invalid && (editScheduleGroup.controls['locoNumber'].dirty || editScheduleGroup.controls['locoNumber'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['locoNumber'].errors.required">
-                  Number is Required.
-                </div>
-                <div *ngIf="editScheduleGroup.controls['locoNumber'].errors.pattern">
-                  Enter only numbers
-                </div>
-              </div>
-            </mat-form-field>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Locomotive Mileage</mat-label>
+                                    <input class="label-txt" minlength="4" required matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage" readonly />
+                                    <div *ngIf="
+                      ScheduleGroup.controls['locoMileage'].invalid &&
+                      (ScheduleGroup.controls['locoMileage'].dirty ||
+                        ScheduleGroup.controls['locoMileage'].touched)
+                    " class="error">
+                                        <div *ngIf="
+                        ScheduleGroup.controls['locoMileage'].errors.required
+                      ">
+                                            Mileage is Required.
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Locomotive Stutus</mat-label>
+                                    <mat-select name="food" formControlName="locoStatus">
+                                        <mat-option *ngFor="let status of locoStatus" [value]="status" class="label-txt">
+                                            {{ status }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <div *ngIf="
+                      ScheduleGroup.controls['locoStatus'].invalid &&
+                      (ScheduleGroup.controls['locoStatus'].dirty ||
+                        ScheduleGroup.controls['locoStatus'].touched)
+                    " class="error">
+                                        <div *ngIf="
+                        ScheduleGroup.controls['locoStatus'].errors.required
+                      ">
+                                            Locomotive Status is Required.
+                                        </div>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                            <div class="col"></div>
+                            <div class="w-100">
+                                <h3 class="sub-header">Responsible Persons</h3>
+                                <hr class="line" />
+                                <br />
+                            </div>
 
-            <br>
-            <mat-form-field appearance="fill" >
-              <mat-label class="label-txt">Locomotive Mileage</mat-label>
-              <input    minlength="4"  required  matInput placeholder="Locomotive Mileage" #searchInput formControlName="locoMileage">
-              <div *ngIf="editScheduleGroup.controls['locoMileage'].invalid && (editScheduleGroup.controls['locoMileage'].dirty || editScheduleGroup.controls['locoMileage'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['locoMileage'].errors.required">
-                  Mileage is Required.
-                </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Service Manger Name</mat-label>
+                                    <input required readonly maxlength="3" minlength="1" class="label-txt" matInput placeholder="Locomotive Number" #searchInput formControlName="managerName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Service Manger NIC</mat-label>
+                                    <input required readonly maxlength="3" minlength="1" class="label-txt" matInput placeholder="Locomotive Number" #searchInput formControlName="managerNic" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Service Manger Email</mat-label>
+                                    <input required readonly maxlength="3" class="label-txt" minlength="1" matInput placeholder="Locomotive Number" #searchInput formControlName="managerEmail" />
+                                </mat-form-field>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Supervisor Name</mat-label>
+                                    <input required readonly maxlength="3" minlength="1" class="label-txt" matInput #searchInput formControlName="supervisorName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Supervisor Email</mat-label>
+                                    <input required readonly maxlength="3" class="label-txt" minlength="1" matInput #searchInput formControlName="supervisorEmail" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Supervisor NIC</mat-label>
+                                    <input required readonly maxlength="3" class="label-txt" minlength="1" matInput #searchInput formControlName="supervisorNic" />
+                                </mat-form-field>
+                            </div>
+                            <br />
+                        </div>
+                        <br />
+                    </mat-card>
+                </mat-tab>
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_two</span>&nbsp;Mechanical Schedule
+                        </ng-template>
 
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill" >
-              <mat-label>Locomotive Stutus</mat-label>
-              <mat-select name="food" formControlName="locoStatus">
-                <mat-option *ngFor="let status of locoStatus" [value]="status">
-                  {{status}}
-                </mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['locoStatus'].invalid && (editScheduleGroup.controls['locoStatus'].dirty || editScheduleGroup.controls['locoStatus'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['locoStatus'].errors.required">
-                  Locomotive Status is Required.
-                </div>
+                        <div class="row">
+                            <div class="col decs">
+                                Select the Schedule Type: &nbsp;&nbsp;
+                                <mat-checkbox formControlName="mechanical"><span class="type">Mechanical</span>
+                                </mat-checkbox>
+                                &nbsp;
+                                <mat-checkbox formControlName="electrical"><span class="type">Electrical</span>
+                                </mat-checkbox>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="w-100"></div>
+                        </div>
+                        <br />
+                        <hr class="line" />
+                        <br />
+                        <h3 class="sub-header">Mechanical</h3>
 
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Service Manger Email</mat-label>
-              <mat-select formControlName="managerEmail" required>
-                <mat-option *ngFor="let temIds of managerList"   value="{{temIds.userEmail}}">
-                  {{temIds.userEmail}}
-                </mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['managerEmail'].invalid && (editScheduleGroup.controls['managerEmail'].dirty || editScheduleGroup.controls['managerEmail'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['managerEmail'].errors.required">
-                  Service manger Email Required
-                </div>
+                        <div class="row">
+                            <div class="col pr-0">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Main Motors</mat-label>
+                                    <mat-select multiple formControlName="mainMotorName">
+                                        <mat-option *ngFor="let mainMotors of mainMotorList" [value]="mainMotors">{{ mainMotors }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col pr-0">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Traction Motors</mat-label>
+                                    <mat-select multiple formControlName="trackMotorName">
+                                        <mat-option *ngFor="let tMotor of tMotorsList" [value]="tMotor">{{ tMotor }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col pr-0">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Loco Body</mat-label>
+                                    <mat-select multiple formControlName="locoBodyName">
+                                        <mat-option *ngFor="let bodyLoco of bodyLocoList" [value]="bodyLoco">{{ bodyLoco }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <br />
+                        <h3 class="sub-header">Other Mechanical Parts</h3>
+                        <div class="row pr-0">
+                            <div class="col-sm pr-0">
+                                <mat-form-field appearance="fill" style="width: 300px">
+                                    <mat-label class="Locomotive Number">Other Mechanical Items</mat-label>
+                                    <input maxlength="20" minlength="1" matInput placeholder="E.g: Pinions" #searchInput formControlName="mOther" />
+                                </mat-form-field>
+                                &nbsp;&nbsp;
+                                <button type="button" mat-stroked-button color="primary" (click)="onClickMotor()" matTooltip="Add Other Mechanical Items">
+                  Add Item</button
+                >&nbsp;
+                <button
+                  type="button"
+                  mat-raised-button
+                  (click)="onClickremoveField('', 'main')"
+                  matTooltip="Remove All Other Mechanical Items"
+                >
+                  Remove All
+                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-sm-3" *ngFor="
+                  let locoMotors of otherMechArray.controls;
+                  let i = index
+                ">
+                                <div class="row" [formGroup]="locoMotors">
+                                    <p style="padding-left: 15px">
+                                        <mat-form-field appearance="fill" style="
+                        width: 180px;
+                        text-align: center;
+                        font-weight: bolder;
+                        color: darkblue;
+                        font-size: 13px;
+                      ">
+                                            <input matInput placeholder="Fluids" formControlName="Name" readonly />
+                                        </mat-form-field>
+                                        <button matTooltip="Remove a Mechanical Item" type="button" mat-button color="accent" (click)="onClickremoveField(i, 'sub')">
+                      <span class="material-icons">delete</span>
+                    </button>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Force next columns to break to new line -->
+                            <div class="w-100"></div>
+                        </div>
+                    </mat-card>
+                </mat-tab>
+                <mat-tab>
+                    <mat-card>
+                        <ng-template mat-tab-label>
+                            <span class="material-icons">looks_3</span>&nbsp;Electric Schedules
+                        </ng-template>
+                        <h3 class="sub-header">Electrical Schedule</h3>
+                        <div class="row">
+                            <div class="col pr-0">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Electric and Control Unit</mat-label>
+                                    <mat-select multiple formControlName="electricCUnitName">
+                                        <mat-option *ngFor="let electricController of electricControlList" [value]="electricController">{{ electricController }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col pr-0">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Electric Mechanical</mat-label>
+                                    <mat-select multiple formControlName="eMechanicalName">
+                                        <mat-option *ngFor="let eMechanical of eMechanicalMaList" [value]="eMechanical">{{ eMechanical }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col pr-0">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Electric Switches</mat-label>
+                                    <mat-select multiple formControlName="eSwitchName">
+                                        <mat-option *ngFor="let eSwitch of eSwitchList" [value]="eSwitch">{{ eSwitch }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
 
-              </div>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-              <mat-label>Service Manger Name</mat-label>
-              <mat-select formControlName="managerName" required>
-                <mat-option *ngFor="let temIds of managerList"   value="{{temIds.userName}}">
-                  {{temIds.userName}}
-                </mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['managerName'].invalid && (editScheduleGroup.controls['managerName'].dirty || editScheduleGroup.controls['managerName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['managerName'].errors.required">
-                  Service manger Name Required
-                </div>
-
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Supervisor NIC</mat-label>
-              <mat-select formControlName="supervisorNic" required>
-                <mat-option *ngFor="let temIds of supervisorList"   value="{{temIds.userNic}}">
-                  {{temIds.userNic}}
-                </mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['supervisorNic'].invalid && (editScheduleGroup.controls['supervisorNic'].dirty || editScheduleGroup.controls['supervisorNic'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['supervisorNic'].errors.required">
-                  Supervisor NIC Required
-                </div>
-
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Supervisor Name</mat-label>
-              <mat-select formControlName="supervisorName" required>
-                <mat-option *ngFor="let temIds of supervisorList"   value="{{temIds.userNic}}">
-                  {{temIds.userName}}
-                </mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['supervisorName'].invalid && (editScheduleGroup.controls['supervisorName'].dirty || editScheduleGroup.controls['supervisorName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['supervisorName'].errors.required">
-                  Supervisor Name Required
-                </div>
-
-              </div>
-            </mat-form-field>
-            <br>
-
-          </mat-card>
-        </mat-tab>
-        <mat-tab>
-          <mat-card>
-            <ng-template mat-tab-label>
-              <img src="https://img.icons8.com/emoji/64/000000/high-speed-train-emoji.png" style="width: 40px; height: 40px;"/> &nbsp;
-              Second
-            </ng-template>
-            <h2 class="sub-headers">Schedule Details</h2>
-            <p>Select the Schedule Type: <mat-checkbox formControlName="mechanical">Mechanical</mat-checkbox> &nbsp; <mat-checkbox formControlName="electrical">Electrical</mat-checkbox></p>
-            <h2 class="sub-headers">Mechanical</h2>
-            <mat-form-field appearance="fill">
-              <mat-label>Main Motors</mat-label>
-              <mat-select  multiple formControlName="mainMotorName">
-                <mat-option *ngFor="let mainMotors of  mainMotorList" [value]=" mainMotors">{{mainMotors}}</mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['mainMotorName'].invalid && (editScheduleGroup.controls['mainMotorName'].dirty || editScheduleGroup.controls['mainMotorName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['mainMotorName'].errors.required">
-                  Main Motor Name Required
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Traction Motors</mat-label>
-              <mat-select  multiple formControlName="trackMotorName">
-                <mat-option *ngFor="let tMotor of  tMotorsList" [value]=" tMotor">{{tMotor}}</mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['trackMotorName'].invalid && (editScheduleGroup.controls['trackMotorName'].dirty || editScheduleGroup.controls['trackMotorName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['trackMotorName'].errors.required">
-                  traction Motor parts Required
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Loco Body</mat-label>
-              <mat-select  multiple formControlName="locoBodyName">
-                <mat-option *ngFor="let bodyLoco of  bodyLocoList" [value]="bodyLoco">{{bodyLoco}}</mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['locoBodyName'].invalid && (editScheduleGroup.controls['locoBodyName'].dirty || editScheduleGroup.controls['locoBodyName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['locoBodyName'].errors.required">
-                  Body parts Required
-                </div>
-              </div>
-            </mat-form-field>
-            <br>
-            <h3 class="sub-headers">Other Mechanical Parts</h3>
-            <div class="input-Type">
-              <mat-form-field appearance="fill">
-                <mat-label class="Locomotive Number">Other Items</mat-label>
-                <input required  maxlength="20" minlength="1" matInput placeholder="Motor Item" #searchInput formControlName="mOther" >
-              </mat-form-field> &nbsp;&nbsp;
-              <div class="btn">
-                <button style="background-color: #59abe3" mat-raised-button color="primary" (click)="onClickMotor()">Add Item</button>&nbsp;
-                <button style="background-color: #59abe3" mat-raised-button color="accent" (click)="onClickremoveField('','main')">Remove All</button>
-              </div>
-            </div>
-            <div class="row" >
-              <div class="col-6 col-sm-3" *ngFor="let locoMotors of otherMechArray.controls; let i = index">
-                <div class="row" [formGroup]="locoMotors">
-                  <p style="padding-left: 15px;">
-                    <mat-form-field  appearance="outline" style="width: 180px; height: 5px; font-weight: bolder; color: black; font-size: 15px;">
-                      <input matInput placeholder="Fluids" formControlName="Name" readonly>
-                    </mat-form-field>
-                    <button style="color: red; padding-bottom: 10px;" mat-button  (click)="onClickremoveField(i, 'sub')"><span class="material-icons">delete</span></button>
-                  </p>
-                </div>
-              </div>
-              <!-- Force next columns to break to new line -->
-              <div class="w-100"></div>
-            </div>
-
-          </mat-card>
-        </mat-tab>
-        <mat-tab>
-          <mat-card>
-            <ng-template mat-tab-label>
-              <img src="https://img.icons8.com/color/48/000000/train-station.png" style="width: 40px; height: 40px; color: #1f3a93"/>
-              Third
-            </ng-template>
-            <h2 class="sub-headers">Electrical Schedule</h2>
-            <mat-form-field appearance="fill">
-              <mat-label>Electric And Control Unit</mat-label>
-              <mat-select  multiple formControlName="electricCUnitName">
-                <mat-option *ngFor="let electricController of   electricControlList" [value]="electricController">{{electricController}}</mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['electricCUnitName'].invalid && (editScheduleGroup.controls['electricCUnitName'].dirty || editScheduleGroup.controls['electricCUnitName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['electricCUnitName'].errors.required">
-                  Electric Control parts Required
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Electric Mechanical</mat-label>
-              <mat-select  multiple formControlName="eMechanicalName">
-                <mat-option *ngFor="let eMechanical of   eMechanicalMaList" [value]="eMechanical">{{eMechanical}}</mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['eMechanicalName'].invalid && (editScheduleGroup.controls['eMechanicalName'].dirty || editScheduleGroup.controls['eMechanicalName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['eMechanicalName'].errors.required">
-                  Electric Control parts Required
-                </div>
-              </div>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Electric Switches</mat-label>
-              <mat-select  multiple formControlName="eSwitchName">
-                <mat-option *ngFor="let eSwitch of eSwitchList" [value]="eSwitch">{{eSwitch}}</mat-option>
-              </mat-select>
-              <div *ngIf="editScheduleGroup.controls['eSwitchName'].invalid && (editScheduleGroup.controls['eSwitchName'].dirty || editScheduleGroup.controls['eSwitchName'].touched)"   class="error">
-                <div *ngIf="editScheduleGroup.controls['eSwitchName'].errors.required">
-                  Switch parts Required
-                </div>
-              </div>
-            </mat-form-field>
-            <br>
-            <h3 class="sub-headers">Other Electric Parts</h3>
-            <div class="input-Type">
-              <mat-form-field appearance="fill">
-                <mat-label class="Locomotive Number">Other Items</mat-label>
-                <input required  maxlength="20" minlength="1" matInput placeholder="Motor Item" #searchInput formControlName="eOther" >
-              </mat-form-field> &nbsp;&nbsp;
-              <div class="btn">
-                <button style="background-color: #59abe3" mat-raised-button color="primary" (click)="onClickElectric()">Add Item</button>&nbsp;
-                <button style="background-color: #59abe3" mat-raised-button color="accent" (click)="onClickremoveFieldElectic('','main')">Remove All</button>
-              </div>
-            </div>
-            <div class="row" >
-              <div class="col-6 col-sm-3" *ngFor="let locoElectic of otherElectricArray.controls; let i = index">
-                <div class="row" [formGroup]="locoElectic">
-                  <p style="padding-left: 15px;">
-                    <mat-form-field  appearance="outline" style="width: 180px; height: 5px; font-weight: bolder; color: black; font-size: 15px;">
-                      <input matInput placeholder="Fluids" formControlName="Name" readonly>
-                    </mat-form-field>
-                    <button style="color: red; padding-bottom: 10px;" mat-button  (click)="onClickremoveFieldElectic(i, 'sub')"><span class="material-icons">delete</span></button>
-                  </p>
-                </div>
-              </div>
-              <!-- Force next columns to break to new line -->
-              <div class="w-100"></div>
-            </div>
-            <hr>
-            <h3 class="sub-headers"matTooltip="Place remarks" [matTooltipPosition]="'left'">Special Remarks</h3>
-            <mat-form-field appearance="fill">
-              <mat-label>Add Note</mat-label>
-              <textarea formControlName="specialNote" required matInput></textarea>
-            </mat-form-field>
-            <br>
-            <button mat-raised-button color="primary" type="submit">Submit</button>
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
-    </form>
-  </div>
-
+                        <br />
+                        <h3 class="sub-header">Other Electric Parts</h3>
+                        <div class="row">
+                            <div class="col-sm pr-0">
+                                <mat-form-field appearance="fill" style="width: 300px">
+                                    <mat-label class="Locomotive Number">Other Electric Items</mat-label>
+                                    <input maxlength="20" minlength="1" matInput placeholder="E.g: Horn" #searchInput formControlName="eOther" />
+                                </mat-form-field>
+                                &nbsp;&nbsp;
+                                <button type="button" mat-stroked-button color="primary" (click)="onClickElectric()" matTooltip="Add Other Electric Items">
+                  Add Item</button
+                >&nbsp;
+                <button
+                  type="button"
+                  mat-raised-button
+                  (click)="onClickremoveFieldElectic('', 'main')"
+                  matTooltip="Remove All Other Electric Items"
+                >
+                  Remove All
+                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-sm-3" *ngFor="
+                  let locoElectic of otherElectricArray.controls;
+                  let i = index
+                ">
+                                <div class="row" [formGroup]="locoElectic">
+                                    <p style="padding-left: 15px">
+                                        <mat-form-field appearance="fill" style="
+                        width: 180px;
+                        text-align: center;
+                        letter-spacing: 15px;
+                        height: 5px;
+                        font-weight: bolder;
+                        color: darkblue;
+                        font-size: 13px;
+                        font-stretch: expanded;
+                      ">
+                                            <input matInput placeholder="Fluids" formControlName="Name" readonly />
+                                        </mat-form-field>
+                                        <button type="button" mat-button color="accent" (click)="onClickremoveFieldElectic(i, 'sub')">
+                      <span class="material-icons">delete</span>
+                    </button>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- Force next columns to break to new line -->
+                            <div class="w-100"></div>
+                        </div>
+                        <hr class="line" />
+                        <h3 class="sub-header" matTooltip="Place remarks" [matTooltipPosition]="'left'">
+                            Special Remarks
+                        </h3>
+                        <div class="row">
+                            <div class="col-6 .col-sm-3align-self-start">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Add Note</mat-label>
+                                    <textarea formControlName="specialNote" required matInput></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="box-head">
+                            <button mat-raised-button color="primary" type="submit">
+                Submit
+              </button>
+                            <!-- <mat-spinner [diameter]="25" *ngIf="this.spinner"></mat-spinner> -->
+                        </div>
+                    </mat-card>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
 </div>

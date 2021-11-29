@@ -149,6 +149,8 @@ export class RequestScheduleComponent implements OnInit {
     this.TaskIdGenerate();
   }
 
+  createForm() {}
+
   get getFm() {
     return this.ScheduleGroup.controls;
   }
@@ -176,8 +178,9 @@ export class RequestScheduleComponent implements OnInit {
   get otherElectricArray() {
     return this.getFm.otherElectric as FormArray;
   }
+
   onClickMotor() {
-    if (this.getFm.mOther.value !== null) {
+    if (this.getFm.mOther.value != '') {
       const _findDupli = this.getFm.otherMotors.value.find(
         (f) => f.Name == this.getFm.mOther.value
       );
@@ -190,7 +193,6 @@ export class RequestScheduleComponent implements OnInit {
       } else {
         swal({
           title: 'Value already Exits',
-          text: 'Please Click OK',
           icon: 'error',
         });
       }
@@ -201,6 +203,32 @@ export class RequestScheduleComponent implements OnInit {
       });
     }
   }
+
+  // onClickMotor() {
+  //   if (this.getFm.mOther.value != null) {
+  //     const _findDupli = this.getFm.otherMotors.value.find(
+  //       (f) => f.Name == this.getFm.mOther.value
+  //     );
+  //     if (!_findDupli) {
+  //       this.otherMechArray.push(
+  //         this.formBuilder.group({
+  //           Name: [this.getFm.mOther.value],
+  //         })
+  //       );
+  //     } else {
+  //       swal({
+  //         title: 'Value already Exits',
+  //         text: 'Please Click OK',
+  //         icon: 'error',
+  //       });
+  //     }
+  //   } else {
+  //     swal({
+  //       title: 'Values can not be empty',
+  //       icon: 'error',
+  //     });
+  //   }
+  // }
   onClickremoveField(index = null, value) {
     switch (value) {
       case 'main':
@@ -214,7 +242,7 @@ export class RequestScheduleComponent implements OnInit {
     }
   }
   onClickElectric() {
-    if (this.getFm.eOther.value !== null) {
+    if (this.getFm.eOther.value != '') {
       const _findDupli = this.getFm.otherElectric.value.find(
         (f) => f.Name == this.getFm.eOther.value
       );
@@ -299,7 +327,7 @@ export class RequestScheduleComponent implements OnInit {
               this.patchSch(this.ScheduleGroup.value);
               this.patchSchMileage(this.ScheduleGroup.value);
               swal({
-                title: 'Record Saved!',
+                title: 'New Schedule Added!',
                 text: 'Please Click OK',
                 icon: 'success',
               });

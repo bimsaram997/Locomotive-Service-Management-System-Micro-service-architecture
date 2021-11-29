@@ -345,3 +345,7 @@ body {
     color: #1f3a93;
     cursor: pointer;
 }
+
+.clear {
+    padding-top: 10px;
+}

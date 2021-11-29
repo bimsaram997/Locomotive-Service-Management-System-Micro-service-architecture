@@ -46,6 +46,7 @@ export class UserViewLocomotivesComponent implements OnInit {
   tableArray: any;
   userNic: any;
   userRole: any;
+  searchKey1: string;
 
   constructor(
     public dialog: MatDialog,
@@ -102,6 +103,14 @@ export class UserViewLocomotivesComponent implements OnInit {
   openDialog() {
     this.router.navigate(['./adminDashboard/viewLoco']);
   }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getAllLoco();
+  }
+
   viewLoco(locoNumber: string) {
     this.router.navigate(['/userDashboard/viewLoco', locoNumber]);
   }

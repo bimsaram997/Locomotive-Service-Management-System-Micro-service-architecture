@@ -327,3 +327,7 @@ body {
 .hr {
     opacity: 0.4;
 }
+
+.mat-row {
+    min-height: 35px;
+}

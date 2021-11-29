@@ -68,6 +68,7 @@ export class ViewMileageComponent implements OnInit {
     'status',
     '#',
   ];
+  searchKey1: string;
   constructor(
     private locomotiveService: LocomotiveService,
     private _location: Location,
@@ -98,6 +99,13 @@ export class ViewMileageComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this._location.back();
   }
 
   onChangeSelect(value) {

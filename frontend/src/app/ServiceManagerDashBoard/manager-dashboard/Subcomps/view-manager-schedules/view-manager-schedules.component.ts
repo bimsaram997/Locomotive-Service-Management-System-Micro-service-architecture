@@ -41,6 +41,7 @@ export class ViewManagerSchedulesComponent implements OnInit {
 
   pageYoffset = 0;
   tableArray: any[];
+  searchKey1: string;
 
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
@@ -112,6 +113,13 @@ export class ViewManagerSchedulesComponent implements OnInit {
     } else if (scheduleStatus === 8) {
       return 'assignment';
     }
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllSchedule();
   }
 
   onChangeSelect(value) {

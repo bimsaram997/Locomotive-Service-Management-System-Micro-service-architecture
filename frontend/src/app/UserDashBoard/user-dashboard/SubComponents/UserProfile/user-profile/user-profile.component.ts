@@ -83,6 +83,8 @@ export class UserProfileComponent implements OnInit {
   ];
   priority: string[] = ['All', 'High', 'Medium', 'Low'];
   tableArray: any[];
+  searchKey1: string;
+  searchKey: string;
 
   constructor(
     private accessService: AccessService,
@@ -194,6 +196,13 @@ export class UserProfileComponent implements OnInit {
       this.onWarning('No records found on filter!');
       this.dataSource = new MatTableDataSource<any>(this.loadArray);
     }
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getAllTasksAssigned();
   }
 
   filterByPriority(value) {

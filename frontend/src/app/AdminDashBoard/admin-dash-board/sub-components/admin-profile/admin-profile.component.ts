@@ -1,3 +1,4 @@
+import { fadeInAnimation } from 'src/app/_animations';
 import { UserTaskService } from './../../../../service/user-task.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,6 +13,10 @@ import { Location } from '@angular/common';
   selector: 'app-admin-profile',
   templateUrl: './admin-profile.component.html',
   styleUrls: ['./admin-profile.component.css'],
+  animations: [fadeInAnimation],
+
+  // attach the fade in animation to the host (root) element of this component
+  host: { '[@fadeInAnimation]': '' },
 })
 export class AdminProfileComponent implements OnInit {
   subject = '';

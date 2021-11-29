@@ -45,6 +45,7 @@ export class AdminViewUsersComponent implements OnInit {
     'Running Shed',
     'Chief Engineering Ratmalana',
   ];
+  searchKey1: string;
 
   constructor(
     private accessService: AccessService,
@@ -81,6 +82,13 @@ export class AdminViewUsersComponent implements OnInit {
 
   viewUser(id: string) {
     this.router.navigate(['/adminDashboard/adminViewMoreUser', id]);
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllUsers();
   }
 
   applyFilter(filterValue: string) {

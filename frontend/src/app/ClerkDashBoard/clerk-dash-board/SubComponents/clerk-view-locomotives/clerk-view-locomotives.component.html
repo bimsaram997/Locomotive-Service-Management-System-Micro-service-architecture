@@ -10,7 +10,7 @@
         </div>
     </div>
     <hr />
-    <br />
+
     <div class="row">
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px">
@@ -31,8 +31,13 @@
                 </mat-select>
             </mat-form-field>
         </div>
+        <div class="col-md-3 clear">
+            <button [(ngModel)]="searchKey1" (click)="clear()" mat-raised-button>
+        Clear
+      </button>
+        </div>
     </div>
-
+    <br />
     <div class="main-table">
         <div class="mat-elevation-z8">
             <mat-table [dataSource]="dataSource" matSort>
@@ -135,7 +140,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[6, 12, 18]" showFirstLastButtons></mat-paginator>
         </div>
         <br />
     </div>

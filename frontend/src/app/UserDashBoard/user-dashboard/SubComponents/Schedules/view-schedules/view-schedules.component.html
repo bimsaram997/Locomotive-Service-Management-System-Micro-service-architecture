@@ -9,8 +9,7 @@
       </button>
         </div>
     </div>
-    <br />
-    <mat-divider></mat-divider>
+    <hr />
     <div class="row">
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px">
@@ -24,12 +23,15 @@
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080">
                 <mat-label class="label">Progress</mat-label>
-                <mat-select (selectionChange)="onChangeSelect($event)">
+                <mat-select [(ngModel)]="searchKey1" (selectionChange)="onChangeSelect($event)">
                     <mat-option *ngFor="let option of statuses" [value]="option">
                         {{ option }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="col-md-3 clear">
+            <button (click)="clear()" mat-raised-button>Clear</button>
         </div>
     </div>
 

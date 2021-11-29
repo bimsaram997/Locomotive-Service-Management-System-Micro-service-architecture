@@ -1,3 +1,4 @@
+import { fadeInAnimation } from 'src/app/_animations';
 import { LoadTrialService } from 'src/app/service/load-trial.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
@@ -5,6 +6,10 @@ import { Location } from '@angular/common';
   selector: 'app-admin-analysis',
   templateUrl: './admin-analysis.component.html',
   styleUrls: ['./admin-analysis.component.css'],
+  animations: [fadeInAnimation],
+
+  // attach the fade in animation to the host (root) element of this component
+  host: { '[@fadeInAnimation]': '' },
 })
 export class AdminAnalysisComponent implements OnInit {
   public selectedIndex: number = 0;

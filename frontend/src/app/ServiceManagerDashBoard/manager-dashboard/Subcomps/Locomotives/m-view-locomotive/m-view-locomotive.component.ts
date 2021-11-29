@@ -42,6 +42,7 @@ export class MViewLocomotiveComponent implements OnInit {
   vBreaks: string[] = ['Working', 'Not Working'];
   dBreaks: string[] = ['Working', 'Not Working'];
   tableArray: LocoDTO[];
+  searchKey1: string;
 
   constructor(
     public dialog: MatDialog,
@@ -85,6 +86,13 @@ export class MViewLocomotiveComponent implements OnInit {
 
   backClicked() {
     this._location.back();
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAll();
   }
 
   openImage(tempLoco: LocoDTO) {

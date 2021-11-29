@@ -40,6 +40,7 @@ export class ClerkViewSchedulesComponent implements OnInit {
   isShowPrTable: boolean = true;
 
   tableArray: any[];
+  searchKey1: string;
   constructor(
     private scheduleService: ScheduleService,
     private _location: Location,
@@ -47,11 +48,12 @@ export class ClerkViewSchedulesComponent implements OnInit {
     public dialog: MatDialog,
     private toastr: ToastrService,
     public ProgressReportService: ProgressReportService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.loadAllSchedule();
   }
 
-  ngOnInit(): void {}
   private loadAllSchedule() {
     this.scheduleService.getAllSchedules().subscribe((resp) => {
       this.scheduleList = resp;
@@ -138,5 +140,12 @@ export class ClerkViewSchedulesComponent implements OnInit {
         this.dataArrayLength = this.dataArray.length;
       }
     });
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllSchedule();
   }
 }

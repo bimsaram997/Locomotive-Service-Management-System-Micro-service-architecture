@@ -39,6 +39,7 @@ export class ViewSchedulesComponent implements OnInit {
   scheduleStatus: any;
   statuses: any[] = ['All', 100, 90, 75, 60, 45, 30, 0];
   tableArray: any;
+  searchKey1: string;
   // @Input() public len
   constructor(
     private scheduleService: ScheduleService,
@@ -68,6 +69,13 @@ export class ViewSchedulesComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllSchedule();
   }
 
   backClicked() {

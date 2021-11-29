@@ -55,6 +55,7 @@ export class ViewAdLoadTrialComponent implements OnInit {
   reason: any;
   defChecked: boolean = false;
   shArray: any;
+  searchKey1: string;
 
   constructor(
     private loadService: LoadTrialService,
@@ -88,6 +89,13 @@ export class ViewAdLoadTrialComponent implements OnInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getLoadTrial();
   }
 
   navigateSchedule(mReportNumber) {

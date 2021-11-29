@@ -58,6 +58,8 @@ export class ClerkProfileComponent implements OnInit {
   priority: string[] = ['All', 'High', 'Medium', 'Low'];
   tableArray: any[];
   loadArray: any;
+  searchKey: string;
+  searchKey1: string;
 
   constructor(
     private accessService: AccessService,
@@ -70,6 +72,13 @@ export class ClerkProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserDetails();
+    this.getAllTasksAssigned();
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
     this.getAllTasksAssigned();
   }
 

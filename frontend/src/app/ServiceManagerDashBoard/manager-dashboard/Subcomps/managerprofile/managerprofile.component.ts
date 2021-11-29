@@ -63,6 +63,8 @@ export class ManagerprofileComponent implements OnInit {
   rejectMileage: number;
   loadArray: any;
   tableArray: any;
+  searchKey: string;
+  searchKey1: string;
   constructor(
     private accessService: AccessService,
     private _location: Location,
@@ -251,6 +253,13 @@ export class ManagerprofileComponent implements OnInit {
       this.onWarning('No records found on filter!');
       this.dataSource = new MatTableDataSource<any>(this.loadArray);
     }
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getAllTasksAssigned();
   }
 
   async printTestInfo() {

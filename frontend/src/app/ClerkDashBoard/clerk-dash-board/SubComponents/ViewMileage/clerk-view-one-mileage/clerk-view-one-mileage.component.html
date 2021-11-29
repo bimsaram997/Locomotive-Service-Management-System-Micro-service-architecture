@@ -4,6 +4,9 @@
         <img src="./assets/images/speedo1.png" alt="" style="height: 45px; width: 45px" />
         <span class="heading-txt"><span style="color: #1e8bc3">V</span>IEW MILEAGE REPORT</span>
         <div class="back">
+            <button mat-raised-button *ngIf="!lockEdit" (click)="canEdit()">
+        Edit
+      </button> &nbsp;
             <button mat-raised-button (click)="backClicked()">
         <i class="fas fa-arrow-left"></i>&nbsp; Back
       </button>
@@ -20,13 +23,13 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>ReportNumber</mat-label>
-                            <input class="label-txt" readonly matInput formControlName="mReportNumber" />
+                            <input class="label-txt" matInput formControlName="mReportNumber" />
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Category</mat-label>
-                            <input class="label-txt" readonly matInput formControlName="mLocoCatId" />
+                            <input class="label-txt" matInput formControlName="mLocoCatId" />
                         </mat-form-field>
                     </div>
                     <div class="col">
@@ -47,7 +50,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Report Date</mat-label>
-                            <input class="label-txt" readonly matInput [matDatepicker]="picker" formControlName="mileageDate" />
+                            <input class="label-txt" [ngStyle]="{ color: style1 ? '#000080' : 'red' }" [readonly]="isEdit" matInput [matDatepicker]="picker" formControlName="mileageDate" />
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -64,13 +67,13 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Status</mat-label>
-                            <input class="label-txt" readonly matInput formControlName="reason" />
+                            <input class="label-txt" [ngStyle]="{ color: style1 ? '#000080' : 'red' }" [readonly]="isEdit" matInput formControlName="reason" />
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Notes</mat-label>
-                            <textarea class="label-txt" readonly matInput formControlName="mileageNote"></textarea>
+                            <textarea class="label-txt" [ngStyle]="{ color: style1 ? '#000080' : 'red' }" [readonly]="isEdit" matInput formControlName="mileageNote"></textarea>
                         </mat-form-field>
                     </div>
                     <div class="col pr-0"></div>
@@ -82,8 +85,21 @@
                     </div>
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
-                            <mat-label>Manager Name</mat-label>
-                            <input class="label-txt" readonly matInput formControlName="managerName" />
+                            <mat-label>Service Manger Name</mat-label>
+                            <mat-select formControlName="managerName" (selectionChange)="onChangeSelectMan($event)">
+                                <mat-option [ngStyle]="{ color: style1 ? '#000080' : '' }" [readonly]="isEdit" *ngFor="let temIds of managerList" value="{{ temIds.userName }}">
+                                    {{ temIds.userName }}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="
+                  MileageGroup.controls['managerName'].invalid &&
+                  (MileageGroup.controls['managerName'].dirty ||
+                    MileageGroup.controls['managerName'].touched)
+                " class="error">
+                                <div *ngIf="MileageGroup.controls['managerName'].errors.required">
+                                    Manager Email is Required.
+                                </div>
+                            </div>
                         </mat-form-field>
                     </div>
                     <div class="col pr-0">
@@ -98,6 +114,11 @@
                             <input class="label-txt" readonly matInput formControlName="managerNic" />
                         </mat-form-field>
                     </div>
+                </div>
+                <div class="box-head">
+                    <button mat-raised-button (click)="updateUser()" color="primary" type="submit" [disabled]="isEdit">
+            Save
+          </button>
                 </div>
             </mat-card>
         </form>

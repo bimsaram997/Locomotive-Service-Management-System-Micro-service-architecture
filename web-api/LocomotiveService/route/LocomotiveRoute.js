@@ -21,7 +21,7 @@ router.get('/getAllLocoAssigned', LocomotiveController.getAllLocoAssigned);
 router.get('/getData', LocomotiveController.getData);
 router.put('/acceptLoadLoco', LocomotiveController.acceptLoadLoco);
 router.get('/getAllLocoAssignedHistory', LocomotiveController.getAllLocoAssignedHistory);
-
+router.get('/sendSMS', LocomotiveController.sendSMS);
 router.patch('/patchSch', LocomotiveController.patchSch);
 router.patch('/assignedToMileage', LocomotiveController.assignedToMileage);
 router.patch('/patchLoadLoco', LocomotiveController.patchLoadLoco);
@@ -35,6 +35,7 @@ router.post('/sendMileEmail', LocomotiveController.sendMileEmail);
 router.post('/sendLocoEmail', LocomotiveController.sendLocoEmail);
 router.post('/sendAcceptedEmail', LocomotiveController.sendAcceptedEmail);
 router.post('/sendRejectedEmail', LocomotiveController.sendRejectedEmail);
+router.put('/updateMileage', LocomotiveController.updateMileage);
 
 router.patch('/patch-mile/:id', LocomotiveController.patchMileController);
 router.patch('/reject-mile/:id/:reason', LocomotiveController.rejectMileController);

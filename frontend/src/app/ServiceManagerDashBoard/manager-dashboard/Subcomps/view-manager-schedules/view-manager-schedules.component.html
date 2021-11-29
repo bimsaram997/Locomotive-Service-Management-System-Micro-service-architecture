@@ -24,14 +24,18 @@
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080">
                 <mat-label class="label">Progress</mat-label>
-                <mat-select (selectionChange)="onChangeSelect($event)">
+                <mat-select [(ngModel)]="searchKey1" (selectionChange)="onChangeSelect($event)">
                     <mat-option *ngFor="let option of statuses" [value]="option">
                         {{ option }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
+        <div class="col-md-3 clear">
+            <button (click)="clear()" mat-raised-button>Clear</button>
+        </div>
     </div>
+    <br />
     <div class="main-table">
         <div class="mat-elevation-z8">
             <mat-table [dataSource]="dataSource" matSort>
@@ -143,11 +147,11 @@
               ></i></button
             >&nbsp;&nbsp;
             <!--<button mat-icon-button color="warn" (click)="deleteSchedule(tempSchedule.scheduleNo)"><mat-icon>delete_outline</mat-icon></button>-->
-                        <a routerLink="/managerDashBoard/editSchedule"><i
+                        <!-- <a routerLink="/managerDashBoard/editSchedule"><i
                 class="fas fa-pencil-alt"
                 style="color: #f62459; font-size: 18px"
               ></i
-            ></a>
+            ></a> -->
                         <button mat-icon-button (click)="viewProgressHist(tempSchedule._id)" matTooltip="Click here to View Progress History">
               <i
                 class="fas fa-file-medical-alt"
@@ -161,7 +165,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <mat-paginator [pageSizeOptions]="[8, 16, 24]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[7, 46, 21]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
     <br />

@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.clear {
+    padding-top: 20px;
+    margin-left: -80px;
+}
+
 .container {
     padding-top: 30px;
     padding-right: 50px;

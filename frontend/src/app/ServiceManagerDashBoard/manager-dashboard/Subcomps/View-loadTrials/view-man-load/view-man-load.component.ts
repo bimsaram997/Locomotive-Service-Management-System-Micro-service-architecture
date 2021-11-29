@@ -48,6 +48,7 @@ export class ViewManLoadComponent implements OnInit {
     'M11',
   ];
   tableArray: any;
+  searchKey1: string;
 
   constructor(
     private loadService: LoadTrialService,
@@ -84,6 +85,13 @@ export class ViewManLoadComponent implements OnInit {
 
   backClicked() {
     this._location.back();
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.getLoadTrialAssigned();
   }
 
   onChangeSelect(value) {

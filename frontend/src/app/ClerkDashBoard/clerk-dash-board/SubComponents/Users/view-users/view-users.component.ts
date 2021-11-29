@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./view-users.component.css'],
 })
 export class ViewUsersComponent implements OnInit {
+  searchKey1: string;
   constructor(
     private accessService: AccessService,
     private _location: Location,
@@ -53,6 +54,13 @@ export class ViewUsersComponent implements OnInit {
     'Chief Engineering Ratmalana',
   ];
   ngOnInit(): void {
+    this.loadAllUsers();
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
     this.loadAllUsers();
   }
 

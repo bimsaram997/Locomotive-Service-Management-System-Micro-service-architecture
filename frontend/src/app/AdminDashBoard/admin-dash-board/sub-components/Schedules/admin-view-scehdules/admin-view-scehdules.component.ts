@@ -43,6 +43,7 @@ export class AdminViewScehdulesComponent implements OnInit {
   statuses: any[] = ['All', 100, 90, 75, 60, 45, 30, 0];
   isShowPrTable: boolean = true;
   tableArray: any[];
+  searchKey1: string;
   constructor(
     private scheduleService: ScheduleService,
     private _location: Location,
@@ -86,6 +87,13 @@ export class AdminViewScehdulesComponent implements OnInit {
       this.onWarning('No records found on filter!');
       this.dataSource = new MatTableDataSource<LocoDTO>(this.scheduleList);
     }
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllSchedule();
   }
 
   onSearchClear() {

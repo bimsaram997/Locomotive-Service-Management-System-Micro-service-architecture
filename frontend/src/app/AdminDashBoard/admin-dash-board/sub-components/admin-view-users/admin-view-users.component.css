@@ -14,6 +14,11 @@
     align-items: center;
 }
 
+.clear {
+    padding-top: 20px;
+    margin-left: -80px;
+}
+
 .heading-txt {
     color: #013243;
     font-weight: bold;

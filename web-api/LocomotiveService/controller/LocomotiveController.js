@@ -6,6 +6,12 @@ const nodemailer = require('nodemailer');
 const config = require('../../Config/config.json');
 const LocomotiveDTO = require('../../ScheduleService/model/LocomotiveDTO');
 const HistoryLocoDTO = require('../model/HistoryLocoDTO');
+const accountSid = "AC7d01501d71aabd9d9b1e3858b332ec30"; // Your Account SID from www.twilio.com/console
+const authToken = "7b245cd86da9d5d2a2c44d47ce529179"; // Your Auth Token from www.twilio.com/console
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+//const client = require('twilio')(process.env.accountSid, process.env.authToken);
+const client = require('twilio')(accountSid, authToken);
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -15,7 +21,16 @@ const transporter = nodemailer.createTransport({
 })
 
 //Locomotive Methods
-
+const sendSMS = (req, resp) => {
+    const options = {
+        body: "Locomotive is Updated",
+        from: +12396884390, // From a valid Twilio number
+        to: +94768922413, // Text this number
+    }
+    client.messages
+        .create(options)
+        .then((message) => console.log(message.body));
+};
 const getLocoSch = async(req, resp, next) => {
     const _id = req.params.id;
     //  console.log(_id)
@@ -673,6 +688,7 @@ const getAcceptedMileage = async(req, resp) => {
     })
 }
 
+
 const patchSchMileage = async(req, res, next) => {
     const _obj = req.body; //*** */
     //console.log(_obj);
@@ -1118,6 +1134,23 @@ const getOneMileageById = async(req, res) => {
         res.status(500).json(er);
     });
 
+}
+
+const updateMileage = async(req, resp) => {
+    // console.log(req.body);
+    if (req.body) {
+        await MileageSchema.updateOne({ mReportNumber: req.body.mReportNumber }, { $set: req.body }, function(err, result) {
+
+            if (err) {
+                resp.status(500).json(err)
+                console.log(err)
+            } else {
+                resp.status(200).json(result)
+            }
+
+        })
+
+    }
 }
 
 const sendAcceptedEmail = async(req, res, next) => {
@@ -2354,6 +2387,8 @@ module.exports = {
     sendLocoEmail,
     sendAcceptedEmail,
     sendRejectedEmail,
+    sendSMS,
+    updateMileage,
 
     //loco Histry
     saveLocoHistory,

@@ -5,7 +5,7 @@ const accountSid = "AC3d297c7a3fe526424aa2fc97aaa56128"; // Your Account SID fro
 const authToken = "1bd347d057e0c748679dec2618f02ade"; // Your Auth Token from www.twilio.com/console
 // const accountSid = process.env.TWILIO_ACCOUNT_SID;
 // const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = require('twilio')(process.env.accountSid, process.env.authToken);
+//const client = require('twilio')(process.env.accountSid, process.env.authToken);
 const client = require('twilio')(accountSid, authToken);
 const basicAuth = require("express-basic-auth");
 const ProgressDTO = require("../model/ProgressDTO");
@@ -223,15 +223,7 @@ const getMySampleData = (req, resp) => {
             resp.status(500).json(error);
         });
 };
-const sendSMS = (req, resp) => {
-    client.messages
-        .create({
-            body: "Schedule is Accepted",
-            to: "+94768922413", // Text this number
-            from: "+13343779253", // From a valid Twilio number
-        })
-        .then((message) => console.log(message.sid));
-};
+
 const saveSchedule = async(req, res, next) => {
     ScheduleSchema.findOne({ scheduleNo: req.body.scheduleNo })
         .then((result) => {
@@ -522,6 +514,16 @@ padding:10px 40px 10px 40px!important;
     } else {
         res.status(500).json(err);
     }
+};
+const sendSMS = (req, resp) => {
+    const options = {
+        body: "Schedule is Accepted",
+        from: +13254238406, // From a valid Twilio number
+        to: +94768922413, // Text this number
+    }
+    client.messages
+        .create(options)
+        .then((message) => console.log(message.body));
 };
 
 const patchMileage = async(req, res, next) => {

@@ -106,7 +106,7 @@
                         <div class="col-md-3 select">
                             <mat-form-field appearance="fill">
                                 <mat-label>Filter by Type</mat-label>
-                                <mat-select (selectionChange)="filterByType($event)">
+                                <mat-select [(ngModel)]="searchKey" (selectionChange)="filterByType($event)">
                                     <mat-option *ngFor="let option of type" [value]="option">
                                         {{ option }}</mat-option>
                                 </mat-select>
@@ -115,11 +115,14 @@
                         <div class="col-md-3 select">
                             <mat-form-field appearance="fill">
                                 <mat-label>Filter By Priority</mat-label>
-                                <mat-select (selectionChange)="filterByPriority($event)">
+                                <mat-select [(ngModel)]="searchKey1" (selectionChange)="filterByPriority($event)">
                                     <mat-option *ngFor="let option of priority" [value]="option">
                                         {{ option }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
+                        </div>
+                        <div class="col-md-3 clear">
+                            <button (click)="clear()" mat-raised-button>Clear</button>
                         </div>
                     </div>
                     <div class="row">

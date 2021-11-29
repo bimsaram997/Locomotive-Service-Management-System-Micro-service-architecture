@@ -75,6 +75,10 @@ export class LocomotiveService {
       params: object,
     });
   }
+
+  public updateMileage(data): Observable<any> {
+    return this.http.put(this.myUrl + `locoRoute/updateMileage`, data);
+  }
   public getAcceptedMileage(): Observable<any> {
     return this.http.get(this.myUrl + 'locoRoute/getAcceptedMileage');
   }

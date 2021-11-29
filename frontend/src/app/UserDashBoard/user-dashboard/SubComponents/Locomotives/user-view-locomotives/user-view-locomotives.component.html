@@ -9,9 +9,7 @@
       </button>
         </div>
     </div>
-    <br />
-    <mat-divider></mat-divider>
-
+    <hr />
     <div class="row">
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 25px">
@@ -26,14 +24,16 @@
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080">
                 <mat-label class="label">Availability</mat-label>
-                <mat-select (selectionChange)="onChangeSelect($event)">
+                <mat-select [(ngModel)]="searchKey1" (selectionChange)="onChangeSelect($event)">
                     <mat-option *ngFor="let option of statuses" [value]="option">
                         {{ option }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-3 clear">
+            <button (click)="clear()" mat-raised-button>Clear</button>
+        </div>
     </div>
     <br />
     <div class="main-table">
@@ -166,7 +166,7 @@
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[6, 12, 18]"></mat-paginator>
         </div>
     </div>
 </div>

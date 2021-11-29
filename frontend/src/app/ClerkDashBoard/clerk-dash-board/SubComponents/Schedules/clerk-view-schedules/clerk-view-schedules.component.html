@@ -9,8 +9,8 @@
       </button>
         </div>
     </div>
+    <hr />
     <br />
-    <mat-divider></mat-divider>
     <div class="row">
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: 15px">
@@ -30,6 +30,9 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="col-md-3 clear">
+            <button (click)="clear()" mat-raised-button>Clear</button>
         </div>
     </div>
 

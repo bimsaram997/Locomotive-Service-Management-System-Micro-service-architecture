@@ -54,6 +54,7 @@ export class ViewMileagesComponent implements OnInit {
     '#',
   ];
   tableArray: any[];
+  searchKey1: string;
   constructor(
     private locomotiveService: LocomotiveService,
     private _location: Location,
@@ -127,5 +128,12 @@ export class ViewMileagesComponent implements OnInit {
 
   onWarning(message: string) {
     this.toastr.warning(message, 'Warning');
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllReport();
   }
 }

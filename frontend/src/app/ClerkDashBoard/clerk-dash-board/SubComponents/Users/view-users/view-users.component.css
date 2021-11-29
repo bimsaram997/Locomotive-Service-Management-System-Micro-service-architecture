@@ -23,6 +23,15 @@
     ;
 }
 
+.mat-row {
+    min-height: 35px;
+}
+
+.clear {
+    padding-top: 20px;
+    margin-left: -80px;
+}
+
 .mat-column-UserEmail {
     word-wrap: break-word !important;
     white-space: unset !important;

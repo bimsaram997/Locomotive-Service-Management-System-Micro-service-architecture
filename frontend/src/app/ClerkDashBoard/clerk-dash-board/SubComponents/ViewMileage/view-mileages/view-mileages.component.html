@@ -24,12 +24,15 @@
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080">
                 <mat-label>Loco Category</mat-label>
-                <mat-select (selectionChange)="onChangeSelect($event)">
+                <mat-select [(ngModel)]="searchKey1" (selectionChange)="onChangeSelect($event)">
                     <mat-option *ngFor="let option of options" [value]="option">
                         {{ option }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="col-md-3 clear">
+            <button (click)="clear()" mat-raised-button>Clear</button>
         </div>
     </div>
     <br />
@@ -128,7 +131,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <mat-paginator [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
 </div>

@@ -29,6 +29,7 @@ import { Location } from '@angular/common';
 export class ViewLocomotivesComponent implements OnInit {
   progresValue: number;
   rangeArray: number[];
+  searchKey1: string;
 
   constructor(
     private dialog: MatDialog,
@@ -161,6 +162,15 @@ export class ViewLocomotivesComponent implements OnInit {
       this.onWarning('No records found on filter!');
       this.dataSource = new MatTableDataSource<LocoDTO>(this.locoArray);
     }
+  }
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllIds();
+    this.getAllLoco();
+    this.getLocoReport();
   }
 
   editLoco(locoNumber: string) {
