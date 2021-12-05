@@ -15,6 +15,16 @@
     width: auto;
 }
 
+.label-txt {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.text-red .mat-cell {
+    color: red;
+}
+
 .clear {
     padding-top: 20px;
     margin-left: -80px;
@@ -263,10 +273,11 @@ body {
     color: #34495e;
 }
 
-.label-txt {
+.link {
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    color: #1f3a93;
+    cursor: pointer;
 }
 
 .label {

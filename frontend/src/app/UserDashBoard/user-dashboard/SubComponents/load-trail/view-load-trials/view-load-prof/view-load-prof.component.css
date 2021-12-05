@@ -11,6 +11,10 @@ body {
     height: auto;
 }
 
+.text-red .mat-cell {
+    color: red;
+}
+
 .main-body {
     padding: 15px;
     height: auto;

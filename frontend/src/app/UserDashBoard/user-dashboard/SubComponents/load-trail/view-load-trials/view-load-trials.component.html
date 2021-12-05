@@ -90,7 +90,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                         Schedule No
                     </mat-header-cell>
-                    <mat-cell class="label-txt" *matCellDef="let tempLoad" data-label="Schedule No">
+                    <mat-cell class="label-txt link" (click)="navigateSchedule(tempLoad?.scheduleNo)" *matCellDef="let tempLoad" data-label="Schedule No">
                         {{ tempLoad?.scheduleNo }}</mat-cell>
                 </ng-container>
 
@@ -137,7 +137,7 @@
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" [class.text-red]="isUrgent(row)"></mat-row>
             </mat-table>
 
             <mat-paginator [pageSizeOptions]="[7, 14, 21]" showFirstLastButtons></mat-paginator>

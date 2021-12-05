@@ -130,6 +130,7 @@ export class AddLoadTrialComponent implements OnInit {
           if (res.isSaved) {
             this.loadTrialId = this.LoadTrial.controls['loadNo'].value;
             this.patchFinalMile(this.LoadTrial.value);
+            this.assignedLoadTrialLoco(this.LoadTrial.value);
             this.assignedLoadTrial(this.LoadTrial.value);
             this.loadTrialEmail(this.LoadTrial.value);
             this.addTask();
@@ -341,6 +342,12 @@ export class AddLoadTrialComponent implements OnInit {
       .subscribe((res) => {
         console.log(res);
       });
+  }
+
+  assignedLoadTrialLoco(object) {
+    this.locomotiveService.assignedLoadTrialLoco(object).subscribe((res) => {
+      console.log('sdsdd');
+    });
   }
 
   showIds() {

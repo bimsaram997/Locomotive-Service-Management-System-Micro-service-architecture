@@ -8,6 +8,17 @@
     align-items: center;
 }
 
+.text-red .mat-cell {
+    color: red;
+}
+
+.link {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #1f3a93;
+    cursor: pointer;
+}
+
 .container {
     padding-top: 30px;
     padding-right: 50px;

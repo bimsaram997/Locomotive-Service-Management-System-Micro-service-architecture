@@ -153,7 +153,7 @@
                     </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" [class.text-red]="isUrgent(row)"></mat-row>
             </mat-table>
 
             <mat-paginator [pageSizeOptions]="[7, 10, 15]" showFirstLastButtons></mat-paginator>

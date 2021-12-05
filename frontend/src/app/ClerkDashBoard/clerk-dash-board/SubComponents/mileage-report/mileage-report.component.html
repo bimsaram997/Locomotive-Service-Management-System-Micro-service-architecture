@@ -20,7 +20,7 @@
                     <div class="col pr-0">
                         <mat-form-field appearance="fill">
                             <mat-label class="Report Number">Report Number</mat-label>
-                            <input disabled class="label-txt" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber" />
+                            <input readonly class="label-txt" matInput placeholder="E.g: R-001" #searchInput formControlName="mReportNumber" />
                             <div *ngIf="
                   MileageGroup.controls['mReportNumber'].invalid &&
                   (MileageGroup.controls['mReportNumber'].dirty ||
@@ -55,10 +55,17 @@
                       <span style="font-weight: lighter; color: blue">{{
                         temIds.locoCatId + " " + temIds.locoNumber + " "
                       }}</span>
-                                    <span style="font-size: 10px; color: green">{{
-                        temIds.date | date
-                      }}</span></span>
-                                    </span>
+                                    <span [ngStyle]="{
+                          color: temIds.date === current ? 'green' : 'red'
+                        }">{{ temIds.date | date }}</span
+                      ></span
+                    >
+                    <span
+                      style="font-size: 12px; color: rgb(17, 133, 179)"
+                      *ngIf="temIds.date === current"
+                      >Ready for Mileage Report</span
+                    >
+                  </span>
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -86,7 +93,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Category</mat-label>
-                            <input class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" [matAutocomplete]="auto2" [readonly]="isEmergency" />
+                            <input readonly class="label-txt" type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" formControlName="mLocoCatId" />
                             <div *ngIf="
                   MileageGroup.controls['mLocoCatId'].invalid &&
                   (MileageGroup.controls['mLocoCatId'].dirty ||
@@ -96,17 +103,12 @@
                                     Required.
                                 </div>
                             </div>
-                            <mat-autocomplete #auto2="matAutocomplete">
-                                <mat-option *ngFor="let option of options" [value]="option">
-                                    {{ option }}
-                                </mat-option>
-                            </mat-autocomplete>
                         </mat-form-field>
                     </div>
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Locomotive Mileage (Km)</mat-label>
-                            <input class="label-txt" minlength="4" required matInput placeholder="E.g: 14000Km" #searchInput formControlName="mLocoMileage" readonly />
+                            <input class="label-txt" minlength="4" required matInput placeholder="E.g: 14000Km" #searchInput formControlName="mLocoMileage" />
                             <div *ngIf="
                   MileageGroup.controls['mLocoMileage'].invalid &&
                   (MileageGroup.controls['mLocoMileage'].dirty ||
@@ -128,7 +130,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill">
                             <mat-label>Mileage After last Load Trial (Km)</mat-label>
-                            <input class="label-txt" class="label-txt" matInput formControlName="finalMileage" />
+                            <input readonly class="label-txt" class="label-txt" matInput formControlName="finalMileage" />
                         </mat-form-field>
                     </div>
 

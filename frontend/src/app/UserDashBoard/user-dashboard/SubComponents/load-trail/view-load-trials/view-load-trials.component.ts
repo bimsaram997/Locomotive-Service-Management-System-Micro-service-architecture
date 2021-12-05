@@ -125,6 +125,10 @@ export class ViewLoadTrialsComponent implements OnInit {
     this.router.navigate(['/userDashboard/viewLoadProf', id]);
   }
 
+  navigateSchedule(scheduleNo) {
+    this.router.navigate(['/userDashboard/viewSchedule', scheduleNo]);
+  }
+
   addFeedBack(_id: string) {
     console.log(_id);
     const dialogRef = this.dialog.open(AddFeedBacksComponent, {
@@ -134,6 +138,18 @@ export class ViewLoadTrialsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.getLoadTrialAssigned();
     });
+  }
+
+  isUrgent(loadTrial: any): boolean {
+    let isUrgent: boolean = false;
+    const reqDate = new Date(loadTrial.loadDate);
+    reqDate.setHours(0, 0, 0, 0);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (currentDate <= reqDate && loadTrial.status != 2) {
+      isUrgent = true;
+    }
+    return isUrgent;
   }
 
   onWarning(message: string) {

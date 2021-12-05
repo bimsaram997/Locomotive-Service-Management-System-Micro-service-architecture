@@ -172,8 +172,16 @@ export class LocomotiveService {
   public patchLoadLoco(object): Observable<any> {
     return this.http.patch(this.myUrl + `locoRoute/patchLoadLoco/`, object);
   }
+
   public patchSchMileage(object): Observable<any> {
     return this.http.put(this.myUrl + `locoRoute/patchSchMileage/`, object);
+  }
+
+  public assignedLoadTrialLoco(object): Observable<any> {
+    return this.http.put(
+      this.myUrl + `locoRoute/assignedLoadTrialLoco/`,
+      object
+    );
   }
 
   public getOneMileageById(mReportNumber): Observable<any> {

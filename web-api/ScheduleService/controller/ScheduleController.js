@@ -1251,7 +1251,7 @@ const getNxtScheduleByLocoNoAndStatus = async(req, resp, next) => {
 const updateDraftNextSchedules = async(req, resp, next) => {
     //get completed schedul
     console.log(req.params.nxtSchStatus)
-    await NextScheduleDTO.find({ $and: [{ locoNumber: req.params.locoNumber }] }).updateMany({}, { $set: { nxtSchStatus: 2, nxtSchReason: 'Next Schedule is lapsed' } })
+    await NextScheduleDTO.find({ $and: [{ locoNumber: req.params.locoNumber }, { nxtSchStatus: req.params.nxtSchStatus }] }).updateMany({}, { $set: { nxtSchStatus: 2, nxtSchReason: 'Next Schedule is lapsed' } })
         .then((result) => {
             resp.status(200).json(result);
             console.log(result)

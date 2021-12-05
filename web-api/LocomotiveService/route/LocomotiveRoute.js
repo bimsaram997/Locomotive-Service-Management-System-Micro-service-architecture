@@ -25,6 +25,7 @@ router.get('/sendSMS', LocomotiveController.sendSMS);
 router.patch('/patchSch', LocomotiveController.patchSch);
 router.patch('/assignedToMileage', LocomotiveController.assignedToMileage);
 router.patch('/patchLoadLoco', LocomotiveController.patchLoadLoco);
+router.put('/assignedLoadTrialLoco', LocomotiveController.assignedLoadTrialLoco);
 
 router.post('/saveMileage', LocomotiveController.saveMileage);
 router.get('/getAllMileage', LocomotiveController.getAllMileage);

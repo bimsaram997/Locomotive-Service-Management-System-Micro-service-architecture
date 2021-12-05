@@ -108,12 +108,26 @@ export class AdminViewScehdulesComponent implements OnInit {
       this.dataSource.filter = filterValue;
     }
   }
-
+  isUrgent(schedule: any): boolean {
+    let isUrgent: boolean = false;
+    const reqDate = new Date(schedule.completedDate);
+    reqDate.setHours(0, 0, 0, 0);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (
+      currentDate <= reqDate &&
+      schedule.scheduleStatus != 7 &&
+      schedule.scheduleStatus != 6
+    ) {
+      isUrgent = true;
+    }
+    return isUrgent;
+  }
   statusBinder(scheduleStatus) {
     if (scheduleStatus === 0) {
       return 'not_started';
     } else if (scheduleStatus === 1) {
-      return 'Flags';
+      return 'start';
     } else if (scheduleStatus === 2) {
       return 'pending_actions';
     } else if (scheduleStatus === 3) {
@@ -126,8 +140,11 @@ export class AdminViewScehdulesComponent implements OnInit {
       return 'check_circle_outline';
     } else if (scheduleStatus === 7) {
       return 'sports_score';
+    } else if (scheduleStatus === 8) {
+      return 'assignment';
     }
   }
+
   viewSchedule(id: string) {
     console.log(id);
     this.router.navigate(['/adminDashboard/viewSchedule', id]);

@@ -83,6 +83,22 @@ export class ViewManLoadComponent implements OnInit {
     });
   }
 
+  navigateSchedule(scheduleNo) {
+    this.router.navigate(['/managerDashBoard/viewSchedule', scheduleNo]);
+  }
+
+  isUrgent(loadTrial: any): boolean {
+    let isUrgent: boolean = false;
+    const reqDate = new Date(loadTrial.loadDate);
+    reqDate.setHours(0, 0, 0, 0);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (currentDate <= reqDate && loadTrial.status != 2) {
+      isUrgent = true;
+    }
+    return isUrgent;
+  }
+
   backClicked() {
     this._location.back();
   }

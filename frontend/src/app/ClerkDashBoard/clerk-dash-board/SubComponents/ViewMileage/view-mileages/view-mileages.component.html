@@ -63,6 +63,14 @@
                         {{ tempLoco.mLocoNumber }}
                     </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="Responsible">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Responsible
+                    </mat-header-cell>
+                    <mat-cell class="label-txt" *matCellDef="let tempLoco" data-label="Responsible">
+                        {{ tempLoco.managerName }}
+                    </mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="Mileage">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -131,7 +139,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[7, 14, 21]" showFirstLastButtons></mat-paginator>
         </div>
     </div>
 </div>

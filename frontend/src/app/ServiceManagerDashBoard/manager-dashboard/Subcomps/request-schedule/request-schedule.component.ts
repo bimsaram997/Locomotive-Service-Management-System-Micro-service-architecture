@@ -133,7 +133,7 @@ export class RequestScheduleComponent implements OnInit {
       eSwitchName: [''],
       otherElectric: new FormArray([]),
       eOther: [''],
-      specialNote: [''],
+      specialNote: ['', [Validators.required]],
       scheduleStatus: [0],
       schReason: ['Draft'],
       scheduleProgress: [0],
@@ -295,6 +295,7 @@ export class RequestScheduleComponent implements OnInit {
       supervisorNic: this.ScheduleGroup.controls.supervisorNic.value,
       supervisorEmail: this.ScheduleGroup.controls.supervisorEmail.value,
       supervisorName: this.ScheduleGroup.controls.supervisorName.value,
+      specialNote: this.ScheduleGroup.controls.specialNote.value,
     };
 
     if (
@@ -310,7 +311,9 @@ export class RequestScheduleComponent implements OnInit {
       obj.managerName != '' &&
       obj.supervisorNic != '' &&
       obj.supervisorEmail != '' &&
-      obj.supervisorName != ''
+      obj.supervisorName != '' &&
+      obj.specialNote != null &&
+      obj.specialNote != ''
     ) {
       this.scheduleEmail(this.ScheduleGroup.value);
       // if(this.filesToUpload.)

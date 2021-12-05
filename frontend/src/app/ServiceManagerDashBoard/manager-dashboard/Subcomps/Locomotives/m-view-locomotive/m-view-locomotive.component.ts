@@ -136,8 +136,11 @@ export class MViewLocomotiveComponent implements OnInit {
       return 'directions_run';
     } else if (locoStatus === 4) {
       return 'speed';
+    } else if (locoStatus === 5) {
+      return 'railway_alert';
     }
   }
+
   onWarning(message: string) {
     this.toastr.warning(message, 'Warning');
   }

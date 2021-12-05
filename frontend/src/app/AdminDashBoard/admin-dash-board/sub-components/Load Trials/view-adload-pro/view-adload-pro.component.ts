@@ -280,6 +280,13 @@ export class ViewAdloadProComponent implements OnInit {
     });
   }
 
+  isUrgent(comment: any): boolean {
+    let isUrgent: boolean = false;
+    if (comment.status === 3) {
+      isUrgent = true;
+    }
+    return isUrgent;
+  }
   setValuesForNextSchedule() {
     this.send_date = new Date();
     this.send_date.setMonth(this.send_date.getMonth() + 1);

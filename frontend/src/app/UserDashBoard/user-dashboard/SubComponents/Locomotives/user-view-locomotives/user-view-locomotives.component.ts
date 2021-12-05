@@ -139,7 +139,6 @@ export class UserViewLocomotivesComponent implements OnInit {
       this.getAllLoco();
     });
   }
-
   statusBinder(locoStatus) {
     if (locoStatus === 0) {
       return 'train';
@@ -151,6 +150,8 @@ export class UserViewLocomotivesComponent implements OnInit {
       return 'directions_run';
     } else if (locoStatus === 4) {
       return 'speed';
+    } else if (locoStatus === 5) {
+      return 'railway_alert';
     }
   }
 

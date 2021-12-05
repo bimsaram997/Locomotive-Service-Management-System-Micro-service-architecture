@@ -46,6 +46,7 @@ export class ViewMileagesComponent implements OnInit {
   displayedColumns: string[] = [
     'Report Number',
     'Loco Category',
+    'Responsible',
     'Loco Number',
     'Mileage',
     'Date',

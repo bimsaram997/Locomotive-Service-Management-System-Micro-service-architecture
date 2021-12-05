@@ -1,5 +1,9 @@
 <div class="container">
-    <h2 mat-dialog-title>Add Comment/Accept Load Trial</h2>
+    <h2 mat-dialog-title>
+        <span *ngIf="!hideDo && !doMore"> Add Comment/Accept Load Trial</span>
+        <span *ngIf="hideDo">Accept Load Trial</span>
+        <span *ngIf="doMore">Add Comment</span>
+    </h2>
     <form (ngSubmit)="makeComment()" [formGroup]="commentAdd">
         <mat-dialog-content class="mat-typography">
             <span class="notes">*Notes</span><br />

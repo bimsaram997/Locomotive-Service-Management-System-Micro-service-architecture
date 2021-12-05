@@ -117,10 +117,12 @@
                   : tempLoco.locoStatus == 2
                   ? 'green'
                   : tempLoco.locoStatus == 3
-                  ? '#9a12b3'
-                  : '#aea8d3'
+                  ? '#f62459'
+                  : tempLoco.locoStatus == 4
+                  ? '#963694'
+                  : 'red'
             }">
-                        <span class="material-icons" matTooltip="{{ tempLoco.statusReason }}">
+                        <span class="material-icons" style="font-weight: bold" matTooltip="{{ tempLoco.statusReason }}">
               {{ statusBinder(tempLoco.locoStatus) }}
             </span>
                     </mat-cell>

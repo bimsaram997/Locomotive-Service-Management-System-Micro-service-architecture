@@ -43,6 +43,8 @@ export class AddCommentLoadComponent implements OnInit {
   hideDo: boolean = false;
   taskId: string;
   commentId: any;
+  heading: string;
+  doMore: boolean = false;
   constructor(
     private router: Router,
     private scheduleService: ScheduleService,
@@ -159,6 +161,7 @@ export class AddCommentLoadComponent implements OnInit {
                       console.log(res);
                       if (res.isSaved) {
                         this.nextScheduleEmail(this.nextSchedule.value);
+                        this.patchLoadLoco(this.commentAdd.value);
                         swal({
                           title: 'Next Schedule is generated!',
                           icon: 'success',
@@ -273,9 +276,12 @@ export class AddCommentLoadComponent implements OnInit {
   }
   hideDoActions(value: boolean) {
     this.hideDo = true;
+    this.doMore = false;
+    this.heading = 'Accept Load Trial';
   }
   showDoActions(value: boolean) {
     this.hideDo = false;
+    this.doMore = true;
   }
   makeComment() {
     console.log(this.commentAdd.value);
@@ -300,20 +306,18 @@ export class AddCommentLoadComponent implements OnInit {
               this.commentEmail(this.commentAdd.value);
               swal({
                 title: 'Next Schedule is generated!',
-                text: 'Please Click OK',
                 icon: 'success',
               });
             } else {
               swal({
                 title: 'Comment Added!',
-                text: 'Please Click OK',
                 icon: 'success',
               });
             }
             this.commentId = this.commentAdd.controls['commentId'].value;
             this.addTask();
             this.updateLoadStatus(this.commentAdd.value);
-            this.patchLoadLoco(this.commentAdd.value);
+
             this.changeScheduleSeven(this.commentAdd.value);
             this.commentEmail(this.commentAdd.value);
             setTimeout(() => {

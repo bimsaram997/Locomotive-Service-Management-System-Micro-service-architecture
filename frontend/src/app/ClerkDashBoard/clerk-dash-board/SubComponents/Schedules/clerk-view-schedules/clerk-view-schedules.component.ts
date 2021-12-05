@@ -69,6 +69,22 @@ export class ClerkViewSchedulesComponent implements OnInit {
     this.router.navigate(['/clerkDashBoard/viewOneMileage', mReportNumber]);
   }
 
+  isUrgent(schedule: any): boolean {
+    let isUrgent: boolean = false;
+    const reqDate = new Date(schedule.completedDate);
+    reqDate.setHours(0, 0, 0, 0);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (
+      currentDate <= reqDate &&
+      schedule.scheduleStatus != 7 &&
+      schedule.scheduleStatus != 6
+    ) {
+      isUrgent = true;
+    }
+    return isUrgent;
+  }
+
   backClicked() {
     this._location.back();
   }

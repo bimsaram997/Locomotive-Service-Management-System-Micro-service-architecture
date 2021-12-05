@@ -25,12 +25,15 @@
         <div class="col-md-3">
             <mat-form-field class="search-form-field" appearance="fill" style="width: 300px; margin-left: -30px; color: #000080">
                 <mat-label>Locomotive Category</mat-label>
-                <mat-select (selectionChange)="onChangeSelect($event)">
+                <mat-select [(ngModel)]="searchKey1" (selectionChange)="onChangeSelect($event)">
                     <mat-option *ngFor="let option of statuses" [value]="option">
                         {{ option }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <div class="col-md-3 clear">
+            <button (click)="clear()" mat-raised-button>Clear</button>
         </div>
     </div>
 
@@ -61,7 +64,14 @@
                         {{ tempLoco.mLocoNumber }}
                     </mat-cell>
                 </ng-container>
-
+                <ng-container matColumnDef="Responsible">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Loco Number
+                    </mat-header-cell>
+                    <mat-cell class="label-txt" *matCellDef="let tempLoco" data-label="Loco Number">
+                        {{ tempLoco.managerName }}
+                    </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="Mileage">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                         Mileage

@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.clear {
+    padding-top: 20px;
+    margin-left: -80px;
+}
+
 .container {
     padding-top: 30px;
     padding-right: 50px;
@@ -425,4 +430,17 @@ mat-radio-group mat-radio-button {
     color: black;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+}
+
+.mat-column-mileageNote {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 18% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }

@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ScheduleService } from '../../../../../../service/schedule.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -54,8 +54,11 @@ export class SendProgressComponent implements OnInit {
     private scheduleService: ScheduleService,
     private router: Router,
     private progressReport: ProgressReportService,
-    private userTaskService: UserTaskService
-  ) {}
+    private userTaskService: UserTaskService,
+    private dialogRef: MatDialogRef<SendProgressComponent>
+  ) {
+    dialogRef.disableClose = true;
+  }
   ngOnInit(): void {
     this.check();
 
@@ -219,10 +222,6 @@ export class SendProgressComponent implements OnInit {
                   icon: 'success',
                 });
                 this.generatePDF();
-                setTimeout(() => {
-                  //this.refresh();
-                  this.generatePDF();
-                }, 3000);
               } else {
                 swal({
                   title: 'Record already Exits',

@@ -59,6 +59,7 @@ export class ManagerMileagesComponent implements OnInit {
   displayedColumns: string[] = [
     'Report Number',
     'Loco Category',
+    'Responsible',
     'Loco Number',
     'Mileage',
     'Date',
@@ -66,6 +67,7 @@ export class ManagerMileagesComponent implements OnInit {
     'status',
     '#',
   ];
+  searchKey1: string;
   constructor(
     private locomotiveService: LocomotiveService,
     private _location: Location,
@@ -81,7 +83,15 @@ export class ManagerMileagesComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-  private loadAllReport() {
+
+  clear() {
+    // this.form.reset();
+    this.searchKey = '';
+    this.searchKey1 = '';
+    this.loadAllReport();
+  }
+
+  public loadAllReport() {
     const values = JSON.parse(localStorage.getItem('currentUser'));
     const object = {
       userNic: values.userNic,

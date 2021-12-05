@@ -16,6 +16,10 @@
     cursor: pointer;
 }
 
+.text-red .mat-cell {
+    color: red;
+}
+
 .clear {
     padding-top: 20px;
     margin-left: -80px;

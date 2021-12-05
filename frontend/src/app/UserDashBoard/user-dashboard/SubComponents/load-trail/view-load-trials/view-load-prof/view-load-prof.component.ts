@@ -134,6 +134,14 @@ export class ViewLoadProfComponent implements OnInit {
     this.scroll.scrollToPosition([0, 0]);
   }
 
+  isUrgent(comment: any): boolean {
+    let isUrgent: boolean = false;
+    if (comment.status === 3) {
+      isUrgent = true;
+    }
+    return isUrgent;
+  }
+
   loadComments() {
     //this.id = (this.route.snapshot.paramMap.get('id'));
     this.loadService.getRelevantComments(this.loadNo).subscribe((res) => {

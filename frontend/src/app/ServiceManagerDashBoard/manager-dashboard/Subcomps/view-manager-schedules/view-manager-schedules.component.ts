@@ -137,7 +137,25 @@ export class ViewManagerSchedulesComponent implements OnInit {
       this.dataSource = new MatTableDataSource<any>(this.scheduleList);
     }
   }
+  navigateReport(mReportNumber) {
+    this.router.navigate(['/managerDashBoard/viewOneMileage', mReportNumber]);
+  }
 
+  isUrgent(schedule: any): boolean {
+    let isUrgent: boolean = false;
+    const reqDate = new Date(schedule.completedDate);
+    reqDate.setHours(0, 0, 0, 0);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (
+      currentDate <= reqDate &&
+      schedule.scheduleStatus != 7 &&
+      schedule.scheduleStatus != 6
+    ) {
+      isUrgent = true;
+    }
+    return isUrgent;
+  }
   deleteSchedule(scheduleNo: string) {
     if (confirm('Are You Sure, whether You want to delete this Locomotive ?')) {
       this.scheduleService.deleteSchedule(scheduleNo).subscribe((result) => {

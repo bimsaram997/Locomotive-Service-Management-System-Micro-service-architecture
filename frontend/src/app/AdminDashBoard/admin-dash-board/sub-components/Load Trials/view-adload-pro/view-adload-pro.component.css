@@ -11,6 +11,10 @@ body {
     height: auto;
 }
 
+.text-red .mat-cell {
+    color: red;
+}
+
 .link {
     font-size: 14px;
     font-family: 'Roboto', sans-serif;

@@ -33,13 +33,13 @@ const sendSMS = (req, resp) => {
 };
 const getLocoSch = async(req, resp, next) => {
     const _id = req.params.id;
-    //  console.log(_id)
+
     await Schedule.find({ locoNumber: _id }, function(err, result) {
         if (err) {
             resp.status(500).json(err)
         } else {
             resp.status(200).json(result)
-                // console.log(result)
+
         }
     })
 }
@@ -344,7 +344,7 @@ const sendLocomotiveAssigned = async(req, res, next) => {
 
 
 const getAllLocomotives = async(req, resp, next) => {
-    //console.log(resp)
+
     await LocomotiveSchema.find().sort({ locoDate: -1 }).then(result => {
         resp.status(200).json(result);
     }).catch(error => {
@@ -583,6 +583,29 @@ const patchLoadLoco = async(req, res, next) => {
 
 }
 
+
+const assignedLoadTrialLoco = async(req, res, next) => {
+    const _obj = req.body;
+    console.log(_obj)
+    if (_obj != null) {
+        if (_obj.locoNumber) {
+            console.log(_obj.locoNumber)
+            await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 5, statusReason: "Assigned to Load Trial" } }, function(err, result) {
+                console.log('asiigned.....')
+                if (err) {
+                    res.status(500).json(err)
+                } else {
+                    res.status(200).json(result)
+
+                }
+
+            })
+
+        }
+    }
+
+}
+
 const acceptLoadLoco = (req, res) => { //accept LoadTrial, and changes status of the locomotives
 
     const _obj = req.body;
@@ -698,10 +721,10 @@ const patchSchMileage = async(req, res, next) => {
 
             if (err) {
                 res.status(500).json(err)
-                console.log(err)
+                    //console.log(err)
             } else {
                 res.status(200).json(result)
-                console.log(result)
+                    // console.log(result)
 
             }
 
@@ -1125,7 +1148,7 @@ cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
 }
 
 const getOneMileageById = async(req, res) => {
-    console.log(req.params.mReportNumber);
+    // console.log(req.params.mReportNumber);
     await MileageSchema.find({
         mReportNumber: req.params.mReportNumber
     }).then(result => {
@@ -1143,7 +1166,7 @@ const updateMileage = async(req, resp) => {
 
             if (err) {
                 resp.status(500).json(err)
-                console.log(err)
+                    // console.log(err)
             } else {
                 resp.status(200).json(result)
             }
@@ -1156,7 +1179,7 @@ const updateMileage = async(req, resp) => {
 const sendAcceptedEmail = async(req, res, next) => {
 
     if (req.body) {
-        console.log(req.body);
+        // console.log(req.body);
         const clerkEmail = 'bimsaram997@gmail.com';
         const repNo = req.body.mReportNumber;
         const mailOptions = {
@@ -1515,7 +1538,7 @@ const sendAcceptedEmail = async(req, res, next) => {
 const sendRejectedEmail = async(req, res, next) => {
 
     if (req.body) {
-        console.log(req.body);
+        //console.log(req.body);
         const clerkEmail = 'bimsaram997@gmail.com';
         const repNo = req.body.mReportNumber;
         const mailOptions = {
@@ -2381,6 +2404,7 @@ module.exports = {
     getLocoReport,
     patchSchMileage,
     acceptLoadLoco,
+    assignedLoadTrialLoco,
 
     getOneMileageById,
     sendMileEmail,

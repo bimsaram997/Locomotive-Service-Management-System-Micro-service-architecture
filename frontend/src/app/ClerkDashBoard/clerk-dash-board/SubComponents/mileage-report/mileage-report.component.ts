@@ -62,6 +62,7 @@ export class MileageReportComponent implements OnInit {
   minDate: any;
   maxDate: any;
   mileageId: any;
+  current: any;
   constructor(
     private accessService: AccessService,
     private formBuilder: FormBuilder,
@@ -85,6 +86,7 @@ export class MileageReportComponent implements OnInit {
     this.TaskIdGenerate();
     this.getMinDate();
     this.getMaxDate();
+    this.getCurentDate();
 
     console.log(this.mileageGap);
   }
@@ -196,21 +198,32 @@ export class MileageReportComponent implements OnInit {
     };
 
     if (
+      obj.mLocoNumber != null &&
       obj.mLocoNumber != '' &&
+      obj.mLocoCatId != null &&
       obj.mLocoCatId != '' &&
+      obj.mReportNumber != null &&
       obj.mReportNumber != '' &&
+      obj.mLocoMileage != null &&
       obj.mLocoMileage != '' &&
+      obj.finalMileage != null &&
       obj.finalMileage != '' &&
+      obj.mileageDate != null &&
       obj.mileageDate != '' &&
+      obj.locoStatus != null &&
       obj.locoStatus != '' &&
+      obj.managerNic != null &&
       obj.managerNic != '' &&
+      obj.emergencyCheck != null &&
       obj.emergencyCheck != '' &&
+      obj.managerName != null &&
       obj.managerName != '' &&
+      obj.mileageNote != null &&
       obj.mileageNote != '' &&
-      obj.status != '' &&
-      obj.reason != '' &&
-      obj.clerkEmail != '' &&
-      obj.managerEmail != ''
+      obj.status != null &&
+      obj.reason != null &&
+      obj.clerkEmail != null &&
+      obj.managerEmail != null
     ) {
       const checkEmergency = this.MileageGroup.controls['emergencyCheck'].value;
       if (checkEmergency === 'No') {
@@ -447,6 +460,11 @@ export class MileageReportComponent implements OnInit {
 
   onError(message: string) {
     this.toastr.info(message, 'Warning');
+  }
+
+  getCurentDate() {
+    const date = new Date();
+    this.current = moment(date).format('YYYY-MM-DD');
   }
 
   addTask(): void {
