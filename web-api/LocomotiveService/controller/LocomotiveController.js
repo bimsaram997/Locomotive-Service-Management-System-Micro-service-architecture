@@ -591,7 +591,7 @@ const assignedLoadTrialLoco = async(req, res, next) => {
         if (_obj.locoNumber) {
             console.log(_obj.locoNumber)
             await LocomotiveSchema.updateOne({ locoNumber: _obj.locoNumber }, { $set: { locoStatus: 5, statusReason: "Assigned to Load Trial" } }, function(err, result) {
-                console.log('asiigned.....')
+                // console.log('asiigned.....')
                 if (err) {
                     res.status(500).json(err)
                 } else {

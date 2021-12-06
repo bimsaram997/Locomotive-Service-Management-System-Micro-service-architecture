@@ -184,7 +184,7 @@ export class MileageReportComponent implements OnInit {
       mLocoCatId: this.MileageGroup.controls.mLocoCatId.value,
       mLocoNumber: this.MileageGroup.controls.mLocoNumber.value,
       mLocoMileage: this.MileageGroup.controls.mLocoMileage.value,
-      finalMileage: this.MileageGroup.controls.finalMileage.value,
+
       mileageDate: this.MileageGroup.controls.mileageDate.value,
       locoStatus: this.MileageGroup.controls.locoStatus.value,
       managerNic: this.MileageGroup.controls.managerNic.value,
@@ -206,8 +206,6 @@ export class MileageReportComponent implements OnInit {
       obj.mReportNumber != '' &&
       obj.mLocoMileage != null &&
       obj.mLocoMileage != '' &&
-      obj.finalMileage != null &&
-      obj.finalMileage != '' &&
       obj.mileageDate != null &&
       obj.mileageDate != '' &&
       obj.locoStatus != null &&

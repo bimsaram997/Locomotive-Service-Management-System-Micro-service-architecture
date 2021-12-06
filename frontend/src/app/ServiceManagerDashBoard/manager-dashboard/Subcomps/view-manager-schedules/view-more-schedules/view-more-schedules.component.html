@@ -144,6 +144,28 @@
                                 </p>
                             </div>
                         </div>
+                        <hr class="hr" />
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-0 label">Expected Schedule Efficiency</h6>
+                            </div>
+                            <div class="col-sm-6 text-secondary">
+                                <span style="font-size: 20px; font-weight: bold; cursor: pointer" (click)="OpenEditDialog()" [ngStyle]="{
+                    color:
+                      this.efficiency >= 0 && this.efficiency < 20
+                        ? 'red'
+                        : this.efficiency >= 20 && this.efficiency < 40
+                        ? 'blue'
+                        : this.efficiency >= 40 && this.efficiency < 60
+                        ? 'orange'
+                        : this.efficiency >= 60 && this.efficiency < 80
+                        ? 'purple'
+                        : this.efficiency >= 80 && this.efficiency < 100
+                        ? 'green'
+                        : 'red'
+                  }">{{ this.efficiency | number: "1.2-2" }} <span>%</span></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />

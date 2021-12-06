@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material/dialog';
+import { LocoPerformceComponent } from './../../../../../Common/performance/loco-performce/loco-performce.component';
 import { ScheduleService } from 'src/app/service/schedule.service';
 import { ViewportScroller } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
@@ -76,6 +78,15 @@ export class ViewMoreSchedulesComponent implements OnInit {
   lapseBanner: boolean = false;
 
   pageYoffset = 0;
+  mechanical1: number;
+  mechanical2: number;
+  mechanical3: number;
+  mechanical: number;
+  electric1: number;
+  electric2: number;
+  electric3: number;
+  electric: number;
+  efficiency: number;
   @HostListener('window:scroll', ['$event']) onScroll(event) {
     this.pageYoffset = window.pageYOffset;
   }
@@ -99,7 +110,8 @@ export class ViewMoreSchedulesComponent implements OnInit {
     private router: Router,
     private scheduleService: ScheduleService,
     private scroll: ViewportScroller,
-    private _location: Location
+    private _location: Location,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -150,11 +162,40 @@ export class ViewMoreSchedulesComponent implements OnInit {
       .subscribe((final) => {
         this.dataSource9 = final;
         console.log(this.dataSource9);
+        this.SchedulePerformance();
       });
     this.loadSchedule();
     this.subscription = interval(1000).subscribe((x) => {
       this.getTimeDifference();
     });
+  }
+
+  SchedulePerformance(): void {
+    this.mechanical1 = this.dataSource1.length;
+    this.mechanical2 = this.dataSource2.length;
+    this.mechanical3 = this.dataSource3.length;
+    this.mechanical =
+      (this.mechanical1 + this.mechanical2 + this.mechanical3) / 12;
+
+    this.electric1 = this.dataSource5.length;
+    this.electric2 = this.dataSource6.length;
+    this.electric3 = this.dataSource7.length;
+    this.electric = (this.electric1 + this.electric2 + this.electric3) / 14;
+
+    this.efficiency = ((this.mechanical + this.electric) / 2) * 100;
+  }
+  OpenEditDialog() {
+    const dialogRef = this.dialog.open(LocoPerformceComponent, {
+      data: {
+        heading: 'Schedule Efficiency Meter',
+        disableClose: true,
+        performanceNumber: this.efficiency,
+        performanceName: 'Schedule',
+      },
+
+      width: '380px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   scrollToTop() {
