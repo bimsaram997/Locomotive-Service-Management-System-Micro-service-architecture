@@ -84,6 +84,76 @@ export class CreateLocomotiveComponent implements OnInit {
     translate.setDefaultLang('en');
   }
 
+  createForm(): void {
+    this.LocoGroup = this.formBuilder.group({
+      locoCatId: ['', [Validators.required]],
+      locoNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.maxLength(3),
+          Validators.minLength(3),
+        ],
+      ],
+      locoPower: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      locoMileage: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
+      locoDate: ['', [Validators.required]],
+      userNic: ['', [Validators.required]],
+      supervisorName: ['', [Validators.required]],
+      supervisorEmail: ['', [Validators.required]],
+      locoAvailability: ['', [Validators.required]],
+      locoMotors: new FormArray([]),
+      locoBreaks: new FormArray([]),
+      locoFluids: new FormArray([]),
+      locoNote: [''],
+      image: [''],
+      locoStatus: [0],
+      statusReason: ['In Operating'],
+      lastLoadDate: [''],
+      endMileage: [''],
+      endMileDate: [''],
+      mtrType: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      brkType: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      fldType: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+    });
+  }
+
   ngOnInit(): void {
     this.LocoGroup = this.formBuilder.group({
       locoCatId: ['', [Validators.required]],
@@ -473,7 +543,7 @@ export class CreateLocomotiveComponent implements OnInit {
 
   getTrasnlate(data) {
     const _element = document.getElementsByClassName('select-option-trans');
-   
+
     return data == 'en' ? 'English' : 'සිංහල';
   }
 }

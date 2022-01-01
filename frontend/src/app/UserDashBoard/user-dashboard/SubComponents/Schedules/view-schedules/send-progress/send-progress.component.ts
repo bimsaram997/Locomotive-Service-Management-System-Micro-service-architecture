@@ -279,9 +279,7 @@ export class SendProgressComponent implements OnInit {
 
   logic() {
     this.presentage = [30, 45, 60, 75, 90, 100];
-
     this.checkArrayNew = this.checkLength;
-
     const checkPresent = this.checkArrayNew.filter((pr) => pr.value !== '');
     if (checkPresent.length > 0) {
       console.log(this.presentage[checkPresent.length]);
@@ -297,7 +295,6 @@ export class SendProgressComponent implements OnInit {
     const checkArray: FormArray = this.ReportGroup.get(
       'checkArray'
     ) as FormArray;
-
     const _findCheck = this.ReportGroup.controls.checkArray.value.find(
       (p) => p == e
     );

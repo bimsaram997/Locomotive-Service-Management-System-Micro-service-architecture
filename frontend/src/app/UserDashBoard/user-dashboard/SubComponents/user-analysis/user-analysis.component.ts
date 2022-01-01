@@ -52,7 +52,7 @@ export class UserAnalysisComponent implements OnInit {
     this.getAllSchedule();
     this.getLoadTrial();
     this.getUserDetails();
-    this.newLogic();
+    this.performanceLogic();
     this.getLocomotiveAverage();
   }
 
@@ -194,7 +194,7 @@ export class UserAnalysisComponent implements OnInit {
     });
   }
 
-  newLogic() {
+  performanceLogic() {
     const values = JSON.parse(localStorage.getItem('currentUser'));
     const object = {
       userNic: values.userNic,

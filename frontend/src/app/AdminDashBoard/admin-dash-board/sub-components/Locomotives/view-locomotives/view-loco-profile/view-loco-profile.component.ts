@@ -210,7 +210,6 @@ export class ViewLocoProfileComponent implements OnInit {
     const lastLoadDate = this.endMileDate;
     let currentDate = new Date();
     this.dateSent = new Date(this.endMileDate);
-
     const loadDate = Math.floor(
       (Date.UTC(
         currentDate.getFullYear(),
@@ -224,7 +223,6 @@ export class ViewLocoProfileComponent implements OnInit {
         )) /
         (1000 * 60 * 60 * 24)
     );
-    console.log(loadDate + 'kaa');
     if (loadDate >= 0) {
       if (loadDate >= 0 && loadDate <= 10) {
         this.performanceValue = 0;

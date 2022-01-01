@@ -221,8 +221,6 @@ export class ViewScheduleProfileComponent implements OnInit, OnDestroy {
 
   public getTimeDifference() {
     let d = this.completedDate;
-    //console.log(new Date(d).getTime())
-
     this.timeDifference = new Date(d).getTime() - new Date().getTime();
     if (this.scheduleStatus === 7 || this.scheduleStatus === 8) {
       this.completedBanner = true;
